@@ -1,0 +1,357 @@
+# quizzahh Code Lab problems. See the Code Lab for the format; each "=== Title" starts a problem.
+# Tier 1 = Beginner: variables, if-statements, loops, strings and lists.
+
+=== Grade Calculator
+Class: CS 4 - Programming I (Python)
+Tier: 1
+Minutes: 10
+--- prompt
+Write a function letter_grade(score) that turns a number score from 0 to 100 into a letter grade.
+
+90 and up is "A", 80 to 89 is "B", 70 to 79 is "C", 60 to 69 is "D", and anything below 60 is "F".
+
+Scores can be decimals, like 89.5, which is still a "B". If the score is below 0 or above 100, return "invalid".
+
+    letter_grade(95)    ->  "A"
+    letter_grade(89.5)  ->  "B"
+    letter_grade(-3)    ->  "invalid"
+--- starter
+def letter_grade(score):
+    # your code here
+    pass
+--- tests
+letter_grade(95) == "A"
+letter_grade(90) == "A"
+letter_grade(100) == "A"
+letter_grade(89.5) == "B"
+letter_grade(80) == "B"
+letter_grade(75) == "C"
+letter_grade(60) == "D"
+letter_grade(59.9) == "F"
+letter_grade(0) == "F"
+letter_grade(-3) == "invalid"
+letter_grade(100.5) == "invalid"
+--- hint
+Check for invalid scores first. Then use if / elif / elif ... / else, starting from the highest grade, so the first condition that matches wins.
+--- solution
+def letter_grade(score):
+    if score < 0 or score > 100:
+        return "invalid"
+    if score >= 90:
+        return "A"
+    elif score >= 80:
+        return "B"
+    elif score >= 70:
+        return "C"
+    elif score >= 60:
+        return "D"
+    else:
+        return "F"
+
+=== FizzBuzz List
+Class: CS 1 - Intro
+Tier: 1
+Minutes: 10
+--- prompt
+Write a function fizzbuzz(n) that returns a LIST of strings for the numbers 1 through n.
+
+For each number: if it's divisible by both 3 and 5, use "FizzBuzz". If it's divisible by only 3, use "Fizz". If it's divisible by only 5, use "Buzz". Otherwise, use the number itself as a string.
+
+    fizzbuzz(5)  ->  ["1", "2", "Fizz", "4", "Buzz"]
+
+This is one of the most famous interview warm-ups ever.
+--- starter
+def fizzbuzz(n):
+    result = []
+    # your code here
+    return result
+--- tests
+fizzbuzz(1) == ["1"]
+fizzbuzz(5) == ["1", "2", "Fizz", "4", "Buzz"]
+fizzbuzz(15)[-1] == "FizzBuzz"
+fizzbuzz(15)[8] == "Fizz"
+fizzbuzz(15)[9] == "Buzz"
+len(fizzbuzz(100)) == 100
+fizzbuzz(100).count("FizzBuzz") == 6
+fizzbuzz(0) == []
+--- hint
+Loop with for i in range(1, n + 1). Check "divisible by 15" FIRST, because 15 is also divisible by 3 and by 5. Use str(i) to turn a number into a string.
+--- solution
+def fizzbuzz(n):
+    result = []
+    for i in range(1, n + 1):
+        if i % 15 == 0:
+            result.append("FizzBuzz")
+        elif i % 3 == 0:
+            result.append("Fizz")
+        elif i % 5 == 0:
+            result.append("Buzz")
+        else:
+            result.append(str(i))
+    return result
+
+=== List Statistics
+Class: CS 4 - Programming I (Python)
+Tier: 1
+Minutes: 15
+--- prompt
+Write three functions WITHOUT using Python's built-in sum(), min(), max() or sorted():
+
+total(nums) returns the sum of the numbers in the list.
+
+smallest(nums) returns the smallest number in the list.
+
+average(nums) returns the mean, as a float. If the list is empty, average should return 0.0, and smallest should return None.
+
+    total([4, 8, 1])     ->  13
+    smallest([4, 8, 1])  ->  1
+    average([4, 8, 1])   ->  4.333...
+--- starter
+def total(nums):
+    pass
+
+def smallest(nums):
+    pass
+
+def average(nums):
+    pass
+--- tests
+total([4, 8, 1]) == 13
+total([]) == 0
+total([-5, 5, 10]) == 10
+smallest([4, 8, 1]) == 1
+smallest([-2, -9, 3]) == -9
+smallest([7]) == 7
+smallest([]) is None
+abs(average([4, 8, 1]) - 13 / 3) < 1e-9
+average([10, 20]) == 15.0
+average([]) == 0.0
+--- hint
+For total, start a variable at 0 and add each number in a loop. For smallest, start with the FIRST item (not 0, because the list might be all negative or all positive) and replace it whenever you find something smaller. average can call your total function.
+--- solution
+def total(nums):
+    t = 0
+    for n in nums:
+        t += n
+    return t
+
+def smallest(nums):
+    if len(nums) == 0:
+        return None
+    best = nums[0]
+    for n in nums:
+        if n < best:
+            best = n
+    return best
+
+def average(nums):
+    if len(nums) == 0:
+        return 0.0
+    return total(nums) / len(nums)
+
+=== Palindrome Checker
+Class: CS 1 - Intro
+Tier: 1
+Minutes: 15
+--- prompt
+A palindrome reads the same forward and backward, like "racecar".
+
+Write is_palindrome(text) that returns True or False. Ignore uppercase vs lowercase, and ignore everything that isn't a letter or a digit, so spaces and punctuation don't count.
+
+    is_palindrome("racecar")                          ->  True
+    is_palindrome("A man, a plan, a canal: Panama!")  ->  True
+    is_palindrome("hello")                            ->  False
+
+Challenge: solve it once using slicing, then try it again with a loop that compares characters from both ends.
+--- starter
+def is_palindrome(text):
+    pass
+--- tests
+is_palindrome("racecar") == True
+is_palindrome("Racecar") == True
+is_palindrome("A man, a plan, a canal: Panama!") == True
+is_palindrome("hello") == False
+is_palindrome("") == True
+is_palindrome("No 'x' in Nixon") == True
+is_palindrome("12321") == True
+is_palindrome("12345") == False
+is_palindrome("ab") == False
+--- hint
+First build a cleaned-up string: loop over the characters, keep only the ones where ch.isalnum() is True, and make them lowercase. Then compare the cleaned string with its reverse, cleaned[::-1].
+--- solution
+def is_palindrome(text):
+    cleaned = ""
+    for ch in text:
+        if ch.isalnum():
+            cleaned += ch.lower()
+    return cleaned == cleaned[::-1]
+
+=== Vowel and Word Counter
+Class: CS 4 - Programming I (Python)
+Tier: 1
+Minutes: 15
+--- prompt
+Write two functions.
+
+count_vowels(text) returns how many vowels (a, e, i, o, u, upper or lower case) are in the text.
+
+word_count(text) returns how many words are in the text. Words are separated by one or more spaces, and the text may have spaces at the start or end.
+
+    count_vowels("Hello World")      ->  3
+    word_count("  the quick  fox ")  ->  3
+--- starter
+def count_vowels(text):
+    pass
+
+def word_count(text):
+    pass
+--- tests
+count_vowels("Hello World") == 3
+count_vowels("AEIOU aeiou") == 10
+count_vowels("rhythm") == 0
+count_vowels("") == 0
+word_count("the quick brown fox") == 4
+word_count("  the quick  fox ") == 3
+word_count("") == 0
+word_count("     ") == 0
+word_count("one") == 1
+--- hint
+For vowels, loop over text.lower() and check whether each character is "in" the string "aeiou". For words, text.split() with NO argument splits on any amount of whitespace and drops empty pieces.
+--- solution
+def count_vowels(text):
+    count = 0
+    for ch in text.lower():
+        if ch in "aeiou":
+            count += 1
+    return count
+
+def word_count(text):
+    return len(text.split())
+
+=== Temperature Table
+Class: CS 1 - Intro
+Tier: 1
+Minutes: 15
+--- prompt
+Write c_to_f(c), which converts Celsius to Fahrenheit using F = C × 9/5 + 32, and f_to_c(f), which converts the other way.
+
+Then write table(start, stop, step), which returns a list of (celsius, fahrenheit) pairs for celsius = start, start + step, ... up to and INCLUDING stop if it lands exactly on it. Round each Fahrenheit value to 1 decimal place.
+
+    c_to_f(100)        ->  212.0
+    table(0, 20, 10)   ->  [(0, 32.0), (10, 50.0), (20, 68.0)]
+--- starter
+def c_to_f(c):
+    pass
+
+def f_to_c(f):
+    pass
+
+def table(start, stop, step):
+    pass
+--- tests
+c_to_f(100) == 212
+c_to_f(0) == 32
+c_to_f(-40) == -40
+abs(f_to_c(98.6) - 37) < 1e-9
+f_to_c(32) == 0
+table(0, 20, 10) == [(0, 32.0), (10, 50.0), (20, 68.0)]
+table(0, 25, 10) == [(0, 32.0), (10, 50.0), (20, 68.0)]
+table(-10, -10, 5) == [(-10, 14.0)]
+len(table(0, 100, 1)) == 101
+--- hint
+Use a while loop: start c at start, and keep going while c <= stop. Each time, append the pair (c, round(c_to_f(c), 1)) and add step to c.
+--- solution
+def c_to_f(c):
+    return c * 9 / 5 + 32
+
+def f_to_c(f):
+    return (f - 32) * 5 / 9
+
+def table(start, stop, step):
+    rows = []
+    c = start
+    while c <= stop:
+        rows.append((c, round(c_to_f(c), 1)))
+        c += step
+    return rows
+
+=== Number Guessing Judge
+Class: CS 4 - Programming I (Python)
+Tier: 1
+Minutes: 20
+--- prompt
+Pretend you're writing the logic for a number guessing game. Write judge(secret, guesses), where guesses is a list of the player's guesses in order.
+
+Return a list of strings, one per guess: "too low", "too high", or "correct". Stop as soon as a guess is correct (ignore any guesses after it). If the player never guesses it, add "out of guesses" at the end.
+
+    judge(7, [3, 9, 7, 5])  ->  ["too low", "too high", "correct"]
+    judge(4, [1, 2])        ->  ["too low", "too low", "out of guesses"]
+--- starter
+def judge(secret, guesses):
+    pass
+--- tests
+judge(7, [3, 9, 7, 5]) == ["too low", "too high", "correct"]
+judge(4, [1, 2]) == ["too low", "too low", "out of guesses"]
+judge(10, [10]) == ["correct"]
+judge(5, []) == ["out of guesses"]
+judge(50, [75, 25, 50]) == ["too high", "too low", "correct"]
+judge(1, [1, 1, 1]) == ["correct"]
+--- hint
+Loop over the guesses and append the right message. When you append "correct", return right away. If the loop finishes without returning, the player never got it.
+--- solution
+def judge(secret, guesses):
+    out = []
+    for g in guesses:
+        if g < secret:
+            out.append("too low")
+        elif g > secret:
+            out.append("too high")
+        else:
+            out.append("correct")
+            return out
+    out.append("out of guesses")
+    return out
+
+=== Caesar Cipher
+Class: CS 1 - Intro
+Tier: 1
+Minutes: 25
+--- prompt
+A Caesar cipher shifts every letter forward in the alphabet by a fixed amount, wrapping around from z back to a.
+
+Write encrypt(text, shift) and decrypt(text, shift). Keep uppercase letters uppercase and lowercase letters lowercase, and leave anything that isn't a letter (spaces, digits, punctuation) unchanged. The shift can be any whole number, even bigger than 26 or negative.
+
+    encrypt("Hello, World!", 3)  ->  "Khoor, Zruog!"
+    decrypt("Khoor, Zruog!", 3)  ->  "Hello, World!"
+    encrypt("xyz", 3)            ->  "abc"
+--- starter
+def encrypt(text, shift):
+    pass
+
+def decrypt(text, shift):
+    pass
+--- tests
+encrypt("abc", 1) == "bcd"
+encrypt("xyz", 3) == "abc"
+encrypt("Hello, World!", 3) == "Khoor, Zruog!"
+decrypt("Khoor, Zruog!", 3) == "Hello, World!"
+encrypt("abc", 29) == "def"
+encrypt("abc", -1) == "zab"
+decrypt(encrypt("Silent Hill 2", 13), 13) == "Silent Hill 2"
+encrypt("", 5) == ""
+--- hint
+ord(ch) gives a character's number and chr(n) turns a number back into a character. For a lowercase letter, find its position 0-25 with ord(ch) - ord("a"), add the shift, take % 26 to wrap around, and convert back. Decrypting is just encrypting with -shift.
+--- solution
+def encrypt(text, shift):
+    out = ""
+    for ch in text:
+        if "a" <= ch <= "z":
+            out += chr((ord(ch) - ord("a") + shift) % 26 + ord("a"))
+        elif "A" <= ch <= "Z":
+            out += chr((ord(ch) - ord("A") + shift) % 26 + ord("A"))
+        else:
+            out += ch
+    return out
+
+def decrypt(text, shift):
+    return encrypt(text, -shift)

@@ -1,0 +1,388 @@
+# quizzahh question file. The file name is the class name.
+#
+# CS 14: Computer Security (principles, cryptography, authentication, common attacks, defenses).
+#
+# Each question looks like this (leave a blank line between questions):
+#
+#   Q: What is the powerhouse of the cell?
+#   Topic: Cells
+#   - Nucleus
+#   * Mitochondria        <- the star marks the correct answer
+#   - Ribosome
+#   - Golgi apparatus
+#   Why: Mitochondria make ATP, the cell's energy.
+#
+# Lines starting with # are ignored.
+
+# Which year of a computer science degree this class usually falls in (used by the year filter):
+Year: 4
+
+Q: What does the CIA triad stand for in security?
+Topic: Security Principles
+- Confidentiality, Identity, Authentication
+* Confidentiality, Integrity, Availability
+- Control, Integrity, Authorization
+- Cryptography, Integrity, Auditing
+Why: Confidentiality means only authorized people can read data. Integrity means data isn't changed improperly. Availability means systems work when needed. A DDoS attack hits availability; a tampered grade hits integrity.
+
+Q: What is the difference between a vulnerability, a threat, and a risk?
+Topic: Security Principles
+- A threat is a weakness, a vulnerability is something that could exploit it, and risk is the money lost
+* A vulnerability is a weakness, a threat could exploit it, and risk combines its likelihood and harm
+- A vulnerability is an attack in progress, a threat is a past attack, and risk is a future attack
+- They mean the same thing; security teams just use different words in different reports
+Why: An unpatched server is a vulnerability, a criminal group scanning for it is a threat, and the risk depends on the chance they find it and the damage they could do.
+
+Q: What does the principle of least privilege say?
+Topic: Security Principles
+- Give administrators every permission so they can respond quickly when something breaks
+* Give each user and program only the access it actually needs, and nothing more
+- Give new users very limited access at first, then make them admins after a trial period
+- Require approval from a manager before anyone can log in to a company system
+Why: If a limited account is compromised, the damage stays limited. Running a web server as an administrator turns any bug into a full system takeover.
+
+Q: What is defense in depth?
+Topic: Security Principles
+- One very strong perimeter firewall that blocks every attack before it reaches the network
+* Multiple independent layers of protection, so one failure doesn't expose everything
+- Encrypting sensitive data twice, with two different algorithms, so it can't be cracked
+- Hiding the servers deep inside the network where attackers can't find them
+Why: Firewalls, patching, MFA, encryption, monitoring and backups each catch what the others miss. Security that depends on a single control is fragile.
+
+Q: Why is "security through obscurity" alone considered weak?
+Topic: Security Principles
+* Secrets about how a system works tend to leak; security should hold even when the design is public
+- Obscure systems are always slower, because the extra hiding adds overhead to every request
+- It's illegal in most countries to rely on secrecy instead of approved encryption standards
+- It's actually the strongest approach, since attackers can't attack what they can't understand
+Why: This idea is known as Kerckhoffs's principle: a cryptosystem should be secure even if everything except the key is public. Obscurity can add a layer, but it shouldn't be the only one.
+
+Q: Authentication versus authorization: which is which?
+Topic: Access Control
+- Authorization verifies WHO you are; authentication decides WHAT you're allowed to do
+* Authentication verifies WHO you are; authorization decides WHAT you're allowed to do
+- They're the same check, but authentication is used for websites and authorization for apps
+- Authentication protects files; authorization protects network connections
+Why: Logging in with a password is authentication. Being allowed to view grades but not change them is authorization. Role-based access control (RBAC) grants permissions by role.
+
+Q: Which is an example of multi-factor authentication (MFA)?
+Topic: Access Control
+- A password and the answer to a security question
+* A password plus a code from an authenticator app on your phone
+- Two different passwords entered one after the other
+- A long passphrase that includes numbers, symbols and capitals
+Why: Real MFA combines different factor types: something you know (a password), something you have (a phone or security key), and something you are (a fingerprint). A password and a security question are both "something you know."
+
+Q: How should a website store user passwords?
+Topic: Access Control
+- Encrypted with a strong company-wide key, so they can be recovered if users forget them
+- Hashed once with a fast hash like SHA-256, so logins stay quick
+* Hashed with a slow, salted password hash like bcrypt, scrypt or Argon2
+- In plain text inside a database that only administrators can access
+Why: If the database leaks, slow salted hashes make cracking each password expensive. Encryption can be undone by anyone who steals the key, and plain text is a disaster.
+
+Q: What is a salt in password hashing?
+Topic: Cryptography
+- A secret key shared by all users and kept on the server, so hashes can't be computed elsewhere
+* A random value stored with each password and mixed into its hash, so equal passwords hash differently
+- A second round of hashing applied to the password to make cracking it twice as slow
+- An encryption algorithm used instead of hashing when passwords must be recoverable
+Why: Salts defeat precomputed lookup tables (rainbow tables) and stop attackers from cracking every user who chose the same password all at once.
+
+Q: What's the key difference between symmetric and asymmetric encryption?
+Topic: Cryptography
+- Asymmetric uses one shared secret key; symmetric uses a public key and a matching private key
+* Symmetric uses one shared secret key; asymmetric uses a public key and a matching private key
+- Symmetric is always weaker, so it's only used for data that isn't sensitive
+- Asymmetric is faster, so it's used for bulk data, while symmetric is used to exchange keys
+Why: AES is symmetric and fast, so it's used for bulk data. RSA and elliptic-curve cryptography are asymmetric, used for key exchange and signatures. TLS uses asymmetric crypto to agree on a symmetric key.
+
+Q: In public-key encryption, if Alice wants to send Bob a secret message, which key does she encrypt it with?
+Topic: Cryptography
+- Alice's private key
+* Bob's public key
+- Bob's private key
+- Alice's public key
+Why: Anyone can encrypt with Bob's public key, but only Bob's private key can decrypt. For a digital signature it's the reverse: Alice signs with her own private key, and anyone verifies with her public key.
+
+Q: What does a digital signature provide?
+Topic: Cryptography
+- Confidentiality: only the intended receiver can read the message
+* Integrity and authenticity: proof of who sent it and that it wasn't changed
+- Availability: the message is guaranteed to arrive even under attack
+- Compression: the signed message is smaller than the original
+Why: The sender signs a hash of the message with their private key. Changing even one bit of the message makes verification fail.
+
+Q: Which property does a cryptographic hash function like SHA-256 NOT have?
+Topic: Cryptography
+- A fixed-size output for any input
+- It's infeasible to find two inputs with the same hash
+- A tiny input change completely changes the output
+* It can be reversed with a key to recover the input
+Why: Hashes are one-way: there's no key and no way to "decrypt" them. They're used for integrity checks, digital signatures and password storage. MD5 and SHA-1 are broken for collision resistance and shouldn't be used.
+
+Q: What do digital certificates and certificate authorities (CAs) solve?
+Topic: Cryptography
+- They make encryption faster by sharing pre-computed keys between browsers and servers
+* They vouch that a public key really belongs to a given website or person
+- They store users' passwords securely so websites never have to handle them
+- They scan websites for malware and warn users before visiting a dangerous page
+Why: Your browser trusts certain CAs. When example.com presents a certificate signed by a trusted CA, the browser knows that public key really belongs to example.com.
+
+Q: What is phishing?
+Topic: Social Engineering
+- Scanning a network for open ports and services an attacker could break into
+* Tricking people with fake emails or sites into revealing passwords or running malware
+- Overloading a server with traffic from many machines so it goes offline
+- Guessing passwords by trying common words and leaked passwords
+Why: Warning signs include urgency ("your account will be closed!"), mismatched link addresses, and requests for credentials. Phishing is one of the most common ways attacks begin.
+
+Q: What distinguishes a worm from a virus?
+Topic: Malware
+- A virus spreads by itself across networks; a worm attaches to files and spreads when they're run
+* A worm spreads by itself across networks; a virus attaches to files and spreads when they're run
+- Worms only damage hardware, while viruses only damage software and files
+- They're the same thing; "worm" is just the older name for a computer virus
+Why: Worms like WannaCry spread automatically through an unpatched network service. That's why patching quickly matters so much.
+
+Q: What does ransomware do?
+Topic: Malware
+- Secretly records everything you type, including passwords, and sends it to an attacker
+* Encrypts the victim's files and demands payment for the key, often threatening a leak too
+- Uses your computer's processor to mine cryptocurrency for the attacker
+- Fills the screen with ads until the user pays for a removal tool
+Why: The best defenses are offline or immutable backups, patching, MFA, and limiting privileges. Paying doesn't guarantee recovery.
+
+Q: What is a Trojan horse?
+Topic: Malware
+* Malware disguised as legitimate software that the user installs willingly
+- Malware that spreads by itself to other computers on the network
+- Malware that hides in a computer's firmware so it survives reinstalls
+- Malware that records keystrokes to steal passwords
+Why: For example, a "free game cheat" that secretly installs a keylogger. Download software only from trusted sources.
+
+Q: What is a DDoS attack?
+Topic: Network Attacks
+- Stealing a large database by sending many queries from many different machines at once
+* Flooding a target from many machines (often a botnet) to make it unavailable
+- Guessing many passwords at once from different machines to avoid lockouts
+- Sending spam emails from many accounts so filters can't block the sender
+Why: It attacks availability. Defenses include scrubbing services, CDNs, rate limiting and extra capacity.
+
+Q: What is a man-in-the-middle (on-path) attack?
+Topic: Network Attacks
+- Stealing a laptop or phone from someone while they're distracted in a public place
+* Secretly relaying, and possibly changing, messages between two parties who think they're talking directly
+- Guessing a password by watching someone type it over their shoulder
+- Hiding malware in the middle of a legitimate file so that antivirus software doesn't find it
+Why: On an unsecured Wi-Fi network, an attacker can intercept plain HTTP traffic. TLS with proper certificate checks defeats this, which is why certificate warnings shouldn't be ignored.
+
+Q: A login form builds this query: SELECT * FROM users WHERE name = '[input]'. What is this vulnerable to?
+Topic: Web Security
+- Cross-site scripting
+* SQL injection
+- A buffer overflow
+- Phishing
+Why: Input like ' OR '1'='1 changes the query's logic. The fix is parameterized queries (prepared statements), which never mix user data into SQL code.
+
+Q: What is cross-site scripting (XSS)?
+Topic: Web Security
+- Injecting SQL commands into a form so they run on the site's database
+* Injecting malicious JavaScript into pages others view, so it runs in their browsers
+- Tricking a logged-in user's browser into sending a request they didn't intend
+- Copying a real website's design to collect passwords on a fake one
+Why: A comment box that displays HTML without escaping it can let an attacker steal other users' session cookies. Fixes include escaping output, a Content Security Policy, and HttpOnly cookies.
+
+Q: What is a buffer overflow?
+Topic: Software Security
+- Downloading so many files at once that the computer's disk fills up and crashes
+* Writing past the end of a fixed-size buffer, which can overwrite data and even run attacker code
+- Sending more network traffic than a server can handle, so it stops responding
+- Reading memory that was already freed, which can leak old data from other users to the attacker
+Why: It's classic in C programs using unsafe functions like gets() or strcpy(). Defenses include bounds checking, memory-safe languages like Rust and Java, stack canaries, and address space layout randomization (ASLR).
+
+Q: Why does input validation matter for security?
+Topic: Software Security
+- It mostly improves the user interface, so users see clear error messages
+* Untrusted input starts most attacks, so the server should check its type, length and format
+- It speeds up the database, since well-formed input makes queries run faster
+- It's unnecessary if JavaScript in the browser already checks the form before it's sent
+Why: Client-side checks in the browser are only for convenience, because attackers can bypass them. The server must validate everything itself, preferably with allowlists of what's acceptable.
+
+Q: What does a firewall do, compared with an intrusion detection system (IDS)?
+Topic: Defenses
+- An IDS blocks traffic by rules; a firewall only watches activity and sends alerts
+* A firewall allows or blocks traffic by rules; an IDS monitors and alerts on suspicious activity
+- They're the same thing; IDS is just the name for a firewall built into a router
+- Firewalls protect email servers, while an IDS protects web servers
+Why: An intrusion prevention system (IPS) goes further and blocks what it detects. Detection matters because prevention eventually fails.
+
+Q: What is encryption "at rest" versus "in transit"?
+Topic: Defenses
+- At rest means encryption is paused; in transit means it's turned back on when data is used
+* At rest protects stored data (disks, databases); in transit protects data moving over networks (TLS)
+- At rest protects data in memory; in transit protects data copied to USB drives
+- They're the same thing, just named differently by different vendors
+Why: A stolen laptop with full-disk encryption keeps files safe (at rest). HTTPS keeps passwords from being read on public Wi-Fi (in transit). Strong security needs both.
+
+Q: Why are software updates (patches) so important?
+Topic: Defenses
+- They mostly add new features, and security fixes are only included in major versions
+* They fix known vulnerabilities, which attackers actively scan for once details are public
+- They reset security settings to defaults, which removes risky changes users made
+- They only matter for servers, since home computers aren't targeted by attackers
+Why: Many major breaches used vulnerabilities that had patches available for months. A zero-day is a flaw attackers exploit before any patch exists.
+
+Q: What does a VPN do?
+Topic: Defenses
+- Makes you completely anonymous online, so no website can identify or track you
+* Creates an encrypted tunnel from your device to a VPN server, protecting traffic on untrusted networks
+- Scans all incoming files and blocks viruses before they reach your device
+- Speeds up your internet by routing all of your traffic through faster servers that skip congested links
+Why: The VPN provider can still see your traffic, and websites can still track your accounts and cookies. Companies use VPNs to give remote workers secure access to internal networks.
+
+Q: What is the zero trust security model?
+Topic: Security Principles
+- Trust devices inside the company network, but verify everything coming from outside
+* Don't trust anything for being "inside"; verify every user and device and authorize each request
+- Remove passwords entirely and rely on network location to identify users
+- Assume no attack will ever happen, so security tools can be kept minimal
+Why: Older models trusted everything inside the firewall. Once an attacker got in, they could move around freely. Zero trust limits that sideways movement.
+
+Q: What is social engineering?
+Topic: Social Engineering
+- Designing social media apps so that users can't be tracked across sites
+* Manipulating people into breaking security, through pretexting, phishing, baiting or tailgating
+- Engineering software as a team, with code reviews to catch security bugs
+- Using fake social media accounts to spread misinformation about a company or its products
+Why: Calling the help desk while pretending to be a stressed executive is a classic pretext. Training and verification procedures, like calling back on a known number, are the main defenses.
+
+Q: Brute-forcing a password means trying every possibility. Which change helps the defender most?
+Topic: Access Control
+- Requiring a number and a symbol at the end of every password
+* Making passwords longer, like a passphrase of random words, plus rate limiting and lockouts
+- Forcing everyone to change their password every week, with a new symbol each time
+- Using one very strong password everywhere so it's never forgotten
+Why: Each extra character multiplies the work. Reusing passwords is dangerous because one site's breach exposes all your accounts ("credential stuffing"). A password manager makes unique passwords easy.
+
+Q: What is a botnet?
+Topic: Network Attacks
+- A chatbot that answers customer questions using machine learning
+* A network of compromised devices controlled by an attacker, often for DDoS attacks or spam
+- A network of security sensors that detect intrusions across many sites and report them centrally
+- A group of servers that share load so a website stays online
+Why: Poorly secured smart devices with default passwords helped build the huge Mirai botnet. Changing default credentials and updating firmware helps.
+
+Q: Before testing a system's security, what must a penetration tester always have?
+Topic: Ethics & Law
+- Permission from at least one employee who uses the system every day
+* Written authorization from the system's owner defining the scope
+- A certification proving they're qualified to do security testing
+- Nothing, as long as they report what they find afterward
+Why: Testing without permission is illegal under laws like the U.S. Computer Fraud and Abuse Act, even with good intentions. Responsible disclosure programs and bug bounties provide legal channels.
+
+Q: What is the main purpose of an incident response plan?
+Topic: Defenses
+- To identify which employee caused the breach so they can be held responsible
+* To have prepared steps for detecting, containing and recovering from attacks, then learning from them
+- To replace backups, since a good plan makes restoring data unnecessary
+- To guarantee that no attack can ever succeed against the company's systems or its employees
+Why: Under pressure, people make mistakes. A practiced plan reduces damage and downtime, and the post-incident review prevents repeats.
+
+Q: Why should backups follow the 3-2-1 rule?
+Topic: Defenses
+- It's required by law for any company that stores customer data
+* Three copies, on two kinds of media, with one offsite or offline, so no single disaster destroys them all
+- Back up three times a day, keep two weeks of backups, and test one per month
+- It makes backups faster, since the three copies are written at the same time on two separate drives
+Why: Ransomware often encrypts connected backup drives too. An offline or immutable copy is what lets you recover without paying.
+
+Q: What is a CSRF (cross-site request forgery) attack?
+Topic: Web Security
+- Stealing password hashes from a database and cracking them offline
+* Tricking a logged-in user's browser into sending an unwanted request to a site that trusts its cookies
+- Injecting malicious JavaScript into a page, so it runs in other users' browsers
+- Flooding the server with forged requests from many machines so it can't serve real users
+Why: A malicious page could secretly submit a "transfer money" form to your bank while you're logged in. Defenses include anti-CSRF tokens and SameSite cookies.
+
+Q: What does hashing a downloaded file and comparing it to the published hash verify?
+Topic: Cryptography
+- That the file is free of viruses and safe to run
+* That the file wasn't corrupted or altered from what the publisher hashed
+- That the file came from the publisher, even if the hash was taken from a mirror site
+- That the file is encrypted and can't be read by others
+Why: It checks integrity. If an attacker controls both the file and the published hash, though, it proves nothing, which is why signatures from trusted keys are stronger.
+
+Q: What is a zero-day vulnerability?
+Topic: Software Security
+- A bug that was found and fixed on the same day it was reported
+* A flaw unknown to the vendor, or unpatched, so defenders have had "zero days" to fix it
+- A vulnerability that has existed since day zero, the very first release of a product
+- Malware that deletes itself at the end of each day to avoid detection
+Why: Zero-days are valuable to attackers. Defense in depth, least privilege and monitoring help limit the damage even when no patch exists.
+
+# ---- Must-know formulas and facts for this class ----
+
+Q: Must-know: what are the key sizes and types of AES, RSA and SHA-256?
+Topic: Must-Know Facts
+* AES: symmetric cipher, 128/192/256-bit keys; RSA: asymmetric, 2048+ bit keys; SHA-256: hash, 256-bit output
+- AES: hash, 256-bit output; RSA: symmetric, 128-bit keys; SHA-256: asymmetric, 2048-bit keys
+- AES: asymmetric, 2048-bit keys; RSA: hash, 160-bit output; SHA-256: symmetric, 256-bit keys
+- All three are symmetric ciphers with 256-bit keys
+Why: AES encrypts bulk data fast, RSA (or elliptic curves) handles key exchange and signatures, and SHA-256 makes fixed-size fingerprints for integrity checks.
+
+Q: Must-know: what is the RSA key relationship?
+Topic: Must-Know Facts
+* n = p·q, and e·d ≡ 1 (mod φ(n)), where φ(n) = (p − 1)(q − 1)
+- n = p + q, and e + d ≡ 1 (mod φ(n)), where φ(n) = p·q − 1
+- n = p·q, and e·d ≡ 0 (mod n), where e and d are both prime
+- n = p², and e = d, since the same key is used both ways
+Why: You encrypt with c = mᵉ mod n and decrypt with m = cᵈ mod n. Computing d requires φ(n), which requires factoring n, and that's believed to be infeasible for huge n.
+
+Q: Must-know: how many guesses does a brute-force attack need for a password with c possible characters and length L?
+Topic: Must-Know Facts
+* cᴸ in the worst case
+- c × L
+- Lᶜ
+- c + L
+Why: Each position has c choices, multiplied together L times. Going from 8 to 12 lowercase letters multiplies the work by 26⁴, about 457,000. Length helps more than adding symbols.
+
+Q: Must-know: what are the 3 factors of authentication?
+Topic: Must-Know Facts
+* Something you know, something you have, something you are
+- Something you know, something you remember, something you write down
+- A username, a password, and a security question
+- Something you have, somewhere you are, someone you know
+Why: A password is "know," a phone or security key is "have," and a fingerprint is "are." MFA means combining at least two different categories; two passwords don't count.
+
+Q: Must-know: what are the 6 phases of incident response (the NIST/SANS model)?
+Topic: Must-Know Facts
+* Preparation, identification, containment, eradication, recovery, lessons learned
+- Detection, deletion, backup, restore, report, prevention
+- Preparation, attack, defense, cleanup, report, audit
+- Identification, recovery, preparation, containment, lessons learned, eradication
+Why: Containing an attack before eradicating it stops it from spreading. Recording lessons learned improves the preparation step next time.
+
+Q: Must-know: what do the OWASP Top 10 items "injection," "broken access control," and "XSS" have in common as fixes?
+Topic: Must-Know Facts
+* Validate input, use parameterized queries and output encoding, and check permissions on the server for every request
+- Use longer passwords, require MFA, and force everyone to change their password every month
+- Put a network firewall in front of the web server and close every port except 80 and 443
+- Encrypt the database at rest, hash every column, and keep offline backups in case data is changed
+Why: Most web vulnerabilities come from trusting user input or the client. Treat everything from the browser as untrusted, and enforce rules on the server.
+
+Q: Must-know: what are the parts of the "kill chain" attackers follow?
+Topic: Must-Know Facts
+* Reconnaissance, weaponization, delivery, exploitation, installation, command and control, actions on objectives
+- Phishing, cracking, mining, selling, deleting, hiding, leaving
+- Scanning, patching, monitoring, alerting, responding, recovering, reporting
+- Delivery, reconnaissance, installation, exploitation, weaponization, actions, command and control
+Why: Defenders can break the chain at any step, for example email filtering stops delivery and patching stops exploitation. The earlier it's broken, the better.
+
+Q: Must-know: what are the 3 classic access control models?
+Topic: Must-Know Facts
+* DAC (owner decides), MAC (system labels decide), RBAC (roles decide)
+- DAC (roles decide), MAC (owner decides), RBAC (labels decide)
+- ACL, firewall, and VPN
+- Passwords, tokens, and biometrics
+Why: Discretionary is like sharing your own files, mandatory is like military classification levels, and role-based is the usual choice in companies: give the "nurse" role the permissions nurses need.

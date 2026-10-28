@@ -1,0 +1,405 @@
+# quizzahh question file. The file name is the class name.
+#
+# CS 12: Software Engineering (process, requirements, design, patterns, testing, version control,
+# teamwork).
+#
+# Each question looks like this (leave a blank line between questions):
+#
+#   Q: What is the powerhouse of the cell?
+#   Topic: Cells
+#   - Nucleus
+#   * Mitochondria        <- the star marks the correct answer
+#   - Ribosome
+#   - Golgi apparatus
+#   Why: Mitochondria make ATP, the cell's energy.
+#
+# Lines starting with # are ignored.
+
+# Which year of a computer science degree this class usually falls in (used by the year filter):
+Year: 3
+
+Q: What is the main weakness of the waterfall model?
+Topic: Process Models
+- It requires so much daily coordination that teams spend more time in meetings than writing code
+* Each phase finishes before the next starts, so late changes and late-found problems are very costly
+- It skips design and documentation entirely, so large systems become hard to maintain over time
+- It delivers small releases every few weeks, which makes long-term planning nearly impossible
+Why: Waterfall goes requirements, then design, implementation, testing and deployment, in strict order. It can work when requirements are stable and well understood, like in some safety-critical systems, but most teams now iterate.
+
+Q: What is the core idea of agile development?
+Topic: Process Models
+- Write a complete, detailed specification up front so the team never has to change course later
+* Deliver working software in short iterations, get feedback often, and adapt to change
+- Let one lead architect make every design decision so the team can move quickly
+- Skip planning and testing to ship features as fast as possible
+Why: The Agile Manifesto values individuals and interactions, working software, customer collaboration, and responding to change. Planning still happens, just in smaller, repeated cycles.
+
+Q: In Scrum, what is a sprint?
+Topic: Scrum
+- An emergency push to fix a critical bug in production, outside the normal plan
+* A fixed time box, usually 1 to 4 weeks, in which the team builds a shippable increment
+- The last phase before release, when the whole team focuses only on testing
+- A short daily meeting where each developer reports what they did yesterday
+Why: Each sprint starts with sprint planning and ends with a review (demonstrating the work) and a retrospective (improving the process). Short daily stand-ups keep everyone in sync.
+
+Q: Who owns and prioritizes the product backlog in Scrum?
+Topic: Scrum
+- The Scrum Master
+* The Product Owner
+- The newest developer
+- The customer support team
+Why: The Product Owner represents stakeholders and decides what's most valuable. The Scrum Master coaches the process and removes blockers; it's not a traditional manager role.
+
+Q: What is a user story?
+Topic: Requirements
+- A detailed technical spec describing the database tables and API for one feature
+* A short requirement from the user's view, like "As a student, I want to save notes so I can review them"
+- A written account of how a real user used the product, collected during usability testing
+- A step-by-step test script the QA team follows to check a feature works
+Why: User stories usually include acceptance criteria that define "done." They keep the focus on user value rather than implementation details.
+
+Q: Which is a NON-functional requirement?
+Topic: Requirements
+- Users can reset their password by email
+- The app shows a list of the student's classes and grades
+* Search results load in under 2 seconds for 95% of requests
+- Teachers can add, edit and delete quiz questions
+Why: Functional requirements say what the system does. Non-functional requirements say how well it does it: performance, security, usability, reliability, scalability. Both should be measurable.
+
+Q: Why is fixing a bug usually much more expensive late in a project than early?
+Topic: Process Models
+- Developers usually bill at higher rates near the end of a project, when deadlines are tight
+* Late fixes may mean changing designs, code, tests and docs built on the mistake, and released bugs hit users
+- Compilers and build tools get slower as the code grows, so every change takes longer to test
+- It isn't; studies show a bug costs about the same to fix at any point in a project
+Why: A requirements mistake caught in a review costs a conversation. The same mistake found after release can mean redesign, data fixes and lost customers. That's why reviews and early testing pay off.
+
+Q: What does high cohesion mean in a module or class?
+Topic: Design Principles
+- It depends on many other modules, so it can reuse a lot of existing code
+* Its parts are closely related and focused on one purpose
+- It's large enough to handle every related task in one place
+- Its data is shared with other modules through global variables
+Why: Good design aims for high cohesion and low coupling: focused modules with few, clean connections. That makes code easier to understand, test and change.
+
+Q: Why is low coupling desirable?
+Topic: Design Principles
+* Changes in one module are less likely to break others, and modules can be reused and tested alone
+- Programs with low coupling use less memory, since modules don't keep references to each other
+- It means each module has many small, closely related functions that all serve one purpose
+- Modules can share global variables freely, which makes passing data between them simpler
+Why: Tightly coupled code, such as classes that reach into each other's internals, creates ripple effects where one small change breaks many places.
+
+Q: What does the DRY principle say?
+Topic: Design Principles
+- Don't Refactor Yet: wait until the code is finished before cleaning anything up
+* Don't Repeat Yourself: every piece of knowledge should have one authoritative place in the code
+- Document Responsibly, Yearly: review all project documentation at least once a year
+- Don't Return Yourself: a method should never return the object it was called on
+Why: Copy-pasted logic means a bug fix must be made in many places, and someone will miss one. Pull shared logic into a function or module instead.
+
+Q: Which SOLID principle says classes should be open for extension but closed for modification?
+Topic: Design Principles
+- Single Responsibility
+* Open/Closed Principle
+- Liskov Substitution
+- Dependency Inversion
+Why: You should be able to add new behavior, like a new payment type, by adding new code such as a subclass or strategy, without rewriting existing, tested code.
+
+Q: What does the Liskov Substitution Principle require?
+Topic: Design Principles
+- A subclass must override every method of its base class, so each behavior is defined clearly
+* Subclass objects must work anywhere the base class is expected, without breaking correctness
+- A base class must be abstract, so it can never be created directly
+- Each class should have only one reason to change
+Why: The classic violation is Square extends Rectangle: setting a Square's width also changes its height, surprising code written for Rectangles.
+
+Q: What problem does the Singleton pattern address, and what's its main criticism?
+Topic: Design Patterns
+- Creating many similar objects quickly; the criticism is that copying objects uses too much memory
+* Ensuring a class has one globally accessible instance; it acts like a global, hiding dependencies and hurting tests
+- Letting objects notify each other of changes; the criticism is that it causes too many events
+- Choosing an algorithm at runtime; the criticism is that the extra interfaces make code harder to read
+Why: A logger or configuration object is a typical example. Many teams prefer passing dependencies explicitly (dependency injection).
+
+Q: Which pattern lets objects subscribe to be notified automatically when another object's state changes?
+Topic: Design Patterns
+- Factory
+* Observer
+- Adapter
+- Singleton
+Why: Observer, also called publish-subscribe, is everywhere: GUI event listeners, spreadsheets updating cells, and the MVC pattern's views reacting to model changes.
+
+Q: Which pattern makes an existing class's interface work with an interface that clients expect, like a plug adapter?
+Topic: Design Patterns
+* Adapter
+- Strategy
+- Observer
+- Decorator
+Why: Adapter wraps an object and translates calls, so incompatible code can work together without changing either side.
+
+Q: What does the Strategy pattern do?
+Topic: Design Patterns
+- Ensures only one instance of a class ever exists, with a global access point to it
+* Defines interchangeable algorithms behind one interface, so the algorithm can be chosen at runtime
+- Converts one class's interface into another interface that clients expect
+- Notifies a list of listeners automatically whenever an object's state changes
+Why: Sorting with different comparators, or a game character switching attack behaviors, are typical examples. It replaces long if-else chains with polymorphism.
+
+Q: What does the Factory pattern do?
+Topic: Design Patterns
+- Makes sure only one object of a class exists and gives global access to it
+* Hides object creation behind a method, so callers get an object without naming its exact class
+- Wraps an object to add new behavior without changing its class
+- Builds a complex object one step at a time using a chain of setter calls before returning it
+Why: For example, ShapeFactory.create("circle") returns a Circle. Adding a new shape changes the factory, not every caller.
+
+Q: In the Model-View-Controller (MVC) architecture, what does the Model hold?
+Topic: Design Patterns
+- The user interface layout and how data is displayed on screen
+* The data and business logic
+- The code that handles user input and decides what to do next
+- The routing rules that map URLs to pages
+Why: The View displays data, the Controller handles input and updates the Model, and the Model notifies Views of changes. Keeping them separate lets you change the UI without touching the logic.
+
+Q: What is the difference between black-box and white-box testing?
+Topic: Testing
+- White-box tests are based only on the spec; black-box tests are designed from the code's internal paths
+* Black-box tests come from the spec without seeing the code; white-box tests use the code's internal paths
+- Black-box tests are run by automated tools at night; white-box tests are done by hand during the day
+- Black-box tests check performance and security; white-box tests check that features work correctly
+Why: Black-box techniques include equivalence partitioning and boundary value analysis. White-box techniques aim for coverage of statements, branches and paths.
+
+Q: A function accepts ages from 0 to 120. Which test values does boundary value analysis focus on?
+Topic: Testing
+- A few typical values in the middle of the range, like 30, 50 and 70
+* Values at and just beyond the edges: -1, 0, 1, 119, 120, 121
+- Only the invalid values, like -5 and 200, since valid ones always work
+- A large random sample of ages to cover the range evenly
+Why: Off-by-one bugs cluster at boundaries, like < versus <=. Testing just inside and just outside each limit catches them efficiently.
+
+Q: What is regression testing?
+Topic: Testing
+- Testing only the newest features to make sure they work before release
+* Re-running existing tests after changes to make sure old features still work
+- Removing old tests that no longer pass after the code has changed
+- Testing how the program performs as the amount of data grows
+Why: Automated test suites make regression testing cheap. They run in continuous integration on every push, so breakages are caught within minutes.
+
+Q: In test-driven development (TDD), what comes first?
+Topic: Testing
+- Writing the full feature first, then writing tests that cover every line of it
+* Writing a failing test for a small behavior, then just enough code to pass it, then refactoring
+- Writing detailed documentation for each feature before any code or tests
+- Writing all of the tests for the whole project up front, then writing all of the code at once
+Why: The cycle is red, green, refactor. TDD keeps the design testable and builds a safety net of tests as you go.
+
+Q: How does integration testing differ from unit testing?
+Topic: Testing
+- Integration tests check single functions alone; unit tests check that whole systems work together
+* Unit tests check components alone; integration tests check that components work together
+- Unit tests are written by customers; integration tests are written by the developers
+- They're the same thing; "integration test" is just the older name for a unit test
+Why: Two units can each pass their own tests and still fail together, for example by disagreeing about a date format. System and acceptance tests go further, up to the whole product and its users.
+
+Q: 100% line coverage means every line ran during tests. Does it mean the code has no bugs?
+Topic: Testing
+- Yes; if every line ran and all tests passed, every possible bug has been exercised
+* No; lines can run with inputs that never reveal a bug, and missing logic isn't measured
+- Yes, as long as the coverage includes branches as well as lines
+- No, because coverage only measures how fast the tests ran
+Why: Coverage shows what was NOT tested, which is useful. But high coverage with weak assertions is a false comfort. Branch coverage and good test design matter more.
+
+Q: What is a mock (or stub) in testing?
+Topic: Testing
+* A fake stand-in for a dependency, like a database or API, so a unit can be tested predictably
+- A test written to fail on purpose, used to check that the test runner reports failures
+- A full copy of the production database used to run tests against real data
+- A placeholder test with no assertions that's filled in once the feature is done
+Why: Mocking a payment API lets you test the "card declined" path without charging a real card or needing the network.
+
+Q: In Git, what does a commit represent?
+Topic: Version Control
+- An upload of changed files to the shared server, so teammates can see them
+* A saved snapshot of the project with a message, author and link to its parent commit(s)
+- A list of differences between two branches waiting to be merged
+- A named pointer to the latest work on a feature
+Why: Good commits are small, focused, and have clear messages explaining why the change was made. The history becomes a searchable record of the project.
+
+Q: Why use branches in Git?
+Topic: Version Control
+- To make the repository smaller, since each branch stores only part of the files
+* To work on features or fixes in isolation without disturbing main, then merge when ready
+- To keep a backup copy of the project in case the main branch gets deleted
+- Because Git requires a separate branch for each developer on the team
+Why: Short-lived feature branches plus pull requests with code review is a common workflow. Long-lived branches drift apart and cause painful merges.
+
+Q: What causes a merge conflict?
+Topic: Version Control
+- Two branches were merged on the same day, so Git can't tell which change came first
+* Two branches changed the same lines (or one deleted a file the other edited), so Git can't choose
+- The branch has too many commits for Git to compare them all automatically
+- Someone pushed to the remote while you were still downloading the latest changes
+Why: Git marks the conflicting sections in the file with conflict markers (rows of angle brackets and equals signs) showing both versions. A person edits the file to the correct combined result, removes the markers, then commits.
+
+Q: What is the difference between git merge and git rebase?
+Topic: Version Control
+- rebase joins histories with a merge commit; merge replays your commits on top of the other branch
+* merge joins histories with a merge commit; rebase replays your commits on another branch for a straight history
+- They do exactly the same thing, but rebase also deletes the branch afterward
+- merge only works on the main branch, while rebase works on any branch
+Why: Rebasing rewrites commit history, so the usual rule is: don't rebase commits that others have already pulled. Merging preserves the true history.
+
+Q: What is continuous integration (CI)?
+Topic: DevOps
+- Writing and committing code continuously without stopping for breaks or reviews
+* Automatically building and testing the code every time changes are pushed
+- Automatically deploying every commit to users as soon as it's written
+- Merging all feature branches together once at the end of each release
+Why: Continuous delivery and deployment (CD) go further, automatically preparing or releasing builds that pass. Small, frequent integrations avoid "integration hell."
+
+Q: What is refactoring?
+Topic: Maintenance
+- Adding new features to existing code while keeping the old ones working
+* Restructuring code to make it cleaner without changing its external behavior
+- Rewriting a whole program in a newer language to make it faster
+- Fixing bugs that users reported after the latest release
+Why: Examples include renaming unclear variables, extracting long methods, and removing duplication. Tests are what make refactoring safe: they confirm the behavior didn't change.
+
+Q: What is technical debt?
+Topic: Maintenance
+- The money a company owes for the licenses of the software it uses
+* The future cost of rework created by choosing quick or messy solutions now
+- The list of bugs users have reported that haven't been fixed yet
+- The cost of replacing old servers and computers when they wear out
+Why: Like financial debt, a little can be smart, such as shipping a demo by a deadline, but the "interest" grows: every change gets slower and riskier until it's paid down.
+
+Q: What is the main purpose of code review?
+Topic: Teamwork
+- To find out which developer wrote each bug, so mistakes can be tracked
+* To catch defects early, share knowledge, and keep the code consistent
+- To check that code compiles before it's merged, since builds are slow
+- To make sure every function has comments and correct spelling
+Why: Studies have long found that reviews catch many defects before testing. They also spread understanding, so one person isn't the only one who knows a part of the system.
+
+Q: In a UML sequence diagram, what is shown?
+Topic: UML
+- The classes in the system and how they inherit from each other
+* The messages exchanged between objects over time, for one scenario
+- The states an object moves through and the events that trigger them
+- Which servers each part of the system is deployed onto
+Why: Lifelines run down the page, and arrows show calls and returns in order. Class diagrams show structure, sequence diagrams show interactions, and use case diagrams show actors and goals.
+
+Q: Why is semantic versioning written as MAJOR.MINOR.PATCH, like 2.4.1?
+Topic: Maintenance
+- MAJOR is the year, MINOR is the month, and PATCH is the day the version was released
+* MAJOR breaks compatibility, MINOR adds compatible features, PATCH fixes bugs
+- MAJOR counts big features, MINOR counts small ones, and PATCH counts releases
+- MAJOR fixes bugs, MINOR adds features, PATCH breaks compatibility
+Why: Going from 2.4.1 to 3.0.0 warns users that something breaks. Dependency managers rely on this to decide which updates are safe to take automatically.
+
+Q: Why should every bug fix come with a new test?
+Topic: Testing
+- To raise the project's code coverage number so it passes the CI check
+* So the same bug can't silently come back; the test documents and guards against it
+- Because tests make the code run faster by warming up the compiler
+- So the bug report can be closed automatically when the test passes
+Why: First write a test that reproduces the bug and fails, then fix the code until it passes. The test then lives on in the regression suite.
+
+Q: What does the YAGNI principle mean?
+Topic: Design Principles
+- Plan for every likely future feature now, so the design won't need to change later
+* "You Aren't Gonna Need It": don't build features or generality until they're needed
+- Use a design pattern wherever one fits, even if the code is simple
+- Keep each function under a set number of lines so it stays readable
+Why: Speculative features cost time now, add complexity, and are often wrong when the real need arrives. Build for today's requirements while keeping the code easy to change.
+
+Q: Which estimate technique uses relative sizes, like story points, instead of hours?
+Topic: Scrum
+- Gantt charts
+* Planning poker
+- Waterfall estimation
+- Code coverage
+Why: Team members reveal estimates at the same time, then discuss big differences. Relative sizing ("this is about twice that story") tends to be more reliable than guessing hours, and velocity tracks points completed per sprint.
+
+Q: An open-source library uses the GPL license. What is the key obligation if you distribute software that includes it?
+Topic: Ethics & Licenses
+- None; GPL code is free, so you can use it however you like without conditions
+* You must release your combined work's source code under the GPL too (copyleft)
+- You must pay the author a licensing fee for each copy you distribute
+- You must keep the library in a separate file, but your code can stay closed
+Why: Permissive licenses like MIT and Apache 2.0 mainly require keeping the copyright notice. Always check licenses before adding a dependency to a commercial product.
+
+Q: What is the purpose of a README in a project repository?
+Topic: Maintenance
+- To store setup secrets, like API keys, that every developer needs
+* To explain what the project is, how to install, build and run it, and how to contribute
+- To list every known bug, so users know what to avoid
+- To tell the compiler which files to build, in what order, and with which settings
+Why: A good README lets a new teammate (or future you) get started in minutes. Documentation is part of the product, not an afterthought.
+
+# ---- Must-know formulas and facts for this class ----
+
+Q: Must-know: what is the typical everyday Git workflow, in order?
+Topic: Must-Know Facts
+* git pull, edit files, git add, git commit, git push
+- git commit, git add, edit files, git push, git pull
+- git push, git pull, git commit, git add, edit files
+- edit files, git push, git add, git commit, git pull
+Why: Pull first to get your teammates' changes, then stage (add), snapshot (commit), and share (push). A feature branch and a pull request usually wrap around this loop.
+
+Q: Must-know: what do these Git commands do: clone, branch, checkout (or switch), merge?
+Topic: Must-Know Facts
+* Copy a repo, create a branch, move to a branch, combine a branch into the current one
+- Create a repo, delete a branch, undo changes, split a branch in two
+- Copy a repo, rename a branch, upload a branch, delete a branch
+- Back up a repo, list commits, compare branches, reset a branch
+Why: These plus add, commit, pull, push, status and log cover most of the Git you'll use in classes and internships.
+
+Q: Must-know: what are the 4 levels of testing, from smallest to largest scope?
+Topic: Must-Know Facts
+* Unit, integration, system, acceptance
+- Integration, unit, acceptance, system
+- System, unit, integration, acceptance
+- Unit, system, integration, acceptance
+Why: Unit tests check one piece, integration tests check pieces together, system tests check the whole product, and acceptance tests check it meets the customer's needs.
+
+Q: Must-know: what are the 5 Scrum events?
+Topic: Must-Know Facts
+* The sprint, sprint planning, daily scrum, sprint review, and sprint retrospective
+- Kickoff, design review, code freeze, launch, and postmortem
+- Sprint planning, backlog grooming, testing, deployment, and release
+- Daily scrum, weekly status, monthly review, quarterly planning, and yearly retrospective
+Why: The sprint itself is the container for the other four. The review looks at the product, and the retrospective looks at how the team worked.
+
+Q: Must-know: what are the three categories of Gang of Four design patterns, with an example of each?
+Topic: Must-Know Facts
+* Creational (Factory), structural (Adapter), behavioral (Observer)
+- Creational (Observer), structural (Factory), behavioral (Adapter)
+- Functional (Map), structural (Tree), procedural (Loop)
+- Frontend (MVC), backend (REST), database (ORM)
+Why: Creational patterns handle making objects, structural patterns handle fitting classes together, and behavioral patterns handle how objects communicate.
+
+Q: Must-know: what are the parts of a semantic version like 3.4.1, and when does each go up?
+Topic: Must-Know Facts
+* MAJOR for breaking changes, MINOR for new compatible features, PATCH for bug fixes
+- MAJOR for bug fixes, MINOR for breaking changes, PATCH for new features
+- MAJOR for the year, MINOR for the month, PATCH for the day
+- MAJOR for new features, MINOR for documentation, PATCH for tests
+Why: When MAJOR goes up, MINOR and PATCH reset to 0 (3.4.1 becomes 4.0.0). Version ranges like ^3.4.1 rely on these rules.
+
+Q: Must-know: what are the 4 values of the Agile Manifesto?
+Topic: Must-Know Facts
+* Individuals over processes, working software over documentation, collaboration over contracts, responding to change over following a plan
+- Processes over individuals, documentation over software, contracts over collaboration, plans over change
+- Speed over quality, features over testing, customers over developers, deadlines over plans
+- Testing over coding, design over implementation, reviews over releases, plans over change
+Why: The Manifesto says the items on the right still have value, but the items on the left are valued more.
+
+Q: Must-know: what does the "red, green, refactor" cycle of TDD mean?
+Topic: Must-Know Facts
+* Write a failing test, make it pass with minimal code, then clean up the code
+- Mark bugs red, fixes green, and refactor the release notes
+- Write code, run tests, then delete failing tests
+- Refactor first, then write tests, then write code
+Why: Red means the new test fails, which proves it tests something. Green means just enough code to pass it. Refactor improves the design while the tests keep you safe.

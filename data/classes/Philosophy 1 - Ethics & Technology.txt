@@ -1,0 +1,325 @@
+# quizzahh question file. The file name is the class name.
+#
+# Philosophy 1: Ethics and Technology (moral theories plus the computing ethics course most CS
+# programs require: privacy, bias, AI, intellectual property, professional responsibility).
+#
+# Each question looks like this (leave a blank line between questions):
+#
+#   Q: What is the powerhouse of the cell?
+#   Topic: Cells
+#   - Nucleus
+#   * Mitochondria        <- the star marks the correct answer
+#   - Ribosome
+#   - Golgi apparatus
+#   Why: Mitochondria make ATP, the cell's energy.
+#
+# Lines starting with # are ignored.
+
+# Which year of a computer science degree this class usually falls in (used by the year filter):
+Year: 4
+
+Q: What does utilitarianism say makes an action right?
+Topic: Ethical Theories
+- Following your moral duties and rules no matter what consequences they lead to
+* Producing the greatest overall good (happiness or well-being) for the greatest number
+- Acting the way a person of good character would act in the same situation
+- Doing whatever benefits you most in the long run, since everyone acts from self-interest
+Why: Bentham and Mill are the classic utilitarians. It focuses on consequences. Critics point out it can seem to justify harming a few people if the total benefit is large enough.
+
+Q: What is the difference between act and rule utilitarianism?
+Topic: Ethical Theories
+- Rule utilitarianism judges each action by its consequences; act utilitarianism follows the best rules
+* Act utilitarianism judges each act by its results; rule utilitarianism follows rules that do best if all follow them
+- There's no real difference; "rule" utilitarianism is just the name for Mill's version of the theory
+- Act utilitarianism is about obeying the law, while rule utilitarianism is about personal moral codes
+Why: Lying might help in one case (act), but a rule of honesty produces better results overall (rule). The rule version tries to avoid some of the troubling conclusions of the act version.
+
+Q: What is Kant's categorical imperative, in its "universal law" form?
+Topic: Ethical Theories
+- Act in whatever way produces the most happiness for everyone affected by the action
+* Act only on principles you could consistently will to become a universal law for everyone
+- Act the way you would want others to act toward you, as long as it benefits you too
+- Act according to the moral rules your society has agreed on through a social contract
+Why: Lying to get a loan fails the test: if everyone lied about repaying, promises would mean nothing. Kant's ethics is deontological, focused on duties and intentions rather than consequences.
+
+Q: Kant's "humanity" formulation says to treat people how?
+Topic: Ethical Theories
+- As means to achieving the greatest good, as long as their happiness is also counted
+* Always as ends in themselves, never merely as a means
+- According to how much they contribute to society
+- Equally, unless treating someone unequally produces better results
+Why: Using people requires their informed consent and respect for their choices. Deceptive "dark patterns" that trick users into buying things arguably treat them merely as a means.
+
+Q: What does virtue ethics focus on?
+Topic: Ethical Theories
+- The consequences of actions, judged by how much happiness they bring
+- Following strict moral rules that apply the same way to every situation
+* Character: becoming a good person with virtues like honesty and courage
+- The agreements that rational people would make with each other
+Why: It comes from Aristotle, who saw virtues as a "golden mean" between extremes: courage lies between cowardice and recklessness. The goal is eudaimonia, a flourishing life.
+
+Q: What does social contract theory claim?
+Topic: Ethical Theories
+- Morality comes from human nature, so it's the same everywhere regardless of agreements
+* Moral and political rules are those rational people would agree to for mutual benefit
+- Any agreement people sign is morally binding, whatever it says
+- Moral rules come from God and are written into the laws of every society
+Why: Hobbes, Locke and Rousseau are key figures. John Rawls's "veil of ignorance" asks what rules you'd choose if you didn't know what position in society you'd end up in.
+
+Q: What is Rawls's veil of ignorance meant to produce?
+Topic: Ethical Theories
+- Rules that favor whoever is most talented, since talent benefits everyone in society
+* Fair principles, since you'd choose them without knowing if you'd be rich or poor, healthy or sick
+- Rules that maximize total happiness, even if some people end up much worse off
+- Rules that keep society exactly as it is now, since change creates uncertainty
+Why: Rawls argued people behind the veil would protect basic liberties and allow inequalities only if they benefit the worst-off (the difference principle).
+
+Q: What is cultural moral relativism?
+Topic: Metaethics
+- The view that some cultures have better moral codes than others and should spread them
+* The view that right and wrong are set by each culture's beliefs, with no universal standard
+- The view that morality can be discovered scientifically, like the laws of physics
+- The view that each individual decides what's right for themselves, regardless of culture
+Why: A common objection: if relativism were true, reformers like abolitionists who opposed their own culture's practices would automatically be wrong. Many philosophers distinguish respecting differences from accepting that anything goes.
+
+Q: In the trolley problem, why do many people who would pull the lever refuse to push a large man off a bridge to stop the trolley, even though both save five?
+Topic: Applied Ethics
+- Most people miscount and think pushing the man saves fewer lives than pulling the lever
+* It suggests how harm is caused matters to us, like using a person as a means vs. redirecting a threat
+- Pushing someone is illegal while pulling a lever isn't, and people mainly follow the law
+- It shows that most people are strict utilitarians who only care about the number saved
+Why: The difference highlights the clash between consequences (5 versus 1 in both cases) and duties or intentions. Self-driving car design has made these puzzles practical.
+
+Q: What makes an argument valid?
+Topic: Reasoning
+- Its conclusion is actually true
+* If its premises were true, the conclusion would have to be true
+- Its premises are true and its conclusion follows from them
+- Most experts agree with its conclusion
+Why: An argument can be valid with false premises: "All cats can fly; Tom is a cat; so Tom can fly." A sound argument is valid AND has true premises.
+
+Q: An app collects users' location data and sells it to advertisers, with that permission buried deep in a long terms-of-service. What is the main ethical problem?
+Topic: Privacy
+- The data is stored on cloud servers, where it could be lost if the company shuts down
+* Meaningful informed consent is missing: most users can't realistically know how their data is used
+- Location data has no value to advertisers, so the users are being cheated out of nothing
+- Selling any data to advertisers is illegal everywhere, regardless of what the terms say
+Why: Privacy ethics stresses transparency, data minimization (collect only what you need) and real consent. Laws like the EU's GDPR and California's CCPA push in this direction.
+
+Q: Why can "anonymized" data still threaten privacy?
+Topic: Privacy
+- Anonymization deletes most of the data, so what's left is too small to be useful
+* Combining it with other data sets can re-identify people; zip code, birth date and sex identify many
+- Anonymized data is always stored unencrypted, so anyone who finds it can read the names
+- It can't; once names are removed, there is no way to link the data back to individuals
+Why: Researchers have re-identified people in "anonymous" movie ratings and medical records. Techniques like differential privacy add mathematical protection.
+
+Q: A company's résumé-screening algorithm, trained on past hires, scores women lower. What's the most important ethical lesson?
+Topic: Algorithmic Bias
+- Algorithms can't be biased, since they only follow math, so the women's scores must be accurate
+* Models can learn and scale up historical discrimination from training data, so they need fairness audits
+- The programmers must have intended the bias, since a model only does what it's told to do
+- The model should be fixed by removing the gender column, which fully removes any bias
+Why: Bias can come from the data, the features chosen, or how "success" is defined. Responsible teams test results across groups and keep humans accountable for decisions.
+
+Q: Why is it hard to make an algorithm "fair"?
+Topic: Algorithmic Bias
+- Computers can't calculate anything about people, so fairness has to be judged by humans alone
+* There are several reasonable fairness definitions (equal accuracy, error rates, selection rates) that often conflict
+- Measuring fairness requires collecting sensitive data, which is illegal in every country
+- Fairness is easy to achieve with enough data; the problem is only that companies don't bother to try
+Why: Choosing a fairness definition is a value judgment, not just a technical decision. This is why ethics is part of the CS curriculum.
+
+Q: According to the ACM Code of Ethics, what should a software engineer do first when asked to ship software they believe could seriously harm the public?
+Topic: Professional Responsibility
+- Ship it as asked, since the manager is responsible for the decision, not the engineer
+* Raise the concern through proper channels, document the risk, and refuse to take part in clearly harmful work
+- Secretly change the code so the harmful feature doesn't work, without telling anyone
+- Post the code and internal documents online right away so the public can judge the risk for itself
+Why: The ACM Code puts the public good first: "avoid harm." Whistleblowing outside the company is sometimes justified, generally after internal channels fail and when the harm is serious and well documented.
+
+Q: The Therac-25 radiation machine in the 1980s gave deadly overdoses. What's the main lesson for software developers?
+Topic: Professional Responsibility
+- The hardware was faulty, so software engineers had no part in the accidents
+* Safety-critical software needs rigorous testing and independent checks; trusting code alone was disastrous
+- The operators were poorly trained, so the main fix was better training, not better software
+- The software was correct, but the hospitals used the machines in ways they weren't designed for
+Why: A race condition and poor error messages led to overdoses and deaths. It's a classic case study in why software engineers bear real ethical responsibility.
+
+Q: What does copyright protect in software?
+Topic: Intellectual Property
+- The underlying idea or algorithm, so no one else can use the same approach
+* The specific expression: the actual code someone wrote
+- The program's name and logo, so others can't use them
+- The program's features and user interface, but not its code
+Why: Ideas aren't copyrightable, but code is. Patents can protect specific inventions (controversially, in software), trademarks protect names and logos, and trade secrets protect confidential information.
+
+Q: What is the core idea of open-source software?
+Topic: Intellectual Property
+- Software that is free of charge, though its source code stays private
+* Source code anyone can read, modify and share under a license granting those rights
+- Software with no license at all, so anyone can do anything with it
+- Software built by volunteers, which companies aren't allowed to use
+Why: Linux, Python and Firefox are open source. Licenses range from permissive (MIT, Apache) to copyleft (GPL, which requires sharing changes under the same terms).
+
+Q: Is "ethical hacking" without the owner's permission ethical?
+Topic: Security Ethics
+- Yes, as long as your intentions are good and you report what you find afterward
+* No; security testing needs authorization, and good intentions don't make unauthorized access okay
+- Yes, as long as you don't steal, change or delete any of the data you find
+- Only if the system is owned by a large company that can afford to fix the problems
+Why: Responsible disclosure and bug bounty programs let researchers report flaws legally. Unauthorized access can break laws like the Computer Fraud and Abuse Act.
+
+Q: If an autonomous car causes a crash, why is responsibility hard to assign?
+Topic: AI Ethics
+- The car itself can be held legally responsible, since it made the decision that caused the crash
+* Many parties are involved (designers, the company, owner, regulators), so blame is hard to pin down
+- Nobody is ever responsible, since accidents involving autonomous cars are legally treated as acts of nature
+- Only the passenger is responsible, since they chose to ride in the car and could have taken over
+Why: Ethicists argue for accountability built into the system: clear testing standards, logging, and assigned responsibility before deployment.
+
+Q: Why is explainability important for AI used in decisions like loans or parole?
+Topic: AI Ethics
+- Explainable models always run faster, which matters when many decisions must be made quickly
+* People affected deserve reasons they can understand and challenge, and errors and bias are easier to catch
+- Explainable models are always more accurate than black-box models, so they make better decisions
+- It isn't important, as long as the AI's overall accuracy is higher than a human decision-maker's
+Why: A "black box" denying someone a loan with no reason undermines fairness and due process. Some laws now give people a right to an explanation or to human review.
+
+Q: What is a "dark pattern" in user interface design?
+Topic: Design Ethics
+- A dark color scheme that's easier on the eyes at night
+* A design that tricks users into doing things they didn't intend, like hidden renewals
+- A security feature that hides sensitive information until the user logs in
+- A design that uses persuasive wording to encourage healthy habits
+Why: Examples include pre-checked boxes, guilt-tripping opt-out buttons ("No thanks, I don't like saving money"), and making cancellation much harder than signing up.
+
+Q: Why is accessibility (designing for users with disabilities) an ethical issue and not just a feature?
+Topic: Design Ethics
+- It only matters for a small number of users, so it's mostly a question of good customer service
+* Shutting people out of essential services like school and banking because of how software is built is unfair, and often illegal
+- Accessibility features make apps slower, so the ethical issue is whether the tradeoff is worth it
+- It's mainly about choosing pleasant colors and readable fonts, which is a design preference rather than a question of ethics
+Why: Screen-reader support, captions, keyboard navigation and good contrast help millions of people, and often help everyone, like captions in a noisy room.
+
+Q: Engagement-optimizing algorithms sometimes spread misinformation. What ethical concern does that raise?
+Topic: AI Ethics
+- None; if people engage with content, it must be what they want, so promoting it is ethical
+* Optimizing only for clicks and watch time can reward sensational or false content, harming public discourse
+- Algorithms can't spread content on their own, so only the users who share it are responsible
+- Misinformation mainly spreads by word of mouth, so algorithms play no real role in it
+Why: What a system optimizes for is an ethical choice. Designers can add other goals, like accuracy signals and friction before sharing, though these involve trade-offs with free expression.
+
+Q: What is the "digital divide"?
+Topic: Society & Technology
+- A gap in performance between older and newer versions of the same software
+* Unequal access to computers, internet and digital skills across incomes, regions and groups
+- The difference in how analog and digital devices store and transmit information
+- The split between people who prefer using phones and people who prefer computers
+Why: During remote school, students without reliable internet fell behind. Technology choices can widen or narrow inequality.
+
+Q: Which ethical framework would most directly ask, "What would an honest, responsible engineer do here?"
+Topic: Ethical Theories
+- Utilitarianism
+- Kantian ethics
+* Virtue ethics
+- Ethical egoism
+Why: Virtue ethics focuses on character and role models. Professional codes often blend all three approaches: consequences (avoid harm), duties (honesty, confidentiality) and virtues (integrity).
+
+Q: What does ethical egoism claim?
+Topic: Ethical Theories
+- People ought to put others' interests ahead of their own
+* People ought to act in their own self-interest
+- People always do act in their own self-interest, whether they should or not
+- People ought to do what produces the most total happiness
+Why: It differs from psychological egoism, the descriptive claim that people DO always act selfishly. Critics argue ethical egoism can't settle conflicts of interest fairly.
+
+Q: Mass surveillance is often defended with "If you have nothing to hide, you have nothing to fear." What's a common reply?
+Topic: Privacy
+- Everyone has broken some law, so surveillance would eventually catch everyone for something
+* Privacy protects free expression, dissent, relationships and dignity, not just secrets, and data power can be abused
+- Surveillance doesn't work, since criminals know how to avoid it, so it only catches innocent people
+- Hiding information is always wrong, so the real issue is that governments hide their surveillance
+Why: People act differently when watched (the "chilling effect"). Data collected for one purpose can later be used for another.
+
+Q: What does the precautionary principle suggest about deploying powerful new technology?
+Topic: Society & Technology
+- Deploy new technology right away, then fix any problems as they appear
+* When an action risks serious or irreversible harm, lack of full certainty isn't a reason to delay safeguards
+- Never deploy any new technology until it has been proven to cause no harm at all
+- Leave decisions about new technology entirely to the companies that create it and understand it best
+Why: It's debated: too much caution can block beneficial innovation. Most AI-safety and environmental discussions weigh this principle against the costs of delay.
+
+Q: Why does it matter who is in the room when technology is designed?
+Topic: Society & Technology
+- It doesn't matter, since good engineering practices produce good products no matter who designs them
+* Diverse teams are more likely to notice how a product might fail or harm people unlike themselves
+- Only engineers have the expertise to judge how a product should work, so others aren't needed
+- Larger teams make better products, so the number of people matters more than who they are
+Why: Examples include soap dispensers whose sensors failed for darker skin and crash-test dummies modeled only on average men. Blind spots become product flaws.
+
+# ---- Must-know formulas and facts for this class ----
+
+Q: Must-know: which philosopher goes with which ethical theory?
+Topic: Must-Know Facts
+* Mill: utilitarianism; Kant: deontology; Aristotle: virtue ethics; Hobbes and Rawls: social contract
+- Mill: deontology; Kant: utilitarianism; Aristotle: social contract; Rawls: virtue ethics
+- Mill: virtue ethics; Kant: social contract; Aristotle: utilitarianism; Hobbes: deontology
+- Mill: social contract; Kant: virtue ethics; Aristotle: deontology; Rawls: utilitarianism
+Why: Bentham founded utilitarianism and Mill refined it. Kant focused on duty and the categorical imperative, Aristotle on character and the "golden mean," and Rawls on the veil of ignorance.
+
+Q: Must-know: what are the two versions of Kant's categorical imperative?
+Topic: Must-Know Facts
+* Universal law: act only on rules everyone could follow; humanity: treat people as ends, never merely as means
+- Universal law: maximize happiness for all; humanity: act like a virtuous person would
+- Universal law: follow the law of your country; humanity: help people who are suffering
+- Universal law: do what most people would do; humanity: treat others as they treat you
+Why: Lying fails the universal-law test, because if everyone lied, promises would mean nothing. Using someone as a tool without their consent fails the humanity test.
+
+Q: Must-know: what are the three parts of a classic valid argument form called modus ponens?
+Topic: Must-Know Facts
+* If P then Q; P; therefore Q
+- If P then Q; Q; therefore P
+- If P then Q; not P; therefore not Q
+- P or Q; P; therefore not Q
+Why: Modus tollens is also valid: If P then Q; not Q; therefore not P. The second and third options are the fallacies of affirming the consequent and denying the antecedent.
+
+Q: Must-know: what are the 4 principles of biomedical (and much of tech) ethics?
+Topic: Must-Know Facts
+* Autonomy, beneficence, non-maleficence, justice
+- Honesty, loyalty, privacy, profit
+- Utility, duty, virtue, contract
+- Consent, efficiency, transparency, growth
+Why: Respect people's choices, do good, avoid harm, and be fair. They're used to reason about AI systems, data use and safety-critical software as well as medicine.
+
+Q: Must-know: what are the core ACM Code of Ethics principles for computing professionals?
+Topic: Must-Know Facts
+* Contribute to society, avoid harm, be honest, be fair, respect privacy, honor confidentiality
+- Maximize profit, obey your manager, protect company secrets, ship on time
+- Write clean code, use version control, test everything, document APIs
+- Follow the law, avoid lawsuits, protect patents, report competitors
+Why: The ACM Code also says the public good should be the central concern, and that professionals should speak up when systems may cause harm.
+
+Q: Must-know: what are the Fair Information Practice Principles (FIPPs) behind most privacy laws?
+Topic: Must-Know Facts
+* Notice, choice/consent, access, security, data minimization, accountability
+- Collect everything, keep it forever, share with partners, sell to advertisers
+- Encryption, firewalls, passwords, backups, antivirus, audits
+- Speed, accuracy, availability, scalability, redundancy, cost
+Why: Laws like the GDPR build on these ideas: tell people what you collect, let them choose, let them see their data, protect it, collect only what you need, and be responsible for it.
+
+Q: Must-know: what is the difference between a sound and a valid argument?
+Topic: Must-Know Facts
+* Valid: the conclusion follows if the premises are true; sound: valid AND the premises really are true
+- Sound: the conclusion follows from the premises; valid: the premises really are true
+- They mean the same thing in logic
+- Valid means most people accept it; sound means experts accept it
+Why: "All cats can fly; Tom is a cat; so Tom can fly" is valid but not sound. Only sound arguments guarantee a true conclusion.
+
+Q: Must-know: what are the three main types of intellectual property protection for software?
+Topic: Must-Know Facts
+* Copyright (the code), patents (novel inventions), trade secrets (kept confidential)
+- Trademarks (the code), copyright (inventions), patents (secrets)
+- Licenses, warranties, and terms of service
+- Copyright (ideas), patents (names and logos), trademarks (algorithms)
+Why: Trademarks protect names and logos, like a product's brand. Copyright protects the expression, not the idea, so two people can write different code for the same algorithm.

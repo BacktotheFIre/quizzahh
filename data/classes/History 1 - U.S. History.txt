@@ -1,0 +1,356 @@
+# quizzahh question file. The file name is the class name.
+#
+# History 1: U.S. History survey (colonial era to today; covers both semesters).
+#
+# Each question looks like this (leave a blank line between questions):
+#
+#   Q: What is the powerhouse of the cell?
+#   Topic: Cells
+#   - Nucleus
+#   * Mitochondria        <- the star marks the correct answer
+#   - Ribosome
+#   - Golgi apparatus
+#   Why: Mitochondria make ATP, the cell's energy.
+#
+# Lines starting with # are ignored.
+
+# Which year of a computer science degree this class usually falls in (used by the year filter):
+Year: 2
+
+Q: What was the first permanent English settlement in North America (1607)?
+Topic: Colonial America
+- Plymouth
+* Jamestown
+- Roanoke
+- St. Augustine
+Why: Jamestown, Virginia, nearly failed from disease and starvation. It survived largely thanks to tobacco as a cash crop, which also drove the growth of indentured servitude and, later, slavery. Plymouth (the Pilgrims) came in 1620, and Roanoke was the "lost colony."
+
+Q: What was the Columbian Exchange?
+Topic: Colonial America
+* The transfer of plants, animals, people and diseases between the Americas and Afro-Eurasia after 1492
+- A 1494 treaty in which Spain and Portugal split the newly found lands of the Americas between them
+- The system of trade that sent raw materials from the colonies to Britain and goods back in return
+- The exchange of letters between Columbus and the Spanish crown describing his four voyages
+Why: Horses, wheat and cattle came to the Americas, while corn, potatoes and tomatoes went to Europe. European diseases like smallpox killed a huge share of Indigenous peoples, who had no immunity.
+
+Q: What was the triangular trade?
+Topic: Colonial America
+- Trade among three colonies, New York, Virginia and Massachusetts, which kept Britain out
+* An Atlantic network linking Europe, Africa and the Americas, including the Middle Passage of enslaved Africans
+- A British policy that taxed three goods (sugar, stamps and tea) shipped to the colonies
+- An overland trade route connecting the French colonies in Canada, Louisiana and the Caribbean
+Why: Manufactured goods went to Africa, enslaved people were forced across the Atlantic in brutal conditions, and colonial goods like sugar, tobacco and rum went back to Europe. Millions of Africans were enslaved through this system.
+
+Q: What was the main colonial objection behind "no taxation without representation"?
+Topic: Revolution
+- The colonists thought Parliament's taxes were too low to pay for their own defense
+* The colonists were taxed by Parliament, where they had no elected representatives
+- The colonists wanted the king to tax them directly instead of going through Parliament
+- The colonists' own assemblies were taxing them without consulting the governors
+Why: After the French and Indian War, Britain passed taxes like the Stamp Act (1765) and Townshend Acts to pay its debts. The colonists argued only their own assemblies could tax them, which led to protests like the Boston Tea Party (1773).
+
+Q: What did the Declaration of Independence (1776) mainly do?
+Topic: Revolution
+- It set up the structure of the new national government, with three branches and a Congress
+* It announced the colonies' independence and explained why, based on natural rights
+- It ended the Revolutionary War and set the borders of the new United States
+- It listed the rights of citizens, like free speech, that the government couldn't violate
+Why: Written mostly by Thomas Jefferson and influenced by John Locke's ideas, it listed grievances against King George III. The government structure came later, in the Articles of Confederation and then the Constitution.
+
+Q: Which battle convinced France to openly ally with the Americans during the Revolution?
+Topic: Revolution
+- Lexington and Concord
+* Saratoga (1777)
+- Yorktown
+- Bunker Hill
+Why: The American victory at Saratoga showed the rebels could win, and French money, troops and navy were crucial afterward. The war effectively ended with the British surrender at Yorktown (1781), with French help. The Treaty of Paris (1783) made independence official.
+
+Q: What did the Louisiana Purchase (1803) do?
+Topic: Early Republic
+* Roughly doubled the size of the U.S. by buying land from France
+- Bought Florida from Spain after years of border conflicts
+- Gained the Oregon Territory from Britain by treaty
+- Took the Southwest from Mexico after the Mexican-American War
+Why: Jefferson bought it for about $15 million, even though he worried the Constitution didn't clearly allow it. Lewis and Clark then explored the territory. Alaska came much later, from Russia in 1867.
+
+Q: What was the Monroe Doctrine (1823)?
+Topic: Early Republic
+- A plan to gradually end slavery by paying slaveholders to free the people they enslaved
+* A warning that European powers should not colonize or interfere in the Americas
+- A treaty with Britain that set the border between the U.S. and Canada
+- A promise that the U.S. would help European nations keep their colonies in the Americas
+Why: It declared the Western Hemisphere off-limits to new European colonization. The U.S. couldn't enforce it much at first, but it became a foundation of American foreign policy.
+
+Q: What was the Trail of Tears?
+Topic: Expansion
+- The route thousands of settlers took west to California during the 1849 Gold Rush
+* The forced removal of the Cherokee and other Native nations from the Southeast to Indian Territory
+- The retreat of Confederate troops from Atlanta during the final year of the Civil War
+- The march of Mexican forces back across the Rio Grande after losing the Mexican-American War
+Why: Under the Indian Removal Act (1830), signed by Andrew Jackson, thousands died during the forced march. Jackson ignored the Supreme Court's ruling in Worcester v. Georgia, which had supported Cherokee sovereignty.
+
+Q: What was Manifest Destiny?
+Topic: Expansion
+* The belief that the U.S. was destined to expand across North America
+- The belief that the U.S. should avoid foreign wars and stay neutral
+- The belief that each new state should decide for itself whether to allow slavery
+- The belief that the U.S. should take colonies overseas, like European empires did
+Why: This idea justified westward expansion, the annexation of Texas, and the Mexican-American War (1846-48). Mexico lost about half its territory, including California, in the Treaty of Guadalupe Hidalgo.
+
+Q: What did the Missouri Compromise (1820) do?
+Topic: Road to Civil War
+- Ended slavery in all states north of the Ohio River, while allowing it in the South and the new territories
+* Admitted Missouri as a slave state and Maine as free, and banned slavery north of 36°30' in Louisiana territory
+- Let the settlers of each new territory vote on whether to allow slavery, a policy called popular sovereignty
+- Admitted California as a free state and passed a stronger Fugitive Slave Act in exchange
+Why: It kept the balance of free and slave states in the Senate. The Kansas-Nebraska Act (1854) undid it by letting settlers vote on slavery (popular sovereignty), which led to violent "Bleeding Kansas."
+
+Q: What did the Dred Scott v. Sandford decision (1857) rule?
+Topic: Road to Civil War
+* Black people couldn't be U.S. citizens, and Congress couldn't ban slavery in the territories
+- Slavery was unconstitutional everywhere, but the decision would only apply to future cases
+- The Missouri Compromise was constitutional, so slavery stayed banned north of 36°30'
+- States had the right to secede from the Union if Congress tried to ban slavery
+Why: It's considered one of the worst Supreme Court decisions ever. It inflamed sectional tensions and helped bring the Republicans and Abraham Lincoln to power. The 14th Amendment later overturned it.
+
+Q: What event immediately triggered Southern states to begin seceding?
+Topic: Road to Civil War
+- The Emancipation Proclamation, which declared enslaved people in the South free
+* Abraham Lincoln's election as president in 1860
+- The Confederate attack on Fort Sumter in April 1861
+- The Supreme Court's Dred Scott decision in 1857
+Why: Lincoln opposed slavery's expansion, and South Carolina seceded in December 1860, followed by other states that formed the Confederacy. The war began when Confederates fired on Fort Sumter in April 1861.
+
+Q: What did the Emancipation Proclamation (1863) do?
+Topic: Civil War & Reconstruction
+- Freed every enslaved person in the United States, including in the border states loyal to the Union
+* Declared enslaved people free in the Confederate states in rebellion, and made ending slavery a war goal
+- Ended the Civil War by offering the Confederate states readmission if they freed enslaved people
+- Gave formerly enslaved men citizenship and the right to vote in every state in the Union
+Why: It didn't apply to the slaveholding border states loyal to the Union, and it couldn't be enforced until Union armies arrived. But it changed the war's purpose and allowed Black men to join the Union army. The 13th Amendment (1865) abolished slavery nationwide.
+
+Q: Which Civil War battle in 1863 is often called the turning point in the East?
+Topic: Civil War & Reconstruction
+- Antietam
+* Gettysburg
+- Bull Run
+- Appomattox
+Why: Lee's invasion of the North was defeated at Gettysburg in July 1863. The same week, the Union captured Vicksburg and took control of the Mississippi River. Lee surrendered at Appomattox Court House in April 1865.
+
+Q: Which three "Reconstruction Amendments" followed the Civil War?
+Topic: Civil War & Reconstruction
+* 13th (abolished slavery), 14th (citizenship and equal protection), 15th (voting regardless of race)
+- 13th (citizenship), 14th (abolished slavery), 15th (women's right to vote)
+- 12th (abolished slavery), 13th (equal protection), 14th (voting regardless of race)
+- 14th (abolished slavery), 15th (citizenship), 16th (voting regardless of race)
+Why: They aimed to bring freed people into American life as citizens. After Reconstruction ended in 1877, Southern states got around them with Jim Crow laws, poll taxes and literacy tests until the civil rights era.
+
+Q: What ended Reconstruction?
+Topic: Civil War & Reconstruction
+- The end of the Civil War, when the Confederate army surrendered at Appomattox
+* The Compromise of 1877, which withdrew federal troops from the South
+- The 15th Amendment, which made further federal action unnecessary
+- The Supreme Court's Plessy v. Ferguson decision, which ended Reconstruction laws
+Why: In exchange for Rutherford B. Hayes becoming president after a disputed election, federal troops left the South. White Southern Democrats regained control, and Black Americans' rights were largely stripped away for decades.
+
+Q: What was the Gilded Age (about 1870s-1900)?
+Topic: Industrial America
+* Rapid industrial growth and great wealth for a few, with corruption and harsh conditions for workers
+- A long economic depression caused by the end of slavery and the collapse of Southern farming
+- A period of reform when the government broke up monopolies and passed laws protecting workers
+- The decade after World War I, known for jazz, new technology and a booming stock market
+Why: Mark Twain named it: gold on the surface, problems underneath. Tycoons like Carnegie (steel) and Rockefeller (oil) built huge fortunes, while workers faced long hours and low pay. That led to labor unions and strikes.
+
+Q: What was the goal of the Progressive Era (about 1890s-1920)?
+Topic: Industrial America
+- To return the country to small farming and limit the growth of cities and factories
+* To fix problems of industrialization: corruption, unsafe food and workplaces, monopolies, child labor
+- To end immigration entirely and send recent immigrants back to their home countries
+- To expand U.S. territory overseas by taking new colonies in the Pacific and the Caribbean
+Why: Muckraking journalists like Upton Sinclair (The Jungle) exposed abuses, leading to the Pure Food and Drug Act, antitrust actions, women's suffrage (the 19th Amendment) and other reforms. Teddy Roosevelt was a leading Progressive president.
+
+Q: Where did millions of immigrants arriving on the East Coast around 1900 come through?
+Topic: Industrial America
+- Angel Island in San Francisco
+* Ellis Island in New York
+- Castle Garden in Boston
+- The port of Baltimore
+Why: Many came from Southern and Eastern Europe, often to work in factories in growing cities. On the West Coast, Angel Island processed many Asian immigrants, who faced harsher restrictions like the Chinese Exclusion Act (1882).
+
+Q: What event pulled the U.S. into World War I in 1917?
+Topic: World Wars
+- Japan's surprise attack on the U.S. naval base at Pearl Harbor
+* Germany's unrestricted submarine warfare and the Zimmermann Telegram
+- The assassination of Archduke Franz Ferdinand, an ally of the U.S.
+- Germany's invasion of neutral Belgium and France
+Why: German U-boats sank American ships, and the intercepted Zimmermann Telegram revealed Germany proposing a military alliance with Mexico against the U.S. Afterward, the Senate rejected joining Wilson's League of Nations.
+
+Q: What started the Great Depression?
+Topic: Depression & New Deal
+* The stock market crash of October 1929, along with bank failures and deeper economic problems
+- The Dust Bowl drought, which destroyed crops across the Great Plains and caused banks to fail
+- The end of World War I, when factories that made weapons suddenly closed all at once
+- High taxes passed by Congress in 1928 to pay off the national debt from World War I
+Why: Risky stock speculation on borrowed money, overproduction, and unequal wealth helped cause the collapse. Unemployment reached about 25% by 1933. The Dust Bowl made things worse for farmers in the Plains.
+
+Q: What was the New Deal?
+Topic: Depression & New Deal
+- A trade agreement with European nations to lower tariffs and boost exports
+* Franklin D. Roosevelt's programs for relief, recovery and reform during the Great Depression
+- Herbert Hoover's plan to fix the Depression by letting the economy recover on its own
+- Harry Truman's program of civil rights and health reforms after World War II
+Why: It created jobs (the WPA and CCC), Social Security, bank deposit insurance (the FDIC), and stock market regulation (the SEC). It greatly expanded the federal government's role in the economy, and many of these programs still exist.
+
+Q: What brought the U.S. into World War II?
+Topic: World Wars
+- Germany's invasion of Poland in September 1939
+* Japan's attack on Pearl Harbor on December 7, 1941
+- Germany's sinking of the Lusitania in 1915
+- The fall of France to Germany in June 1940
+Why: Before that the U.S. had helped the Allies with supplies through Lend-Lease, but stayed officially neutral. After the attack, the U.S. declared war on Japan, and Germany then declared war on the U.S.
+
+Q: What was the internment of Japanese Americans during WWII?
+Topic: World Wars
+* The forced removal of about 120,000 people of Japanese descent, most of them U.S. citizens, to camps
+- The capture and imprisonment of Japanese soldiers taken prisoner in the Pacific during the war
+- A voluntary program that moved Japanese Americans inland to protect them from coastal attacks
+- The removal of German and Italian Americans from the East Coast to camps in the Midwest
+Why: Authorized by Executive Order 9066 out of wartime fear and racism, and upheld by the Supreme Court in Korematsu v. United States (1944). In 1988 the U.S. formally apologized and paid reparations to survivors.
+
+Q: How did World War II end in the Pacific?
+Topic: World Wars
+- Japan surrendered after Allied forces invaded the main Japanese islands
+* Japan surrendered in August 1945 after atomic bombs hit Hiroshima and Nagasaki
+- Japan surrendered after the Battle of Midway in 1942 destroyed its navy
+- Japan surrendered at the same time as Germany, in May 1945
+Why: The atomic bombings were the only use of nuclear weapons in war, and historians still debate them. Germany had already surrendered in May 1945. The bomb and the war's end set up the Cold War.
+
+Q: What was the Cold War policy of "containment"?
+Topic: Cold War
+* Stopping the spread of communism to new countries
+- Destroying the Soviet Union with a first nuclear strike
+- Staying out of world affairs and focusing on the Americas
+- Rolling back communism in every country it controlled
+Why: It guided the Truman Doctrine, the Marshall Plan (rebuilding Europe), NATO, and wars in Korea and Vietnam. The U.S. and Soviets never fought each other directly, which is why it's called a "cold" war.
+
+Q: What was the Cuban Missile Crisis (1962)?
+Topic: Cold War
+- A failed U.S.-backed invasion of Cuba by exiles at the Bay of Pigs
+* A 13-day standoff over Soviet nuclear missiles in Cuba, the closest the world came to nuclear war
+- A U.S. trade embargo on Cuba that started after Fidel Castro took power
+- A crisis in which Cuba shot down a U.S. spy plane, leading to a short naval war
+Why: President Kennedy ordered a naval "quarantine." The Soviets removed the missiles, and the U.S. secretly agreed to remove its missiles from Turkey. Afterward a hotline was set up between Washington and Moscow.
+
+Q: When did the Cold War end?
+Topic: Cold War
+- 1945, when World War II ended
+- 1962, after the Cuban Missile Crisis
+* 1989–1991, with the fall of the Berlin Wall and the collapse of the Soviet Union
+- 1973, when the last U.S. combat troops left Vietnam after the Paris Peace Accords
+Why: The Berlin Wall fell in November 1989, Germany reunified in 1990, and the Soviet Union dissolved in December 1991, leaving the U.S. as the only superpower.
+
+Q: What did the Montgomery Bus Boycott (1955-56) achieve?
+Topic: Civil Rights Movement
+* It ended segregated seating on Montgomery's buses and made Martin Luther King Jr. a national leader
+- It forced the Supreme Court to rule that segregated public schools were unconstitutional
+- It led directly to the Civil Rights Act, which banned segregation in all public transportation
+- It ended segregated lunch counters across the South and launched the sit-in movement
+Why: It started when Rosa Parks refused to give up her seat. Black residents boycotted the buses for over a year until the Supreme Court ruled bus segregation unconstitutional. It showed the power of nonviolent mass protest.
+
+Q: What did the Civil Rights Act of 1964 do?
+Topic: Civil Rights Movement
+- Gave 18-year-olds the right to vote in all federal and state elections
+* Outlawed discrimination by race, color, religion, sex or national origin in public places and jobs
+- Banned literacy tests and other practices that kept Black Americans from voting
+- Ended segregation in public schools by ordering busing in every state, North and South
+Why: Signed by President Lyndon B. Johnson after years of protests, including the 1963 March on Washington with King's "I Have a Dream" speech. The Voting Rights Act followed in 1965.
+
+Q: Why was the Vietnam War so controversial at home?
+Topic: Cold War
+- It was very short, so most Americans felt it ended before its goals were met
+* It dragged on with heavy casualties, a draft, unclear goals and televised violence
+- The U.S. won quickly, and many people felt the victory wasn't worth the cost
+- It was kept secret, and the public was angry when they learned about it years later
+Why: Events like the Tet Offensive (1968) and the Kent State shootings (1970) deepened distrust of the government. U.S. troops left in 1973, and South Vietnam fell in 1975.
+
+Q: What was the Watergate scandal?
+Topic: Modern America
+* A break-in at Democratic headquarters and the Nixon administration's cover-up, leading to his 1974 resignation
+- A Cold War spy case in which government officials were caught passing secrets to the Soviet Union
+- A scandal in which the Reagan administration secretly sold weapons to Iran to fund rebels in Nicaragua
+- An investigation into bribes paid to Congress by oil companies for drilling rights on federal land
+Why: Secret White House tapes proved Nixon tried to obstruct the investigation. He's the only president to resign. It increased public distrust of government and led to new ethics laws.
+
+Q: What happened on September 11, 2001?
+Topic: Modern America
+- The Berlin Wall fell, leading to the reunification of Germany
+* Terrorist attacks by al-Qaeda killed nearly 3,000 people in New York, at the Pentagon and in Pennsylvania
+- The U.S. invaded Iraq, starting a war that lasted most of the decade
+- The stock market crashed, starting the Great Recession and a wave of bank failures
+Why: The attacks led to the War on Terror, the wars in Afghanistan (2001-2021) and Iraq (2003-2011), the Department of Homeland Security, and expanded surveillance under the Patriot Act.
+
+# ---- Must-know formulas and facts for this class ----
+
+Q: Must-know: put these in order: Declaration of Independence, Constitution signed, Louisiana Purchase, start of the Civil War.
+Topic: Must-Know Dates
+* 1776, 1787, 1803, 1861
+- 1776, 1803, 1787, 1861
+- 1787, 1776, 1803, 1865
+- 1776, 1787, 1812, 1861
+Why: The Constitution replaced the Articles of Confederation in 1787 (it took effect in 1789). The Civil War ran from 1861 to 1865.
+
+Q: Must-know: which years did the U.S. fight in World War I and World War II?
+Topic: Must-Know Dates
+* WWI: 1917–1918; WWII: 1941–1945
+- WWI: 1914–1918; WWII: 1939–1945
+- WWI: 1915–1919; WWII: 1940–1944
+- WWI: 1917–1920; WWII: 1939–1941
+Why: The wars themselves began in 1914 and 1939, but the U.S. entered later: in 1917 after German submarine attacks, and in December 1941 after Pearl Harbor.
+
+Q: Must-know: when did these happen: the stock market crash, Brown v. Board, the Civil Rights Act, and the fall of the Berlin Wall?
+Topic: Must-Know Dates
+* 1929, 1954, 1964, 1989
+- 1929, 1964, 1954, 1991
+- 1933, 1954, 1965, 1989
+- 1929, 1957, 1968, 1989
+Why: The crash started the Great Depression. Brown ended legal school segregation, the Civil Rights Act banned discrimination in public places and jobs, and the Wall's fall signaled the end of the Cold War.
+
+Q: Must-know: which presidents match these events: Louisiana Purchase, Emancipation Proclamation, New Deal, Watergate resignation?
+Topic: Must-Know Dates
+* Jefferson, Lincoln, Franklin D. Roosevelt, Nixon
+- Washington, Lincoln, Theodore Roosevelt, Ford
+- Jefferson, Grant, Franklin D. Roosevelt, Johnson
+- Madison, Johnson, Hoover, Nixon
+Why: Matching presidents to their biggest events is one of the most common exam question types. Theodore Roosevelt was the Progressive Era "trust buster," and FDR led during the Depression and WWII.
+
+Q: Must-know: what did the three Reconstruction Amendments do, and when?
+Topic: Must-Know Dates
+* 13th (1865) ended slavery; 14th (1868) gave citizenship and equal protection; 15th (1870) protected voting regardless of race
+- 13th (1863) ended slavery; 14th (1870) protected voting; 15th (1868) gave citizenship
+- 13th (1865) gave women the vote; 14th (1868) ended slavery; 15th (1870) gave citizenship
+- 13th (1870) protected voting; 14th (1865) ended slavery; 15th (1868) gave equal protection
+Why: The 1863 Emancipation Proclamation was a wartime order, not an amendment, and it only covered Confederate states. The 13th Amendment ended slavery everywhere.
+
+Q: Must-know: what were the key Cold War events, in order?
+Topic: Must-Know Dates
+* Truman Doctrine (1947), Korean War (1950–53), Cuban Missile Crisis (1962), Vietnam War escalation (1965), Berlin Wall falls (1989)
+- Korean War (1945), Truman Doctrine (1950), Vietnam War (1955), Cuban Missile Crisis (1970), Berlin Wall falls (1991)
+- Cuban Missile Crisis (1947), Korean War (1950), Truman Doctrine (1962), Berlin Wall falls (1965), Vietnam War ends (1989)
+- Truman Doctrine (1947), Cuban Missile Crisis (1950), Korean War (1962), Berlin Wall built (1989), Vietnam War (1991)
+Why: The Truman Doctrine set out containment, the policy behind the wars in Korea and Vietnam. The Soviet Union dissolved in 1991.
+
+Q: Must-know: which documents and their main ideas go together?
+Topic: Must-Know Dates
+* Mayflower Compact: self-government; Common Sense: case for independence; Federalist Papers: support for the Constitution
+- Mayflower Compact: independence; Common Sense: the Constitution; Federalist Papers: self-government
+- Mayflower Compact: the Bill of Rights; Common Sense: abolition; Federalist Papers: states' rights
+- Mayflower Compact: trade with Britain; Common Sense: religious freedom; Federalist Papers: opposition to the Constitution
+Why: Thomas Paine's Common Sense (1776) convinced many colonists to support independence. The Federalist Papers, by Hamilton, Madison and Jay, argued for ratifying the Constitution.
+
+Q: Must-know: what were the major laws of the 1960s civil rights movement?
+Topic: Must-Know Dates
+* Civil Rights Act (1964), Voting Rights Act (1965), Fair Housing Act (1968)
+- Voting Rights Act (1957), Civil Rights Act (1960), Fair Housing Act (1964)
+- Civil Rights Act (1954), Voting Rights Act (1964), Equal Pay Act (1970)
+- Fair Housing Act (1964), Civil Rights Act (1965), Voting Rights Act (1968)
+Why: Together they banned discrimination in public places and employment, outlawed literacy tests and other voting barriers, and banned housing discrimination.

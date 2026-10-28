@@ -1,0 +1,381 @@
+# quizzahh question file. The file name is the class name.
+#
+# CS 13: Theory of Computation (automata, regular languages, grammars, Turing machines,
+# decidability, complexity).
+#
+# Each question looks like this (leave a blank line between questions):
+#
+#   Q: What is the powerhouse of the cell?
+#   Topic: Cells
+#   - Nucleus
+#   * Mitochondria        <- the star marks the correct answer
+#   - Ribosome
+#   - Golgi apparatus
+#   Why: Mitochondria make ATP, the cell's energy.
+#
+# Lines starting with # are ignored.
+
+# Which year of a computer science degree this class usually falls in (used by the year filter):
+Year: 4
+
+Q: In automata theory, what is a language?
+Topic: Basics
+- The set of grammar rules that defines which strings are valid
+* A set of strings over some alphabet
+- The alphabet of symbols a machine is allowed to read
+- A single string that a machine accepts
+Why: For example, over the alphabet {0, 1}, "all strings with an even number of 1s" is a language. It's usually infinite. Machines and grammars are judged by which language they describe.
+
+Q: What does a deterministic finite automaton (DFA) have?
+Topic: Finite Automata
+- A finite set of states plus a stack, so it can count matching symbols without any limit
+* Finite states, a start state, accept states, and exactly one transition per state and input symbol
+- A finite set of states and a read/write tape that can move left or right
+- Finite states where each symbol may lead to several next states, or to none at all
+Why: A DFA reads the input one symbol at a time and accepts if it ends in an accept state. Its only memory is which state it's in, so it can't count without limit.
+
+Q: How many states does the smallest DFA need to accept binary strings with an even number of 1s?
+Topic: Finite Automata
+- 1
+* 2
+- 3
+- 4
+Why: Track just "even so far" and "odd so far." Each 1 flips between them, and each 0 stays put. The start state, "even," is also the accept state.
+
+Q: How does an NFA differ from a DFA?
+Topic: Finite Automata
+- An NFA can recognize strictly more languages than a DFA, including some non-regular ones
+* An NFA can have several transitions (or none) on a symbol, plus ε-moves, and accepts if ANY path does
+- An NFA must follow every possible path, and accepts only if ALL paths end in accept states
+- An NFA has a stack, so it can recognize languages like aⁿbⁿ that a DFA can't
+Why: NFAs are often much smaller and easier to design, but they recognize exactly the same languages as DFAs: the regular languages.
+
+Q: The subset construction converts an NFA with n states into a DFA. What's the worst-case number of DFA states?
+Topic: Finite Automata
+- n
+- n²
+* 2ⁿ
+- n factorial
+Why: Each DFA state represents a SET of NFA states, and there are 2ⁿ possible subsets. Usually far fewer are reachable, but some languages really do need exponentially more DFA states.
+
+Q: Which regular expression matches all binary strings that end in 01?
+Topic: Regular Expressions
+- (01)*
+* (0 ∪ 1)*01
+- 0*1*01
+- (0 ∪ 1)01*
+Why: (0 ∪ 1)* matches any prefix at all, and 01 forces the ending. 01* would match 0 followed by any number of 1s, and (01)* matches repetitions like 0101.
+
+Q: By Kleene's theorem, regular expressions describe exactly which languages?
+Topic: Regular Expressions
+- Context-free languages, the ones recognized by pushdown automata
+* Regular languages, the same ones recognized by DFAs and NFAs
+- Decidable languages, the ones recognized by Turing machines that always halt
+- Finite languages only, since an expression has finitely many symbols
+Why: Regular expressions, DFAs and NFAs are three equivalent ways to describe the same class of languages. You can convert between any two of them.
+
+Q: Which language is NOT regular?
+Topic: Non-Regular Languages
+- All strings over {a, b} with an even length
+- All strings that end in "ab"
+* { aⁿbⁿ : n ≥ 0 }
+- All strings with an even number of a's and an odd number of b's
+Why: Matching the count of a's would need unlimited memory, and a DFA only has finitely many states. The pumping lemma proves it formally.
+
+Q: What is the pumping lemma for regular languages mainly used for?
+Topic: Non-Regular Languages
+- Proving a language IS regular, by showing every long string can be pumped
+* Proving a language is NOT regular, by contradiction
+- Converting an NFA into an equivalent DFA
+- Finding the smallest DFA for a regular language
+Why: Assume the language is regular with pumping length p, pick a clever string of length at least p (like aᵖbᵖ), and show that every allowed way of "pumping" the middle part produces a string outside the language.
+
+Q: Regular languages are closed under which operations?
+Topic: Closure Properties
+- Union and concatenation only; complement can produce a non-regular language
+* Union, intersection, complement, concatenation, and Kleene star
+- Union, concatenation and star, but not intersection or complement
+- Intersection and complement only
+Why: Closure means applying the operation to regular languages always gives another regular language. For complement, swap a DFA's accept and non-accept states. For intersection, run two DFAs in parallel (the product construction).
+
+Q: What is a context-free grammar (CFG)?
+Topic: Context-Free Grammars
+- A set of regular expressions, one for each kind of token in the language
+* Rules that rewrite one variable into strings of variables and terminals, from a start variable
+- Rules that can rewrite any string of symbols, using context on both sides of a variable
+- A finite automaton with an extra stack used to remember nested structure
+Why: For example, S → aSb | ε generates aⁿbⁿ, which isn't regular. CFGs describe programming language syntax, and parsers are built from them.
+
+Q: What does it mean for a grammar to be ambiguous?
+Topic: Context-Free Grammars
+- It has more than one rule for the same variable
+* Some string has two or more different parse trees (or leftmost derivations)
+- It can generate the same string using both left and right derivations
+- Its language can also be described by a different grammar
+Why: The classic example is the rules E → E + E, E → E × E and E → a, where a + a × a has two parse trees with different meanings. Language designers fix this with precedence levels in the grammar.
+
+Q: A pushdown automaton (PDA) is a finite automaton plus what?
+Topic: Pushdown Automata
+- A second tape
+* A stack
+- A queue
+- Random access memory
+Why: The stack gives unlimited but last-in, first-out memory, which is exactly enough to match nested structures like balanced parentheses. PDAs recognize exactly the context-free languages.
+
+Q: Is { aⁿbⁿcⁿ : n ≥ 0 } context-free?
+Topic: Context-Free Grammars
+- Yes; a pushdown automaton can push a's, then pop for b's, then push again for c's
+* No; a single stack can match two counts but not three
+- Yes, but only when n is even
+- No, because it's actually a regular language
+Why: The pumping lemma for context-free languages proves this. It's decidable, though: a Turing machine can easily check all three counts.
+
+Q: Order these language classes from smallest to largest.
+Topic: Chomsky Hierarchy
+- Context-free, regular, decidable, Turing-recognizable
+* Regular, context-free, decidable, Turing-recognizable
+- Regular, decidable, context-free, Turing-recognizable
+- Regular, context-free, Turing-recognizable, decidable
+Why: Every regular language is context-free, every context-free language is decidable, and every decidable language is recognizable. Each inclusion is strict: examples are aⁿbⁿ, aⁿbⁿcⁿ, and the halting problem.
+
+Q: What can a Turing machine do that a pushdown automaton can't?
+Topic: Turing Machines
+- Use a stack with unlimited depth, which lets it match nested structures like balanced parentheses
+* Read AND write anywhere on an unbounded tape, moving left or right
+- Use nondeterminism, which a pushdown automaton isn't allowed to use
+- Read its input more than once, but without the ability to write anything
+Why: That tape makes Turing machines as powerful as any computer program. Adding extra tapes or nondeterminism doesn't increase what they can compute; it only affects speed.
+
+Q: What does the Church-Turing thesis claim?
+Topic: Turing Machines
+- Every well-defined problem can be solved by a computer given enough time and memory
+* Anything computable by an effective step-by-step procedure can be computed by a Turing machine
+- A Turing machine can simulate a real computer only with an exponential slowdown
+- No algorithm can decide whether an arbitrary program will halt on its input
+Why: It's a thesis, not a theorem, because "effective procedure" is an informal idea. Every reasonable model of computation proposed so far has turned out to be equivalent to Turing machines.
+
+Q: What is the difference between a decidable and a Turing-recognizable language?
+Topic: Decidability
+- A recognizer always halts with yes or no; a decider may run forever on inputs not in the language
+* A decider always halts; a recognizer must accept "yes" inputs but may run forever on "no" ones
+- Recognizable languages are always finite, while decidable languages may be infinite
+- They're the same class, since any recognizer can be turned into a decider
+Why: A language is decidable exactly when both it and its complement are recognizable. The halting problem is recognizable (just run the program) but not decidable.
+
+Q: What does the halting problem ask, and what's the result?
+Topic: Decidability
+- Whether a program has an infinite loop; it's decidable with careful static analysis
+* Whether a program halts on a given input; no algorithm can answer this for every case
+- Whether a program halts on a given input; it's decidable but takes exponential time
+- How long a program runs before halting; it's computable by simulating the program
+Why: Turing proved it by contradiction with diagonalization: a program that does the opposite of what the supposed halting decider predicts about itself leads to a contradiction.
+
+Q: Why can't a perfect "infinite loop detector" exist in a compiler?
+Topic: Decidability
+- Compilers would need to run the program on every possible input, which takes too long
+* It would solve the halting problem, which is undecidable
+- Loops can only be analyzed at runtime, never by looking at the source code
+- It exists, but it's NP-complete, so it's too slow to use in practice
+Why: Real tools use heuristics and warn about SOME infinite loops. They can't be both always correct and always finished for every program.
+
+Q: What does Rice's theorem say?
+Topic: Decidability
+- Every property of a program's source code, like its length, is undecidable
+* Every non-trivial property of what a program computes (its language) is undecidable
+- Every property of programs is decidable if the program is guaranteed to halt
+- Every context-free grammar can be converted into an unambiguous one
+Why: "Does this program ever print hello?" and "Does it compute the same function as another program?" are both undecidable. Properties of the code's text, like "has more than 10 lines," aren't covered by Rice's theorem.
+
+Q: To show problem B is undecidable using a reduction, what do you show?
+Topic: Reductions
+- That B reduces to a known undecidable problem like the halting problem
+* That a known undecidable problem reduces to B, so a decider for B would decide it
+- That B is NP-complete, since NP-complete problems are undecidable
+- That B reduces to a known decidable problem, which leads to a contradiction
+Why: The reduction goes from the known hard problem to B. If B were decidable, the hard problem would be too, which is a contradiction.
+
+Q: Is the problem "Does this DFA accept any string at all?" decidable?
+Topic: Decidability
+* Yes; check whether any accept state is reachable from the start state
+- No; you'd have to try every possible string, and there are infinitely many
+- Only for DFAs with fewer than a fixed number of states
+- Yes, but only by converting the DFA into a regular expression first
+Why: It's simple graph reachability. Many questions about DFAs are decidable, while the same questions about Turing machines usually are not.
+
+Q: Is it decidable whether a context-free grammar is ambiguous?
+Topic: Decidability
+- Yes; try all derivations up to a length bound found from the number of rules
+* No; ambiguity of context-free grammars is undecidable
+- Yes; convert the grammar to Chomsky normal form and check for duplicate rules
+- Only for grammars that use ε-rules
+Why: This is a classic undecidable problem about CFGs. It's also undecidable whether two CFGs generate the same language. In practice, tools like parser generators restrict grammars to classes they can check.
+
+Q: Which class contains problems whose solutions can be VERIFIED in polynomial time?
+Topic: Complexity
+- P
+* NP
+- EXP only
+- Undecidable problems
+Why: Given a proposed solution, like a coloring or a route, you can check it quickly. P is the class of problems you can SOLVE quickly. Whether P = NP is still an open question.
+
+Q: What did the Cook-Levin theorem prove?
+Topic: Complexity
+- P = NP, by giving a polynomial-time algorithm for satisfiability
+* Boolean satisfiability (SAT) is NP-complete
+- The halting problem is undecidable
+- Every problem in NP can be solved in exponential time
+Why: It was the first NP-complete problem. Afterward, thousands more were proven NP-complete by reducing SAT, or other NP-complete problems, to them.
+
+Q: If someone found a polynomial-time algorithm for 3-SAT, what would follow?
+Topic: Complexity
+- Only 3-SAT and problems very similar to it would become easy
+* P = NP, since every NP problem reduces to 3-SAT in polynomial time
+- Every undecidable problem would become decidable
+- Problems in EXPTIME would become solvable in polynomial time
+Why: That's the power of NP-completeness: one fast algorithm for any NP-complete problem would give fast algorithms for all of NP. Most experts believe P ≠ NP, but nobody has proved it.
+
+Q: What does it mean for a problem to be NP-hard but not known to be in NP?
+Topic: Complexity
+- It can be solved quickly, but checking a proposed solution takes exponential time
+* It's at least as hard as every NP problem, but it may not have quickly checkable solutions
+- It's undecidable, since every NP-hard problem outside NP has no algorithm at all
+- It's in P, because it doesn't belong to NP
+Why: The halting problem is NP-hard (every NP problem reduces to it) but undecidable. The optimization version of the traveling salesman problem is also NP-hard.
+
+Q: What does the notation ≤p mean, as in A ≤p B?
+Topic: Reductions
+- A is a smaller problem than B, measured by input size
+* A reduces to B in polynomial time, so B is at least as hard as A
+- B reduces to A in polynomial time, so A is at least as hard as B
+- A and B can be solved in the same polynomial time
+Why: Any instance of A can be converted quickly into an instance of B with the same answer. So a fast algorithm for B gives a fast algorithm for A.
+
+Q: Can a DFA have ε-transitions?
+Topic: Finite Automata
+- Yes; ε-transitions are allowed in any finite automaton
+* No; ε-transitions are allowed in NFAs, but every DFA move consumes one input symbol
+- Only from the start state, before any input has been read
+- Only into accept states, so it can accept a string before reading all of it
+Why: ε-NFAs can be converted to ordinary NFAs (using ε-closures) and then to DFAs, so they recognize the same languages.
+
+Q: Which strings does the regular expression a*b* match?
+Topic: Regular Expressions
+- Strings with equal numbers of a's and b's, in any order
+* Any number of a's followed by any number of b's, including the empty string
+- Strings made of a's and b's in any order, including the empty string
+- At least one a followed by at least one b
+Why: a*b* matches ε, a, bb, aaab and so on, but never "ba", because a b can't come before an a. It doesn't force the counts to be equal; that would be aⁿbⁿ.
+
+Q: What is the result of minimizing a DFA?
+Topic: Finite Automata
+- A DFA with fewer states that accepts a smaller, related language
+* The DFA with the fewest states for the same language, unique up to renaming states
+- An equivalent NFA with fewer states, which is usually much smaller than any DFA
+- A regular expression that describes the same language as the DFA
+Why: Minimization merges states that can't be told apart by any future input. The Myhill-Nerode theorem explains why the minimal DFA is unique.
+
+Q: A Turing machine can loop forever. What does that mean for a recognizer?
+Topic: Turing Machines
+- It must eventually reject any input it doesn't accept
+* On some input it never halts, so it neither accepts nor rejects
+- It accepts those inputs by default, since it never rejected them
+- It's a decider, as long as it halts on every input in the language
+Why: This is why "recognizable" is weaker than "decidable." When you watch a running recognizer, you can't always tell whether it's about to halt or will run forever.
+
+Q: Is the complement of the halting problem Turing-recognizable?
+Topic: Decidability
+- Yes; run the program and accept if it hasn't halted after a very long time
+* No; if it were, the halting problem would be decidable
+- Only for programs with fewer than a fixed number of states
+- Yes, because it's the complement of a recognizable language
+Why: This is a classic example of a language that is not even recognizable. Run recognizers for a language and its complement side by side: if both existed, one would always halt with the answer.
+
+Q: Which grammar rules generate the language of balanced parentheses?
+Topic: Context-Free Grammars
+- S → ( S ) | ε
+* S → ( S ) S | ε
+- S → ( S | S ) | ε
+- S → S ( ) S
+Why: Each matched pair wraps a balanced part, followed by another balanced part, or nothing at all. This language is context-free but not regular, because nesting depth can be any size.
+
+Q: What is the time complexity class EXPTIME, and how does it relate to P?
+Topic: Complexity
+- Problems solvable in exponential time; EXPTIME equals P by the time hierarchy theorem
+* Problems solvable in exponential time; P is strictly contained in EXPTIME
+- Problems that need exponential memory; it's a strict subset of P
+- Problems solvable in exponential time; whether P ≠ EXPTIME is an open question like P vs NP
+Why: Unlike P versus NP, it's PROVEN that some problems need exponential time, such as deciding who wins generalized chess on an n-by-n board.
+
+Q: Why do NP-complete problems still get solved every day in practice?
+Topic: Complexity
+- They're actually easy; only a few artificial worst-case examples are hard to solve
+* Real instances are often structured, and SAT solvers, approximations and heuristics handle many well
+- Modern computers are fast enough to run exponential-time algorithms on any realistic input
+- They don't; any real-world input large enough to matter can't be solved
+Why: Modern SAT solvers routinely handle problems with millions of variables in chip verification and scheduling. NP-hardness is about the worst case, not every case.
+
+# ---- Must-know formulas and facts for this class ----
+
+Q: Must-know: what is the 5-tuple that formally defines a DFA?
+Topic: Must-Know Facts
+* (Q, Σ, δ, q₀, F): states, alphabet, transition function, start state, accept states
+- (Q, Σ, Γ, δ, q₀): states, alphabet, stack alphabet, transition function, start state
+- (V, Σ, R, S, F): variables, terminals, rules, start variable, final states
+- (Q, Σ, δ, F, ε): states, alphabet, transition function, accept states, empty string
+Why: δ: Q × Σ → Q gives exactly one next state for each state and symbol. A PDA adds a stack alphabet Γ, and a CFG uses variables, terminals, rules and a start variable.
+
+Q: Must-know: what is the Chomsky hierarchy, from smallest to largest class, with its machine?
+Topic: Must-Know Facts
+* Regular (DFA), context-free (PDA), context-sensitive (LBA), recursively enumerable (Turing machine)
+- Regular (PDA), context-free (DFA), context-sensitive (Turing machine), recursively enumerable (LBA)
+- Context-free (DFA), regular (PDA), recursively enumerable (LBA), context-sensitive (Turing machine)
+- Regular (NFA), decidable (DFA), context-free (Turing machine), recursively enumerable (PDA)
+Why: Each class strictly contains the one before it. LBA stands for linear-bounded automaton, a Turing machine limited to the space its input takes up.
+
+Q: Must-know: what does the pumping lemma for regular languages say?
+Topic: Must-Know Facts
+* Every string of length ≥ p splits as xyz, with |xy| ≤ p and |y| > 0, so xyⁱz stays in the language for all i ≥ 0
+- Every string of length ≥ p splits as xyz, with |y| ≥ p, so that xy²z is never in the language
+- Every regular language has at least one string of length exactly p that can be pumped once and stay in it
+- Every string of length ≥ p splits as uvxyz, with |vy| > 0, so that uvⁱxyⁱz stays in the language for all i
+Why: To prove a language is NOT regular, pick a string the lemma says must pump and show that every allowed split fails. The uvxyz version is the pumping lemma for context-free languages.
+
+Q: Must-know: what are the closure properties of regular versus context-free languages?
+Topic: Must-Know Facts
+* Regular: closed under all five (union, intersection, complement, concatenation, star); context-free: not intersection or complement
+- Both are closed under all five operations, since every regular language is also context-free
+- Regular: closed under union and star only; context-free: closed under all five, including intersection
+- Context-free: closed under all five; regular: not complement, since a DFA can't flip its accept states
+Why: aⁿbⁿcᵐ and aᵐbⁿcⁿ are both context-free, but their intersection, aⁿbⁿcⁿ, isn't. That shows context-free languages aren't closed under intersection.
+
+Q: Must-know: which famous problems are NP-complete?
+Topic: Must-Know Facts
+* SAT, 3-SAT, Clique, Vertex Cover, Hamiltonian Cycle, Subset Sum
+- Sorting, shortest path, minimum spanning tree, and matching
+- The halting problem and Post's correspondence problem
+- 2-SAT, primality testing, and linear programming
+Why: The second option lists problems in P, the third lists undecidable problems, and the last three problems are also in P. To prove something new is NP-complete, reduce one of these known problems to it.
+
+Q: Must-know: what does Chomsky normal form allow as rules?
+Topic: Must-Know Facts
+* A → BC or A → a (plus S → ε for the start variable)
+- A → aB or A → a only
+- Any rule with at most three symbols on the right
+- A → BCD or A → ε for any variable
+Why: Any context-free grammar can be converted to CNF. A derivation of a string of length n then takes exactly 2n − 1 steps, which is what the CYK parsing algorithm relies on.
+
+Q: Must-know: what is the complexity class picture most computer scientists believe?
+Topic: Must-Know Facts
+* P ⊆ NP ⊆ PSPACE ⊆ EXPTIME, with P ≠ EXPTIME proven and P ≠ NP believed but unproven
+- P = NP = PSPACE = EXPTIME, all proven equal
+- EXPTIME ⊆ PSPACE ⊆ NP ⊆ P, with every inclusion proven strict
+- NP ⊆ P ⊆ EXPTIME ⊆ PSPACE, with P ≠ NP proven
+Why: The time hierarchy theorem proves P ≠ EXPTIME, so at least one inclusion in the chain must be strict, but nobody knows which. P vs NP has a million-dollar prize.
+
+Q: Must-know: how many states can the DFA from the subset construction need for an NFA with n states?
+Topic: Must-Know Facts
+* Up to 2ⁿ
+- Exactly n
+- Up to n²
+- Up to n!
+Why: Each DFA state is a SET of NFA states, and an n-element set has 2ⁿ subsets. Usually far fewer are reachable.

@@ -1,0 +1,217 @@
+# Tier 2 = Intermediate: functions working together, dictionaries, sets, parsing data, and classes.
+
+=== Word Frequency Report
+Class: CS 4 - Programming I (Python)
+Tier: 2
+Minutes: 25
+--- prompt
+Write word_counts(text), which returns a dictionary mapping each word to how many times it appears. Words are case-insensitive ("The" and "the" are the same word) and you should strip punctuation from the start and end of each word: . , ! ? ; : " ' ( )
+
+Then write top_words(text, k), which returns a list of the k most common words as (word, count) tuples, most common first. Break ties alphabetically.
+
+    word_counts("The cat. The dog!")  ->  {"the": 2, "cat": 1, "dog": 1}
+    top_words("b a b c a b", 2)       ->  [("b", 3), ("a", 2)]
+--- starter
+def word_counts(text):
+    pass
+
+def top_words(text, k):
+    pass
+--- tests
+word_counts("The cat. The dog!") == {"the": 2, "cat": 1, "dog": 1}
+word_counts("") == {}
+word_counts("Hi, hi HI!!") == {"hi": 3}
+word_counts("(wow) 'wow'") == {"wow": 2}
+top_words("b a b c a b", 2) == [("b", 3), ("a", 2)]
+top_words("x y z", 2) == [("x", 1), ("y", 1)]
+top_words("one two two three three three", 5) == [("three", 3), ("two", 2), ("one", 1)]
+top_words("", 3) == []
+--- hint
+Use text.lower().split(), then word.strip(".,!?;:\"'()") on each word, skipping any word that becomes empty. Use d[w] = d.get(w, 0) + 1 to count. For top_words, sort the items with key=lambda pair: (-pair[1], pair[0]) and slice the first k.
+--- solution
+def word_counts(text):
+    counts = {}
+    for raw in text.lower().split():
+        w = raw.strip(".,!?;:\"'()")
+        if w:
+            counts[w] = counts.get(w, 0) + 1
+    return counts
+
+def top_words(text, k):
+    items = sorted(word_counts(text).items(), key=lambda p: (-p[1], p[0]))
+    return items[:k]
+
+=== Gradebook from CSV Text
+Class: CS 4 - Programming I (Python)
+Tier: 2
+Minutes: 30
+--- prompt
+You're given the contents of a CSV file as one string. The first line is a header, and every other line is a student name followed by their scores:
+
+    name,hw1,hw2,exam
+    Ana,90,85,88
+    Ben,70,,65
+
+A blank score means the assignment is missing and counts as 0.
+
+Write parse_gradebook(csv_text), which returns a dict mapping each name to a list of integer scores, and class_report(csv_text), which returns a dict mapping each name to their average, rounded to 1 decimal place. Ignore completely blank lines.
+
+    parse_gradebook(text)["Ben"]  ->  [70, 0, 65]
+    class_report(text)["Ana"]     ->  87.7
+--- starter
+def parse_gradebook(csv_text):
+    pass
+
+def class_report(csv_text):
+    pass
+--- tests
+> data = "name,hw1,hw2,exam\nAna,90,85,88\nBen,70,,65\n\nCal,100,100,100\n"
+parse_gradebook(data)["Ana"] == [90, 85, 88]
+parse_gradebook(data)["Ben"] == [70, 0, 65]
+len(parse_gradebook(data)) == 3
+class_report(data)["Ana"] == 87.7
+class_report(data)["Ben"] == 45.0
+class_report(data)["Cal"] == 100.0
+parse_gradebook("name,q1\n") == {}
+--- hint
+Split the text into lines with text.strip().split("\n") and skip the first (header) line. For each line, split on "," to get the name and the score strings. Turn each score into int(s) if s.strip() isn't empty, otherwise 0.
+--- solution
+def parse_gradebook(csv_text):
+    book = {}
+    lines = csv_text.strip().split("\n")
+    for line in lines[1:]:
+        if not line.strip():
+            continue
+        parts = line.split(",")
+        name = parts[0].strip()
+        scores = [int(s) if s.strip() else 0 for s in parts[1:]]
+        book[name] = scores
+    return book
+
+def class_report(csv_text):
+    report = {}
+    for name, scores in parse_gradebook(csv_text).items():
+        report[name] = round(sum(scores) / len(scores), 1) if scores else 0.0
+    return report
+
+=== Anagram Groups
+Class: CS 2 - Fundamentals
+Tier: 2
+Minutes: 25
+--- prompt
+Two words are anagrams if they use exactly the same letters, like "listen" and "silent".
+
+Write are_anagrams(a, b) that returns True or False (ignore case and spaces).
+
+Then write group_anagrams(words), which groups a list of words into anagram groups. Return a list of groups, where each group is a sorted list of words. Sort the groups themselves too, so the answer is predictable.
+
+    group_anagrams(["eat", "tea", "tan", "ate", "nat", "bat"])
+        ->  [["ate", "eat", "tea"], ["bat"], ["nat", "tan"]]
+
+This is a classic interview problem. The key idea is finding a "signature" that's the same for all anagrams.
+--- starter
+def are_anagrams(a, b):
+    pass
+
+def group_anagrams(words):
+    pass
+--- tests
+are_anagrams("listen", "silent") == True
+are_anagrams("Dormitory", "dirty room") == True
+are_anagrams("abc", "abd") == False
+are_anagrams("aab", "abb") == False
+group_anagrams(["eat", "tea", "tan", "ate", "nat", "bat"]) == [["ate", "eat", "tea"], ["bat"], ["nat", "tan"]]
+group_anagrams([]) == []
+group_anagrams(["a"]) == [["a"]]
+group_anagrams(["ab", "ba", "ab"]) == [["ab", "ab", "ba"]]
+--- hint
+The signature of a word is its letters in sorted order: "".join(sorted(word)). Every anagram has the same signature. Use a dictionary from signature to a list of words.
+--- solution
+def are_anagrams(a, b):
+    clean = lambda s: sorted(s.replace(" ", "").lower())
+    return clean(a) == clean(b)
+
+def group_anagrams(words):
+    groups = {}
+    for w in words:
+        key = "".join(sorted(w))
+        groups.setdefault(key, []).append(w)
+    return sorted(sorted(g) for g in groups.values())
+
+=== Bank Account Class
+Class: CS 5 - Programming II (Java & OOP)
+Tier: 2
+Minutes: 30
+--- prompt
+Write a class BankAccount (object-oriented programming in Python; the same ideas carry over to Java).
+
+BankAccount(owner, balance=0) creates an account. It should have:
+
+deposit(amount): adds money. If amount isn't positive, raise ValueError.
+
+withdraw(amount): removes money. If amount isn't positive, or is more than the balance, raise ValueError and leave the balance alone.
+
+get_balance(): returns the current balance.
+
+history(): returns a list of strings describing every successful transaction in order, like "deposit 50" and "withdraw 20".
+
+Also write transfer(source, target, amount), a plain function (not a method) that moves money between two accounts. If the withdrawal fails, nothing should change in either account.
+--- starter
+class BankAccount:
+    def __init__(self, owner, balance=0):
+        pass
+
+
+def transfer(source, target, amount):
+    pass
+--- tests
+> a = BankAccount("Ana", 100)
+a.get_balance() == 100
+> a.deposit(50)
+a.get_balance() == 150
+> a.withdraw(20)
+a.get_balance() == 130
+a.history() == ["deposit 50", "withdraw 20"]
+> b = BankAccount("Ben")
+b.get_balance() == 0
+> transfer(a, b, 30)
+a.get_balance() == 100 and b.get_balance() == 30
+raises(ValueError, a.withdraw, 1000)
+a.get_balance() == 100
+raises(ValueError, a.deposit, 0)
+raises(ValueError, a.withdraw, -5)
+> c = BankAccount("Cal", 10)
+raises(ValueError, transfer, c, b, 50)
+c.get_balance() == 10 and b.get_balance() == 30
+a.history()[-1] == "withdraw 30"
+--- hint
+Store self.owner, self.balance and self.log = [] in __init__. In withdraw, check the amount BEFORE changing anything. transfer can just call source.withdraw(amount) first and then target.deposit(amount): if withdraw raises, the deposit line never runs.
+--- solution
+class BankAccount:
+    def __init__(self, owner, balance=0):
+        self.owner = owner
+        self.balance = balance
+        self.log = []
+
+    def deposit(self, amount):
+        if amount <= 0:
+            raise ValueError("deposit must be positive")
+        self.balance += amount
+        self.log.append("deposit " + str(amount))
+
+    def withdraw(self, amount):
+        if amount <= 0 or amount > self.balance:
+            raise ValueError("invalid withdrawal")
+        self.balance -= amount
+        self.log.append("withdraw " + str(amount))
+
+    def get_balance(self):
+        return self.balance
+
+    def history(self):
+        return list(self.log)
+
+
+def transfer(source, target, amount):
+    source.withdraw(amount)
+    target.deposit(amount)

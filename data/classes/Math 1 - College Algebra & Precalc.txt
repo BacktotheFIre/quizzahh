@@ -1,0 +1,524 @@
+# quizzahh question file. The file name is the class name.
+#
+# Math 1: College Algebra & Precalculus (common first-year gen ed math).
+#
+# Each question looks like this (leave a blank line between questions):
+#
+#   Q: What is the powerhouse of the cell?
+#   Topic: Cells
+#   - Nucleus
+#   * Mitochondria        <- the star marks the correct answer
+#   - Ribosome
+#   - Golgi apparatus
+#   Why: Mitochondria make ATP, the cell's energy.
+#
+# Lines starting with # are ignored.
+
+# Which year of a computer science degree this class usually falls in (used by the year filter):
+Year: 1
+
+Q: What is 8 - 2 × 3 + 4?
+Topic: Order of Operations
+- 22
+* 6
+- 10
+- 18
+Why: Multiplication comes before addition and subtraction (PEMDAS). 2 × 3 = 6, so you get 8 - 6 + 4. Then go left to right: 8 - 6 = 2, and 2 + 4 = 6.
+
+Q: What is -3²?
+Topic: Order of Operations
+- 9
+* -9
+- 6
+- -6
+Why: The exponent applies only to the 3, not the negative sign, so it means -(3²) = -(9) = -9. If you want the negative squared, write (-3)², which is 9. This trips up a lot of people on exams.
+
+Q: Solve for x: 3x + 5 = 20
+Topic: Linear Equations
+- x = 25/3
+* x = 5
+- x = 15
+- x = 3
+Why: Undo things in reverse order. Subtract 5 from both sides to get 3x = 15, then divide both sides by 3 to get x = 5. Check: 3(5) + 5 = 20.
+
+Q: Solve for x: 2(x - 4) = x + 1
+Topic: Linear Equations
+- x = 5
+- x = 3
+* x = 9
+- x = -7
+Why: Distribute first: 2x - 8 = x + 1. Subtract x from both sides: x - 8 = 1. Add 8: x = 9. Check: 2(9 - 4) = 10, and 9 + 1 = 10.
+
+Q: What is the slope of the line through (1, 2) and (3, 8)?
+Topic: Lines & Slope
+- 2
+* 3
+- 6
+- 1/3
+Why: Slope is rise over run: (y2 - y1)/(x2 - x1) = (8 - 2)/(3 - 1) = 6/2 = 3. So the line goes up 3 for every 1 step to the right.
+
+Q: What is the y-intercept of the line y = -2x + 5?
+Topic: Lines & Slope
+- -2
+* 5
+- 2.5
+- -5
+Why: In slope-intercept form, y = mx + b, m is the slope and b is the y-intercept. Here m = -2 and b = 5, so the line crosses the y-axis at (0, 5).
+
+Q: A line has slope 2/3. What is the slope of a line perpendicular to it?
+Topic: Lines & Slope
+- 2/3
+- -2/3
+- 3/2
+* -3/2
+Why: Perpendicular slopes are negative reciprocals: flip the fraction and change the sign, so 2/3 becomes -3/2. Their product is -1. Parallel lines would have the same slope, 2/3.
+
+Q: Which equation is in point-slope form?
+Topic: Lines & Slope
+- y = mx + b
+* y - y1 = m(x - x1)
+- Ax + By = C
+- y = a(x - h)² + k
+Why: Point-slope form uses a known point (x1, y1) and the slope m. It's the fastest way to write a line's equation when you're given a point and a slope. y = mx + b is slope-intercept form, and Ax + By = C is standard form.
+
+Q: Which of these is NOT a function?
+Topic: Functions
+- y = x²
+- y = 3x - 1
+* x = 4 (a vertical line)
+- y = |x|
+Why: A function gives exactly one output for each input. The vertical line x = 4 has infinitely many y-values for the single input 4, so it fails the vertical line test. The others pass.
+
+Q: If f(x) = x² - 3x, what is f(4)?
+Topic: Functions
+- -4
+* 4
+- 28
+- 16
+Why: Plug in 4 everywhere you see x: f(4) = 4² - 3(4) = 16 - 12 = 4.
+
+Q: What is the domain of f(x) = √(x - 2)?
+Topic: Functions
+- All real numbers
+* All x greater than or equal to 2
+- All x greater than 2
+- All x except 2
+Why: You can't take the square root of a negative number (in the real numbers), so x - 2 must be at least 0, which means x is 2 or more. At x = 2 you get √0 = 0, which is fine.
+
+Q: What is the domain of f(x) = 1/(x - 5)?
+Topic: Functions
+- All real numbers
+- All x greater than 5
+* All real numbers except 5
+- Only x = 5
+Why: Division by zero is undefined. The denominator x - 5 is zero only when x = 5, so every other real number works.
+
+Q: If f(x) = 2x + 1 and g(x) = x², what is f(g(x))?
+Topic: Functions
+- (2x + 1)²
+* 2x² + 1
+- 2x³ + 1
+- x² + 2x + 1
+Why: Composition means plugging the inside function into the outside one. g(x) = x², so f(g(x)) = f(x²) = 2(x²) + 1 = 2x² + 1. Note that g(f(x)) would be (2x + 1)², which is different.
+
+Q: What is the inverse of f(x) = 3x - 6?
+Topic: Functions
+- 3x + 6
+* (x + 6)/3
+- 1/(3x - 6)
+- (x - 6)/3
+Why: Write y = 3x - 6, swap x and y to get x = 3y - 6, then solve for y: x + 6 = 3y, so y = (x + 6)/3. The inverse undoes the original: f multiplies by 3 and subtracts 6, so its inverse adds 6 and divides by 3.
+
+Q: Simplify x³ · x⁴
+Topic: Exponents & Radicals
+- x¹²
+* x⁷
+- 2x⁷
+- x
+Why: When you multiply powers with the same base, you add the exponents: x^(3 + 4) = x⁷. You multiply exponents only when raising a power to a power.
+
+Q: Simplify (x²)³
+Topic: Exponents & Radicals
+- x⁵
+* x⁶
+- x⁸
+- 3x²
+Why: A power raised to a power means you multiply the exponents: x^(2 · 3) = x⁶. Written out, that's x² · x² · x², which is six x's multiplied together.
+
+Q: What is 2⁻³?
+Topic: Exponents & Radicals
+- -8
+- -6
+* 1/8
+- 8
+Why: A negative exponent means take the reciprocal: 2⁻³ = 1/(2³) = 1/8. Negative exponents never make the number negative.
+
+Q: What is any nonzero number raised to the 0 power?
+Topic: Exponents & Radicals
+- 0
+* 1
+- The number itself
+- Undefined
+Why: Think of x³/x³: by the exponent rules that's x^(3 - 3) = x⁰, and anything divided by itself is 1. So x⁰ = 1 for any x that isn't 0.
+
+Q: Simplify √50
+Topic: Exponents & Radicals
+- 25
+- 10√5
+* 5√2
+- 2√5
+Why: Pull out the largest perfect square factor: 50 = 25 · 2, so √50 = √25 · √2 = 5√2.
+
+Q: What is 8 to the power 2/3?
+Topic: Exponents & Radicals
+- 16/3
+* 4
+- 2
+- 64
+Why: A fractional exponent means a root and a power. The bottom number is the root and the top is the power: (cube root of 8)² = 2² = 4.
+
+Q: Factor x² - 9
+Topic: Polynomials & Factoring
+- (x - 3)²
+* (x - 3)(x + 3)
+- (x - 9)(x + 1)
+- It can't be factored
+Why: This is a difference of squares: a² - b² = (a - b)(a + b). Here a = x and b = 3. Check by expanding: x² + 3x - 3x - 9 = x² - 9.
+
+Q: Factor x² + 5x + 6
+Topic: Polynomials & Factoring
+* (x + 2)(x + 3)
+- (x + 1)(x + 6)
+- (x + 5)(x + 1)
+- (x - 2)(x - 3)
+Why: Find two numbers that multiply to 6 (the constant) and add to 5 (the middle coefficient): 2 and 3. So you get (x + 2)(x + 3).
+
+Q: Expand (x + 3)²
+Topic: Polynomials & Factoring
+- x² + 9
+* x² + 6x + 9
+- x² + 3x + 9
+- 2x + 6
+Why: (x + 3)² means (x + 3)(x + 3). Using FOIL: x² + 3x + 3x + 9 = x² + 6x + 9. A very common mistake is writing x² + 9 and forgetting the middle term 2 · 3 · x.
+
+Q: Solve x² - 5x + 6 = 0
+Topic: Quadratics
+- x = -2 or x = -3
+* x = 2 or x = 3
+- x = 1 or x = 6
+- x = 5
+Why: Factor to (x - 2)(x - 3) = 0. If a product equals zero, one of the factors has to be zero, so x - 2 = 0 or x - 3 = 0, which gives x = 2 or x = 3.
+
+Q: What is the quadratic formula for ax² + bx + c = 0?
+Topic: Quadratics
+* x = (-b ± √(b² - 4ac)) / (2a)
+- x = (b ± √(b² + 4ac)) / (2a)
+- x = -b / (2a)
+- x = (-b ± √(b² - 4ac)) / a
+Why: It solves any quadratic, even ones that don't factor nicely. Memorize it exactly; the 2a goes under everything. Note that -b / (2a) on its own gives the x-coordinate of the vertex.
+
+Q: If the discriminant b² - 4ac is negative, how many real solutions does the quadratic have?
+Topic: Quadratics
+* None (it has two complex solutions)
+- One
+- Two
+- Infinitely many
+Why: The discriminant sits under the square root in the quadratic formula. Positive means two real solutions, zero means one (a repeated root), and negative means you'd need the square root of a negative number, so you get two complex solutions and the parabola never touches the x-axis.
+
+Q: What is the vertex of y = (x - 2)² + 3?
+Topic: Quadratics
+- (-2, 3)
+* (2, 3)
+- (2, -3)
+- (3, 2)
+Why: Vertex form is y = a(x - h)² + k with vertex (h, k). Watch the sign: (x - 2) means h = +2. So the vertex is (2, 3), the lowest point because a = 1 is positive.
+
+Q: Which way does the parabola y = -x² + 4 open?
+Topic: Quadratics
+- Upward
+* Downward
+- To the right
+- It's a straight line
+Why: The sign of the x² coefficient decides. Negative means it opens downward like a frown, with a maximum at the vertex (0, 4). Positive means it opens upward with a minimum.
+
+Q: What is i², where i is the imaginary unit?
+Topic: Quadratics
+- 1
+* -1
+- i
+- 0
+Why: i is defined as √(-1), so i² = -1. That's what lets us write solutions to equations like x² = -4: x = ±2i.
+
+Q: Solve the system: x + y = 10 and x - y = 2
+Topic: Systems of Equations
+- x = 4, y = 6
+* x = 6, y = 4
+- x = 5, y = 5
+- x = 8, y = 2
+Why: Add the two equations to eliminate y: 2x = 12, so x = 6. Then plug back in: 6 + y = 10, so y = 4. Check the second equation: 6 - 4 = 2.
+
+Q: A system of two linear equations whose lines are parallel (different y-intercepts) has how many solutions?
+Topic: Systems of Equations
+* No solutions
+- Exactly one
+- Exactly two
+- Infinitely many
+Why: A solution is where the lines cross. Parallel lines never meet, so there's no solution (an inconsistent system). If the two equations described the same line, there'd be infinitely many solutions.
+
+Q: Solve -2x > 6
+Topic: Inequalities & Absolute Value
+- x > -3
+* x < -3
+- x > 3
+- x < 3
+Why: Divide both sides by -2, and when you multiply or divide an inequality by a negative number, flip the sign. So x < -3. Check with x = -4: -2(-4) = 8, which is greater than 6.
+
+Q: Solve |x - 3| = 5
+Topic: Inequalities & Absolute Value
+- x = 8 only
+* x = 8 or x = -2
+- x = 2 or x = -8
+- No solution
+Why: Absolute value is distance from zero, so x - 3 is either 5 or -5. x - 3 = 5 gives x = 8, and x - 3 = -5 gives x = -2. Both are 5 units away from 3.
+
+Q: Solve |x| < 4
+Topic: Inequalities & Absolute Value
+- x < 4
+- x < -4 or x > 4
+* -4 < x < 4
+- x > -4
+Why: |x| < 4 means x is less than 4 units from zero, so it's between -4 and 4. A "greater than" absolute value inequality would split into two pieces instead.
+
+Q: What is log base 2 of 8?
+Topic: Exponentials & Logarithms
+- 4
+* 3
+- 16
+- 2
+Why: A log asks what exponent you need: 2 to what power gives 8? 2³ = 8, so log base 2 of 8 = 3. Logs are inverses of exponentials.
+
+Q: What is log base 10 of 1000?
+Topic: Exponentials & Logarithms
+- 100
+* 3
+- 10
+- 4
+Why: 10³ = 1000, so the answer is 3. Base-10 logs basically count how many zeros: log base 10 of 100 is 2, and of 1,000,000 is 6.
+
+Q: Which log rule is correct?
+Topic: Exponentials & Logarithms
+* log(a·b) = log(a) + log(b)
+- log(a + b) = log(a) · log(b)
+- log(a·b) = log(a) · log(b)
+- log(a/b) = log(a) / log(b)
+Why: Logs turn multiplication into addition, because exponents add when you multiply powers. The quotient rule is log(a/b) = log a - log b, and the power rule is log(aⁿ) = n · log a. There is no simple rule for log(a + b).
+
+Q: Solve 2 to the x power = 32
+Topic: Exponentials & Logarithms
+- x = 16
+* x = 5
+- x = 6
+- x = 4
+Why: Write both sides with the same base: 32 = 2⁵, so 2 to the x = 2⁵, which means x = 5. If they can't share a base, take the log of both sides instead.
+
+Q: What is ln(e)?
+Topic: Exponentials & Logarithms
+- 0
+* 1
+- e
+- 2.718
+Why: ln is the natural log, which is log base e (e is about 2.718). It asks what power of e gives e, and the answer is 1. Also, ln(1) = 0 because e⁰ = 1.
+
+Q: A population of 100 doubles every 3 years. How big is it after 9 years?
+Topic: Exponentials & Logarithms
+- 300
+- 600
+* 800
+- 900
+Why: 9 years is 3 doubling periods: 100 → 200 → 400 → 800. As a formula: P = 100 · 2^(t/3), with t = 9, gives 100 · 2³ = 800. Exponential growth multiplies; it doesn't add.
+
+Q: Simplify (x² - 4)/(x - 2), for x not equal to 2
+Topic: Rational Expressions
+- x - 2
+* x + 2
+- x² - 2
+- 2
+Why: Factor the top as a difference of squares: (x - 2)(x + 2). Cancel the common (x - 2) factor to get x + 2. You can only cancel factors, never terms that are added.
+
+Q: In a right triangle with legs 6 and 8, how long is the hypotenuse?
+Topic: Trigonometry
+- 14
+* 10
+- 12
+- 48
+Why: Pythagorean theorem: a² + b² = c². 36 + 64 = 100, so c = √100 = 10. A 6-8-10 triangle is a scaled-up 3-4-5 triangle.
+
+Q: In SOH CAH TOA, what is tangent of an angle equal to?
+Topic: Trigonometry
+- Opposite / Hypotenuse
+- Adjacent / Hypotenuse
+* Opposite / Adjacent
+- Hypotenuse / Opposite
+Why: SOH: sine = opposite/hypotenuse. CAH: cosine = adjacent/hypotenuse. TOA: tangent = opposite/adjacent. Opposite and adjacent are measured from the angle you're looking at.
+
+Q: What is sin(30 degrees)?
+Topic: Trigonometry
+* 1/2
+- √3/2
+- √2/2
+- 1
+Why: In a 30-60-90 triangle the sides are in the ratio 1 : √3 : 2. The side opposite the 30-degree angle is 1 and the hypotenuse is 2, so sin 30 = 1/2. And cos 30 = √3/2.
+
+Q: How many radians are in 180 degrees?
+Topic: Trigonometry
+- 2 pi
+* pi
+- pi/2
+- 180
+Why: A full circle is 360 degrees, which is 2 pi radians, so 180 degrees is pi radians. To convert degrees to radians, multiply by pi/180. For example, 90 degrees is pi/2.
+
+Q: Which identity is always true?
+Topic: Trigonometry
+* sin²(x) + cos²(x) = 1
+- sin(x) + cos(x) = 1
+- tan(x) = cos(x)/sin(x)
+- sin(2x) = 2 sin(x)
+Why: This is the Pythagorean identity, from the unit circle: a point (cos x, sin x) is 1 unit from the center, so cos² + sin² = 1. tan is sin/cos, not cos/sin, and sin(2x) = 2 sin x cos x.
+
+Q: What is the 10th term of the arithmetic sequence 3, 7, 11, 15, ...?
+Topic: Sequences
+- 40
+* 39
+- 43
+- 30
+Why: The common difference is 4. The formula for the nth term is a + (n - 1)d = 3 + 9 · 4 = 39. The first term already counts as one, which is why it's 9 jumps, not 10.
+
+Q: What is the next term in the geometric sequence 2, 6, 18, ...?
+Topic: Sequences
+- 24
+- 36
+* 54
+- 72
+Why: Each term is multiplied by 3 (the common ratio), so the next is 18 · 3 = 54. Arithmetic sequences add the same amount each time; geometric sequences multiply by the same amount.
+
+Q: What is the distance between the points (0, 0) and (3, 4)?
+Topic: Lines & Slope
+- 7
+* 5
+- 12
+- 1
+Why: The distance formula comes straight from the Pythagorean theorem: √((3 - 0)² + (4 - 0)²) = √(9 + 16) = √25 = 5.
+
+# ---- Must-know formulas and facts for this class ----
+
+Q: Formula check: what is the slope-intercept form of a line?
+Topic: Formulas
+* y = mx + b
+- y − y₁ = m(x − x₁)
+- Ax + By = C
+- y = a(x − h)² + k
+Why: m is the slope and b is the y-intercept. Point-slope form is y − y₁ = m(x − x₁), standard form is Ax + By = C, and y = a(x − h)² + k is the vertex form of a parabola.
+
+Q: Formula check: what is the slope between points (x₁, y₁) and (x₂, y₂)?
+Topic: Formulas
+* m = (y₂ − y₁) / (x₂ − x₁)
+- m = (x₂ − x₁) / (y₂ − y₁)
+- m = (y₂ + y₁) / (x₂ + x₁)
+- m = (y₂ − y₁) × (x₂ − x₁)
+Why: Slope is rise over run: the change in y divided by the change in x. Remember "y over x" because y is the vertical direction.
+
+Q: Formula check: what is the distance between points (x₁, y₁) and (x₂, y₂)?
+Topic: Formulas
+* d = √((x₂ − x₁)² + (y₂ − y₁)²)
+- d = (x₂ − x₁)² + (y₂ − y₁)²
+- d = √((x₂ + x₁)² + (y₂ + y₁)²)
+- d = |x₂ − x₁| + |y₂ − y₁|
+Why: It's the Pythagorean theorem: the horizontal and vertical gaps are the legs of a right triangle, and the distance is the hypotenuse. |x₂ − x₁| + |y₂ − y₁| is the "taxicab" distance, which is a different measure.
+
+Q: Formula check: what is the midpoint of the segment from (x₁, y₁) to (x₂, y₂)?
+Topic: Formulas
+* ((x₁ + x₂)/2, (y₁ + y₂)/2)
+- ((x₂ − x₁)/2, (y₂ − y₁)/2)
+- (x₁ + x₂, y₁ + y₂)
+- ((x₁ · x₂)/2, (y₁ · y₂)/2)
+Why: The midpoint averages the two x-coordinates and the two y-coordinates. Half of the difference gives you how far it is to the midpoint, not where the midpoint is.
+
+Q: Formula check: what is the vertex x-coordinate of the parabola y = ax² + bx + c?
+Topic: Formulas
+* x = −b / (2a)
+- x = b / (2a)
+- x = −2a / b
+- x = −b / a
+Why: The vertex sits halfway between the roots, and the quadratic formula's roots are centered at −b/(2a). Plug that x back into the equation to get the vertex's y-coordinate.
+
+Q: Formula check: what is the standard equation of a circle with center (h, k) and radius r?
+Topic: Formulas
+* (x − h)² + (y − k)² = r²
+- (x + h)² + (y + k)² = r²
+- (x − h)² + (y − k)² = r
+- (x − h) + (y − k) = r²
+Why: Every point on the circle is distance r from the center, so this is just the distance formula squared. A center of (2, −3) gives (x − 2)² + (y + 3)² = r².
+
+Q: Formula check: which is the change-of-base formula for logarithms?
+Topic: Formulas
+* log_b(x) = ln(x) / ln(b)
+- log_b(x) = ln(b) / ln(x)
+- log_b(x) = ln(x) − ln(b)
+- log_b(x) = ln(x) · ln(b)
+Why: It lets you compute any log with the ln or log button on a calculator. For example, log₂(10) = ln 10 / ln 2 ≈ 3.32.
+
+Q: Formula check: log(xy) equals what?
+Topic: Formulas
+* log x + log y
+- log x · log y
+- log x − log y
+- y · log x
+Why: Logs turn multiplication into addition. The other rules are log(x/y) = log x − log y and log(xⁿ) = n log x. There is no rule that simplifies log(x + y).
+
+Q: Formula check: what is the continuous compound interest formula?
+Topic: Formulas
+* A = Pe^(rt)
+- A = P(1 + r)^t
+- A = P(1 + rt)
+- A = Pe^(r/t)
+Why: P is the principal, r the annual rate (as a decimal), and t the time in years. P(1 + r/n)^(nt) is compounding n times per year, and P(1 + rt) is simple interest.
+
+Q: Formula check: what is the nth term of an arithmetic sequence with first term a₁ and common difference d?
+Topic: Formulas
+* aₙ = a₁ + (n − 1)d
+- aₙ = a₁ + nd
+- aₙ = a₁ · d^(n − 1)
+- aₙ = a₁ · (n − 1) + d
+Why: You start at a₁ and add d one fewer time than the term number. For 3, 7, 11, ..., a₁₀ = 3 + 9·4 = 39. a₁ · r^(n − 1) is the geometric version.
+
+Q: Formula check: what is the sum of the first n terms of a geometric series with first term a and ratio r ≠ 1?
+Topic: Formulas
+* Sₙ = a(1 − rⁿ) / (1 − r)
+- Sₙ = a(1 − r) / (1 − rⁿ)
+- Sₙ = n(a + r) / 2
+- Sₙ = a / (1 − r)
+Why: a/(1 − r) is the infinite sum, which only works when |r| < 1. n(a₁ + aₙ)/2 is the arithmetic series sum.
+
+Q: Formula check: which is the Pythagorean identity?
+Topic: Formulas
+* sin²θ + cos²θ = 1
+- sin θ + cos θ = 1
+- sin²θ − cos²θ = 1
+- tan²θ + 1 = cos²θ
+Why: It comes from a point (cos θ, sin θ) on the unit circle, where x² + y² = 1. Dividing by cos²θ gives the related identity tan²θ + 1 = sec²θ.
+
+Q: Formula check: how do you convert an angle from degrees to radians?
+Topic: Formulas
+* Multiply by π/180
+- Multiply by 180/π
+- Divide by 2π
+- Multiply by 2π/180
+Why: 180° = π radians, so 1° = π/180 radians. Example: 90° × π/180 = π/2. To go back from radians to degrees, multiply by 180/π.
+
+Q: Formula check: what are the arc length and the sector area for radius r and angle θ in radians?
+Topic: Formulas
+* s = rθ and A = (1/2)r²θ
+- s = 2πrθ and A = πr²θ
+- s = rθ/2 and A = r²θ
+- s = r²θ and A = (1/2)rθ
+Why: These only work in radians, which is one big reason calculus uses radians. A full circle (θ = 2π) gives s = 2πr and A = πr², as expected.

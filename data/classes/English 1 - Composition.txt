@@ -1,0 +1,412 @@
+# quizzahh question file. The file name is the class name.
+#
+# English 1: English Composition (first-year writing gen ed).
+#
+# Each question looks like this (leave a blank line between questions):
+#
+#   Q: What is the powerhouse of the cell?
+#   Topic: Cells
+#   - Nucleus
+#   * Mitochondria        <- the star marks the correct answer
+#   - Ribosome
+#   - Golgi apparatus
+#   Why: Mitochondria make ATP, the cell's energy.
+#
+# Lines starting with # are ignored.
+
+# Which year of a computer science degree this class usually falls in (used by the year filter):
+Year: 1
+
+Q: What is a thesis statement?
+Topic: Essay Structure
+- The opening sentence of the essay, written to grab the reader's attention
+* One or two sentences that state the essay's main claim or argument
+- A short summary of the sources the essay relies on most heavily
+- The first sentence of each body paragraph, stating that paragraph's point
+Why: The thesis tells the reader exactly what you're arguing and usually previews how. It typically comes at the end of the introduction. Everything else in the essay should support it.
+
+Q: Which is the strongest thesis statement?
+Topic: Essay Structure
+- Social media is used by billions of people around the world every single day.
+- In this essay, I will discuss the many effects of social media on college students.
+* Colleges should limit first-year phone use in class because it lowers attention, grades, and participation.
+- Social media has both positive and negative effects on students, and both deserve attention.
+Why: A strong thesis is specific, arguable (someone could disagree), and previews the reasons. The others are just facts, announcements of the topic, or too vague to argue.
+
+Q: What is a topic sentence?
+Topic: Essay Structure
+- The last sentence of a body paragraph, which links to the next paragraph's point
+* The sentence, usually first in a body paragraph, that states that paragraph's main point
+- The sentence in the introduction that states the whole essay's main argument
+- The sentence that introduces a quotation and names its author
+Why: Each body paragraph should focus on one idea that supports the thesis, and the topic sentence announces it. If you read only your topic sentences, they should outline your whole argument.
+
+Q: What should a good introduction usually do?
+Topic: Essay Structure
+- Lay out every piece of evidence up front so the reader trusts the argument from the start
+* Hook the reader, give some context, and end with the thesis
+- Restate the assignment prompt so the reader knows what question the essay answers
+- Summarize each body paragraph in order, ending with the conclusion
+Why: A common shape is a funnel: start with an interesting hook (a question, fact or short story), narrow to background on the topic, and end with your specific thesis.
+
+Q: What should a conclusion do?
+Topic: Essay Structure
+- Introduce a new main argument that leaves the reader something to think about
+* Restate the thesis in new words, tie the points together, and show why it matters
+- Repeat the introduction word for word so the essay comes full circle
+- Summarize each source used and list where it appeared in the essay
+Why: A conclusion answers "so what?" It reinforces your argument and leaves the reader with an implication, a call to action, or a broader connection. Introducing new major evidence at the end confuses readers.
+
+Q: What is a transition?
+Topic: Essay Structure
+- A shift from one essay topic to a completely new one partway through
+* A word or phrase that connects ideas, like "however," "for example," or "as a result"
+- A sentence that introduces a quotation and names its source
+- The final sentence of the introduction, which states the essay's thesis
+Why: Transitions show how ideas relate: contrast (however), addition (furthermore), cause and effect (therefore), or examples (for instance). They make writing flow instead of feeling like a list of separate points.
+
+Q: What is a counterargument, and why include one?
+Topic: Argument & Rhetoric
+- A second argument that supports your thesis from a different angle
+* An opposing view you acknowledge and then answer, which makes your argument more convincing
+- An opposing view you mention briefly without responding, so the essay seems balanced
+- A point in your own essay that contradicts your thesis by mistake
+Why: Addressing the other side shows you've thought it through and builds trust. The usual move is to present the opposing view fairly, then refute it or explain why your position still holds (the rebuttal).
+
+Q: Appealing to an audience's emotions is called...
+Topic: Argument & Rhetoric
+- Ethos
+* Pathos
+- Logos
+- Kairos
+Why: Aristotle's three appeals: ethos is credibility and character, pathos is emotion, and logos is logic and evidence. A heartbreaking story about one person affected by a policy is pathos. Kairos means timing, the right moment for an argument.
+
+Q: Using statistics, data, and reasoning to persuade is which appeal?
+Topic: Argument & Rhetoric
+- Ethos
+- Pathos
+* Logos
+- Bathos
+Why: Logos is the appeal to logic: facts, numbers, cause and effect, and clear reasoning. Strong academic arguments lean heavily on logos, supported by credible sources (which also builds ethos).
+
+Q: A writer mentions they're a nurse with 15 years of ER experience before discussing hospital staffing. Which appeal is this?
+Topic: Argument & Rhetoric
+* Ethos
+- Pathos
+- Logos
+- None of these
+Why: Ethos is credibility. Showing expertise, fairness or good character makes readers trust what you say. In essays, you also build ethos by citing reliable sources and writing carefully.
+
+Q: "You can't trust her argument about climate policy; she failed chemistry in high school." What fallacy is this?
+Topic: Logical Fallacies
+* Ad hominem
+- Straw man
+- Slippery slope
+- Bandwagon
+Why: Ad hominem attacks the person instead of the argument. Whether her reasoning is good has nothing to do with her old grades. Respond to the claim itself.
+
+Q: Misrepresenting someone's argument as weaker or more extreme so it's easier to attack is called...
+Topic: Logical Fallacies
+- Ad hominem
+* Straw man
+- Red herring
+- False dilemma
+Why: For example, if someone says "we should reduce homework," a straw man response is "so you want students to never learn anything?" It knocks down a made-up version of the argument, not the real one.
+
+Q: "If we let students redo one test, soon nobody will study and degrees will be worthless." What fallacy is this?
+Topic: Logical Fallacies
+- Hasty generalization
+* Slippery slope
+- Ad hominem
+- Appeal to authority
+Why: A slippery slope claims one step will inevitably lead to an extreme outcome, without evidence for each link in the chain.
+
+Q: "You're either with us or against us." What fallacy is this?
+Topic: Logical Fallacies
+- Bandwagon
+* False dilemma (either/or)
+- Slippery slope
+- Straw man
+Why: A false dilemma presents only two options when more exist. Real situations usually have middle ground or other choices.
+
+Q: "Everyone's buying this phone, so it must be the best." What fallacy is this?
+Topic: Logical Fallacies
+* Bandwagon
+- Red herring
+- Ad hominem
+- Post hoc
+Why: Bandwagon (appeal to popularity) assumes something is true or good because lots of people believe or do it. Popularity isn't evidence of quality.
+
+Q: "I met two rude people from that city, so everyone there is rude." What fallacy is this?
+Topic: Logical Fallacies
+- Slippery slope
+* Hasty generalization
+- Ad hominem
+- False cause
+Why: A hasty generalization draws a broad conclusion from too little evidence. Two people can't represent a whole city. Good arguments need enough representative examples or data.
+
+Q: Which sentence contains a comma splice?
+Topic: Grammar & Punctuation
+- I studied all night, but I still felt nervous.
+* I studied all night, I still felt nervous.
+- I studied all night; I still felt nervous.
+- Although I studied all night, I still felt nervous.
+Why: A comma splice joins two complete sentences with only a comma. Fix it with a period, a semicolon, a comma plus a conjunction (FANBOYS: for, and, nor, but, or, yet, so), or by making one part dependent.
+
+Q: Which sentence uses a semicolon correctly?
+Topic: Grammar & Punctuation
+- I need three things; pens, paper, and coffee.
+* The library was closed; we studied at the cafe instead.
+- Because it rained all morning; the game was canceled.
+- We wanted to study at the library; but it was closed.
+Why: A semicolon joins two independent clauses (each could be its own sentence) that are closely related. For introducing a list, use a colon. "Because it rained" can't stand alone, so it can't go before a semicolon.
+
+Q: Which is correct?
+Topic: Grammar & Punctuation
+- The dog wagged it's tail.
+* The dog wagged its tail.
+- The dog wagged its' tail.
+- The dog wagged it is tail.
+Why: "It's" always means "it is" or "it has." "Its" is the possessive, with no apostrophe, just like his and hers. Quick test: if "it is" doesn't fit, use "its." "Its'" is never correct.
+
+Q: Which sentence is correct?
+Topic: Grammar & Punctuation
+- Their going to submit there essays over there.
+* They're going to submit their essays over there.
+- There going to submit they're essays over their.
+- They're going to submit there essays over their.
+Why: They're = they are. Their = belonging to them. There = a place, or as in "there is." Mixing these up is one of the most noticed errors in college writing.
+
+Q: Which sentence uses "affect" and "effect" correctly?
+Topic: Grammar & Punctuation
+* Lack of sleep can affect your grades; the effect can be serious.
+- Lack of sleep can effect your grades; the affect can be serious.
+- Lack of sleep can affect your grades; the affect can be serious.
+- Lack of sleep can effect your grades; the effect can be serious.
+Why: Usually affect is the verb (to influence) and effect is the noun (the result). Memory trick: Affect = Action, Effect = End result.
+
+Q: Which sentence has correct subject-verb agreement?
+Topic: Grammar & Punctuation
+- The list of assignments are on the board.
+* The list of assignments is on the board.
+- The lists of assignments is on the board.
+- The list of assignments were on the board.
+Why: The subject is "list" (singular), not "assignments," which is part of the phrase "of assignments." So the verb is singular: is. Ignore the phrase between the subject and the verb when checking agreement.
+
+Q: Which sentence has a dangling modifier?
+Topic: Grammar & Punctuation
+* Walking to class, the rain soaked my backpack.
+- Walking to class, I got my backpack soaked by the rain.
+- The rain soaked my backpack while I walked to class.
+- My backpack got soaked as I walked to class.
+Why: "Walking to class" should describe whoever comes right after the comma, and the rain wasn't walking to class. Fix it by making the person doing the action the subject: "Walking to class, I..."
+
+Q: Which sentence uses parallel structure?
+Topic: Grammar & Punctuation
+- She likes hiking, to swim, and biking.
+* She likes hiking, swimming, and biking.
+- She likes to hike, swimming, and to bike.
+- She likes hike, swim, and biking.
+Why: Items in a list or comparison should share the same grammatical form, here all "-ing" words. Parallel structure makes sentences clearer and easier to read.
+
+Q: Which sentence is in the passive voice?
+Topic: Grammar & Punctuation
+- The committee approved the budget.
+* The budget was approved by the committee.
+- The committee had approved the budget.
+- The committee is approving the budget.
+Why: In passive voice the subject receives the action ("was approved by"). Active voice ("The committee approved") is usually clearer and more direct, so most writing instructors prefer it unless the actor is unknown or unimportant.
+
+Q: Which shows the correct possessive for one student and for several students?
+Topic: Grammar & Punctuation
+- student's / students's
+* student's / students'
+- students' / student's
+- students / students
+Why: For a singular noun, add 's: the student's essay. For a plural noun ending in s, add just an apostrophe: the students' essays. Plurals that don't end in s still take 's: the children's books.
+
+Q: What is a run-on (fused) sentence?
+Topic: Grammar & Punctuation
+- Any sentence long enough to be confusing, even if it's punctuated correctly
+* Two independent clauses joined with no punctuation or conjunction
+- Two independent clauses joined with only a comma
+- A sentence that's missing either its subject or its verb
+Why: "I was tired I went to bed" is a run-on. Length doesn't matter: a long sentence can be perfectly correct, and a short one can be a run-on. Fix it the same ways as a comma splice.
+
+Q: What is a sentence fragment?
+Topic: Grammar & Punctuation
+* A group of words punctuated as a sentence but missing a subject, verb, or complete thought
+- Two complete sentences joined together with only a comma between them
+- A very short sentence, like "She left.", that should be combined with another
+- A sentence that starts with a conjunction like "and" or "but"
+Why: "Because I forgot my laptop." is a fragment: it begins with a subordinating word and never finishes the thought. Attach it to a complete sentence: "I couldn't take notes because I forgot my laptop."
+
+Q: What is plagiarism?
+Topic: Research & Citation
+- Using any outside source in your essay, even with a citation
+* Presenting someone else's words or ideas as your own without proper credit
+- Paraphrasing a source in your own words, even with a citation
+- Writing about a topic that someone else has already written about
+Why: It includes copying text without quotation marks, paraphrasing without a citation, and submitting work someone else wrote, including AI-generated work if your course doesn't allow it. Penalties range from failing the assignment to expulsion, so cite whenever you use someone else's words or ideas.
+
+Q: What's the difference between a paraphrase and a summary?
+Topic: Research & Citation
+- A summary restates one passage at about the same length; a paraphrase condenses the main points
+* A paraphrase restates one passage in your words at similar length; a summary condenses the main points
+- They're the same thing; "summary" is just the term used in APA style
+- A summary must use quotation marks, while a paraphrase never needs a citation
+Why: Both use your own words and sentence structure, and both still need a citation, because the ideas aren't yours. Changing just a few words of the original is "patchwriting" and can count as plagiarism.
+
+Q: When should you use a direct quotation?
+Topic: Research & Citation
+- For every piece of evidence, since quotes are more trustworthy than paraphrases
+* When the exact wording matters, like a striking phrase, a definition, or language you analyze
+- Only in the introduction, to hook the reader with someone else's words
+- Whenever a source is hard to paraphrase, so long quotes save you time
+Why: Too many quotes make an essay feel like a collage of other people's words. Quote sparingly, introduce each quote, and explain how it supports your point (sometimes called a "quote sandwich").
+
+Q: What does an MLA in-text citation usually look like?
+Topic: Research & Citation
+- (2020, Smith)
+* (Smith 23)
+- (Smith, 2020, p. 23)
+- [1]
+Why: MLA uses the author's last name and the page number, with no comma: (Smith 23). The full source information goes on the Works Cited page at the end. MLA is common in English and humanities classes.
+
+Q: What does an APA in-text citation usually look like?
+Topic: Research & Citation
+- (Smith 23)
+* (Smith, 2020, p. 23)
+- (Smith, p. 23, 2020)
+- (2020, Smith, 23)
+Why: APA emphasizes the date because science and social science research ages quickly: author, year, and page for direct quotes. The full list at the end is called References. APA is common in psychology, education, and nursing.
+
+Q: In MLA format, what is the list of sources at the end called?
+Topic: Research & Citation
+- References
+* Works Cited
+- Bibliography of Sources
+- Endnotes
+Why: MLA calls it Works Cited, while APA calls it References. Both are alphabetized by the author's last name and use a hanging indent.
+
+Q: Which source is generally the most credible for an academic paper?
+Topic: Research & Citation
+- A random blog post with no author
+- A social media post
+* A peer-reviewed journal article
+- An anonymous wiki page
+Why: Peer-reviewed articles are checked by other experts before publication. Your school library's databases are the best place to find them. Wikipedia can help you get started, but cite the sources it lists, not Wikipedia itself.
+
+Q: What is a primary source?
+Topic: Research & Citation
+* An original, firsthand source, like a diary, interview, speech, original data, or a novel you analyze
+- A source that interprets or analyzes events, like a textbook or a historian's article
+- The source you rely on most in an essay, usually cited in the introduction
+- Any peer-reviewed journal article, since it has been checked by experts
+Why: Primary sources are direct evidence or the original work. Secondary sources analyze or interpret them, like a historian's book about letters from the Civil War. Strong papers often use both.
+
+Q: What's the difference between revising and proofreading?
+Topic: Writing Process
+- Proofreading rethinks the argument, organization, and evidence; revising fixes spelling and punctuation
+* Revising rethinks argument, organization and evidence; proofreading fixes spelling and punctuation
+- They're the same step, just done by different people: revising by you and proofreading by a peer
+- Revising happens only after the essay is graded, while proofreading happens before you submit
+Why: Revise first, since there's no point polishing sentences you might delete. Then proofread last. Reading your essay out loud catches a surprising number of errors.
+
+Q: Which is an example of prewriting?
+Topic: Writing Process
+- Proofreading the final draft for commas and spelling errors
+* Brainstorming, freewriting, or outlining before you draft
+- Formatting the Works Cited page and in-text citations
+- Revising the thesis after getting feedback on a draft
+Why: Prewriting helps you generate and organize ideas before you start drafting. A quick outline of your thesis and topic sentences can save hours of rewriting later.
+
+Q: What is the "audience" of a piece of writing?
+Topic: Argument & Rhetoric
+- Only the instructor who will grade the assignment
+* The readers the writing is meant for, which shapes its tone, vocabulary and evidence
+- The author's own voice and point of view in the piece
+- The people whose work you cite as sources in the paper
+Why: An argument written for scientists looks different from one written for middle schoolers or voters. In college essays, you can usually assume an educated reader who doesn't know your topic as well as you do.
+
+Q: What is a rhetorical analysis essay about?
+Topic: Argument & Rhetoric
+- Arguing your own opinion on a topic, using evidence from several sources
+* Analyzing how an author persuades an audience, through appeals, structure and word choice
+- Summarizing the main points of a text so a reader doesn't need to read it
+- Comparing two authors' arguments to decide which one is more correct
+Why: You're not saying whether you agree. You're explaining what strategies the author uses (ethos, pathos, logos, tone, evidence) and how effective they are for that audience and purpose. It's a very common first-year composition assignment.
+
+Q: Which is the best way to introduce a quote?
+Topic: Research & Citation
+- Drop the quote in as its own sentence, so it speaks for itself
+* Use a signal phrase, like "As psychologist Jean Twenge argues," then explain the quote after
+- Put the quote in italics or bold so readers know it came from a source
+- Open the paragraph with the quote, then move straight on to your next point
+Why: A "dropped quote" leaves readers confused about who's speaking and why it matters. Signal phrases give credit and context, and your follow-up explanation connects the quote to your argument.
+
+# ---- Must-know formulas and facts for this class ----
+
+Q: Must-know: what are Aristotle's three rhetorical appeals?
+Topic: Must-Know Facts
+* Ethos (credibility), pathos (emotion), logos (logic)
+- Ethos (emotion), pathos (logic), logos (credibility)
+- Ethos (logic), pathos (credibility), logos (emotion)
+- Kairos (timing), telos (purpose), mythos (story)
+Why: A doctor citing their experience uses ethos, a story about a sick child uses pathos, and statistics use logos. Kairos, the right moment, is sometimes called a fourth appeal.
+
+Q: Must-know: what does a basic MLA in-text citation look like?
+Topic: Must-Know Facts
+* (Smith 42)
+- (Smith, 2020, p. 42)
+- (Smith, 42)
+- [42] Smith
+Why: MLA uses author and page, with no comma. APA uses author, year, and page: (Smith, 2020, p. 42). Numbered brackets are IEEE style, used in engineering and CS.
+
+Q: Must-know: which sentence types match these structures: one independent clause; two joined by a conjunction; one independent plus one dependent?
+Topic: Must-Know Facts
+* Simple, compound, complex
+- Complex, simple, compound
+- Compound, complex, simple
+- Simple, complex, compound-complex
+Why: "I studied." is simple. "I studied, and I passed." is compound. "Because I studied, I passed." is complex. A compound-complex sentence has two independent clauses plus a dependent one.
+
+Q: Must-know: what are the 7 coordinating conjunctions?
+Topic: Must-Know Facts
+* FANBOYS: for, and, nor, but, or, yet, so
+- because, although, since, while, if, when, unless
+- however, therefore, moreover, thus, also, then, still
+- and, but, or, because, so, if, then
+Why: Use a comma before a FANBOYS word when it joins two independent clauses. Words like "however" are conjunctive adverbs, which need a semicolon before them to join clauses.
+
+Q: Must-know: what are the parts of a body paragraph in the PIE / MEAL model?
+Topic: Must-Know Facts
+* Main point, evidence, analysis, link back to the thesis
+- Introduction, body, conclusion, works cited
+- Hook, context, thesis, preview
+- Claim, counterclaim, rebuttal, summary
+Why: Students often stop after the evidence. Analysis, explaining HOW the evidence proves your point, is what earns the most credit.
+
+Q: Must-know: what are the 5 most common logical fallacies to spot?
+Topic: Must-Know Facts
+* Ad hominem, straw man, slippery slope, false dilemma, hasty generalization
+- Ethos, pathos, logos, kairos, telos
+- Simile, metaphor, hyperbole, irony, alliteration
+- Thesis, topic sentence, evidence, analysis, transition
+Why: Attacking the person, distorting their argument, predicting an unlikely chain of disasters, offering only two choices, and generalizing from a few examples. Others are bandwagon, appeal to authority and false cause.
+
+Q: Must-know: what are the parts of an MLA Works Cited entry for a book, in order?
+Topic: Must-Know Facts
+* Author. Title. Publisher, Year.
+- Title. Author. Year. Publisher.
+- Author (Year). Title. Publisher.
+- Publisher. Author. Title, Year.
+Why: For example: Twenge, Jean M. iGen. Atria Books, 2017. APA puts the year in parentheses right after the author: Twenge, J. M. (2017). iGen. Atria Books.
+
+Q: Must-know: what are the steps of the writing process?
+Topic: Must-Know Facts
+* Prewriting, drafting, revising, editing, publishing
+- Drafting, editing, prewriting, revising, publishing
+- Researching, outlining, typing, printing, submitting
+- Prewriting, editing, drafting, publishing, revising
+Why: Revising is big-picture work (argument and structure), and editing is sentence-level work (grammar and spelling). Doing them in that order saves you from polishing sentences you later cut.

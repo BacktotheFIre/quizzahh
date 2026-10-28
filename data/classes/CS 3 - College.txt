@@ -1,0 +1,692 @@
+# quizzahh question file. The file name is the class name.
+#
+# College-level Computer Science (undergraduate core courses).
+#
+# Each question looks like this (leave a blank line between questions):
+#
+#   Q: What is the powerhouse of the cell?
+#   Topic: Cells
+#   - Nucleus
+#   * Mitochondria        <- the star marks the correct answer
+#   - Ribosome
+#   - Golgi apparatus
+#   Why: Mitochondria make ATP, the cell's energy.
+#
+# Lines starting with # are ignored.
+
+# Which year of a computer science degree this class usually falls in (used by the year filter):
+Year: 4
+
+Q: Using the Master Theorem, what is the solution to T(n) = 2T(n/2) + n?
+Topic: Algorithms
+- Θ(n)
+* Θ(n log n)
+- Θ(n²)
+- Θ(n log² n)
+Why: Here a = 2 and b = 2, so n^(log_b a) = n. The extra work f(n) = n matches that exactly, which is Master Theorem case 2, so you multiply by a log factor: Θ(n log n). This is merge sort's recurrence.
+
+Q: Using the Master Theorem, what is the solution to T(n) = 8T(n/2) + n²?
+Topic: Algorithms
+- Θ(n² log n)
+- Θ(n²)
+* Θ(n³)
+- Θ(n log n)
+Why: a = 8 and b = 2, so n^(log₂ 8) = n³. The extra work n² grows polynomially slower than n³, so the recursion dominates (case 1) and T(n) = Θ(n³). This is naive divide-and-conquer matrix multiplication.
+
+Q: What is the lower bound on the worst-case number of comparisons for any comparison-based sorting algorithm?
+Topic: Algorithms
+- Ω(n)
+* Ω(n log n)
+- Ω(n²)
+- Ω(n log log n)
+Why: Any comparison sort can be modeled as a binary decision tree with at least n! leaves, one per possible ordering. Its height is at least log₂(n!), which is Θ(n log n). Non-comparison sorts like counting sort or radix sort can beat this because they don't only compare elements.
+
+Q: Which single-source shortest path algorithm works with negative edge weights, as long as there are no negative cycles?
+Topic: Algorithms
+- Dijkstra's algorithm
+* Bellman-Ford
+- Prim's algorithm
+- Breadth-first search
+Why: Bellman-Ford relaxes every edge V minus 1 times, which is enough for shortest paths with negative edges, in O(VE) time. One extra pass detects a negative cycle. Dijkstra can fail with negative edges because it finalizes a node as soon as it's popped.
+
+Q: What is the time complexity of the Floyd-Warshall all-pairs shortest path algorithm?
+Topic: Algorithms
+- Θ(V²)
+- Θ(V + E)
+* Θ(V³)
+- Θ(E log V)
+Why: Floyd-Warshall is dynamic programming with three nested loops over the vertices. For each intermediate vertex k, it checks whether going through k shortens the path from i to j. That's V times V times V, so Θ(V³).
+
+Q: For the activity-selection problem, which greedy choice always gives an optimal schedule?
+Topic: Algorithms
+- Pick the activity with the earliest start time
+- Pick the shortest activity
+* Pick the activity that finishes earliest
+- Pick the activity with the fewest conflicts
+Why: Choosing the earliest finishing activity leaves the most room for the rest. An exchange argument proves it: any optimal schedule can swap its first activity for the earliest finishing one without losing anything. The other rules have counterexamples.
+
+Q: Why is the classic O(nW) dynamic programming solution to 0/1 knapsack called pseudo-polynomial?
+Topic: Algorithms
+- Because it only runs fast when n and W are both small, so on big inputs it falls back to brute force
+* Because W is a number whose input size is only log W bits, so O(nW) is exponential in input length
+- Because it relies on recursion, which makes the true running time hard to bound exactly
+- Because it only approximates the best value, guaranteeing an answer within a constant factor
+Why: Running time is measured against the input's length in bits. The capacity W takes about log W bits to write down, so a running time proportional to W is exponential in that length. That's why knapsack can be NP-complete yet still have this practical algorithm.
+
+Q: What is the amortized cost of appending to a dynamic array that doubles its capacity when full?
+Topic: Algorithms
+* O(1)
+- O(log n)
+- O(n)
+- O(n log n)
+Why: An occasional resize copies n elements, but resizes get exponentially rarer. Over n appends the total copying is at most about 2n, so each append costs O(1) on average. The aggregate or potential method proves it.
+
+Q: A directed graph has a topological ordering if and only if...
+Topic: Algorithms
+- it is strongly connected, so every vertex can reach every other one
+* it has no directed cycles (it's a DAG)
+- every vertex has in-degree at most 1
+- it has no undirected cycles, so it's a tree or a forest
+Why: In a cycle, every node would have to come before itself, which is impossible. Conversely, every DAG has a node with in-degree 0. Removing it repeatedly (Kahn's algorithm) or using DFS finishing times gives a valid order.
+
+Q: What is the expected running time of randomized Quickselect for finding the k-th smallest element?
+Topic: Algorithms
+- O(log n)
+* O(n)
+- O(n log n)
+- O(n²)
+Why: Quickselect partitions like quicksort but only recurses into one side. With random pivots the expected sizes shrink geometrically: n + n/2 + n/4 and so on, which adds up to O(n). The worst case is still O(n²), and median-of-medians guarantees O(n) worst case.
+
+Q: What is the time complexity of finding strongly connected components with Tarjan's or Kosaraju's algorithm?
+Topic: Algorithms
+- O(V²)
+* O(V + E)
+- O(VE)
+- O(E log V)
+Why: Both are built on depth-first search, which touches every vertex and edge a constant number of times. Kosaraju does two DFS passes, the second on the reversed graph. Tarjan does one pass using low-link values.
+
+Q: What is the worst-case height of a red-black tree with n nodes?
+Topic: Data Structures
+- O(n), when keys are inserted in sorted order
+* O(log n), at most 2·log₂(n + 1)
+- O(√n), since rotations only fix half the imbalance
+- Exactly ⌈log₂(n + 1)⌉, since red-black trees are perfectly balanced
+Why: Every root-to-leaf path has the same number of black nodes, and red nodes can't be adjacent. So the longest path is at most twice the shortest, which keeps the height logarithmic. That guarantees O(log n) search, insert and delete.
+
+Q: How long does it take to build a binary heap from an unsorted array of n elements using bottom-up heapify?
+Topic: Data Structures
+- O(n log n)
+* O(n)
+- O(log n)
+- O(n²)
+Why: Most nodes sit near the bottom and only sift down a short distance. Summing the heights over all nodes gives a series that converges to O(n). Inserting the elements one at a time would instead cost O(n log n).
+
+Q: In a hash table using separate chaining with load factor α, what is the expected time for an unsuccessful search?
+Topic: Data Structures
+- Θ(1) always
+* Θ(1 + α)
+- Θ(log α)
+- Θ(n)
+Why: Under simple uniform hashing, the average chain length is α, the number of keys divided by the number of buckets. A miss hashes to a bucket (constant time) and scans the whole chain. Keeping α bounded by resizing keeps operations O(1) on average.
+
+Q: Why are B-trees preferred over binary search trees for database and file-system indexes?
+Topic: Data Structures
+- They use less memory per key, since nodes store no child pointers
+* Their high branching factor keeps the tree shallow, minimizing slow disk reads
+- They never need rebalancing, so inserts are always constant time
+- They store keys in hash buckets, which makes every lookup take one read
+Why: Each B-tree node fills a disk page and holds many keys, so the height is roughly log base B of n. B can be in the hundreds, so a lookup touches only a few pages. Disk and SSD reads cost far more than in-memory comparisons.
+
+Q: What is the amortized time for decrease-key in a Fibonacci heap?
+Topic: Data Structures
+* O(1)
+- O(log n)
+- O(n)
+- O(log log n)
+Why: Fibonacci heaps cut the node out and do cascading cuts lazily, which gives O(1) amortized decrease-key. That lets Dijkstra run in O(E + V log V), better than a binary heap's O(E log V) on dense graphs.
+
+Q: What is the time to search for a key of length L in a trie?
+Topic: Data Structures
+- O(log n)
+* O(L)
+- O(n)
+- O(L log n)
+Why: A trie walks one character at a time from the root, so lookup depends on the key's length, not on how many keys are stored. That's why tries are good for prefix searches like autocomplete.
+
+Q: What is the expected search time in a skip list with n elements?
+Topic: Data Structures
+- O(1)
+* O(log n)
+- O(√n)
+- O(log log n)
+Why: Each element is promoted to the next level with probability 1/2, giving about log n levels. A search drops down a level after about two steps forward per level. It matches balanced trees on average without any rotations.
+
+Q: Which language is context-free but NOT regular?
+Topic: Theory of Computation
+- a*b*
+* { aⁿbⁿ : n ≥ 0 }
+- { aⁿbⁿcⁿ : n ≥ 0 }
+- Strings with an even number of a's
+Why: A finite automaton can't count without bound, which the pumping lemma for regular languages proves. A pushdown automaton can push the a's onto its stack and pop one for each b. aⁿbⁿcⁿ isn't even context-free, and the other two are regular.
+
+Q: Which statement about the Halting Problem is true?
+Topic: Theory of Computation
+- It is decidable, but any algorithm that decides it takes exponential time
+* It is undecidable, but it is recognizable (semi-decidable)
+- It is neither recognizable nor co-recognizable
+- It is co-recognizable, but not recognizable
+Why: A universal Turing machine can run the program and accept if it halts, so the language is recognizable. Turing's diagonalization proof shows no machine can also always reject the ones that don't halt. Its complement is therefore not recognizable.
+
+Q: What does the Cook-Levin theorem prove?
+Topic: Theory of Computation
+- P = NP, by giving a polynomial-time SAT algorithm
+* Boolean satisfiability (SAT) is NP-complete
+- The Halting Problem is undecidable
+- 3-SAT can be solved in polynomial time with a stack
+Why: Cook and Levin showed that any polynomial-time nondeterministic computation can be encoded as a Boolean formula that's satisfiable exactly when the machine accepts. That made SAT the first known NP-complete problem, and others are proved NP-complete by reducing from it.
+
+Q: If problem A reduces to problem B in polynomial time (A ≤p B) and B is in P, what can you conclude?
+Topic: Theory of Computation
+- B is NP-hard
+* A is in P
+- A is NP-complete
+- Nothing
+Why: To solve A, translate the instance to B in polynomial time, then run B's polynomial algorithm. Polynomial plus polynomial is still polynomial. Reductions carry easiness downward and hardness upward.
+
+Q: What does Rice's theorem state?
+Topic: Theory of Computation
+- Every property of a Turing machine's description, like its number of states, is undecidable
+* Every nontrivial property of the language a Turing machine recognizes is undecidable
+- Every nontrivial property of a context-free grammar is undecidable
+- Every language property is decidable if the Turing machine always halts
+Why: If a property is about what a program computes, not how it's written, and some programs have it while others don't, no algorithm can decide it for all programs. For example, "does this program ever print hello?" is undecidable.
+
+Q: Converting an NFA with n states to an equivalent DFA can require up to how many states?
+Topic: Theory of Computation
+- n
+- n²
+* 2ⁿ
+- n!
+Why: The subset construction makes each DFA state a set of NFA states, and there are 2ⁿ possible subsets. Some languages really need that exponential blowup, even though NFAs and DFAs recognize exactly the same languages.
+
+Q: Which of these problems is solvable in polynomial time?
+Topic: Theory of Computation
+- 3-SAT
+* 2-SAT
+- Hamiltonian cycle
+- Vertex cover
+Why: 2-SAT can be solved in linear time by building an implication graph and checking whether any variable is in the same strongly connected component as its negation. 3-SAT and the others are NP-complete.
+
+Q: How many edges does the complete graph Kₙ have?
+Topic: Discrete Math
+- n
+- n − 1
+* n(n − 1)/2
+- n(n + 1)/2
+Why: Every pair of distinct vertices is connected exactly once, and there are n choose 2 pairs: n times (n - 1) divided by 2.
+
+Q: What is the contrapositive of "If P, then Q"?
+Topic: Discrete Math
+- If Q, then P
+- If not P, then not Q
+* If not Q, then not P
+- P and not Q
+Why: The contrapositive flips and negates both sides, and it's logically equivalent to the original. "If Q then P" is the converse and "If not P then not Q" is the inverse, and neither is equivalent.
+
+Q: A tree with n vertices has how many edges?
+Topic: Discrete Math
+- n
+* n - 1
+- n + 1
+- 2n
+Why: A tree is connected with no cycles. Start from one vertex and add the others one at a time, each with exactly one new edge: n - 1 edges. One more edge would create a cycle, and one fewer would disconnect it.
+
+Q: A connected graph has an Euler circuit if and only if...
+Topic: Discrete Math
+- it has no cycles
+* every vertex has even degree
+- it has exactly two odd-degree vertices
+- it is a complete graph
+Why: Every time an Euler circuit enters a vertex it has to leave on a different edge, so each vertex's edges pair up. Exactly two odd vertices gives an Euler path, not a circuit. This is Euler's Königsberg bridge result.
+
+Q: What is 2¹⁰ mod 7?
+Topic: Discrete Math
+- 1
+* 2
+- 4
+- 0
+Why: 2³ = 8, which is 1 mod 7, so 2⁹ = (2³)³ is 1 mod 7, and 2¹⁰ = 2⁹ · 2 is 2 mod 7. As a check, 1024 = 7 · 146 + 2.
+
+Q: How many bit strings of length 10 contain exactly three 1s?
+Topic: Discrete Math
+- 30
+- 720
+* 120
+- 1024
+Why: Choose which 3 of the 10 positions hold a 1: 10 choose 3 = 10 · 9 · 8 / 6 = 120.
+
+Q: Which of these is NOT one of the four necessary (Coffman) conditions for deadlock?
+Topic: Operating Systems
+- Mutual exclusion
+- Hold and wait
+* Preemption of resources
+- Circular wait
+Why: The four conditions are mutual exclusion, hold and wait, no preemption, and circular wait. If resources can be preempted, deadlock can be broken. Preventing deadlock means making at least one of the four impossible, for example by ordering locks to stop circular wait.
+
+Q: Belady's anomaly, where adding page frames increases page faults, can happen with which replacement algorithm?
+Topic: Operating Systems
+* FIFO
+- LRU
+- Optimal (OPT)
+- Any stack algorithm
+Why: LRU and OPT are stack algorithms: the pages in memory with k frames are always a subset of those with k + 1 frames, so more frames never hurts. FIFO lacks that property, so more frames can occasionally cause more faults.
+
+Q: What does the TLB (translation lookaside buffer) cache?
+Topic: Operating Systems
+- Recently used disk blocks, so files open faster
+* Recent virtual-to-physical page translations
+- Instructions that are about to be executed
+- Recently used physical page frames and their contents
+Why: Walking multi-level page tables costs several memory accesses. The TLB is a small, fast cache of recent page table entries, so most address translations skip the walk entirely.
+
+Q: What is thrashing?
+Topic: Operating Systems
+- The CPU running so hot that it throttles its clock speed to cool down
+* The system spends most of its time paging, because working sets don't fit in memory
+- Two threads repeatedly taking and releasing the same lock without making progress
+- A cache with so many conflict misses that it's slower than having no cache
+Why: When memory is overcommitted, every process keeps faulting on pages another process just evicted. CPU utilization collapses while the disk stays busy. Fixes include reducing multiprogramming or giving processes enough frames for their working sets.
+
+Q: Why is a context switch between two threads of the same process cheaper than between two processes?
+Topic: Operating Systems
+- Threads don't have their own registers, so there's nothing to save or restore
+* Threads share an address space, so page tables and TLB contents don't have to change
+- Threads can't be preempted, so switches only happen when a thread chooses to yield
+- The kernel isn't involved, since threads are always scheduled in user space
+Why: Switching processes means switching address spaces: a new page table base and often a TLB flush, plus colder caches. Threads in one process share memory, so only registers and the stack pointer change.
+
+Q: What is the classic fix for priority inversion?
+Topic: Operating Systems
+- Round-robin scheduling
+* Priority inheritance
+- Increasing the time quantum
+- Disabling interrupts permanently
+Why: With priority inheritance, a low-priority task holding a lock temporarily takes the priority of the highest task waiting for it. Medium-priority tasks can't preempt it, so it finishes and releases the lock quickly. This famously fixed the Mars Pathfinder resets.
+
+Q: How does copy-on-write make fork() efficient?
+Topic: Operating Systems
+- It skips creating a new process and runs the child as a thread of the parent
+* Parent and child share pages read-only, and a page is copied only when one writes to it
+- It copies the parent's memory to disk, then loads it lazily into the child
+- It shares only the file descriptors, and the child starts with empty memory
+Why: Many children call exec() right after fork(), so copying the whole address space would be wasted. With copy-on-write, both share the physical pages until a write causes a fault, and only then does the kernel copy that one page.
+
+Q: If 90% of a program can be parallelized, what is the maximum speedup with unlimited processors, according to Amdahl's law?
+Topic: Computer Architecture
+- 90x
+* 10x
+- Unlimited
+- 9x
+Why: Speedup = 1 / ((1 - p) + p/N). As N goes to infinity, the parallel part vanishes and you're left with 1 / 0.1 = 10. The serial 10% caps the speedup no matter how many cores you add.
+
+Q: In a pipelined processor, what technique resolves most read-after-write data hazards without stalling?
+Topic: Computer Architecture
+- Branch prediction
+* Forwarding (bypassing)
+- Increasing the clock rate
+- Adding more cache
+Why: Forwarding sends a result straight from a later pipeline stage back to an earlier one that needs it, instead of waiting for it to be written to the register file. Some hazards, like a value used right after a load, still need a one-cycle stall.
+
+Q: In a write-back cache, when is modified data written to main memory?
+Topic: Computer Architecture
+- On every store, in the same cycle as the cache update
+* When the dirty block is evicted
+- Every time the CPU reads the block
+- Only when the program terminates
+Why: Write-back marks a block as dirty when it's modified and only writes it to memory when it's evicted. That saves memory bandwidth compared to write-through, which writes to memory on every store, at the cost of extra complexity for coherence.
+
+Q: Increasing a cache's associativity mainly reduces which kind of miss?
+Topic: Computer Architecture
+- Compulsory misses
+- Capacity misses
+* Conflict misses
+- Coherence misses
+Why: Conflict misses happen when blocks that map to the same set evict each other even though the cache has room elsewhere. More ways per set gives those blocks more places to go. Compulsory misses come from the first access, and capacity misses come from the cache simply being too small.
+
+Q: How is an IEEE 754 single-precision float laid out?
+Topic: Computer Architecture
+* 1 sign bit, 8 exponent bits, 23 fraction bits
+- 1 sign bit, 11 exponent bits, 52 fraction bits
+- 1 sign bit, 7 exponent bits, 24 fraction bits
+- 2 sign bits, 8 exponent bits, 22 fraction bits
+Why: Single precision is 32 bits: 1 sign, an 8-bit exponent with a bias of 127, and a 23-bit fraction with an implicit leading 1. The 1/11/52 layout is double precision.
+
+Q: What is the range of an 8-bit two's complement integer?
+Topic: Computer Architecture
+- 0 to 255
+- -127 to 127
+* -128 to 127
+- -255 to 255
+Why: There are 256 patterns. Two's complement gives one more negative value than positive because zero takes one of the non-negative patterns: from -2⁷ up to 2⁷ - 1.
+
+Q: Which is characteristic of a RISC instruction set?
+Topic: Computer Architecture
+- Variable-length instructions with complex addressing modes
+* Fixed-length instructions and a load/store architecture
+- Instructions that operate directly on memory operands
+- Fewer registers than CISC
+Why: In RISC designs like ARM and RISC-V, only loads and stores touch memory, instructions are a uniform length, and there are many general-purpose registers. That makes decoding and pipelining simpler. x86 is the classic CISC example.
+
+Q: What is the correct sequence of a TCP three-way handshake?
+Topic: Networking
+- SYN, ACK, FIN
+* SYN, SYN-ACK, ACK
+- ACK, SYN, SYN-ACK
+- SYN, SYN, ACK
+Why: The client sends SYN with its initial sequence number. The server replies SYN-ACK with its own sequence number and acknowledges the client's. The client sends ACK. Both sides now agree on sequence numbers, and the connection is established.
+
+Q: During TCP slow start, how does the congestion window grow?
+Topic: Networking
+- Linearly, by one segment per RTT
+* Exponentially, roughly doubling every RTT
+- Linearly, by one segment per ACK received
+- It halves every RTT until loss stops
+Why: Each ACK grows the window by one segment, so the window roughly doubles each round trip until it hits the slow-start threshold or a loss. After that, congestion avoidance grows it linearly (additive increase, multiplicative decrease).
+
+Q: How many usable host addresses are in a /26 IPv4 subnet?
+Topic: Networking
+- 64
+* 62
+- 30
+- 126
+Why: A /26 leaves 32 - 26 = 6 host bits, which is 2⁶ = 64 addresses. Subtract the network address and the broadcast address to get 62 usable hosts.
+
+Q: What does ARP do?
+Topic: Networking
+- Maps domain names to IP addresses
+* Maps IP addresses to MAC addresses on a local network
+- Assigns IP addresses dynamically to new hosts
+- Maps private IP addresses to a public IP
+Why: To deliver a frame on a LAN you need the destination's link-layer (MAC) address. ARP broadcasts "who has this IP?" and the owner replies with its MAC address. DNS handles names, and DHCP assigns addresses.
+
+Q: Which routing protocol is link-state and uses Dijkstra's algorithm?
+Topic: Networking
+- RIP
+- BGP
+* OSPF
+- EIGRP
+Why: In OSPF every router floods its link-state info, builds a full map of the network, and runs Dijkstra to compute shortest paths. RIP is distance-vector (Bellman-Ford). BGP is a path-vector protocol used between autonomous systems.
+
+Q: In a TLS connection, how is the bulk data usually encrypted?
+Topic: Networking
+- With RSA, encrypting every record with the server's public key
+* With a fast symmetric cipher, using a key agreed through asymmetric key exchange
+- With the server's private key, so anyone with the certificate can verify it
+- With a one-time pad generated from the session's random nonces
+Why: Public-key crypto is slow, so TLS uses it (for example, ephemeral Diffie-Hellman authenticated by certificates) only to agree on a shared secret. Data is then protected with a symmetric AEAD cipher like AES-GCM or ChaCha20-Poly1305.
+
+Q: What is the bandwidth-delay product?
+Topic: Networking
+- The time it takes to put one packet onto the link, from first bit to last bit
+* The amount of data that can be in flight on a link: bandwidth × round-trip time
+- The largest packet the link can carry without fragmenting it
+- The total queuing delay added by all routers along the path
+Why: It's how many bits fill the pipe. To use a link fully, a sender's window has to be at least this big, which is why fast long-distance links need TCP window scaling.
+
+Q: A relation is in BCNF when...
+Topic: Databases
+- it has no repeating groups and every value is atomic
+- every non-key attribute depends on the whole primary key
+* for every non-trivial functional dependency X → Y, X is a superkey
+- every non-key attribute depends only on candidate keys, never on other non-key attributes
+Why: BCNF is stricter than 3NF: every determinant has to be a superkey. 3NF allows an exception when Y is part of some candidate key. Converting to BCNF removes those anomalies but can lose dependency preservation.
+
+Q: Which isolation level is the weakest that still prevents dirty reads?
+Topic: Databases
+- Read Uncommitted
+* Read Committed
+- Repeatable Read
+- Serializable
+Why: Read Committed only shows data that's already been committed, so you never see another transaction's uncommitted changes. It still allows non-repeatable reads and phantoms, which the stronger levels prevent.
+
+Q: What does strict two-phase locking (2PL) guarantee?
+Topic: Databases
+- No deadlocks, since locks are always acquired in a fixed order
+* Conflict-serializable schedules (with strict 2PL, no cascading aborts)
+- Maximum concurrency, since no transaction ever waits for a lock
+- That every transaction commits without being aborted
+Why: In 2PL a transaction acquires all its locks before releasing any, which makes the schedule equivalent to some serial order. Strict 2PL holds write locks until commit, so nobody reads uncommitted data. Deadlocks can still happen and need detection or timeouts.
+
+Q: What is write-ahead logging (WAL) for?
+Topic: Databases
+- Speeding up reads by keeping a log of recently accessed rows and pages in memory
+* Guaranteeing atomicity and durability by logging changes before applying them to data files
+- Compressing tables by writing only the changes since the last full snapshot
+- Replicating each write to other servers before the client receives a reply
+Why: The log record describing a change is forced to stable storage before the changed page is. After a crash, the database can redo committed work and undo uncommitted work from the log. That's how ARIES-style recovery works.
+
+Q: Which SQL clause filters groups after aggregation?
+Topic: Databases
+- WHERE
+* HAVING
+- ORDER BY
+- DISTINCT
+Why: WHERE filters individual rows before grouping. HAVING filters groups after GROUP BY and can use aggregates, for example HAVING COUNT(*) > 5.
+
+Q: According to the CAP theorem, during a network partition a distributed system has to choose between...
+Topic: Databases
+- Speed and storage
+* Consistency and availability
+- Durability and isolation
+- Partition tolerance and latency
+Why: When nodes can't talk to each other, you either refuse some requests to stay consistent (CP) or answer them and risk returning stale data (AP). Without a partition, you can have both.
+
+Q: Why is a B+ tree well suited to range queries?
+Topic: Databases
+- It stores every record in the root, so one read finds any range
+* All records are in the leaves, and the leaves are linked in order
+- It hashes keys into buckets, so nearby keys land in the same bucket
+- It keeps the tree slightly unbalanced so recent keys are near the top
+Why: Find the start key in O(log n), then follow the leaf-level linked list to scan the range in order. You don't have to go back up the tree.
+
+Q: Why can't an LL(1) recursive-descent parser handle a left-recursive rule like E → E + T?
+Topic: Compilers & Languages
+- LL(1) parsers can't handle binary operators, only unary ones
+* Expanding E calls E again without consuming input, so it recurses forever
+- Left recursion always makes the grammar ambiguous
+- The rule needs two tokens of lookahead to choose a production
+Why: A top-down parser expands the leftmost nonterminal first. With left recursion it expands E forever without reading a token. The fix is to rewrite the grammar as E → T E' with E' → + T E' or nothing.
+
+Q: Which phase of a compiler turns the character stream into tokens?
+Topic: Compilers & Languages
+* Lexical analysis
+- Parsing
+- Semantic analysis
+- Code generation
+Why: The lexer, usually a DFA generated from regular expressions, groups characters into tokens like identifiers, numbers and operators, and skips whitespace and comments. The parser then builds a syntax tree from those tokens.
+
+Q: Why does pure reference counting fail to reclaim some garbage?
+Topic: Compilers & Languages
+- It's too slow, since every assignment has to update a count
+* Objects that reference each other in a cycle keep each other's counts above zero
+- It can't handle objects larger than one page of memory
+- It frees objects while other references to them still exist elsewhere in the program
+Why: If A points to B and B points to A, both counts stay at 1 even after nothing else can reach them. Tracing collectors like mark-and-sweep, or extra cycle detectors like Python's, handle this.
+
+Q: What is a closure?
+Topic: Compilers & Languages
+- A function that never returns, because it loops forever waiting for events
+* A function together with the variables it captured from where it was defined
+- The end of a block, where all of its local variables are freed
+- A class whose methods can't be overridden by subclasses
+Why: A closure can still use variables from its enclosing scope after that scope has returned, because it carries a reference to them. This depends on lexical (static) scoping.
+
+Q: What compiler analysis is used to decide which variables can share a register?
+Topic: Compilers & Languages
+- Constant folding, which replaces variables with their known constant values
+* Liveness analysis, building an interference graph for register allocation (graph coloring)
+- Lexical analysis, which groups each variable name into a token
+- Escape analysis, which decides which objects can live on the stack
+Why: Two variables interfere if they're live at the same time. Coloring the interference graph with k colors assigns them to k registers, and variables that can't be colored are spilled to memory.
+
+Q: What does tail-call optimization do?
+Topic: Compilers & Languages
+- Inlines every function call so that no stack frames are needed at all
+* Reuses the current frame when a function's last action is a call, so tail recursion uses constant stack
+- Removes unreachable code after a function's final return statement to shrink the stack frame
+- Caches a function's results so that repeated calls skip recomputing them
+Why: If a call is the very last thing a function does, its frame isn't needed anymore, so the call can become a jump. Tail-recursive loops then run in O(1) stack space instead of overflowing.
+
+Q: RSA's security relies on the difficulty of which problem?
+Topic: Security
+- The discrete logarithm problem
+* Factoring the product of two large primes
+- Finding collisions in SHA-256
+- Solving the elliptic curve discrete log
+Why: The public key includes n = p·q. Computing the private exponent requires φ(n) = (p - 1)(q - 1), which effectively requires factoring n. Diffie-Hellman and elliptic-curve crypto rely on discrete logarithms instead.
+
+Q: What attack is unauthenticated Diffie-Hellman key exchange vulnerable to?
+Topic: Security
+- Brute force of the shared key
+* Man-in-the-middle
+- SQL injection
+- Rainbow tables
+Why: Without authentication, an attacker can run separate key exchanges with each side and relay traffic, reading everything. TLS stops this by having the server sign its key share with a certificate-backed key.
+
+Q: What does salting password hashes defend against?
+Topic: Security
+- Weak passwords being guessed one at a time by attackers trying common words
+* Precomputed rainbow tables, and identical passwords having identical hashes
+- Keyloggers recording passwords as users type them in
+- Passwords being stolen in transit before they reach the server
+Why: A unique random salt per user means attackers can't reuse a precomputed table and have to attack each hash separately. To slow down per-password guessing too, you also need a deliberately slow hash like bcrypt, scrypt or Argon2.
+
+Q: What is the standard defense against cross-site request forgery (CSRF)?
+Topic: Security
+- Escaping all HTML output so injected scripts can't run
+* Anti-CSRF tokens and SameSite cookies
+- Serving every page over HTTPS only
+- Limiting the length of form inputs
+Why: In CSRF, another site makes the victim's browser send a request that carries their cookies. A secret per-session token that the attacker's page can't read, plus SameSite cookies, stops it. Escaping output is the fix for XSS, a different attack.
+
+Q: Which of these mitigates stack buffer overflow exploits?
+Topic: Security
+- Longer passwords and account lockouts
+* Stack canaries, ASLR, and non-executable stacks (DEP/NX)
+- Firewalls that block unusual ports
+- Salting and hashing every stored string
+Why: A canary detects an overwritten return address before the function returns. ASLR randomizes where code lives, so jump targets are hard to guess. NX stops injected data from running as code. Attackers respond with techniques like return-oriented programming.
+
+Q: How does a digital signature work?
+Topic: Security
+- Encrypt the message with the recipient's public key, so only the recipient can read it
+* Sign a hash of the message with the sender's private key; anyone verifies with the public key
+- Sign the message with the sender's public key; the receiver verifies with their private key
+- Append a shared secret key to the message, so the receiver knows who sent it
+Why: Only the private key holder can produce the signature, so it proves who sent the message, and any change to the message breaks verification. It provides authenticity and integrity, not confidentiality.
+
+Q: What does the Liskov Substitution Principle require?
+Topic: Software Engineering
+- Every class should have only one reason to change
+* Subtype objects must work anywhere the base type is expected, without breaking correctness
+- Depend on abstractions, not on concrete classes
+- Classes should be open for extension but closed for modification by other code
+Why: A subclass has to honor the base class's contract: no stronger preconditions, no weaker postconditions. The classic violation is a Square inheriting from Rectangle, where setting the width secretly changes the height.
+
+Q: Which HTTP method is NOT idempotent?
+Topic: Software Engineering
+- GET
+- PUT
+- DELETE
+* POST
+Why: Idempotent means doing it many times has the same effect as doing it once. PUT replaces a resource and DELETE removes it, so repeating them changes nothing more. POST typically creates a new resource each time.
+
+Q: What is dependency injection?
+Topic: Software Engineering
+- Importing every library globally so any class can use any dependency
+* Giving an object its dependencies from outside instead of having it create them
+- An attack that inserts malicious code into a project's dependencies
+- Bundling all of a program's dependencies into a single file
+Why: Passing collaborators in through the constructor or parameters decouples classes, which makes them easy to swap for mocks in tests. It's one way to apply the Dependency Inversion Principle.
+
+Q: Which design pattern lets objects subscribe to be notified when another object's state changes?
+Topic: Software Engineering
+- Singleton
+- Factory
+* Observer
+- Adapter
+Why: In Observer, a subject keeps a list of subscribers and notifies them of changes. It's the basis of event listeners and of reactive UI frameworks.
+
+Q: What is the purpose of regression testing?
+Topic: Software Engineering
+- Testing how the system performs under heavy load
+* Re-running existing tests to make sure changes didn't break things that used to work
+- Testing with real users to see how they use the product
+- Testing only the newest features before each release goes out
+Why: Each change risks breaking old behavior. An automated regression suite, usually run in CI on every commit, catches those breaks early, before they reach users.
+
+# ---- Must-know formulas and facts for this class ----
+
+Q: Must-know: what are the three cases of the Master Theorem for T(n) = aT(n/b) + f(n)?
+Topic: Must-Know Facts
+* Compare f(n) with n^(log_b a): smaller gives Θ(n^(log_b a)), equal gives Θ(n^(log_b a) log n), larger gives Θ(f(n))
+- Compare a with b: a < b gives Θ(n), a = b gives Θ(n log n), a > b gives Θ(n²)
+- Compare f(n) with n: smaller gives Θ(log n), equal gives Θ(n), larger gives Θ(n log n)
+- Compare a with f(n): smaller gives Θ(a), equal gives Θ(a log n), larger gives Θ(f(n) log n)
+Why: n^(log_b a) is the total work at the leaves of the recursion tree. Whichever side dominates, the leaves or the top-level work f(n), sets the answer. Merge sort (a = 2, b = 2, f = n) is the "equal" case.
+
+Q: Must-know: what is Amdahl's law for the speedup when a fraction p of a program is sped up by a factor s?
+Topic: Must-Know Facts
+* Speedup = 1 / ((1 − p) + p/s)
+- Speedup = 1 / (p + (1 − p)/s)
+- Speedup = p · s
+- Speedup = (1 − p) + p · s
+Why: The part you can't speed up limits the whole program. Even with infinite cores, a program that's 10% serial can't run more than 10 times faster.
+
+Q: Must-know: what is the effective memory access time with a cache?
+Topic: Must-Know Facts
+* hit time + miss rate × miss penalty
+- hit rate × miss penalty + hit time
+- miss rate × hit time + miss penalty
+- (hit time + miss penalty) / 2
+Why: Every access pays the hit time, and misses also pay the penalty for going to the next level. With a 1 ns hit time, a 5% miss rate and a 100 ns penalty, the average is 1 + 0.05 × 100 = 6 ns.
+
+Q: Must-know: how many usable host addresses are in a /24 IPv4 subnet?
+Topic: Must-Know Facts
+* 254
+- 256
+- 255
+- 24
+Why: A /24 leaves 8 bits for hosts, giving 2⁸ = 256 addresses. The all-zeros network address and the all-ones broadcast address can't be assigned, which leaves 254.
+
+Q: Must-know: what is the main condition for a relation to be in BCNF?
+Topic: Must-Know Facts
+* For every non-trivial dependency X → Y, X is a superkey
+- Every non-key attribute depends on the whole key
+- No non-key attribute depends on another non-key attribute
+- Every attribute holds a single atomic value
+Why: These go up in strictness: atomic values (1NF), no partial dependencies (2NF), no transitive dependencies (3NF), then every determinant is a superkey (BCNF).
+
+Q: Must-know: what are the four Coffman conditions that must all hold for deadlock?
+Topic: Must-Know Facts
+* Mutual exclusion, hold and wait, no preemption, circular wait
+- Mutual exclusion, starvation, preemption, circular wait
+- Race condition, hold and wait, priority inversion, circular wait
+- Mutual exclusion, progress, bounded waiting, no preemption
+Why: Break any one condition and deadlock can't happen. For example, always taking locks in a fixed order makes circular wait impossible.
+
+Q: Must-know: what is the time complexity of Dijkstra's algorithm with a binary heap?
+Topic: Must-Know Facts
+* O((V + E) log V)
+- O(V · E)
+- O(V³)
+- O(V + E)
+Why: Each vertex is removed from the heap once and each edge may cause a decrease-key, and each heap operation costs O(log V). Bellman-Ford is O(V·E) and Floyd-Warshall is O(V³).
+
+Q: Must-know: what does the CAP theorem say a distributed system can't fully guarantee all at once?
+Topic: Must-Know Facts
+* Consistency, availability, and partition tolerance
+- Concurrency, atomicity, and persistence
+- Caching, availability, and performance
+- Consistency, atomicity, and partitioning
+Why: Networks do partition in practice, so the real choice during a partition is between staying consistent (refusing some requests) and staying available (possibly returning stale data).

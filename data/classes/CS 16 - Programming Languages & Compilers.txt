@@ -1,0 +1,371 @@
+# quizzahh question file. The file name is the class name.
+#
+# CS 16: Programming Languages and Compilers (paradigms, types, scope, closures, functional
+# programming, memory management, how compilers and interpreters work).
+#
+# Each question looks like this (leave a blank line between questions):
+#
+#   Q: What is the powerhouse of the cell?
+#   Topic: Cells
+#   - Nucleus
+#   * Mitochondria        <- the star marks the correct answer
+#   - Ribosome
+#   - Golgi apparatus
+#   Why: Mitochondria make ATP, the cell's energy.
+#
+# Lines starting with # are ignored.
+
+# Which year of a computer science degree this class usually falls in (used by the year filter):
+Year: 3
+
+Q: What are the main phases of a compiler, in order?
+Topic: Compilers
+- Parsing, lexical analysis, semantic analysis, code generation, then optimization
+* Lexical analysis, parsing, semantic analysis, optimization, code generation
+- Lexical analysis, semantic analysis, parsing, linking, then code generation
+- Preprocessing, linking, parsing, lexical analysis, then code generation
+Why: The lexer turns characters into tokens, the parser builds a syntax tree, semantic analysis checks types and names, optimization improves the intermediate code, and code generation emits machine code or bytecode.
+
+Q: What does a lexer (scanner) produce from the source text "count = count + 1"?
+Topic: Compilers
+- A parse tree with = at the root and the two sides of the assignment as its children
+* A stream of tokens: identifier, equals sign, identifier, plus sign, number
+- A list of the individual characters, with whitespace kept so positions are known
+- Bytecode instructions that load count, add 1, and store the result
+Why: Lexers usually use regular expressions or finite automata, which is where theory of computation meets real tools. Whitespace and comments are typically thrown away at this stage.
+
+Q: What does a parser build?
+Topic: Compilers
+- A flat list of tokens, with whitespace and comments removed
+* A tree (parse tree or AST) showing how the tokens fit the language's grammar
+- A symbol table mapping each variable name to its type and memory location
+- An intermediate list of three-address instructions ready for optimization
+Why: Parsers are driven by context-free grammars. The abstract syntax tree (AST) drops details like parentheses and keeps the meaning, ready for type checking and code generation.
+
+Q: How does a compiler differ from an interpreter?
+Topic: Execution Models
+- An interpreter translates the whole program to machine code first; a compiler runs it statement by statement
+* A compiler translates the whole program ahead of time; an interpreter runs it directly, statement by statement
+- A compiler checks only syntax, while an interpreter also checks types before running the program
+- They're the same, but compilers are used for languages with static types and interpreters for dynamic ones
+Why: The line is blurry today: Java compiles to bytecode, then the JVM interprets it and JIT-compiles hot code. CPython also compiles to bytecode first.
+
+Q: What is just-in-time (JIT) compilation?
+Topic: Execution Models
+- Interpreting each line the moment it's typed, without ever producing machine code
+* Compiling frequently run code into machine code while the program runs, using real usage data
+- Compiling the whole program into machine code just before it's installed on a device
+- Compiling only the parts of a program that changed since the last full build
+Why: JITs in the JVM, JavaScript engines like V8, and .NET can optimize for the real types and paths a program takes, sometimes beating ahead-of-time compilers.
+
+Q: What does a linker do?
+Topic: Compilers
+- Checks that the program's types and names are used correctly
+* Combines object files and libraries into one executable, resolving references between them
+- Loads the executable into memory and starts running it
+- Converts source code into object files, one per source file, ready for the loader
+Why: If you call a function you declared but never defined, the code compiles but fails at link time with an "undefined reference" error.
+
+Q: Statically typed versus dynamically typed: which is correct?
+Topic: Type Systems
+- Static typing means variables can't change value after they're set; dynamic means they can
+* Static typing checks types before the program runs; dynamic typing checks them while it runs
+- Static typing requires writing every type out, while dynamic typing figures them out automatically
+- Dynamic typing means values have no types at all, so any operation is allowed
+Why: Java, C and Rust are statically typed; Python, JavaScript and Ruby are dynamically typed. TypeScript and Python type hints add static checking on top of dynamic languages.
+
+Q: What is type inference?
+Topic: Type Systems
+- Checking types at runtime, since the types are never written in the code
+* The compiler working out types that aren't written, while still checking them statically
+- Converting every value to the most general type, so any operation is allowed
+- Letting the programmer choose whether a variable is checked at all
+Why: In Kotlin, val x = 5 makes x an Int, and Haskell infers almost everything. You get static safety with less clutter.
+
+Q: In JavaScript, "5" * 2 gives 10, but "5" + 2 gives "52". What does this show?
+Topic: Type Systems
+- JavaScript is statically typed, so the compiler picks the operation from the declared types
+* Implicit type coercion: the operator decides how the values get converted
+- Strings and numbers are the same type in JavaScript, so both results are correct
+- A rounding error in floating-point math that appears only when strings are involved
+Why: Weak typing quietly converts types, which can cause surprising bugs. Python raises a TypeError for "5" + 2 instead, which is called strong typing.
+
+Q: What is lexical (static) scoping?
+Topic: Scope & Binding
+* A name refers to the nearest enclosing declaration in the source, set by where code is written
+- A name refers to the most recent binding on the call stack at runtime, set by who called the function
+- A name is looked up first in the global scope, then in the local scope if it isn't found
+- A name refers to whichever declaration was executed most recently, anywhere in the program
+Why: Almost every modern language uses lexical scope. Dynamic scoping, used in some old Lisps and Bash, looks up the caller's variables at runtime, which makes code harder to reason about.
+
+Q: What is a closure?
+Topic: Functional Programming
+- A function that has finished running, so its local variables are freed
+* A function bundled with variables from the scope where it was created, usable later
+- A function that is defined inside a class and can access its private fields
+- A function that takes no arguments and returns no value
+Why: In Python, def make_counter(): count = 0; def inc(): nonlocal count; count += 1; return count; return inc. Each counter remembers its own count. Closures power callbacks and event handlers.
+
+Q: What does this Python code print?
+def make_adder(n):
+    def add(x):
+        return x + n
+    return add
+add5 = make_adder(5)
+print(add5(10))
+Topic: Functional Programming
+- 5
+* 15
+- 10
+- An error, because n no longer exists
+Why: add is a closure that captured n = 5. Even after make_adder returns, add5 still remembers n. Functions that return functions are called higher-order functions.
+
+Q: What makes a function "pure"?
+Topic: Functional Programming
+- It has no loops, only recursion, and every variable is declared constant
+* It always returns the same output for the same input and has no side effects
+- It never calls another function, so it can be inlined anywhere
+- It uses only immutable data types, like integers and strings
+Why: Pure functions are easy to test, cache (memoize) and run in parallel. Functional languages like Haskell push side effects to the edges of the program.
+
+Q: What does map do in functional programming?
+Topic: Functional Programming
+- Combines all the elements of a list into one value using a function
+* Applies a function to every element and returns a new list of the results
+- Keeps only the elements for which a function returns true
+- Builds a dictionary that maps each element to how often it appears
+Why: For example, map(double, [1, 2, 3]) gives [2, 4, 6]. filter keeps the elements that pass a test, and reduce (or fold) combines all the elements into one value. Together they replace many loops.
+
+Q: What does it mean that functions are "first-class" in a language?
+Topic: Functional Programming
+- Functions are always run before any other code in the program
+* Functions can be stored, passed as arguments, and returned, like any other value
+- Functions can be defined only at the top level, never inside other functions
+- Functions are compiled first, so they run faster than other code
+Why: Python, JavaScript, Kotlin and Swift have first-class functions. Sorting with a key function and setting up a button's click handler both depend on them.
+
+Q: Why can a tail-recursive function run without growing the call stack in some languages?
+Topic: Functional Programming
+- Tail-recursive functions never reach their base case, so the stack can't overflow
+* When the recursive call is the last action, the compiler can reuse the stack frame
+- Tail-recursive calls store their frames on the heap, which has no size limit
+- The compiler turns every recursive function into a loop automatically
+Why: Scheme guarantees tail-call optimization, so recursion can replace loops. Python and Java don't do it, so very deep recursion there can overflow the stack.
+
+Q: What is lazy evaluation?
+Topic: Evaluation Strategies
+- Running a program in the background at low priority so it doesn't slow other programs
+* Delaying the computation of an expression until its value is actually needed
+- Computing every expression once at compile time so it never runs at runtime
+- Caching results so a function never runs twice with the same arguments
+Why: Haskell is lazy by default, so it can work with infinite lists. Python's generators, using yield, give a taste of it, producing values one at a time on demand.
+
+Q: In pass-by-value, what does a function receive?
+Topic: Evaluation Strategies
+- A reference to the caller's variable, so assigning to it changes the caller's variable
+* A copy of the argument's value, so assigning to the parameter doesn't affect the caller
+- The variable's memory address, which must be dereferenced to read the value
+- The name of the variable, which is looked up again each time it's used
+Why: C passes everything by value (you use pointers to modify the caller's data). C++ also supports pass-by-reference with &. Java and Python pass object references by value: you can change the object, but not rebind the caller's variable.
+
+Q: Where are local variables usually stored, and where are dynamically created objects stored?
+Topic: Memory Management
+* Local variables live on the stack; dynamically allocated objects live on the heap
+- Local variables live on the heap; dynamically allocated objects live on the stack
+- Both live on the stack, and the heap is used only for global variables
+- Both live on the heap, and the stack only holds return addresses
+Why: Stack memory is freed automatically when a function returns, which is fast. Heap memory must be managed, either manually (C's malloc and free) or by a garbage collector.
+
+Q: What does a garbage collector do?
+Topic: Memory Management
+- Removes unused variables and functions from the source code before compiling
+* Automatically frees heap memory that the program can no longer reach
+- Frees each object right after its last use, as determined by the compiler
+- Moves rarely used memory to disk so the program uses less RAM
+Why: Java, Python, C# and JavaScript use garbage collection. It prevents use-after-free bugs and most memory leaks, at the cost of some overhead and occasional pauses.
+
+Q: Why can't reference counting by itself free every unreachable object?
+Topic: Memory Management
+- It frees objects too early, while some other part of the program can still reach them
+* Objects in a reference cycle keep each other's counts above zero, even when unreachable
+- Counting references is too slow to do on every assignment, so counts are often wrong
+- It only tracks objects on the stack, so heap objects are never freed
+Why: CPython uses reference counting plus a separate cycle detector. Swift uses weak references to break cycles yourself.
+
+Q: What is a dangling pointer?
+Topic: Memory Management
+- A pointer to the first element of an array, which moves as the array grows
+* A pointer that still points to memory that has already been freed
+- A null pointer that the program forgot to check before using
+- A pointer that was declared but never given a value
+Why: Using it causes undefined behavior: crashes, corrupted data or security holes. Rust's ownership and borrowing rules prevent dangling pointers at compile time without needing a garbage collector.
+
+Q: What is parametric polymorphism?
+Topic: Type Systems
+- Defining several functions with the same name but different parameter types
+* Writing code that works the same for any type, using type parameters like List<T>
+- A subclass overriding a parent's method so the call picks the right version at runtime
+- The compiler converting arguments automatically to the type a function expects
+Why: Generics in Java and C#, templates in C++, and type variables in Haskell are all parametric polymorphism. Overloading is ad hoc polymorphism, and inheritance-based overriding is subtype polymorphism.
+
+Q: Which paradigm describes WHAT result you want rather than the step-by-step HOW?
+Topic: Paradigms
+- Imperative, as in C or Python loops
+* Declarative, as in SQL or HTML
+- Procedural, as in Pascal or C functions
+- Object-oriented, as in Java classes
+Why: SELECT name FROM students WHERE gpa > 3.5 doesn't say how to find the rows; the database decides. Functional and logic programming (like Prolog) are also declarative.
+
+Q: Which language is most associated with the logic programming paradigm?
+Topic: Paradigms
+- C
+* Prolog
+- Java
+- Assembly
+Why: In Prolog you state facts and rules, then ask questions, and the system searches for answers using unification and backtracking. It has been used for AI, type checkers and parsers.
+
+Q: What is an abstract syntax tree (AST) used for besides compiling?
+Topic: Compilers
+- Nothing else; it's thrown away as soon as machine code is generated
+* Linters, formatters, refactoring tools and IDE features analyze or rewrite code with it
+- Storing the program's output so it can be compared between runs
+- Compressing the source code so that it takes up less space in version control systems
+Why: When your editor renames a variable everywhere or flags an unused import, it's working with a tree of your code, not just raw text.
+
+Q: What is a common compiler optimization called constant folding?
+Topic: Compilers
+- Removing comments and whitespace from source code to make the program smaller
+* Computing constant expressions at compile time, like turning 60 * 60 * 24 into 86400
+- Replacing a function call with the body of the function to avoid call overhead
+- Making every variable that's never reassigned into a constant
+Why: Other common optimizations include dead code elimination, inlining small functions, loop unrolling, and register allocation. Most compilers do them automatically at higher optimization levels.
+
+Q: Why does undefined behavior in C, like reading past the end of an array, matter so much?
+Topic: Memory Management
+- The compiler always reports an error for it, so the program can't be built until it's fixed
+* The language promises nothing: it may crash, seem to work, or be exploited, and optimizers assume it can't happen
+- It always causes an immediate crash with an error message, which makes it easy to find in testing
+- It only matters on old hardware, since modern CPUs check every memory access automatically
+Why: Many security vulnerabilities come from this. Safer languages check array bounds or prevent the bug at compile time.
+
+Q: What is an exception handler, conceptually?
+Topic: Control Flow
+- A loop that keeps retrying a failed operation until it finally succeeds
+* Code that runs when an error is raised, letting control jump out of nested calls to it
+- A compiler warning that points out code which could throw an error
+- A special variable that stores the last error code returned by a function
+Why: Exceptions unwind the call stack until a matching catch block is found. Some languages (Go, Rust) prefer returning errors as values, which keeps error paths explicit.
+
+Q: What problem does async/await mainly solve?
+Topic: Concurrency
+- Making CPU-heavy math run faster by splitting it across all the processor's cores
+* Waiting on slow operations, like network calls, without blocking, while reading like sequential code
+- Removing the need for threads entirely, so programs never run anything in parallel
+- Compiling programs faster by building many different source files at the same time
+Why: While one request waits for a server, the program can handle others. JavaScript, Python, C# and Rust all have async/await, built on event loops and futures (promises).
+
+Q: What is a domain-specific language (DSL)?
+Topic: Paradigms
+- A language used inside only one company, with its own private compiler
+* A small language designed for one kind of task, like SQL, regular expressions or HTML
+- Any general-purpose language that has been extended with a framework
+- The machine language of one specific processor family, like x86 or ARM
+Why: DSLs trade generality for clarity in their area. General-purpose languages like Python and Java are meant for any kind of program.
+
+Q: In most languages, why does 0.1 + 0.2 not exactly equal 0.3?
+Topic: Type Systems
+- A compiler bug that rounds decimals incorrectly, fixed in newer versions
+* IEEE 754 binary floating point can't represent most decimal fractions exactly
+- Decimals are stored as integers, so the fractional part is truncated
+- Addition of decimals is done in a different order than written
+Why: The same thing happens in Java, C, JavaScript and Python. For money, use integer cents or a decimal type.
+
+Q: What does it mean for a grammar to have operator precedence built in?
+Topic: Compilers
+- The grammar lists operators alphabetically, which decides which one runs first
+* The grammar's structure makes some operators bind tighter, so 2 + 3 * 4 is 2 + (3 * 4)
+- All operators are evaluated left to right, so 2 + 3 * 4 is (2 + 3) * 4
+- Precedence is decided at runtime by checking which operation is faster
+Why: Grammars use separate levels (expression, term, factor) to encode precedence and associativity, which removes the ambiguity a naive grammar would have.
+
+Q: What is a REPL?
+Topic: Execution Models
+- A runtime error that tells you which line of a program failed and why
+* A read-eval-print loop: an interactive prompt that evaluates each expression you type
+- A version control tool for restoring earlier versions of a program
+- A program that watches your source files and rebuilds them every time they change
+Why: Typing python or node in a terminal opens a REPL. It's great for experimenting, learning and debugging small pieces of code.
+
+Q: Immutable data cannot be changed after it's created. Why do functional and concurrent programs like it?
+Topic: Functional Programming
+- It always uses less memory, since immutable values never need to be copied
+* Values can be shared safely between threads and functions without unexpected changes
+- It runs on more operating systems, since immutable data has a standard format
+- Compilers can only optimize code in which every value is immutable
+Why: Instead of changing a value, you create a new one. Python strings and tuples, Java Strings, and most Haskell values are immutable.
+
+# ---- Must-know formulas and facts for this class ----
+
+Q: Must-know: what are the main programming paradigms, with an example language for each?
+Topic: Must-Know Facts
+* Imperative (C), object-oriented (Java), functional (Haskell), logic (Prolog), declarative query (SQL)
+- Imperative (Haskell), object-oriented (Prolog), functional (C), logic (SQL), declarative (Java)
+- Compiled (Python), interpreted (C), scripted (Java), managed (Assembly), native (SQL)
+- Frontend (HTML), backend (Java), database (SQL), mobile (Swift), systems (Python)
+Why: Most modern languages mix paradigms; Python and JavaScript support imperative, object-oriented and functional styles.
+
+Q: Must-know: what are the levels of the Chomsky hierarchy that compilers use, and for what?
+Topic: Must-Know Facts
+* Regular languages for the lexer (tokens), context-free grammars for the parser (syntax)
+- Context-free grammars for the lexer, regular languages for the parser
+- Turing machines for the lexer, finite automata for code generation
+- Regular languages for type checking, context-free grammars for optimization
+Why: Tokens like identifiers and numbers are described by regular expressions. Nested structure like parentheses and blocks needs a context-free grammar. Type rules need even more, so semantic analysis handles them.
+
+Q: Must-know: which kinds of parsers are top-down, and which are bottom-up?
+Topic: Must-Know Facts
+* LL and recursive descent are top-down; LR, SLR and LALR are bottom-up
+- LR and LALR are top-down; LL and recursive descent are bottom-up
+- All parsers are top-down; bottom-up parsing is only theoretical
+- LL is bottom-up, LR is top-down, and recursive descent is neither
+Why: Top-down parsers start from the start symbol and predict rules. Bottom-up parsers shift tokens and reduce them to rules. Tools like yacc and bison generate LALR parsers.
+
+Q: Must-know: what are the 4 parameter-passing modes to know?
+Topic: Must-Know Facts
+* By value, by reference, by value-result, by name
+- By copy, by address, by pointer, by object
+- By value, by type, by scope, by stack
+- By heap, by stack, by register, by cache
+Why: C and Java pass by value (Java passes references BY value), C++ & parameters are by reference, and by name (Algol) re-evaluates the argument each time it's used, much like lazy evaluation.
+
+Q: Must-know: what are the four main kinds of type systems along the static/dynamic and strong/weak axes?
+Topic: Must-Know Facts
+* Static-strong (Java, Rust), static-weak (C), dynamic-strong (Python), dynamic-weak (JavaScript)
+- Static-strong (Python), static-weak (Java), dynamic-strong (C), dynamic-weak (Rust)
+- Static-strong (JavaScript), static-weak (Python), dynamic-strong (C), dynamic-weak (Java)
+- All four languages are static-strong; the axes only matter for assembly
+Why: Static versus dynamic is WHEN types are checked. Strong versus weak is how freely values convert between types. "5" + 2 errors in Python but gives "52" in JavaScript.
+
+Q: Must-know: what are the three classic garbage collection strategies?
+Topic: Must-Know Facts
+* Reference counting, mark-and-sweep, and copying (often generational)
+- Malloc, free, and realloc
+- Stack allocation, heap allocation, and static allocation
+- Swapping, paging, and segmentation
+Why: Reference counting frees things immediately but misses cycles. Mark-and-sweep finds everything reachable from the roots. Copying collectors compact memory, and generational ones focus on young objects, since most die young.
+
+Q: Must-know: what are the standard compiler phases, front end to back end?
+Topic: Must-Know Facts
+* Lexing, parsing, semantic analysis, IR generation, optimization, code generation
+- Parsing, lexing, code generation, semantic analysis, optimization, linking
+- Lexing, optimization, parsing, code generation, semantic analysis, linking
+- Preprocessing, linking, loading, lexing, parsing, executing
+Why: The front end (lexing through semantic analysis) depends on the source language, and the back end (optimization and code generation) depends on the target machine. LLVM shares one IR between them.
+
+Q: Must-know: what is the difference between static (lexical) and dynamic scoping, in one rule each?
+Topic: Must-Know Facts
+* Static: look up a name where the function was DEFINED; dynamic: look up a name where the function was CALLED
+- Static: look up a name where the function was CALLED; dynamic: look up a name where it was DEFINED
+- Static: all names are global; dynamic: all names are local
+- Static: names are resolved at runtime; dynamic: names are resolved at compile time
+Why: Almost all modern languages use static scoping, which is what makes closures work. Old Lisps and Bash use dynamic scoping.

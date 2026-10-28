@@ -1,0 +1,461 @@
+# quizzahh question file. The file name is the class name.
+#
+# Math 2: Calculus I (limits, continuity, derivatives and their applications, intro to integrals).
+# Required for every CS major. Work the problems on scratch paper before picking an answer!
+#
+# Each question looks like this (leave a blank line between questions):
+#
+#   Q: What is the powerhouse of the cell?
+#   Topic: Cells
+#   - Nucleus
+#   * Mitochondria        <- the star marks the correct answer
+#   - Ribosome
+#   - Golgi apparatus
+#   Why: Mitochondria make ATP, the cell's energy.
+#
+# Lines starting with # are ignored.
+
+# Which year of a computer science degree this class usually falls in (used by the year filter):
+Year: 1
+
+Q: Evaluate lim x→3 (x² - 9)/(x - 3).
+Topic: Limits
+- 0
+* 6
+- 3
+- The limit doesn't exist
+Why: Plugging in gives 0/0, so simplify first: x² - 9 = (x - 3)(x + 3). Cancel the (x - 3) to get x + 3, and as x approaches 3 that gives 6. The graph is a line with a hole at x = 3.
+
+Q: Evaluate lim x→0 sin(x)/x.
+Topic: Limits
+- 0
+* 1
+- Infinity
+- It doesn't exist
+Why: This famous limit (with x in radians) is proven with the squeeze theorem. It's the key step in showing that the derivative of sin x is cos x.
+
+Q: Evaluate lim x→∞ (3x² + 5)/(2x² - x).
+Topic: Limits
+- 0
+* 3/2
+- Infinity
+- 5
+Why: For rational functions at infinity, compare the highest powers. Both are x², so the limit is the ratio of the leading coefficients, 3/2. If the bottom's degree were higher, the limit would be 0.
+
+Q: Evaluate lim x→∞ (5x + 1)/(x² + 2).
+Topic: Limits
+* 0
+- 5
+- Infinity
+- 1/2
+Why: The denominator grows like x², much faster than the numerator's x, so the fraction shrinks toward 0. Dividing the top and bottom by x² shows it clearly.
+
+Q: The left-hand limit of f at 2 is 5 and the right-hand limit is 7. What is lim x→2 f(x)?
+Topic: Limits
+- 6
+- 5
+* It doesn't exist
+- 7
+Why: A two-sided limit exists only when both one-sided limits exist and are equal. A jump like this is a jump discontinuity.
+
+Q: What three conditions make f continuous at x = a?
+Topic: Continuity
+- f(a) is defined, f′(a) exists, and the limit as x approaches a equals f′(a)
+* f(a) is defined, the limit as x approaches a exists, and that limit equals f(a)
+- The left and right limits at a exist, even if they're different from each other
+- f(a) is defined and f has no corners or vertical tangents anywhere near a
+Why: Holes (removable discontinuities), jumps, and vertical asymptotes each break at least one of these conditions. Polynomials are continuous everywhere.
+
+Q: f is continuous on [1, 2] with f(1) = -3 and f(2) = 4. What does the Intermediate Value Theorem guarantee?
+Topic: Continuity
+- f is increasing on [1, 2], since it goes from -3 up to 4
+* f(c) = 0 for at least one c between 1 and 2
+- f′(c) = 7 for at least one c between 1 and 2
+- f has exactly one zero between 1 and 2
+Why: A continuous function can't jump over a value. Since 0 is between -3 and 4, the graph must cross 0. That's the basis of the bisection method for finding roots.
+
+Q: Which expression is the limit definition of the derivative f′(x)?
+Topic: Derivatives
+- (f(x + h) + f(x))/h as h approaches 0
+* lim h→0 (f(x + h) - f(x))/h
+- f(x)/x
+- lim h→0 f(h)/x
+Why: It's the slope of the secant line between x and x + h, as the two points move together into the tangent line. Exams often ask you to use it to find the derivative of x² directly.
+
+Q: What is the derivative of f(x) = x⁵?
+Topic: Derivative Rules
+- x⁴
+* 5x⁴
+- 5x⁵
+- x⁶/6
+Why: The power rule: the derivative of xⁿ is n times x to the (n - 1). Bring the exponent down and subtract 1.
+
+Q: What is d/dx (3x² - 4x + 7)?
+Topic: Derivative Rules
+* 6x - 4
+- 3x - 4
+- 6x - 4 + 7
+- 6x² - 4
+Why: Differentiate term by term: 3x² gives 6x, -4x gives -4, and the constant 7 gives 0, because constants don't change.
+
+Q: Using the product rule, what is d/dx (x² sin x)?
+Topic: Derivative Rules
+- 2x cos x
+* 2x sin x + x² cos x
+- 2x sin x − x² cos x
+- x² cos x + 2 sin x
+Why: The derivative of f times g is f′g + fg′. Here f = x² (with f′ = 2x) and g = sin x (with g′ = cos x). You can't just multiply the two derivatives.
+
+Q: Using the quotient rule, what is the derivative of x/(x + 1)?
+Topic: Derivative Rules
+- 1
+- 1/(x + 1)
+* 1/(x + 1)²
+- -1/(x + 1)²
+Why: The quotient rule is (low times d-high minus high times d-low) over low squared: ((x + 1)(1) - x(1))/(x + 1)² = 1/(x + 1)².
+
+Q: Using the chain rule, what is d/dx (3x + 1)⁵?
+Topic: Chain Rule
+- 5(3x + 1)⁴
+* 15(3x + 1)⁴
+- 5(3)⁴
+- (3x + 1)⁶/6
+Why: Take the derivative of the outside function, keeping the inside the same, then multiply by the derivative of the inside: 5(3x + 1)⁴ × 3. Forgetting that "times the inside's derivative" is the most common chain rule mistake.
+
+Q: What is d/dx sin(x²)?
+Topic: Chain Rule
+- cos(x²)
+* 2x cos(x²)
+- cos(2x)
+- 2x sin(x²)
+Why: The outside is sine, whose derivative is cosine, and the inside is x², whose derivative is 2x. Multiply them: cos(x²) × 2x.
+
+Q: What is the derivative of e^(2x)?
+Topic: Derivative Rules
+- e^(2x)
+* 2e^(2x)
+- 2xe^(2x - 1)
+- e^(2x)/2
+Why: eˣ is its own derivative, and the chain rule multiplies by the inside's derivative, 2. Watch out: the power rule doesn't apply to e^(2x), because the variable is in the exponent.
+
+Q: What is d/dx ln(x² + 1)?
+Topic: Derivative Rules
+- 1/(x² + 1)
+* 2x/(x² + 1)
+- ln(2x)
+- 2x ln(x² + 1)
+Why: The derivative of ln(u) is u′/u. Here u = x² + 1 and u′ = 2x.
+
+Q: What is the derivative of cos x?
+Topic: Derivative Rules
+- sin x
+* -sin x
+- -cos x
+- tan x
+Why: The derivative of sin x is cos x, and the derivative of cos x is -sin x. Others to know: tan x gives sec² x, and the derivative of eˣ is eˣ.
+
+Q: For the circle x² + y² = 25, what is dy/dx by implicit differentiation?
+Topic: Implicit Differentiation
+- -y/x
+* -x/y
+- 2x + 2y
+- x/y
+Why: Differentiate both sides with respect to x: 2x + 2y(dy/dx) = 0, so dy/dx = -x/y. Remember to multiply by dy/dx whenever you differentiate a y term.
+
+Q: What is the equation of the tangent line to y = x² at x = 3?
+Topic: Applications of Derivatives
+- y = 6x
+* y = 6x - 9
+- y = 3x
+- y = 2x + 3
+Why: The point is (3, 9) and the slope is 2x = 6 at x = 3. Using point-slope form: y - 9 = 6(x - 3), which simplifies to y = 6x - 9.
+
+Q: A particle's position is s(t) = 4t² - 3t meters. What is its velocity at t = 2 seconds?
+Topic: Applications of Derivatives
+- 10 meters per second
+* 13 meters per second
+- 16 meters per second
+- 8 meters per second
+Why: Velocity is the derivative of position: v(t) = 8t - 3, so v(2) = 13. Acceleration is the derivative of velocity: 8 meters per second squared.
+
+Q: What are the critical points of f(x) = x³ - 3x?
+Topic: Applications of Derivatives
+- x = 0
+* x = 1 and x = -1
+- x = 3
+- x = √3 and x = -√3
+Why: Set f′(x) = 3x² - 3 = 0, so x² = 1 and x = ±1. Critical points are where f′ is zero or undefined. They're the candidates for local maxima and minima.
+
+Q: For f(x) = x³ - 3x, f″(1) = 6. What does the second derivative test say about x = 1?
+Topic: Applications of Derivatives
+- Local maximum
+* Local minimum
+- Inflection point
+- The test says nothing
+Why: f′(1) = 0 and f″(1) > 0, so the graph is concave up there, like a cup, which makes it a local minimum. At x = -1, f″ = -6 < 0, so that's a local maximum.
+
+Q: Where does f(x) = x³ have an inflection point?
+Topic: Applications of Derivatives
+* At x = 0, where the concavity changes from down to up
+- At x = 0, where the concavity changes from up to down
+- At x = 1, where the second derivative equals 6
+- It has none, since f′(x) = 3x² is never negative
+Why: f″(x) = 6x changes sign at 0. An inflection point needs a change in concavity. x⁴ has f″(0) = 0 too, but it isn't an inflection point, because the concavity doesn't change there.
+
+Q: If f′(x) > 0 on an interval, what do you know about f there?
+Topic: Applications of Derivatives
+- f is positive
+* f is increasing
+- f is concave up
+- f is constant
+Why: The sign of f′ tells you whether f goes up or down. The sign of f″ tells you the concavity. f itself can be negative while increasing.
+
+Q: A rectangle has a perimeter of 40. What's the largest possible area?
+Topic: Optimization
+- 96
+* 100
+- 400
+- 80
+Why: With sides x and 20 - x, the area is A = x(20 - x). Then A′ = 20 - 2x = 0 gives x = 10, a 10 × 10 square with area 100. Optimization means writing one variable in terms of another, differentiating, and setting the result to 0.
+
+Q: A circle's radius grows at 2 centimeters per second. How fast is its area growing when the radius is 5 centimeters?
+Topic: Related Rates
+- 10π square centimeters per second
+* 20π square centimeters per second
+- 25π square centimeters per second
+- 4π square centimeters per second
+Why: A = πr², so dA/dt = 2πr times dr/dt = 2π(5)(2) = 20π. With related rates, differentiate with respect to time first, then plug in the numbers.
+
+Q: Use a linear approximation of √x near x = 4 to estimate √4.1.
+Topic: Applications of Derivatives
+- 2.01
+* 2.025
+- 2.05
+- 2.1
+Why: L(x) = f(4) + f′(4)(x - 4). With f′(x) = 1/(2√x), f′(4) = 1/4. So L(4.1) = 2 + (1/4)(0.1) = 2.025. The true value is about 2.0248, so the tangent line is a great approximation near 4.
+
+Q: What does the Mean Value Theorem say for f continuous on [a, b] and differentiable on (a, b)?
+Topic: Theorems
+- Somewhere between a and b, f′(c) = 0, so the graph has a horizontal tangent at c
+* Somewhere between a and b, f′(c) equals the average rate (f(b) − f(a))/(b − a)
+- At the midpoint c = (a + b)/2, f(c) equals the average of f(a) and f(b)
+- Somewhere between a and b, f(c) equals the average value of f on the interval
+Why: If you drove 120 miles in 2 hours, at some moment your speedometer read exactly 60 miles per hour.
+
+Q: Use L'Hôpital's rule: lim x→0 (eˣ - 1)/x = ?
+Topic: Limits
+- 0
+* 1
+- e
+- It doesn't exist
+Why: Plugging in gives 0/0, so differentiate the top and bottom separately: eˣ/1, which approaches 1. The rule applies only to the forms 0/0 and infinity over infinity.
+
+Q: What is the most general antiderivative of 3x²?
+Topic: Integrals
+- 6x
+- x³
+* x³ + C
+- 3x³ + C
+Why: Check by differentiating: x³ + C gives 3x². The "+ C" matters, because every constant has derivative 0, so there's a whole family of antiderivatives.
+
+Q: What is ∫ (2x + 5) dx?
+Topic: Integrals
+- 2 + C
+* x² + 5x + C
+- x² + 5 + C
+- 2x² + 5x + C
+Why: Integrate term by term: 2x becomes x², and 5 becomes 5x. The power rule for integrals is: xⁿ becomes x to the (n + 1) divided by (n + 1), for n ≠ -1.
+
+Q: Evaluate ∫ 2x dx from 1 to 3.
+Topic: Fundamental Theorem
+- 4
+* 8
+- 9
+- 6
+Why: An antiderivative is x², so the answer is 3² - 1² = 9 - 1 = 8. The Fundamental Theorem of Calculus says a definite integral equals F(b) - F(a) for any antiderivative F.
+
+Q: What does the definite integral of f from a to b represent?
+Topic: Fundamental Theorem
+- The slope of the secant line from (a, f(a)) to (b, f(b))
+* The net signed area between the graph of f and the x-axis from a to b
+- The total area between the graph and the x-axis, always counted as positive
+- The change in f′ between x = a and x = b
+Why: Area above the axis counts as positive and area below counts as negative. It's the limit of Riemann sums, which add up rectangles of height f(x) and width Δx.
+
+Q: What is the area under y = x² from x = 0 to x = 3?
+Topic: Fundamental Theorem
+- 3
+* 9
+- 27
+- 6
+Why: The integral is x³/3 evaluated from 0 to 3: 27/3 - 0 = 9.
+
+Q: If g(x) = ∫ f(t) dt from a to x, what is g′(x)?
+Topic: Fundamental Theorem
+- f(a)
+* f(x)
+- f′(x)
+- 0
+Why: This is the first part of the Fundamental Theorem of Calculus: differentiating an integral with a variable upper limit gives back the original function. Integration and differentiation undo each other.
+
+Q: Using the substitution u = x² + 1, what is ∫ 2x(x² + 1)⁵ dx?
+Topic: Integration Techniques
+- (x² + 1)⁶ + C
+* (x² + 1)⁶/6 + C
+- 2x(x² + 1)⁶/6 + C
+- 5(x² + 1)⁴ + C
+Why: Then du = 2x dx, so the integral becomes ∫ u⁵ du = u⁶/6 + C. Substitution is the chain rule run backward. Look for an inside function whose derivative is also present.
+
+Q: What is ∫ 1/x dx?
+Topic: Integrals
+- x⁰ + C
+* ln|x| + C
+- -1/x² + C
+- 1/x² + C
+Why: The power rule fails when n = -1, since it would divide by zero. The absolute value makes it valid for negative x too.
+
+Q: What is ∫ cos x dx?
+Topic: Integrals
+- -sin x + C
+* sin x + C
+- cos x + C
+- -cos x + C
+Why: Differentiating sin x gives cos x. Also, ∫ sin x dx = -cos x + C. Mixing up those signs is a classic exam error.
+
+Q: What is the average value of f on [a, b]?
+Topic: Fundamental Theorem
+- (f(a) + f(b))/2, the average of the endpoint values
+* (1/(b − a)) times ∫ f(x) dx from a to b
+- (f(b) − f(a))/(b − a), the slope of the secant line
+- ∫ f(x) dx from a to b, divided by f(b) − f(a)
+Why: It's the height of a rectangle with the same width and the same area as the region under the curve. For f(x) = x² on [0, 3], it's 9/3 = 3.
+
+Q: Is f(x) = |x| differentiable at x = 0?
+Topic: Derivatives
+- Yes; the left and right slopes average out, so f′(0) = 0
+* No; the sharp corner means the left slope (−1) and right slope (1) don't match
+- Yes; f is continuous at 0, and every continuous function is differentiable
+- No; f isn't continuous at 0, so it can't be differentiable there
+Why: Differentiable implies continuous, but not the other way around. |x| is continuous everywhere yet not differentiable at the corner. Cusps and vertical tangent lines also break differentiability.
+
+Q: The graph of f has a horizontal tangent line at x = 2. What is f′(2)?
+Topic: Derivatives
+* 0
+- 2
+- f(2)
+- It's undefined
+Why: The derivative is the slope of the tangent line, and a horizontal line has slope 0. These are the points to check when looking for maximums and minimums.
+
+Q: What is lim x→0 (1 - cos x)/x?
+Topic: Limits
+* 0
+- 1
+- Infinity
+- 1/2
+Why: Multiply the top and bottom by (1 + cos x), or use L'Hôpital's rule: sin x/1 approaches 0. Its partner limit, sin(x)/x, approaches 1. Both are needed to derive the trig derivatives.
+
+Q: Water drains so that its volume is V(t) = 100 - 4t² liters at t minutes. At what rate is the volume changing at t = 3?
+Topic: Applications of Derivatives
+- -12 liters per minute
+* -24 liters per minute
+- 64 liters per minute
+- -36 liters per minute
+Why: V′(t) = -8t, so V′(3) = -24. The negative sign means the volume is decreasing. Units for a rate are always output units per input unit.
+
+# ---- Must-know formulas and facts for this class ----
+
+Q: Formula check: what is the power rule for derivatives?
+Topic: Formulas
+* d/dx xⁿ = n·xⁿ⁻¹
+- d/dx xⁿ = xⁿ⁺¹/(n + 1)
+- d/dx xⁿ = n·xⁿ⁺¹
+- d/dx xⁿ = (n − 1)·xⁿ
+Why: Bring the exponent down and subtract one. xⁿ⁺¹/(n + 1) is the power rule for integrals, which runs the other way.
+
+Q: Formula check: what is the product rule?
+Topic: Formulas
+* (fg)′ = f′g + fg′
+- (fg)′ = f′g′
+- (fg)′ = f′g − fg′
+- (fg)′ = (f′g − fg′)/g²
+Why: Each factor takes a turn being differentiated while the other stays the same. The derivative of a product is NOT the product of the derivatives.
+
+Q: Formula check: what is the quotient rule?
+Topic: Formulas
+* (f/g)′ = (f′g − fg′) / g²
+- (f/g)′ = (fg′ − f′g) / g²
+- (f/g)′ = f′ / g′
+- (f/g)′ = (f′g + fg′) / g²
+Why: A common memory trick is "low d-high minus high d-low, over low squared." The order of subtraction matters; swapping it flips the sign.
+
+Q: Formula check: what is the chain rule?
+Topic: Formulas
+* d/dx f(g(x)) = f′(g(x)) · g′(x)
+- d/dx f(g(x)) = f′(x) · g′(x)
+- d/dx f(g(x)) = f′(g′(x))
+- d/dx f(g(x)) = f(g′(x)) · g(x)
+Why: Differentiate the outside function, leaving the inside alone, then multiply by the derivative of the inside. For sin(x²) that's cos(x²) · 2x.
+
+Q: Formula check: what is the derivative of tan x?
+Topic: Formulas
+* sec²x
+- −csc²x
+- sec x tan x
+- cot x
+Why: −csc²x is the derivative of cot x, and sec x tan x is the derivative of sec x. You can get sec²x from the quotient rule on sin x / cos x.
+
+Q: Formula check: what is the derivative of aˣ, for a constant a > 0?
+Topic: Formulas
+* aˣ · ln a
+- x · aˣ⁻¹
+- aˣ / ln a
+- aˣ
+Why: Only eˣ is its own derivative, since ln e = 1. Using the power rule here is a classic mistake: the variable is in the exponent, not the base.
+
+Q: Formula check: what is the derivative of ln x?
+Topic: Formulas
+* 1/x
+- ln x / x
+- 1/ln x
+- eˣ
+Why: Together with the chain rule, this gives d/dx ln(g(x)) = g′(x)/g(x). It's also why ∫ 1/x dx = ln|x| + C.
+
+Q: Formula check: what is the derivative of arcsin x?
+Topic: Formulas
+* 1/√(1 − x²)
+- −1/√(1 − x²)
+- 1/(1 + x²)
+- √(1 − x²)
+Why: −1/√(1 − x²) is the derivative of arccos x, and 1/(1 + x²) is the derivative of arctan x. These show up again as integrals in Calculus II.
+
+Q: Formula check: what is the limit definition of the derivative?
+Topic: Formulas
+* f′(x) = lim h→0 [f(x + h) − f(x)] / h
+- f′(x) = lim h→0 [f(x + h) − f(x)]
+- f′(x) = lim h→∞ [f(x + h) − f(x)] / h
+- f′(x) = lim h→0 [f(x) − f(h)] / x
+Why: It's the slope of a secant line through x and x + h, as the two points slide together. Without dividing by h you'd just get 0.
+
+Q: Formula check: what does the Fundamental Theorem of Calculus (part 2) say?
+Topic: Formulas
+* ∫ f(x) dx from a to b = F(b) − F(a), where F′ = f
+- ∫ f(x) dx from a to b = F(a) − F(b), where F′ = f
+- ∫ f(x) dx from a to b = f(b) − f(a)
+- ∫ f(x) dx from a to b = F′(b) − F′(a)
+Why: To find a definite integral, find any antiderivative and subtract its value at the lower limit from its value at the upper limit. The + C cancels out.
+
+Q: Formula check: what is the power rule for integrals (n ≠ −1)?
+Topic: Formulas
+* ∫ xⁿ dx = xⁿ⁺¹/(n + 1) + C
+- ∫ xⁿ dx = n·xⁿ⁻¹ + C
+- ∫ xⁿ dx = xⁿ⁺¹/n + C
+- ∫ xⁿ dx = (n + 1)·xⁿ⁺¹ + C
+Why: Raise the exponent by one and divide by the new exponent. When n = −1 this would divide by zero, which is why ∫ 1/x dx = ln|x| + C is a separate rule.
+
+Q: Formula check: what is ∫ sec²x dx?
+Topic: Formulas
+* tan x + C
+- sec x + C
+- −cot x + C
+- sec x tan x + C
+Why: Every derivative rule gives an integral rule run backward. Since (tan x)′ = sec²x, the antiderivative of sec²x is tan x.

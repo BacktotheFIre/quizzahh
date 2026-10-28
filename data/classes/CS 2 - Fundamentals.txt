@@ -1,0 +1,602 @@
+# quizzahh question file. The file name is the class name.
+#
+# Each question looks like this (leave a blank line between questions):
+#
+#   Q: What is the powerhouse of the cell?
+#   Topic: Cells
+#   - Nucleus
+#   * Mitochondria        <- the star marks the correct answer
+#   - Ribosome
+#   - Golgi apparatus
+#   Why: Mitochondria make ATP, the cell's energy.
+#
+# Lines starting with # are ignored.
+
+# Which year of a computer science degree this class usually falls in (used by the year filter):
+Year: 1
+
+Q: Which data structure follows Last-In, First-Out (LIFO) order?
+Topic: Data Structures
+- Queue
+* Stack
+- Linked list
+- Heap
+Why: A stack is LIFO: the last item pushed is the first one popped, like a stack of plates. A queue is the opposite (FIFO).
+
+Q: What is the average time complexity to look up a key in a hash table?
+Topic: Data Structures
+* O(1)
+- O(log n)
+- O(n)
+- O(n log n)
+Why: A hash function maps the key straight to a bucket, so lookup is O(1) on average. Worst case (many collisions) degrades to O(n).
+
+Q: In a binary search tree, where are values smaller than a node stored?
+Topic: Data Structures
+- In its right subtree
+* In its left subtree
+- In its parent
+- Anywhere in the tree
+Why: The BST property: everything in the left subtree is smaller than the node and everything in the right subtree is larger. That ordering is what makes searching fast.
+
+Q: What is the time complexity of accessing the element at index i in an array?
+Topic: Data Structures
+- O(n)
+- O(log n)
+* O(1)
+- O(i²)
+Why: Arrays are stored contiguously, so the address of element i is just base + i × element_size. That's a single calculation: O(1).
+
+Q: Which data structure is typically used to implement a priority queue?
+Topic: Data Structures
+- Stack
+* Heap
+- Hash table
+- Doubly linked list
+Why: A binary heap keeps the highest (or lowest) priority element at the root, giving O(1) peek and O(log n) insert/remove.
+
+Q: What does each node in a singly linked list contain?
+Topic: Data Structures
+- A value and pointers to the next and previous nodes
+* A value and a pointer to the next node
+- Only a value
+- A key and a hash
+Why: A singly linked list node holds data and one pointer to the next node. A doubly linked list adds a pointer to the previous node too.
+
+Q: A graph where edges have a direction (A → B is different from B → A) is called:
+Topic: Data Structures
+- A weighted graph
+* A directed graph
+- A complete graph
+- A bipartite graph
+Why: In a directed graph (digraph), each edge points one way. 'Weighted' means edges carry costs, which is a separate property.
+
+Q: What is the maximum number of children a node can have in a binary tree?
+Topic: Data Structures
+- 1
+* 2
+- 3
+- Unlimited
+Why: 'Binary' means two: each node has at most a left child and a right child.
+
+Q: What is the worst-case time complexity of binary search on a sorted array?
+Topic: Algorithms
+- O(n)
+* O(log n)
+- O(1)
+- O(n log n)
+Why: Binary search halves the search space each step, so it takes about log₂(n) steps. 1,000,000 items need only ~20 comparisons.
+
+Q: What is the average time complexity of merge sort?
+Topic: Algorithms
+- O(n²)
+- O(n)
+* O(n log n)
+- O(n² log n)
+Why: Merge sort splits the list in half log n times, and merging at each level costs O(n), giving O(n log n) in every case.
+
+Q: What is the worst-case time complexity of quicksort?
+Topic: Algorithms
+- O(n log n)
+* O(n²)
+- O(n)
+- O(log n)
+Why: If the pivot is always the smallest or largest element (e.g. already-sorted input with a naive pivot), each partition only removes one element, giving O(n²). Its average case is O(n log n).
+
+Q: Which algorithm finds the shortest path from one node to all others in a graph with non-negative edge weights?
+Topic: Algorithms
+- Breadth-first search
+* Dijkstra's algorithm
+- Kruskal's algorithm
+- Bellman-Ford with negative cycles
+Why: Dijkstra's algorithm repeatedly picks the closest unvisited node and relaxes its edges. It requires non-negative weights; Bellman-Ford handles negative ones. Kruskal's builds a minimum spanning tree, not shortest paths.
+
+Q: Breadth-first search (BFS) uses which data structure to track nodes to visit?
+Topic: Algorithms
+- Stack
+* Queue
+- Heap
+- Hash table
+Why: BFS visits nodes level by level, so it uses a FIFO queue. Depth-first search (DFS) uses a stack (or recursion).
+
+Q: What technique solves problems by storing results of overlapping subproblems to avoid recomputing them?
+Topic: Algorithms
+- Greedy algorithms
+- Divide and conquer
+* Dynamic programming
+- Backtracking with pruning
+Why: Dynamic programming caches subproblem answers (memoization or tabulation). Computing Fibonacci with DP is O(n) instead of exponential.
+
+Q: What does Big-O notation describe?
+Topic: Algorithms
+- The exact runtime of an algorithm in seconds on a typical computer
+* An upper bound on how runtime or memory grows with input size
+- The best-case performance, when the input is already in the ideal order
+- The average number of lines of code each step of the algorithm needs
+Why: Big-O describes the growth rate (an upper bound) of time or space as n grows, ignoring constants. It's about scaling, not exact seconds.
+
+Q: What is a recursive function's 'base case'?
+Topic: Algorithms
+- The first recursive call the function makes
+* The condition that stops the recursion
+- The call that does the most work
+- The case where the input is the largest
+Why: The base case is the condition where the function returns without calling itself. Without it, recursion never ends and you get a stack overflow.
+
+Q: What is the time complexity of bubble sort in the worst case?
+Topic: Algorithms
+- O(n)
+- O(n log n)
+* O(n²)
+- O(2ⁿ)
+Why: Bubble sort compares adjacent pairs and makes up to n passes over n elements: n × n = O(n²).
+
+Q: In object-oriented programming, what is 'encapsulation'?
+Topic: Programming
+- One class inheriting fields and methods from another class
+* Bundling data with the methods that use it and hiding internal details
+- Using the same method name for different behaviors in different classes
+- Turning an object into a string so it can be saved or sent over a network
+Why: Encapsulation keeps an object's internal state private and exposes it only through methods. Inheritance and polymorphism are the other two options described.
+
+Q: What is 'polymorphism' in OOP?
+Topic: Programming
+* Objects of different classes responding to the same method call in their own way
+- A class bundling its data with methods and hiding the details from other classes
+- A subclass reusing the fields and methods of its parent without rewriting them
+- One object containing other objects as fields, like a car containing wheels
+Why: Polymorphism lets one interface have many implementations. For example, calling speak() on a Dog and a Cat runs different code through the same call.
+
+Q: What is the difference between a compiler and an interpreter?
+Topic: Programming
+- An interpreter translates the whole program to machine code first; a compiler runs it line by line
+* A compiler translates the whole program to machine code first; an interpreter runs it line by line
+- A compiler checks only syntax, while an interpreter checks syntax and types
+- There's no real difference; both always produce an executable file
+Why: Compilers (like for C) translate everything ahead of time into an executable. Interpreters (like classic Python) read and run code statement by statement. Many modern languages mix both (e.g. JIT compilation).
+
+Q: What does a 'null pointer exception' usually mean?
+Topic: Programming
+- The program ran out of memory while creating a new object
+* Code tried to use a reference that points to nothing
+- A number was divided by zero during a calculation
+- An array index was past the end of the array
+Why: It happens when you call a method or access a field on a variable that is null/None, meaning it doesn't refer to any actual object.
+
+Q: Which of these is an immutable type in Python?
+Topic: Programming
+- list
+- dict
+* tuple
+- set
+Why: Tuples can't be changed after creation. Lists, dicts and sets can be modified in place, so they are mutable.
+
+Q: What does 'git commit' do?
+Topic: Programming
+- Uploads your staged changes to GitHub so teammates can see them
+* Saves a snapshot of staged changes to the local repository history
+- Downloads the latest changes from the remote and merges them in
+- Marks files as ready to be included in the next snapshot
+Why: A commit records staged changes in your local repo. 'git push' is what uploads commits to a remote like GitHub; 'git pull' downloads.
+
+Q: What is a 'race condition'?
+Topic: Programming
+- A bug where a program uses up all the CPU and slows down every other program
+* A bug where the result depends on the unpredictable timing of threads or processes
+- A situation where two threads each wait forever for a lock the other holds
+- A loop whose exit condition never becomes true, so it runs forever
+Why: When two threads read and write shared data without coordination, the outcome depends on who runs first. Locks/mutexes are a common fix.
+
+Q: In most languages, what does the expression 7 % 3 evaluate to?
+Topic: Programming
+- 2
+* 1
+- 2.33
+- 21
+Why: % is the modulo (remainder) operator. 7 ÷ 3 = 2 with remainder 1, so 7 % 3 = 1.
+
+Q: What is the purpose of a function's 'return' statement?
+Topic: Programming
+- To print a value to the screen for the user to see
+* To send a value back to the caller and exit the function
+- To jump back to the start of the function and run it again
+- To store a value in a global variable for later use
+Why: return ends the function and hands a value back to the code that called it. Printing just displays something; the caller can't use a printed value.
+
+Q: What does DNS do?
+Topic: Networking
+- Encrypts traffic between your browser and websites
+* Translates domain names (like google.com) into IP addresses
+- Assigns IP addresses to devices when they join a network
+- Finds the MAC address that belongs to an IP address
+Why: DNS (Domain Name System) is the internet's phone book: it turns human-friendly names into the numeric IP addresses computers use. Assigning IPs is DHCP's job.
+
+Q: What is the main difference between TCP and UDP?
+Topic: Networking
+- UDP guarantees ordered, reliable delivery; TCP doesn't
+* TCP guarantees ordered, reliable delivery; UDP doesn't
+- TCP is always faster, because it has less overhead than UDP
+- UDP encrypts its data, while TCP sends everything in plain text
+Why: TCP sets up a connection, acknowledges packets and retransmits lost ones. UDP just sends packets with no guarantees, which is faster and fine for video calls or games where speed beats perfection.
+
+Q: Which port does HTTPS use by default?
+Topic: Networking
+- 80
+- 21
+* 443
+- 8443
+Why: HTTPS uses port 443. HTTP is 80, FTP is 21, and SSH is 22.
+
+Q: How many bits are in an IPv4 address?
+Topic: Networking
+- 16
+* 32
+- 64
+- 128
+Why: IPv4 addresses are 32 bits, written as four 8-bit numbers (e.g. 192.168.1.1). IPv6 addresses are 128 bits.
+
+Q: What protocol automatically assigns IP addresses to devices on a network?
+Topic: Networking
+- DNS
+* DHCP
+- FTP
+- SMTP
+Why: DHCP (Dynamic Host Configuration Protocol) hands out IP addresses, gateway and DNS settings when a device joins a network.
+
+Q: What does an HTTP 404 status code mean?
+Topic: Networking
+- Server error
+* Not found
+- Unauthorized
+- Success
+Why: 404 means the server couldn't find the requested resource. 200 is success, 401 is unauthorized, and 500 is a server error.
+
+Q: A MAC address identifies:
+Topic: Networking
+- A website's location on the internet
+* A network interface's hardware
+- A device's location on the internet
+- A specific application on a computer
+Why: A MAC address is a hardware identifier burned into a network interface card, used for delivery on the local network. It has nothing to do with Apple Macs.
+
+Q: Which layer of the OSI model is responsible for routing packets between networks?
+Topic: Networking
+- Physical (Layer 1)
+- Data Link (Layer 2)
+* Network (Layer 3)
+- Application (Layer 7)
+Why: The Network layer (Layer 3) handles logical addressing and routing, which is where IP and routers live. Layer 2 deals with local delivery via MAC addresses.
+
+Q: What is the difference between a process and a thread?
+Topic: Operating Systems
+- A thread has its own memory space; processes within a thread share memory
+* A process has its own memory space; threads within a process share memory
+- They're the same thing; "thread" is just the name used in Java
+- A process runs on one CPU core, while a thread can run on all of them at once
+Why: A process is a running program with its own isolated memory. Threads are lighter-weight units of execution inside a process that share its memory, which makes communication easy but needs synchronization.
+
+Q: What is 'virtual memory'?
+Topic: Operating Systems
+- Extra memory that's stored on servers in the cloud and streamed to your computer
+* Giving each process the illusion of a large private address space, using disk as overflow
+- A special kind of RAM that's faster than normal memory because it's closer to the CPU
+- Memory that is reserved only for virtual machines running on the computer
+Why: Virtual memory maps each process's addresses to physical RAM through page tables, and can swap rarely used pages to disk. This isolates processes and lets programs use more memory than physically exists.
+
+Q: What is a 'deadlock'?
+Topic: Operating Systems
+- When the CPU gets too hot and slows down to protect itself
+* When processes each wait for a resource another holds, so none can proceed
+- When one process uses so much CPU that other processes never get a turn
+- When a program's memory fills up and it can't allocate more
+Why: Example: thread A holds lock 1 and wants lock 2, while thread B holds lock 2 and wants lock 1. Both wait forever.
+
+Q: What is the 'kernel' of an operating system?
+Topic: Operating Systems
+- The graphical desktop and windows that the user interacts with
+* The core part that manages hardware, memory and processes
+- The program that starts the computer before the operating system loads
+- The command-line program that reads and runs typed commands
+Why: The kernel runs with full hardware privileges and handles scheduling, memory management, device drivers and system calls. Apps request services from it.
+
+Q: What does a CPU scheduler do?
+Topic: Operating Systems
+- Decides how much memory each process gets
+* Decides which process or thread runs on the CPU next
+- Decides when the computer should install updates
+- Decides which program files to keep in the cache
+Why: The scheduler switches between runnable tasks (context switching) so many programs appear to run at once, using policies like round-robin or priority scheduling.
+
+Q: What is a 'page fault'?
+Topic: Operating Systems
+- A web page that fails to load because of a server error
+* When a program accesses memory that isn't currently loaded in RAM
+- When a program accesses memory that belongs to another process
+- A corrupted area of the disk that can't be read
+Why: When a process touches a virtual page not currently in physical memory, the CPU raises a page fault and the OS loads the page (often from disk). It's normal, not necessarily an error.
+
+Q: What does SQL stand for?
+Topic: Databases
+* Structured Query Language
+- Standard Query Logic
+- Sequential Query Language
+- Structured Question Language
+Why: SQL = Structured Query Language, the standard language for querying and managing relational databases.
+
+Q: What is a primary key?
+Topic: Databases
+- The first column in a table, filled in automatically with numbers
+* A column (or set of columns) that uniquely identifies each row
+- A column that refers to a row in another table
+- A key used to encrypt the data in a table
+Why: A primary key must be unique and not null for every row, e.g. a user ID. It lets other tables reference rows reliably.
+
+Q: What is a foreign key?
+Topic: Databases
+- A second primary key added to a table for faster searches
+* A column that references the primary key of another table
+- A column whose values must be unique within the table
+- A key stored in another database to encrypt this one
+Why: A foreign key links tables together, e.g. orders.customer_id refers to customers.id, and the database can enforce that the referenced row exists.
+
+Q: Which SQL clause filters rows?
+Topic: Databases
+- ORDER BY
+* WHERE
+- GROUP BY
+- SELECT
+Why: WHERE keeps only rows matching a condition, e.g. WHERE age > 18. ORDER BY sorts, GROUP BY groups, and SELECT chooses columns.
+
+Q: What does the 'A' in ACID stand for?
+Topic: Databases
+- Availability
+* Atomicity
+- Accuracy
+- Authentication
+Why: Atomicity means a transaction is all-or-nothing: either every step succeeds or none are applied. ACID = Atomicity, Consistency, Isolation, Durability.
+
+Q: What is the main purpose of a database index?
+Topic: Databases
+- To keep a backup copy of the table's data
+* To speed up lookups on certain columns
+- To make sure no two rows are the same
+- To link two tables together
+Why: An index (often a B-tree) lets the database find rows without scanning the entire table, much like a book's index. The tradeoff is extra storage and slower writes.
+
+Q: Which type of JOIN returns only rows that have matching values in both tables?
+Topic: Databases
+- LEFT JOIN
+- FULL OUTER JOIN
+* INNER JOIN
+- CROSS JOIN
+Why: INNER JOIN keeps only matches. LEFT JOIN keeps every row from the left table even without a match; CROSS JOIN pairs every row with every row.
+
+Q: How many bits are in a byte?
+Topic: Architecture
+- 4
+* 8
+- 16
+- 32
+Why: A byte is 8 bits, which can represent 256 different values (0–255). Four bits is called a nibble.
+
+Q: What is the binary number 1011 in decimal?
+Topic: Architecture
+- 9
+- 10
+* 11
+- 13
+Why: 1011 = 1×8 + 0×4 + 1×2 + 1×1 = 11.
+
+Q: What is the hexadecimal value FF in decimal?
+Topic: Architecture
+- 15
+- 100
+* 255
+- 256
+Why: F = 15, so FF = 15×16 + 15 = 255. That's the largest value one byte can hold.
+
+Q: What is CPU cache?
+Topic: Architecture
+- The part of the hard drive that stores the operating system
+* Small, very fast memory close to the CPU that holds recently used data
+- Saved copies of web pages that load faster the next time you visit
+- Extra storage on the disk used when RAM is full
+Why: Cache (L1, L2, L3) sits between the CPU and RAM. Since RAM is slow by comparison, keeping frequently used data in cache greatly speeds things up.
+
+Q: Which type of memory loses its contents when power is turned off?
+Topic: Architecture
+- SSD
+- ROM
+* RAM
+- Hard disk
+Why: RAM is volatile: it needs power to keep data. SSDs, hard drives and ROM are non-volatile and keep data without power.
+
+Q: What does the ALU in a CPU do?
+Topic: Architecture
+- Stores the instructions the CPU is about to run
+* Performs arithmetic and logic operations
+- Decides which instruction to run next
+- Moves data between the CPU and RAM
+Why: The Arithmetic Logic Unit does math (add, subtract) and logic (AND, OR, compare). The control unit tells it what to do.
+
+Q: In two's complement with 8 bits, what does 11111111 represent?
+Topic: Architecture
+- 255
+* -1
+- -127
+- 0
+Why: In two's complement, all 1s is -1. (As an unsigned number it would be 255, but two's complement is how signed integers are stored.)
+
+Q: What is SQL injection?
+Topic: Security
+- A technique for running many SQL queries at once to speed them up
+* An attack where malicious input is inserted into a database query
+- A tool for adding new tables to a database without stopping it
+- An attack that floods a database with requests until it crashes
+Why: If user input is pasted directly into SQL, an attacker can type something like ' OR 1=1 -- to change the query. The fix is parameterized queries / prepared statements.
+
+Q: Why should passwords be stored as hashes rather than plain text?
+Topic: Security
+- Hashes take less space, so the database is smaller and faster
+* So if the database leaks, attackers don't get the actual passwords
+- Hashes can be reversed with the server's key when users forget passwords
+- So passwords can be compared faster when users log in
+Why: A hash is one-way, so the site can verify a password without storing it. Use slow, salted algorithms like bcrypt or Argon2 so leaked hashes are hard to crack.
+
+Q: In public-key cryptography, which key is shared openly?
+Topic: Security
+- The private key
+* The public key
+- Both keys
+- Neither key
+Why: Anyone can use your public key to encrypt messages to you or verify your signatures, but only your private key, which you keep secret, can decrypt or sign.
+
+Q: What is phishing?
+Topic: Security
+- Scanning a network for open ports and weak services
+* Tricking people into revealing information, often through fake emails or websites
+- Flooding a website with traffic until it crashes
+- Encrypting someone's files and demanding payment to unlock them
+Why: Phishing is social engineering: fake messages that look legit and try to get you to enter passwords or click malicious links.
+
+Q: What does two-factor authentication (2FA) add?
+Topic: Security
+- A second password of the same kind, typed in after the first one
+* A second, different kind of proof of identity, like a code from your phone
+- A security question about your personal history
+- Encryption of your account's data on the server
+Why: 2FA combines something you know (password) with something you have (phone/key) or are (fingerprint). Stealing one factor alone isn't enough.
+
+Q: What is the difference between encryption and hashing?
+Topic: Security
+- Hashing is reversible with a key; encryption is one-way
+* Encryption is reversible with a key; hashing is one-way
+- They're the same thing, but hashing is used only for files
+- Both are one-way, but encryption produces a longer result
+Why: Encrypted data can be decrypted with the right key. A hash can't be turned back into the original; you can only hash a guess and compare.
+
+Q: What does it mean if a problem is 'NP-complete'?
+Topic: Theory
+- It's been proven impossible to solve, no matter how much time you allow
+* It's in NP and every NP problem reduces to it; no known polynomial solution exists
+- It can be solved quickly, but checking a proposed answer takes exponential time
+- It's in P, but the fastest algorithm known is too slow for large inputs
+Why: NP-complete problems (like the Traveling Salesman decision problem or SAT) are the 'hardest' in NP. A polynomial solution to one would solve them all, which would prove P = NP.
+
+Q: What is the Halting Problem?
+Topic: Theory
+- Figuring out how to stop a program that has frozen, without losing any data
+* The proven impossibility of a program deciding, for every program and input, if it stops
+- Finding the fastest algorithm to decide whether any given program will stop
+- A proof that every program eventually stops if given enough memory and time
+Why: Alan Turing proved in 1936 that no general algorithm can determine whether every possible program halts. It's a foundational result about the limits of computation.
+
+Q: What is a Turing machine?
+Topic: Theory
+- The first real electronic computer, built by Alan Turing during World War II
+* A theoretical model of computation with a tape, a head and a set of rules
+- A code-breaking machine used to decrypt messages during World War II
+- A type of CPU design that's used in most modern computers
+Why: It's an abstract model: an infinite tape, a read/write head and state transitions. Anything a modern computer can compute, a Turing machine can too, given enough time.
+
+Q: Which Boolean operation returns true only when exactly one input is true?
+Topic: Theory
+- AND
+- OR
+* XOR
+- NAND
+Why: XOR (exclusive or) is true when the inputs differ. OR is also true when both are true; AND only when both are true.
+
+Q: A regular expression can be recognized by which simple machine?
+Topic: Theory
+* Finite automaton
+- Turing machine only
+- Pushdown automaton only
+- None
+Why: Regular languages are exactly those recognized by finite automata (DFAs/NFAs). Pushdown automata handle the larger class of context-free languages, such as balanced parentheses.
+
+# ---- Must-know formulas and facts for this class ----
+
+Q: Must-know: order these from fastest to slowest growth for large n.
+Topic: Must-Know Facts
+* O(1), O(log n), O(n), O(n log n), O(n²), O(2ⁿ)
+- O(1), O(n), O(log n), O(n log n), O(2ⁿ), O(n²)
+- O(log n), O(1), O(n), O(n²), O(n log n), O(2ⁿ)
+- O(1), O(log n), O(n log n), O(n), O(n²), O(2ⁿ)
+Why: Memorize this ladder; it's on almost every CS exam. For n = 1,000,000: log n is about 20, n log n about 20 million, and n² is a trillion.
+
+Q: Must-know: what is the time complexity of binary search on a sorted array?
+Topic: Must-Know Facts
+* O(log n)
+- O(n)
+- O(1)
+- O(n log n)
+Why: Each step throws away half of what's left, so 1,000,000 items need only about 20 comparisons. It only works on sorted data with direct index access.
+
+Q: Must-know: what is the average time to look up a key in a hash table?
+Topic: Must-Know Facts
+* O(1)
+- O(log n)
+- O(n)
+- O(n log n)
+Why: The hash function jumps straight to the right bucket. The worst case is O(n) if many keys collide, which a good hash function and resizing make rare.
+
+Q: Must-know: what is the time complexity of BFS or DFS on a graph with V vertices and E edges, using adjacency lists?
+Topic: Must-Know Facts
+* O(V + E)
+- O(V · E)
+- O(V²)
+- O(E log V)
+Why: Each vertex is visited once and each edge is looked at once (twice for undirected graphs). With an adjacency matrix it becomes O(V²).
+
+Q: Must-know: which sorting algorithms run in O(n log n) in the worst case?
+Topic: Must-Know Facts
+* Merge sort and heapsort
+- Quicksort and insertion sort
+- Bubble sort and selection sort
+- Quicksort and merge sort
+Why: Quicksort is O(n log n) on average but O(n²) in its worst case. Bubble, selection and insertion sort are all O(n²), though insertion sort is fast on nearly sorted data.
+
+Q: Must-know: what is the binary (base 2) value of decimal 13?
+Topic: Must-Know Facts
+* 1101
+- 1011
+- 1110
+- 1001
+Why: 13 = 8 + 4 + 1, so the 8s, 4s and 1s places are on: 1101. Repeatedly dividing by 2 and reading the remainders from the bottom up gives the same answer.
+
+Q: Must-know: in 8-bit two's complement, what range of integers can be stored?
+Topic: Must-Know Facts
+* −128 to 127
+- −127 to 127
+- 0 to 255
+- −256 to 255
+Why: With n bits, two's complement covers −2ⁿ⁻¹ to 2ⁿ⁻¹ − 1. There's one more negative number than positive because zero takes one of the non-negative patterns.
+
+Q: Must-know: what are the 4 pillars of object-oriented programming?
+Topic: Must-Know Facts
+* Encapsulation, abstraction, inheritance, polymorphism
+- Classes, objects, methods, variables
+- Encapsulation, compilation, inheritance, recursion
+- Abstraction, iteration, recursion, polymorphism
+Why: Encapsulation hides data, abstraction hides complexity, inheritance reuses code, and polymorphism lets one interface have many behaviors. Interviewers love asking about these.

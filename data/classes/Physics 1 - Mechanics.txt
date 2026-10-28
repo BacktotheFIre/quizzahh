@@ -1,0 +1,429 @@
+# quizzahh question file. The file name is the class name.
+#
+# Physics 1: Calculus-based Mechanics (kinematics, Newton's laws, energy, momentum, rotation,
+# gravity, oscillations). Most CS majors take this. Use g = 9.8 meters per second squared.
+#
+# Each question looks like this (leave a blank line between questions):
+#
+#   Q: What is the powerhouse of the cell?
+#   Topic: Cells
+#   - Nucleus
+#   * Mitochondria        <- the star marks the correct answer
+#   - Ribosome
+#   - Golgi apparatus
+#   Why: Mitochondria make ATP, the cell's energy.
+#
+# Lines starting with # are ignored.
+
+# Which year of a computer science degree this class usually falls in (used by the year filter):
+Year: 2
+
+Q: What is the difference between speed and velocity?
+Topic: Kinematics
+- Speed is a vector (it has a direction); velocity is just how fast, with no direction
+* Velocity is a vector (it has a direction); speed is just how fast, with no direction
+- They're the same quantity; physicists say "velocity" and everyone else says "speed"
+- Speed is measured over a whole trip, while velocity is measured at a single instant
+Why: Running a full lap around a track gives an average velocity of zero (you ended where you started), but your average speed was not zero.
+
+Q: A car starts from rest and accelerates at 3 m/s² for 4 s. How fast is it going?
+Topic: Kinematics
+- 7 meters per second
+* 12 meters per second
+- 0.75 meters per second
+- 24 meters per second
+Why: v = v₀ + at = 0 + 3 × 4 = 12 meters per second. For constant acceleration, the key equations are v = v₀ + at, x = v₀t + ½at², and v² = v₀² + 2ax.
+
+Q: How far does that same car (starting from rest, 3 m/s² for 4 s) travel?
+Topic: Kinematics
+- 12 meters
+* 24 meters
+- 48 meters
+- 6 meters
+Why: x = ½at² = ½ × 3 × 16 = 24 m. Or use the average velocity: (0 + 12)/2 = 6 meters per second, times 4 s, is 24 m.
+
+Q: A ball is dropped from rest. Ignoring air resistance, how far does it fall in 2 seconds?
+Topic: Kinematics
+- 9.8 meters
+* 19.6 meters
+- 39.2 meters
+- 4.9 meters
+Why: y = ½gt² = ½ × 9.8 × 4 = 19.6 m. Distance grows with the square of time, so in 4 seconds it would fall four times as far.
+
+Q: A ball is thrown straight up. At the very top of its path, what are its velocity and acceleration?
+Topic: Kinematics
+- Both are zero, since the ball has stopped moving for an instant
+* Velocity is zero; acceleration is still 9.8 m/s² downward
+- Velocity is 9.8 m/s downward; acceleration is zero
+- Velocity is zero; acceleration is zero, then becomes 9.8 m/s² as it falls
+Why: Gravity never switches off. If the acceleration were zero at the top, the ball would just hang there. This is one of the most-missed conceptual questions in intro physics.
+
+Q: One ball is dropped and another is fired horizontally from the same height at the same moment. Which hits the ground first (no air resistance)?
+Topic: Projectile Motion
+- The dropped ball
+- The fired ball
+* They land at the same time
+- It depends on the firing speed
+Why: Horizontal and vertical motion are independent. Both balls start with zero vertical velocity and fall with the same acceleration, so the horizontal speed doesn't change the fall time.
+
+Q: Ignoring air resistance, which launch angle gives a projectile the longest range on level ground?
+Topic: Projectile Motion
+- 30°
+* 45°
+- 60°
+- 90°
+Why: Range = v² sin(2θ)/g, which is largest when 2θ = 90°. Angles that add up to 90°, like 30° and 60°, give the same range.
+
+Q: On a velocity-versus-time graph, what does the area under the curve represent?
+Topic: Kinematics
+- Acceleration
+* Displacement
+- Speed
+- Force
+Why: Displacement is the integral of velocity. The slope of a velocity graph is acceleration, and the slope of a position graph is velocity. This is calculus at work.
+
+Q: What does Newton's first law say?
+Topic: Newton's Laws
+- An object's acceleration equals the net force on it divided by its mass
+* An object keeps its velocity (at rest, or moving straight at constant speed) unless a net force acts
+- An object in motion slowly comes to rest unless a force keeps pushing it forward
+- For every force one object exerts on another, there is an equal and opposite force back on it
+Why: This is inertia. A hockey puck glides almost forever on ice because there's very little friction. Motion doesn't need a force; changes in motion do.
+
+Q: A net force of 10 N acts on a 2 kg object. What is its acceleration?
+Topic: Newton's Laws
+- 20 meters per second squared
+* 5 meters per second squared
+- 0.2 meters per second squared
+- 12 meters per second squared
+Why: Newton's second law: a = F/m = 10/2 = 5. Use the NET force, the vector sum of all forces, not just one of them.
+
+Q: A truck and a small car collide head-on. How do the forces they exert on each other compare?
+Topic: Newton's Laws
+- The truck exerts more force, since it has more mass
+- The car exerts more force, since it accelerates more
+* The forces are equal in size and opposite in direction
+- It depends on which vehicle was moving faster
+Why: Newton's third law: forces come in pairs acting on DIFFERENT objects. The car accelerates much more, because the same force acts on a smaller mass (a = F/m).
+
+Q: What is the weight of a 50 kg person on Earth?
+Topic: Newton's Laws
+- 50 newtons
+* 490 newtons
+- 5 newtons
+- 50 kilograms
+Why: Weight is a force: W = mg = 50 × 9.8 = 490 N. Mass (in kilograms) is the same everywhere, but weight changes on the Moon.
+
+Q: You stand on a scale in an elevator that's accelerating upward. What does the scale read compared with your normal weight?
+Topic: Newton's Laws
+* More than your weight
+- Less than your weight
+- Exactly your weight
+- Zero
+Why: The scale must push you up with enough force to support you AND accelerate you: N = m(g + a). Accelerating downward makes you feel lighter, and in free fall the scale reads zero.
+
+Q: A 10 kg box slides across a floor with a coefficient of kinetic friction of 0.3. What is the friction force?
+Topic: Friction
+- 3 newtons
+* 29.4 newtons
+- 98 newtons
+- 32.7 newtons
+Why: Kinetic friction = μk × N, and on a flat floor the normal force is N = mg = 98 N, so friction = 0.3 × 98 = 29.4 N. It points opposite the sliding direction.
+
+Q: Why is it harder to start pushing a heavy couch than to keep it moving?
+Topic: Friction
+- The couch's weight decreases slightly once it starts sliding
+* Maximum static friction is usually larger than kinetic friction
+- Kinetic friction is usually larger than maximum static friction
+- The couch's momentum adds to your push once it's moving
+Why: μs is typically greater than μk. That's also why anti-lock brakes help: a rolling tire grips with static friction, which is stronger than a skidding tire's kinetic friction.
+
+Q: A block rests on a ramp tilted at angle θ. What is the component of gravity pulling it down the ramp?
+Topic: Forces
+- mg cos θ
+* mg sin θ
+- mg tan θ
+- mg
+Why: The component pressing into the ramp is mg cos θ, which sets the normal force. At θ = 0 (flat) nothing pulls it along, and at 90° the full weight does, which matches sin θ.
+
+Q: A 5 kg mass hangs at rest from a rope. What is the tension in the rope?
+Topic: Forces
+- 5 newtons
+* 49 newtons
+- 0 newtons
+- 98 newtons
+Why: At rest, the net force is zero, so the tension balances the weight: T = mg = 49 N. A free-body diagram (draw every force on the object) makes problems like this routine.
+
+Q: A car drives around a flat curve at constant speed. What force provides the centripetal force?
+Topic: Circular Motion
+- The car's engine pushing it toward the center of the curve
+* Static friction between the tires and the road
+- Kinetic friction from the tires sliding sideways
+- The normal force from the road pushing on the car
+Why: Turning means the velocity's direction changes, which is acceleration toward the center (v²/r). On ice there's little friction, so the car slides straight. Banked roads let the normal force help.
+
+Q: If a car takes the same curve at twice the speed, how much more centripetal force does it need?
+Topic: Circular Motion
+- Twice as much
+* Four times as much
+- √2 times as much
+- Eight times as much
+Why: F = mv²/r, so the force grows with the square of the speed. That's why speeding on curves is so dangerous.
+
+Q: You carry a heavy box across a room at constant height and constant speed. How much work does your upward holding force do on the box?
+Topic: Work & Energy
+- A lot, since you must hold up the box's full weight the whole way
+* Zero, because the force is perpendicular to the motion
+- Your force times the distance across the room
+- Negative work, since gravity pulls the box downward
+Why: Work = F·d·cos θ, and here θ = 90°, so cos θ = 0. Your muscles get tired, but in the physics sense no work is done on the box.
+
+Q: If you double a car's speed, what happens to its kinetic energy?
+Topic: Work & Energy
+- It doubles
+* It quadruples
+- It stays the same
+- It halves
+Why: KE = ½mv². Four times the energy means about four times the braking distance, another reason speed matters so much.
+
+Q: A ball is dropped from 20 m. Ignoring air resistance, how fast is it moving just before it hits the ground?
+Topic: Work & Energy
+- 9.8 meters per second
+* About 19.8 meters per second
+- About 14 meters per second
+- About 28 meters per second
+Why: Potential energy turns into kinetic energy: mgh = ½mv², so v = √(2gh) = √392 ≈ 19.8. The mass cancels, which is why all objects fall alike without air resistance.
+
+Q: How much gravitational potential energy does a 2 kg book gain when lifted 5 m?
+Topic: Work & Energy
+- 10 joules
+* 98 joules
+- 49 joules
+- 2.5 joules
+Why: U = mgh = 2 × 9.8 × 5 = 98 J. Only the change in height matters, not the path taken.
+
+Q: A motor does 600 J of work in 3 s. What is its power?
+Topic: Work & Energy
+- 1,800 watts
+* 200 watts
+- 600 watts
+- 3 watts
+Why: Power = work ÷ time = 600/3 = 200 W. One watt is one joule per second. Power is the rate of doing work.
+
+Q: What does the work-energy theorem say?
+Topic: Work & Energy
+- The net work done on an object equals its change in potential energy
+* The net work done on an object equals its change in kinetic energy
+- The work done by friction equals the object's total mechanical energy
+- The net work done on an object equals its change in momentum
+Why: Pushing a cart with a net force over a distance speeds it up by exactly that much kinetic energy. Friction does negative work, which takes kinetic energy away.
+
+Q: Why do airbags reduce injuries in a crash?
+Topic: Momentum
+- They reduce how much the person's momentum changes during the crash
+* They stretch out the stopping time, so the force needed to stop the person is smaller
+- They shorten the stopping time, so the person stops before hitting anything
+- They absorb the person's momentum, so the car's momentum isn't affected
+Why: Impulse = FΔt = Δp. The momentum change is fixed by the crash, so a longer Δt means a smaller F. Helmets, crumple zones, and bending your knees when you land all use the same idea.
+
+Q: A 2 kg cart moving at 3 meters per second hits a 1 kg cart at rest, and they stick together. How fast do they move afterward?
+Topic: Momentum
+- 3 meters per second
+* 2 meters per second
+- 1.5 meters per second
+- 6 meters per second
+Why: Momentum is conserved: 2 × 3 = (2 + 1) × v, so v = 2. In this perfectly inelastic collision, kinetic energy is NOT conserved; some becomes heat and sound.
+
+Q: What is conserved in an elastic collision?
+Topic: Momentum
+- Only momentum
+- Only kinetic energy
+* Both momentum and kinetic energy
+- Momentum, plus kinetic energy only if the masses are equal
+Why: Momentum is conserved in every collision when there are no outside forces. Kinetic energy is conserved only in elastic ones, like billiard balls, approximately.
+
+Q: Why does a longer wrench make it easier to loosen a bolt?
+Topic: Rotation
+* Torque is force times lever arm (τ = rF sin θ), so a longer arm gives more torque for the same force
+- A longer wrench is heavier, so its weight adds extra force to the bolt as you turn it
+- A longer wrench lowers the friction in the threads, so the bolt needs less force to turn
+- A longer wrench increases the bolt's moment of inertia, so it turns more easily once started
+Why: Push at the end of the handle, perpendicular to it (θ = 90°), for the most torque. Doorknobs are placed far from the hinges for the same reason.
+
+Q: A figure skater pulls her arms in while spinning. What happens?
+Topic: Rotation
+- She slows down, since pulling her arms in takes energy away from her spin
+* She spins faster, because her angular momentum stays the same while her moment of inertia drops
+- She spins faster, because pulling her arms in adds angular momentum to her spin
+- Her spin rate doesn't change, since no outside torque acts on her
+Why: Angular momentum L = Iω is conserved with no outside torque. Pulling mass toward the axis lowers I, so ω, the spin rate, rises.
+
+Q: Two wheels have the same mass. One has its mass near the rim and one has it near the center. Which is harder to start spinning?
+Topic: Rotation
+- The one with mass near the center
+* The one with mass near the rim
+- They're the same
+- It depends on their color
+Why: Moment of inertia grows with mass times distance squared from the axis. A hoop has I = MR², while a solid disk has I = ½MR².
+
+Q: If the distance between two masses doubles, what happens to the gravitational force between them?
+Topic: Gravity
+- It becomes half as strong
+* It becomes one quarter as strong
+- It becomes twice as strong
+- It becomes one eighth as strong
+Why: Newton's law of gravitation: F = Gm₁m₂/r², an inverse-square law. Triple the distance and the force becomes one ninth.
+
+Q: Why do astronauts on the International Space Station float?
+Topic: Gravity
+- There's no gravity at the height of the station, about 400 km above Earth
+* They and the station are in free fall together, constantly falling around Earth
+- The station spins fast enough that its rotation cancels the pull of gravity
+- The Moon's gravity pulls on them just as hard as Earth's, so the forces cancel
+Why: At the station's height, gravity is still about 90% as strong as on the ground. They float because everything falls at the same rate, so nothing presses against the floor.
+
+Q: A mass on a spring oscillates with period T. If the mass is made 4 times larger, what is the new period?
+Topic: Oscillations
+- T/2
+- 4T
+* 2T
+- T
+Why: For a spring, T = 2π√(m/k). Four times the mass gives √4 = 2 times the period. A stiffer spring (larger k) oscillates faster.
+
+Q: What does the period of a simple pendulum (with small swings) depend on?
+Topic: Oscillations
+- Its mass
+* Its length (and g)
+- How far it's pulled back
+- Its color
+Why: T = 2π√(L/g). That independence from mass and swing size made pendulums the basis of accurate clocks for centuries.
+
+Q: A satellite moves in a circular orbit at constant speed. Is it accelerating?
+Topic: Circular Motion
+- No; its speed is constant, so its acceleration must be zero
+* Yes, toward Earth's center, because the direction of its velocity keeps changing
+- Yes, forward along its path, which keeps it from falling to Earth
+- Yes, away from Earth, which exactly balances the pull of gravity
+Why: Acceleration is any change in velocity, including direction. Gravity provides the centripetal acceleration that keeps it curving around Earth.
+
+Q: Which quantity is a vector?
+Topic: Kinematics
+- Mass
+- Temperature
+* Force
+- Energy
+Why: Vectors have size and direction, like force, velocity, acceleration and momentum. Scalars have only size, like mass, energy, speed and time.
+
+Q: Using calculus, if position is x(t) = 2t³ meters, what is the acceleration at t = 1 s?
+Topic: Kinematics
+- 6 meters per second squared
+* 12 meters per second squared
+- 2 meters per second squared
+- 18 meters per second squared
+Why: v(t) = dx/dt = 6t², and a(t) = dv/dt = 12t, so a(1) = 12. In calculus-based physics, velocity and acceleration are derivatives of position.
+
+# ---- Must-know formulas and facts for this class ----
+
+Q: Formula check: which kinematics equation has no time variable in it?
+Topic: Formulas
+* v² = v₀² + 2aΔx
+- v = v₀ + at
+- Δx = v₀t + (1/2)at²
+- Δx = ((v₀ + v)/2) · t
+Why: Use it when a problem gives speeds and distance but no time. All four equations assume constant acceleration.
+
+Q: Formula check: what is the displacement under constant acceleration, starting with velocity v₀?
+Topic: Formulas
+* Δx = v₀t + (1/2)at²
+- Δx = v₀t + at²
+- Δx = (1/2)v₀t + at²
+- Δx = v₀ + (1/2)at
+Why: It's the area under a straight-line velocity graph: a rectangle (v₀t) plus a triangle ((1/2)·t·at). Integrating v = v₀ + at gives the same result.
+
+Q: Formula check: what is Newton's second law?
+Topic: Formulas
+* F_net = ma
+- F_net = mv
+- F_net = m/a
+- F_net = (1/2)mv²
+Why: The net force, not any single force, sets the acceleration. mv is momentum, and (1/2)mv² is kinetic energy.
+
+Q: Formula check: what is the formula for kinetic friction?
+Topic: Formulas
+* f_k = μ_k · N
+- f_k = μ_k · m
+- f_k = μ_k / N
+- f_k = μ_k · v
+Why: N is the normal force, which equals mg only on a flat surface with no other vertical forces. Static friction is f_s ≤ μ_s N, an upper limit, not a fixed value.
+
+Q: Formula check: what is centripetal acceleration for speed v on a circle of radius r?
+Topic: Formulas
+* a_c = v² / r
+- a_c = v / r
+- a_c = v r²
+- a_c = r / v²
+Why: It points toward the center of the circle. The needed net force is F = mv²/r, which is why doubling the speed takes four times the force.
+
+Q: Formula check: what is work done by a constant force F over displacement d at angle θ?
+Topic: Formulas
+* W = F d cos θ
+- W = F d sin θ
+- W = F / d
+- W = (1/2) F d²
+Why: Only the part of the force along the motion does work. At 90° (cos 90° = 0) the work is zero, like carrying a box horizontally.
+
+Q: Formula check: what are kinetic energy and gravitational potential energy near Earth?
+Topic: Formulas
+* KE = (1/2)mv² and PE = mgh
+- KE = mv² and PE = (1/2)mgh
+- KE = (1/2)mv and PE = mg/h
+- KE = mgh and PE = (1/2)mv²
+Why: These two trade back and forth in a falling or swinging object. Setting mgh = (1/2)mv² gives v = √(2gh) for a dropped object.
+
+Q: Formula check: what is impulse?
+Topic: Formulas
+* J = FΔt = Δp
+- J = F / Δt = Δp
+- J = FΔx = ΔKE
+- J = mΔt = Δv
+Why: Impulse equals the change in momentum. Spreading the same Δp over a longer Δt (airbags, bending your knees) means a smaller force.
+
+Q: Formula check: what is torque?
+Topic: Formulas
+* τ = r F sin θ
+- τ = r F cos θ
+- τ = F / r
+- τ = r² F
+Why: r is the distance from the pivot and θ is the angle between r and F. Pushing straight at the hinge (θ = 0) gives no torque, however hard you push.
+
+Q: Formula check: what is Newton's law of universal gravitation?
+Topic: Formulas
+* F = G m₁m₂ / r²
+- F = G m₁m₂ / r
+- F = G (m₁ + m₂) / r²
+- F = m₁m₂ / (G r²)
+Why: It's an inverse-square law: doubling the distance cuts the force to a quarter. G is about 6.67 × 10⁻¹¹ N·m²/kg².
+
+Q: Formula check: what is the period of a mass m on a spring with spring constant k?
+Topic: Formulas
+* T = 2π √(m/k)
+- T = 2π √(k/m)
+- T = 2π √(L/g)
+- T = 2π m/k
+Why: A heavier mass swings more slowly and a stiffer spring swings faster. 2π√(L/g) is the period of a pendulum, which doesn't depend on the mass at all.
+
+Q: Formula check: what is Hooke's law for a spring?
+Topic: Formulas
+* F = −kx
+- F = kx²
+- F = −k/x
+- F = (1/2)kx
+Why: The spring pulls back in the opposite direction of the stretch, which is the meaning of the minus sign. The energy stored in the spring is (1/2)kx².
+
+Q: Formula check: what is the formula for power?
+Topic: Formulas
+* P = W / t (or P = F·v)
+- P = W · t (or P = F/v)
+- P = F / t (or P = m·v)
+- P = W / d (or P = F·a)
+Why: Power is how fast work is done, measured in watts (joules per second). A motor doing 600 J in 3 s puts out 200 W.

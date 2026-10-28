@@ -1,0 +1,450 @@
+# quizzahh question file. The file name is the class name.
+#
+# CS 5: Programming II in Java and object-oriented programming (often called CS2).
+#
+# Each question looks like this (leave a blank line between questions):
+#
+#   Q: What is the powerhouse of the cell?
+#   Topic: Cells
+#   - Nucleus
+#   * Mitochondria        <- the star marks the correct answer
+#   - Ribosome
+#   - Golgi apparatus
+#   Why: Mitochondria make ATP, the cell's energy.
+#
+# Lines starting with # are ignored.
+
+# Which year of a computer science degree this class usually falls in (used by the year filter):
+Year: 1
+
+Q: How does a Java program run?
+Topic: Java Basics
+- The source code is run line by line by an interpreter, the same way Python runs a script
+* javac compiles source into bytecode, and the Java Virtual Machine (JVM) runs the bytecode
+- javac compiles source straight into machine code for the computer's own processor
+- The JVM reads the .java source file directly and compiles it to machine code each time it runs
+Why: Bytecode is the same on every operating system, and each platform has its own JVM. That's the "write once, run anywhere" idea. The JVM also compiles hot code to machine code while running (just-in-time compilation).
+
+Q: Java is "statically typed." What does that mean?
+Topic: Java Basics
+- Once a variable is assigned a value, that value can never be changed again
+* Every variable has a declared type that is checked when the code is compiled
+- Types are worked out while the program runs, and errors appear at runtime
+- Every variable must be declared static, so it belongs to the class
+Why: int count = "five"; won't even compile. Catching type errors before running is a big advantage on large projects. Python, by contrast, is dynamically typed.
+
+Q: What does this print?
+int a = 7;
+int b = 2;
+System.out.println(a / b);
+Topic: Java Basics
+- 3.5
+* 3
+- 4
+- 3.0
+Why: Dividing two ints in Java gives an int, and the fraction is cut off (truncated toward zero). To get 3.5, make one side a double: (double) a / b or a / 2.0.
+
+Q: What does this print?
+System.out.println(1 + 2 + "3" + 4 + 5);
+Topic: Java Basics
+- 15
+* 3345
+- 12345
+- 339
+Why: Java evaluates left to right. 1 + 2 is 3 (numbers). 3 + "3" makes the string "33". After that everything is string concatenation: "334", then "3345".
+
+Q: What is the difference between == and .equals() for Strings in Java?
+Topic: Strings
+- == compares the characters of two Strings; .equals() checks whether they're the same object
+* == checks whether two references point to the same object; .equals() compares the characters
+- There's no difference for Strings, since Java automatically reuses identical String objects
+- .equals() only works on numbers, so == is the only way to compare two Strings in Java
+Why: Two different String objects with the same text can fail ==. Always compare strings with .equals(), for example name.equals("Heather").
+
+Q: Java Strings are immutable. What does that mean for this code?
+String s = "hi";
+s.toUpperCase();
+System.out.println(s);
+Topic: Strings
+- It prints HI, because toUpperCase() changes the String it's called on
+* It prints hi, because toUpperCase() returns a new String that was thrown away
+- It doesn't compile, because the result of toUpperCase() must be stored
+- It prints HI the second time it runs, once the String has been cached
+Why: String methods never change the original. You need s = s.toUpperCase();. When building a string in a loop, use StringBuilder, which can be changed in place and is much faster.
+
+Q: Why use StringBuilder when building a long string in a loop?
+Topic: Strings
+- Strings can't hold more than 255 characters, so longer text needs a StringBuilder
+* Each += creates a brand new String object, wasting time and memory; StringBuilder appends in place
+- StringBuilder is thread-safe, so the loop can safely run on several threads at once to finish faster
+- Strings in a loop are stored on the stack, which overflows if they get too long
+Why: Repeated += in a loop can turn a linear job into quadratic work, because each step copies everything built so far. sb.append(x) followed by sb.toString() at the end avoids that.
+
+Q: What is a class, compared with an object?
+Topic: Classes & Objects
+- An object is a blueprint that defines fields and methods; a class is an instance created with new
+* A class is a blueprint defining fields and methods; an object is an instance created with new
+- They're the same thing; "object" is just the word used once the program is running
+- A class holds the data and an object holds the methods that work on that data
+Why: Dog is a class; Dog rex = new Dog("Rex"); creates an object. Many objects can be made from one class, and each has its own field values.
+
+Q: What is a constructor?
+Topic: Classes & Objects
+- Any method that creates and returns a new object of its class
+* A special method named after the class, with no return type, that runs when an object is created
+- A static method that's called once when the class is first loaded
+- A method that copies all of the fields from one object into another object of the same class
+Why: public Dog(String name) { this.name = name; } runs on new Dog("Rex"). If you write no constructor, Java provides a default no-argument constructor.
+
+Q: What does the keyword this refer to inside an instance method?
+Topic: Classes & Objects
+- The class itself, so static fields can be reached
+* The current object, the one the method was called on
+- The parent class, so overridden methods can be called
+- The object that most recently called this method
+Why: In this.name = name;, this.name is the object's field and name is the parameter. this is needed when the two have the same name.
+
+Q: What is encapsulation?
+Topic: OOP Principles
+- Putting all of a program's classes in one file so they're easier to find
+* Hiding an object's data (private fields) behind controlled public methods
+- Letting a class inherit fields and methods from a parent class
+- Giving several methods the same name with different parameters
+Why: With private double balance; and a deposit(double amount) method that rejects negative amounts, the object protects its own rules. Getters and setters are the usual pattern.
+
+Q: What does private mean on a field?
+Topic: OOP Principles
+* Only code inside the same class can access it directly
+- Any class in the same package can access it directly
+- The class and its subclasses can access it directly
+- It can be read from anywhere but only changed inside the class
+Why: The access levels go from most to least restrictive: private, then package-private (no keyword), then protected (adds subclasses), then public (everyone).
+
+Q: What does it mean that class Dog extends Animal?
+Topic: Inheritance
+- Dog contains an Animal field that it uses to delegate method calls
+* Dog is a subclass of Animal: it inherits Animal's members and can add or override them
+- Animal inherits from Dog, so every Animal gets Dog's methods
+- Dog implements Animal as an interface, so it must write every method itself
+Why: Inheritance models an "is-a" relationship: a Dog is an Animal. Java allows only single inheritance of classes, so one class can extend only one superclass.
+
+Q: What does super(name) do as the first line of a subclass constructor?
+Topic: Inheritance
+- Creates a separate parent object that the new object keeps a reference to
+* Calls the superclass constructor so the inherited part of the object is set up
+- Calls the superclass method named name and stores its return value
+- Copies the name field from the parent class into the subclass
+Why: A subclass object contains its superclass's part, which must be initialized first. If you don't call super(...) yourself, Java automatically calls the superclass's no-argument constructor.
+
+Q: What is method overriding?
+Topic: Polymorphism
+- Defining two methods with the same name but different parameters in one class
+* A subclass providing its own version of an inherited method, same name and parameters
+- A method calling itself until it reaches a base case
+- Hiding a parent's static method by declaring another with the same name
+Why: If Animal has speak() and Dog overrides speak() to bark, the Dog version runs. Add @Override so the compiler catches mistakes like a misspelled method name.
+
+Q: What is method overloading?
+Topic: Polymorphism
+* Several methods with the same name but different parameter lists, like print(int) and print(String)
+- A subclass replacing an inherited method with its own version that has the same parameters
+- A method that calls another method with the same name in the parent class using super
+- A method that takes a variable number of arguments using the ... syntax
+Why: The compiler picks which version to call based on the argument types. That's decided at compile time. Overriding, in contrast, is decided at runtime based on the actual object.
+
+Q: What does this print?
+Animal a = new Dog();
+a.speak();
+(Dog overrides speak() to print "Woof"; Animal's version prints "...")
+Topic: Polymorphism
+- ...
+* Woof
+- It doesn't compile
+- Both lines
+Why: This is dynamic dispatch. The variable's type is Animal, but the object is a Dog, and Java calls the overridden method of the actual object at runtime. That's polymorphism.
+
+Q: With Animal a = new Dog(); where Dog adds a fetch() method, why doesn't a.fetch() compile?
+Topic: Polymorphism
+- fetch is private to the Dog class, so it can't be called from outside
+* The compiler only knows a is an Animal, and Animal has no fetch() method
+- The object is actually an Animal at runtime, since that's the declared type
+- You must call super.fetch() to reach a method defined in a subclass
+Why: The declared type decides which methods you're allowed to call. If you know it's really a Dog, you can cast: ((Dog) a).fetch(). Checking first with instanceof avoids a ClassCastException.
+
+Q: What is an abstract class?
+Topic: Abstract Classes & Interfaces
+- A class with no fields, only method signatures that every subclass must fill in exactly once
+* A class that can't be instantiated directly and may have abstract methods subclasses must implement
+- A class whose methods are all static, so it never needs an object
+- A class that's hidden from other packages
+Why: abstract class Shape { abstract double area(); } means new Shape() is illegal, but Circle extends Shape must provide area(). Abstract classes can still hold fields and regular methods.
+
+Q: What is an interface in Java?
+Topic: Abstract Classes & Interfaces
+- A class that extends two other classes to combine their behavior
+* A contract listing methods a class promises to provide; a class can implement many
+- A class whose fields are all public and final, used for passing data around
+- The graphical windows and buttons that a Java program displays
+Why: class Duck implements Flyable, Swimmable is allowed even though Java has single inheritance of classes. Interfaces like Comparable and Runnable are used everywhere. Since Java 8, interfaces can also have default methods.
+
+Q: When would you choose an interface over an abstract class?
+Topic: Abstract Classes & Interfaces
+- When the shared code needs fields and constructor logic that every subclass reuses
+* When unrelated classes should share a capability, like Comparable, without a common parent
+- Never; abstract classes can do everything interfaces can, and more
+- When a class should have no methods, only constants
+Why: An abstract class fits a true "is-a" family that shares state and code. An interface fits a "can-do" ability that many unrelated classes might have.
+
+Q: What does static mean on a field like static int count?
+Topic: Classes & Objects
+- The value can never change after it's first assigned
+* There is one copy shared by the whole class, not one per object
+- The field can only be accessed by code inside the class
+- The field keeps its value after the program exits
+Why: A static counter can track how many objects were created. Static methods, like Math.max, are called on the class and can't use this, because there's no particular object.
+
+Q: What does final mean on a variable?
+Topic: Java Basics
+* It can be assigned only once
+- It's the last variable in the class
+- It's deleted when the method ends
+- It must be static
+Why: final double TAX = 0.08; can't be reassigned. A final class can't be extended, and a final method can't be overridden. A final reference can't point elsewhere, but the object it points to can still change.
+
+Q: What is the size of an array after int[] nums = new int[5];, and what are its starting values?
+Topic: Arrays & ArrayLists
+- 0, with no values
+* 5, all set to 0
+- 5, all set to null
+- 4, with random values
+Why: Java arrays have a fixed length set at creation (nums.length is 5) and default values: 0 for numbers, false for booleans, null for objects. Valid indexes are 0 to 4.
+
+Q: What happens when you access nums[5] on an array of length 5?
+Topic: Arrays & ArrayLists
+- It returns 0, the default value for an int array
+* An ArrayIndexOutOfBoundsException is thrown
+- It returns the last element, nums[4]
+- The array grows automatically to length 6
+Why: Valid indexes are 0 to length - 1. Off-by-one mistakes, like using <= length in a loop, are one of the most common bugs on exams and in real code.
+
+Q: How is an ArrayList different from an array?
+Topic: Arrays & ArrayLists
+- An array grows and shrinks automatically; an ArrayList has a fixed size set when it's created
+* An ArrayList grows and shrinks automatically and holds objects; an array has a fixed size
+- ArrayLists are faster for every operation, since they store their items in a linked list
+- There's no difference; ArrayList is just another name for an array of objects
+Why: ArrayList<Integer> list = new ArrayList<>(); list.add(5); list.get(0); list.size(). Primitives like int are automatically boxed into Integer objects (autoboxing).
+
+Q: Why can't you write ArrayList<int>?
+Topic: Generics
+- int is too small to be stored in a list
+* Generics work only with object types, so you use Integer instead
+- ArrayList can only hold String objects
+- You must write ArrayList<Number> for any kind of number
+Why: Each primitive has a wrapper: int and Integer, double and Double, boolean and Boolean, char and Character. Java converts between them automatically.
+
+Q: What problem do generics like List<String> solve?
+Topic: Generics
+- They make code run faster, since the JVM can skip type checks at runtime
+* They let the compiler check element types, so you can't put an Integer in a List of Strings
+- They let one class inherit from several classes, as long as the types match
+- They free unused memory by removing elements of the wrong type automatically
+Why: Before generics, collections held Object, and mistakes showed up as ClassCastException at runtime. With generics the mistake is a compile error instead.
+
+Q: What is the difference between a checked and an unchecked exception?
+Topic: Exceptions
+- Unchecked exceptions must be caught or declared with throws; checked ones don't have to be
+* Checked ones (like IOException) must be caught or declared; unchecked ones (like NullPointerException) needn't be
+- Checked exceptions can't be caught at all; they always end the program
+- Checked exceptions happen at compile time, and unchecked ones happen only at runtime, after it's built
+Why: Checked exceptions represent problems a program should plan for, like a missing file. Unchecked ones, which are subclasses of RuntimeException, usually mean a programming bug.
+
+Q: What causes a NullPointerException?
+Topic: Exceptions
+- Dividing an integer by zero
+* Calling a method or accessing a field through a null reference
+- Accessing an array index past its end
+- Casting an object to a class that it doesn't belong to
+Why: String s = null; s.length(); fails because there's no object. Check for null first, or make sure fields are initialized in the constructor.
+
+Q: In try { ... } catch (Exception e) { ... } finally { ... }, when does the finally block run?
+Topic: Exceptions
+- Only when an exception is thrown in the try block
+- Only when no exception is thrown in the try block
+* Always, whether or not an exception was thrown
+- Only when the catch block itself throws an exception
+Why: finally is for cleanup like closing files. Try-with-resources, try (Scanner sc = new Scanner(file)) { ... }, closes things automatically.
+
+Q: Which collection should you use to store unique items with no duplicates?
+Topic: Collections
+- ArrayList
+* HashSet
+- LinkedList
+- Stack
+Why: A Set ignores duplicate adds. HashSet gives fast add and contains on average (constant time). TreeSet keeps items sorted, with logarithmic time operations.
+
+Q: Which collection maps keys to values, like a phone book?
+Topic: Collections
+- ArrayList
+- HashSet
+* HashMap
+- Queue
+Why: map.put("Heather", 555) and map.get("Heather"). Keys are unique. A HashMap relies on the key's hashCode() and equals() methods.
+
+Q: If you override equals() in your class, what else must you override for HashMap and HashSet to work correctly?
+Topic: Collections
+* hashCode()
+- toString()
+- compareTo()
+- finalize()
+Why: The rule: objects that are equal must have the same hash code. Otherwise two "equal" objects land in different buckets and the set treats them as different.
+
+Q: What does a class need to implement so Collections.sort(list) can sort its objects?
+Topic: Collections
+- Comparator
+* Comparable, providing a compareTo method
+- Iterable
+- Sortable
+Why: compareTo returns a negative number, zero or a positive number for less than, equal and greater than. You can also pass a Comparator to sort, such as Comparator.comparing(Student::getGpa).
+
+Q: Why do you get a ConcurrentModificationException when removing items from an ArrayList inside a for-each loop?
+Topic: Collections
+- ArrayLists can't remove items while any loop is running, even a normal for loop with an index
+* Changing the list's structure while the for-each loop's iterator is walking it isn't allowed
+- for-each loops make a read-only copy of the list, and removing from that copy fails
+- The list is too large for the iterator to keep track of, so it throws an exception
+Why: Use the iterator's own remove() method, list.removeIf(x -> x < 0), or loop backward with an index.
+
+Q: What does this recursive method return for sum(4)?
+int sum(int n) {
+  if (n == 0) return 0;
+  return n + sum(n - 1);
+}
+Topic: Recursion
+- 4
+* 10
+- 0
+- It runs forever
+Why: sum(4) = 4 + 3 + 2 + 1 + 0 = 10. Each call waits on the call stack until the base case returns. Recursion that never reaches its base case ends in a StackOverflowError.
+
+Q: In a UML class diagram, what does a hollow triangle arrow from Dog to Animal mean?
+Topic: Design & UML
+- Dog contains an Animal as one of its fields
+* Dog inherits from (extends) Animal
+- Dog implements the Animal interface
+- Animal depends on Dog as a parameter
+Why: UML class diagrams show classes as boxes with name, fields and methods. A hollow triangle means inheritance, a dashed line with a hollow triangle means implementing an interface, and a diamond means composition or aggregation.
+
+Q: What is composition in OOP?
+Topic: Design & UML
+- Combining several parent classes into one class through multiple inheritance
+* Building a class out of other objects, a "has-a" relationship, like a Car having an Engine
+- Writing several constructors with different parameters for one class
+- A subclass replacing its parent's methods with versions of its own
+Why: "Favor composition over inheritance" is a common design guideline. Has-a relationships are often more flexible than deep inheritance trees.
+
+Q: What does the "S" in SOLID, the Single Responsibility Principle, mean?
+Topic: Design & UML
+- Every class should be a singleton, so only one object of it exists
+* A class should have one job, so it has only one reason to change
+- Every method should do one thing and be a single line long
+- Subclasses should be usable anywhere their parent is expected
+Why: A class that handles user input, does math and saves to disk is hard to change safely. Splitting responsibilities keeps classes small, testable and reusable.
+
+Q: What is a unit test?
+Topic: Testing
+- A test where real users try the whole system before it's released
+* A small automated test that checks one method or class in isolation, like with JUnit
+- A test that checks how all the parts of the system work together
+- A test that measures how fast the whole program runs under a heavy load of users
+Why: For example, assertEquals(10, calc.sum(4)); checks one behavior. Good tests cover normal cases, edge cases (empty, zero, negative, maximum values) and error cases.
+
+Q: What does this print?
+int x = 5;
+x++;
+int y = x++ + 1;
+System.out.println(x + " " + y);
+Topic: Java Basics
+- 6 7
+* 7 7
+- 7 8
+- 6 8
+Why: After x++ the first time, x is 6. In x++ + 1, the post-increment uses the old value 6 (so y = 7), then raises x to 7. ++x would increase first, then use the new value.
+
+Q: What is the output?
+String a = "hi";
+String b = a;
+b = b + "!";
+System.out.println(a);
+Topic: Strings
+* hi
+- hi!
+- !
+- It doesn't compile
+Why: b = b + "!" creates a new String and points b at it. a still points at the original "hi". Contrast this with a shared ArrayList, where changing it through one variable shows through the other.
+
+# ---- Must-know formulas and facts for this class ----
+
+Q: Must-know: what are Java's 8 primitive types?
+Topic: Must-Know Facts
+* byte, short, int, long, float, double, char, boolean
+- byte, int, long, double, char, boolean, String, Object
+- int, long, float, double, char, String, boolean, void
+- short, int, long, float, double, char, boolean, Integer
+Why: Everything else, including String, arrays and Integer, is a reference type. Each primitive has a wrapper class (Integer, Double, ...) for use in generics.
+
+Q: Must-know: what are the ranges of Java's int and long?
+Topic: Must-Know Facts
+* int is 32-bit (about ±2.1 billion); long is 64-bit (about ±9.2 × 10¹⁸)
+- int is 16-bit (about ±32,000); long is 32-bit (about ±2.1 billion)
+- int is 64-bit (about ±9.2 × 10¹⁸); long is 128-bit
+- Both are unlimited, since Java grows integers automatically
+Why: Integer.MAX_VALUE is 2,147,483,647. Adding 1 to it silently wraps around to a negative number, a classic overflow bug.
+
+Q: Must-know: from most to least restrictive, what are Java's access levels?
+Topic: Must-Know Facts
+* private, default (package-private), protected, public
+- private, protected, default (package-private), public
+- protected, private, public, default (package-private)
+- default (package-private), private, protected, public
+Why: private is the class only, default is the same package, protected adds subclasses, and public is everywhere. Fields are usually private, with public methods for access.
+
+Q: Must-know: what is the full signature of the main method that starts a Java program?
+Topic: Must-Know Facts
+* public static void main(String[] args)
+- public void main(String args)
+- static int main(String[] args)
+- private static void main()
+Why: It's public so the JVM can call it, static so no object is needed, void because it returns nothing, and args holds command-line arguments.
+
+Q: Must-know: what is the contract between equals() and hashCode() in Java?
+Topic: Must-Know Facts
+* If two objects are equal by equals(), they must return the same hashCode()
+- If two objects have the same hashCode(), they must be equal by equals()
+- equals() and hashCode() must never be overridden together
+- hashCode() must return a different number for every object
+Why: HashMap and HashSet find the bucket by hashCode() first, then check equals(). If you override equals() but not hashCode(), equal objects can end up in different buckets and lookups fail.
+
+Q: Must-know: what are the 5 SOLID principles of object-oriented design?
+Topic: Must-Know Facts
+* Single responsibility, Open/closed, Liskov substitution, Interface segregation, Dependency inversion
+- Single instance, Open source, Layered design, Inheritance, Dependency injection
+- Simplicity, Objects, Loose coupling, Interfaces, Data hiding
+- Single responsibility, Object reuse, Liskov substitution, Inheritance, Data abstraction
+Why: They're guidelines for code that's easy to change: one job per class, extend without modifying, subtypes that truly substitute, small focused interfaces, and depending on abstractions.
+
+Q: Must-know: in Java, which collection fits best: a list you index into, unique items, or key-value lookups?
+Topic: Must-Know Facts
+* ArrayList, HashSet and HashMap
+- LinkedList, ArrayList and TreeSet
+- HashMap, ArrayList and HashSet
+- Array, LinkedList and Stack
+Why: ArrayList gives O(1) access by index, HashSet rejects duplicates with O(1) lookups, and HashMap maps keys to values in O(1) on average. Use TreeSet or TreeMap when you need them sorted.
+
+Q: Must-know: what is the difference between an interface's abstract method and a default method (Java 8+)?
+Topic: Must-Know Facts
+* An abstract method has no body and must be implemented; a default method has a body that classes inherit
+- A default method has no body and must be implemented; an abstract method has a body that classes inherit
+- Both must be implemented by every class, but default methods can be private
+- Abstract methods are static, while default methods belong to each object
+Why: Default methods let library authors add new methods to an interface without breaking every class that already implements it.

@@ -1,0 +1,421 @@
+# quizzahh question file. The file name is the class name.
+#
+# CS 1 - Intro: for complete beginners. Start here, then move on to
+# CS 2 - Fundamentals and CS 3 - College.
+#
+# Each question looks like this (leave a blank line between questions):
+#
+#   Q: What is the powerhouse of the cell?
+#   Topic: Cells
+#   - Nucleus
+#   * Mitochondria        <- the star marks the correct answer
+#   - Ribosome
+#   - Golgi apparatus
+#   Why: Mitochondria make ATP, the cell's energy.
+#
+# Lines starting with # are ignored.
+
+# Which year of a computer science degree this class usually falls in (used by the year filter):
+Year: 1
+
+Q: What is a computer program?
+Topic: How Computers Work
+- The physical chips and circuits that make a computer run
+* A list of instructions that tells a computer what to do, step by step
+- A saved file of data, like a photo, that the computer displays
+- The screen layout and buttons you click to use a computer
+Why: A program is just instructions written in a language the computer can follow, like a very precise recipe. Apps, games and websites are all programs. Computers do exactly what the instructions say, nothing more.
+
+Q: What does the CPU do?
+Topic: How Computers Work
+- Keeps your files saved even when the power is off
+* Carries out the program's instructions; it's the computer's "brain"
+- Turns the program's data into the images you see on screen
+- Moves data between your computer and the internet
+Why: CPU stands for Central Processing Unit. It fetches instructions from memory, figures out what they mean, and does them: math, comparisons, moving data around. It does billions of these per second.
+
+Q: What's the difference between RAM and storage (like an SSD)?
+Topic: How Computers Work
+- RAM holds your files long-term; storage holds only the program that's running now
+* RAM is fast, temporary memory for what's running now; storage keeps files even when off
+- Storage is the fast working memory; RAM is the slower place where files are kept
+- They're the same memory, just sold under different names by different companies
+Why: Think of RAM as your desk, where you put what you're working on right now, and storage as a filing cabinet. RAM is much faster but gets wiped when the computer turns off. Your files and apps live in storage.
+
+Q: What is an operating system?
+Topic: How Computers Work
+- The program you use to browse the web, like Chrome or Edge
+* The main software that manages the hardware and lets other programs run, like Windows
+- The chip inside the computer that runs all of the math and logic for every program
+- A tool that translates code into a language the computer understands
+Why: The operating system sits between your apps and the hardware. It decides which program gets the CPU, manages memory, handles files, and draws windows. Windows, macOS, Linux, Android and iOS are all operating systems.
+
+Q: Computers store everything using only two digits. What are they?
+Topic: Binary
+- 1 and 2
+* 0 and 1
+- A and B
+- 0 through 9
+Why: This is called binary. Inside the computer, tiny switches are either off (0) or on (1). Every number, letter, picture and song is stored as long patterns of 0s and 1s.
+
+Q: What is a "bit"?
+Topic: Binary
+* A single 0 or 1, the smallest unit of data
+- A group of 8 binary digits that stores one letter
+- One dot of color on the screen, the smallest unit of an image
+- One instruction that the CPU carries out
+Why: Bit is short for "binary digit." One bit can only be 0 or 1. Put more bits together and you can represent more things: 2 bits make 4 patterns, 3 bits make 8, and so on, doubling each time.
+
+Q: How many bits are in one byte?
+Topic: Binary
+- 2
+- 4
+* 8
+- 10
+Why: A byte is 8 bits. With 8 bits there are 2 × 2 × 2 × 2 × 2 × 2 × 2 × 2 = 256 possible patterns, enough for one character like the letter A. File sizes are measured in bytes: kilobytes, megabytes, gigabytes.
+
+Q: What is the binary number 101 in regular (decimal) numbers?
+Topic: Binary
+- 101
+- 3
+* 5
+- 7
+Why: Binary places are worth 1, 2, 4, 8 and so on, doubling from the right instead of going up by 10s. 101 means one 4, zero 2s and one 1: 4 + 0 + 1 = 5.
+
+Q: How do computers store text like the letter "A"?
+Topic: Binary
+- As a small image of the letter's shape, drawn in pixels
+* Each character is given a number (like A = 65), stored in binary
+- As the letter itself, written into the memory chips
+- As a sound wave that represents how the letter is pronounced
+Why: Standards like ASCII and Unicode give every character a number. "A" is 65, which in binary is 01000001. When you type, the computer stores the numbers, and when it displays text it looks up what each number should look like.
+
+Q: What is a variable in programming?
+Topic: Programming Basics
+- A fixed number written into the code that can never change
+* A named container that stores a value your program can use and change
+- A command that tells the program to repeat some steps
+- A message the computer shows when something goes wrong
+Why: A variable is like a labeled box. For example, score = 0 makes a box named score holding 0. Later, score = score + 10 changes what's inside. Naming values makes code readable and lets programs remember things.
+
+Q: In most programming languages, what does score = score + 1 do?
+Topic: Programming Basics
+- Checks whether score is equal to score + 1 and gives true or false
+* Takes the current value of score, adds 1, and saves it back into score
+- Creates a second variable named "score + 1" and leaves score alone
+- Causes an error, because a variable can't appear on both sides
+Why: In code, = means "store this value," not "is equal to." The right side is calculated first using the old value, then the result is stored in the variable. So if score was 5, it becomes 6.
+
+Q: What is a "string" in programming?
+Topic: Programming Basics
+- A whole number with no decimal point, like 42
+* Text, a sequence of characters like "hello"
+- A list of numbers stored in order, like [1, 2, 3]
+- A true or false value used in decisions
+Why: Strings hold text and are usually written in quotes: "Heather" or "Game over!". Different kinds of data are called data types. Common ones are strings (text), integers (whole numbers), floats (decimals) and booleans (true or false).
+
+Q: What values can a boolean have?
+Topic: Programming Basics
+- Any whole number, positive or negative
+- Any piece of text inside quote marks
+* True or false
+- A number between 0 and 1
+Why: Booleans, named after the mathematician George Boole, answer yes-or-no questions: is the player alive, is the password correct? Comparisons like age >= 18 produce booleans, and if-statements use them to decide what to do.
+
+Q: What does an if-statement do?
+Topic: Programming Basics
+- Repeats a block of code while something stays true
+* Runs some code only when a condition is true
+- Gives a name to a value so it can be used later
+- Stops the program when it reaches an error
+Why: An if-statement lets a program make decisions. For example, "if health <= 0, show Game Over." You can add else for what happens otherwise, and else if to check more conditions in order.
+
+Q: What is a loop for?
+Topic: Programming Basics
+- Choosing between two paths based on a condition
+* Repeating a block of code multiple times
+- Storing several values together under one name
+- Grouping code into a named, reusable piece
+Why: Instead of writing the same line 100 times, a loop repeats it for you. A "for" loop usually runs a set number of times, like once for each item in a list. A "while" loop keeps going as long as a condition stays true.
+
+Q: What is an infinite loop?
+Topic: Programming Basics
+- A loop that runs so fast it finishes instantly
+* A loop whose stopping condition never becomes true
+- A loop that is written inside another loop
+- A loop that goes through every item in a list
+Why: If a while loop's condition never turns false (for example, you forgot to update a counter), it repeats forever and the program freezes. Always make sure something inside the loop moves it toward stopping.
+
+Q: What is a function?
+Topic: Programming Basics
+- A value stored under a name that can change later
+* A named, reusable block of code that does one job
+- A special line that runs first when a program starts
+- An error that happens when the math doesn't work
+Why: Functions let you write something once and reuse it, like makeSandwich() instead of repeating every step. They can take inputs (parameters) and give back an output (a return value). Breaking a program into functions makes it easier to understand and fix.
+
+Q: In the function call add(2, 3), what are 2 and 3?
+Topic: Programming Basics
+- Return values: the outputs the function sends back
+* Arguments: the inputs passed into the function
+- Parameters: the variable names inside the function
+- Indexes: the positions of items in a list
+Why: When you call a function, the values in parentheses are arguments. Inside the function they land in parameters, for example add(a, b), where a = 2 and b = 3. The function can then return a result, like 5.
+
+Q: What is a list (or array)?
+Topic: Programming Basics
+- A single value that can be changed over time
+* An ordered collection of values stored under one name, like [3, 7, 9]
+- A named block of code that runs whenever you call it, like print()
+- A line of notes that the computer ignores
+Why: Lists let you keep many related values together, like all the scores in a game. You get items by their position, called an index. In most languages the first item is at index 0, not 1.
+
+Q: In most programming languages, what is the index of the first item in a list?
+Topic: Programming Basics
+* 0
+- 1
+- -1
+- It depends on the item
+Why: Most languages count positions from 0, so in ["a", "b", "c"], "a" is at index 0 and "c" is at index 2. Index 0 means "zero steps from the start." Forgetting this causes the classic "off by one" bug.
+
+Q: What is a bug?
+Topic: Programming Basics
+* A mistake in a program that makes it behave wrongly
+- A virus that sneaks onto computers through downloads
+- A warning that the program is running too slowly
+- A tiny defect in a computer chip from the factory
+Why: Bugs are errors in the code: typos, wrong logic, forgetting a case. Debugging means finding and fixing them, often by reading error messages, printing values, or stepping through the code line by line.
+
+Q: What's the difference between a syntax error and a logic error?
+Topic: Programming Basics
+- A logic error breaks the grammar rules; a syntax error runs but gives the wrong answer
+* A syntax error breaks the grammar rules so the code won't run; a logic error runs but gives a wrong result
+- A syntax error only happens on websites; a logic error only happens in desktop and phone apps
+- They're the same thing; both stop the program from starting at all
+Why: Missing a parenthesis is a syntax error, and the computer refuses to run it. Using + where you meant - is a logic error: the program runs fine but gives wrong answers. Logic errors are usually harder to find.
+
+Q: What is a comment in code?
+Topic: Programming Basics
+- A line of code that runs before anything else
+* A note for humans that the computer ignores
+- A message the computer prints when there's an error
+- A special variable that stores text
+Why: Comments (like # in Python or // in JavaScript) explain why code does something. The computer skips them completely. Good comments help future you, and teammates, understand the code.
+
+Q: What is an algorithm?
+Topic: Algorithms
+- A language used to write instructions for a computer
+* A clear, step-by-step method for solving a problem
+- The part of the computer that does calculations
+- A mistake that makes a program crash
+Why: A recipe is an algorithm, and so are the steps for long division. In CS we write algorithms precisely enough for a computer to follow. The same algorithm can be written in any programming language.
+
+Q: You have a sorted list of 1,000 names. What's the fastest way to find one name?
+Topic: Algorithms
+- Check every name from the start until you find it (linear search)
+* Check the middle, throw away the half it can't be in, and repeat (binary search)
+- Pick names at random until you happen to find the right one
+- Sort the list again, then check every name starting from the end of the list
+Why: Binary search halves the list each step. 1,000 names take at most about 10 checks, versus up to 1,000 for checking one by one. It only works when the list is sorted. This is one of the most important ideas in CS.
+
+Q: Why do programmers care about how fast an algorithm is?
+Topic: Algorithms
+- Faster algorithms always use less memory, so speed is only about saving space
+* Some algorithms slow down a lot as data grows, so the choice can mean seconds vs years
+- Modern computers are so fast that algorithm speed only matters for video games
+- Faster algorithms use less electricity, which is the main reason people care
+Why: With 10 items almost anything is fast. With 10 million, an algorithm that compares every item with every other item does about 100 trillion steps, while a smarter one might do a few hundred million. Measuring this growth is called Big-O, which you'll see in CS 2.
+
+Q: What does it mean to "sort" data?
+Topic: Algorithms
+- Remove any duplicate items so each value appears once
+* Arrange it in order, like smallest to largest or A to Z
+- Shrink it so it takes up less space in storage
+- Scramble it so only someone with a key can read it
+Why: Sorting puts data in a useful order. It makes searching faster (like binary search) and makes data easier to read. There are many sorting algorithms, from simple ones like bubble sort to fast ones like merge sort.
+
+Q: What is the internet?
+Topic: Internet Basics
+- One giant computer that stores every website in the world
+* A worldwide network of networks that lets computers send data to each other
+- Another name for the World Wide Web, the pages you visit in a browser
+- A program you install that connects your computer to websites
+Why: The internet is the connections: cables, routers and wireless links joining billions of devices. The Web (websites) is just one thing that runs on top of it. Email, games and video calls use it too.
+
+Q: What is an IP address?
+Topic: Internet Basics
+- The name of a website, like www.example.com
+* A number that identifies a device on a network so data can be sent to it
+- A code that shows how fast your internet connection is at any given moment
+- A password that lets your device join a Wi-Fi network
+Why: Like a mailing address for computers, for example 142.250.80.46. When you send or receive data, it's split into packets labeled with source and destination IP addresses so routers know where to send them.
+
+Q: What does a URL like https://www.example.com point to?
+Topic: Internet Basics
+* A web address that tells the browser which server and page to load
+- A file saved on your computer that opens in the browser
+- The name of the company that provides your internet
+- An email address used to sign into a website
+Why: The browser uses DNS to turn the name into an IP address, connects to that server, and requests the page. The "https" part means the connection is encrypted, so others can't read what's sent.
+
+Q: What does the "S" in HTTPS stand for?
+Topic: Internet Basics
+- Speed
+* Secure
+- Server
+- Simple
+Why: HTTPS is HTTP with encryption (TLS). Data between your browser and the website is scrambled so people on the same network can't read or change it. That's why you should only enter passwords on HTTPS sites.
+
+Q: What is the difference between a client and a server?
+Topic: Internet Basics
+- A server requests things (like your browser); a client sends them (like a website)
+* A client requests things (like your browser); a server sends them back (like a website)
+- Clients store all the websites; servers are the screens you view them on
+- They're the same; "server" is just the word for a very fast client
+Why: When you open a website, your browser (the client) asks a server for the page, and the server sends it back. Many apps work this way: games, streaming and messaging all have clients talking to servers.
+
+Q: What makes a password strong?
+Topic: Security Basics
+- Exactly 8 characters with one capital letter, used for all your accounts
+* Long and unpredictable, like several random words, and not reused anywhere
+- Something easy to remember, like your pet's name and your birth year
+- A short word with numbers swapped in for letters, like "p4ssw0rd"
+Why: Attackers try common passwords and personal info first, and use passwords leaked from one site on others. Length matters most. A password manager helps you use a unique strong password for every account.
+
+Q: What is two-factor authentication (2FA)?
+Topic: Security Basics
+- Typing your password twice to make sure it's entered correctly
+* Logging in with your password plus a second proof, like a phone code
+- Using two different passwords for the same account at the same time
+- Having a backup account in case the first one gets locked
+Why: Even if someone steals your password, they'd also need your phone or security key. It's one of the simplest and most effective ways to protect your accounts.
+
+Q: What is phishing?
+Topic: Security Basics
+- Secretly using someone's Wi-Fi network without asking first
+* Tricking people with fake messages or sites into giving away passwords
+- Flooding a website with traffic so that it crashes
+- Locking someone's files and demanding money to unlock them
+Why: Phishing messages pretend to be your bank, school or a game, and push you to click a link and log in. Check the real web address, be suspicious of urgency, and go to sites directly instead of through links.
+
+Q: What does a compiler do?
+Topic: Programming Basics
+- Finds and fixes the bugs in your code automatically
+* Translates human-written code into machine code the computer can run
+- Runs your program one line at a time while you watch the output
+- Saves your code so you can come back to it later
+Why: People write in readable languages like C or Java, but the CPU only understands machine code (binary instructions). A compiler translates the whole program ahead of time. Languages like Python use an interpreter instead, which translates and runs code as it goes.
+
+Q: What is "pseudocode"?
+Topic: Algorithms
+- Code with bugs in it that hasn't been tested yet
+* An informal, plain-English outline of an algorithm's steps, written before real code
+- A secret language programmers use so that others can't copy their work
+- The machine code a compiler produces from your program
+Why: Pseudocode, like "for each score in the list: if score > best, set best = score," lets you plan the logic without worrying about exact syntax. It's how algorithms are usually written in textbooks and interviews.
+
+Q: Which is a good first step when a program doesn't work?
+Topic: Programming Basics
+- Delete the code and start over from the very beginning
+* Read the error message, and print values to see where it goes wrong
+- Add more features until the problem goes away on its own
+- Restart the computer and run it again without changes
+Why: Error messages usually say what went wrong and on which line. Printing variables (or using a debugger) shows where the actual values stop matching what you expected. Narrow it down one step at a time.
+
+Q: What is data stored in a "file"?
+Topic: How Computers Work
+- Only text, like notes or documents you've typed
+* A named collection of bytes saved in storage, like a document or photo
+- Data that exists only while the program is running, then disappears
+- A folder that holds other folders and shortcuts
+Why: Every file is ultimately bytes. The file type (like .txt, .jpg or .exe) tells programs how to interpret those bytes. Folders, also called directories, are just a way to organize files.
+
+Q: What is "the cloud"?
+Topic: Internet Basics
+- A large hard drive inside your PC that backs up data automatically
+* Servers in data centers that store data and run services over the internet
+- A wireless signal that lets nearby devices share files with each other
+- Software on your phone that frees up space by compressing photos
+Why: When you save a photo to Google Drive or iCloud, it's stored on someone else's servers that you reach over the internet. "Cloud" just means you don't see or manage those machines yourself.
+
+Q: What does it mean that a computer is "deterministic"?
+Topic: How Computers Work
+- It can learn from experience and change how it thinks
+* Given the same program and inputs, it gives the same result every time
+- It never makes mistakes, no matter what code it runs
+- It picks the best answer on its own when there are choices
+Why: Computers follow instructions exactly. If a program gives different results, something about the input or environment changed: time, random numbers, user input, or the network. That predictability is what makes debugging possible.
+
+Q: What is open-source software?
+Topic: How Computers Work
+- Software that's free to use, but whose code is kept secret
+* Software whose source code is public, so anyone can read, change and share it
+- Software that runs only in a web browser and needs no install
+- Software owned by the government and free for everyone in the country to use
+Why: Open-source projects like Linux, Firefox and Python are built in public, often by volunteers and companies together. You can learn a lot by reading their code. Even this quiz app's voice uses open-source tools!
+
+# ---- Must-know formulas and facts for this class ----
+
+Q: Must-know: how many bits are in a byte?
+Topic: Must-Know Facts
+* 8
+- 4
+- 10
+- 16
+Why: A byte is 8 bits, so it can hold 2⁸ = 256 different values (0 to 255). One text character in ASCII takes one byte.
+
+Q: Must-know: how many different values can n bits represent?
+Topic: Must-Know Facts
+* 2ⁿ
+- n²
+- 2n
+- n!
+Why: Each bit doubles the number of possibilities. 8 bits give 256 values, 16 bits give 65,536, and 32 bits give about 4.3 billion.
+
+Q: Must-know: what is the decimal value of binary 1011?
+Topic: Must-Know Facts
+* 11
+- 13
+- 9
+- 1,011
+Why: Read it with place values 8, 4, 2, 1: 8 + 0 + 2 + 1 = 11. Every binary place is worth twice the one to its right.
+
+Q: Must-know: in order from smallest to largest, which list is correct?
+Topic: Must-Know Facts
+* Kilobyte, megabyte, gigabyte, terabyte
+- Megabyte, kilobyte, gigabyte, terabyte
+- Kilobyte, gigabyte, megabyte, terabyte
+- Gigabyte, kilobyte, terabyte, megabyte
+Why: Each step is about 1,000 times bigger (exactly 1,024 in the binary convention). A photo is a few megabytes, and a laptop drive is hundreds of gigabytes or a terabyte.
+
+Q: Must-know: in most programming languages, where does counting start for list and array positions?
+Topic: Must-Know Facts
+* 0
+- 1
+- −1
+- It depends on the list's length
+Why: This is zero-based indexing: the first item is at index 0 and the last is at index length − 1. Forgetting this causes "off-by-one" errors.
+
+Q: Must-know: what does the hexadecimal number FF equal in decimal?
+Topic: Must-Know Facts
+* 255
+- 256
+- 15
+- 1,515
+Why: Hex digits go 0-9 then A-F (10 to 15). FF = 15 × 16 + 15 = 255, which is also the largest value one byte can hold. Colors like #FF0000 use hex.
+
+Q: Must-know: what are the three basic logic operations every computer is built on?
+Topic: Must-Know Facts
+* AND, OR, NOT
+- ADD, SUBTRACT, MULTIPLY
+- IF, THEN, ELSE
+- READ, WRITE, DELETE
+Why: AND is true only if both inputs are true, OR if at least one is, and NOT flips true and false. Every other circuit, even addition, is built from combinations of these.
+
+Q: Must-know: what is the result of 17 % 5 (the remainder, or "mod," operator)?
+Topic: Must-Know Facts
+* 2
+- 3
+- 3.4
+- 12
+Why: 17 ÷ 5 is 3 with 2 left over, and % gives the leftover. Programmers use it to check for even numbers (n % 2 == 0) and to wrap around in cycles.

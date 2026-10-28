@@ -1,0 +1,316 @@
+# quizzahh question file. The file name is the class name.
+#
+# Speech 1: Public Speaking / Fundamentals of Communication (common gen ed).
+#
+# Each question looks like this (leave a blank line between questions):
+#
+#   Q: What is the powerhouse of the cell?
+#   Topic: Cells
+#   - Nucleus
+#   * Mitochondria        <- the star marks the correct answer
+#   - Ribosome
+#   - Golgi apparatus
+#   Why: Mitochondria make ATP, the cell's energy.
+#
+# Lines starting with # are ignored.
+
+# Which year of a computer science degree this class usually falls in (used by the year filter):
+Year: 1
+
+Q: In the basic model of communication, what is "noise"?
+Topic: Communication Basics
+- Only loud sounds in the room, like traffic or people talking during the speech
+* Anything that interferes with the message being received as intended
+- The audience's reactions, like nodding or frowning, while the speaker talks
+- The channel used to send the message, such as voice, slides or video
+Why: Noise can be physical (a loud air conditioner), psychological (a listener worrying about a test), physiological (being hungry or tired), or semantic (confusing jargon). Good speakers anticipate and reduce it.
+
+Q: What is "feedback" in communication?
+Topic: Communication Basics
+- The message the speaker sends, including both the words and the tone of voice
+* The audience's verbal and nonverbal responses to the speaker, like nods, confused looks or questions
+- Anything in the room that interferes with the audience hearing the speaker clearly
+- The grade and written comments the instructor gives you after the speech is finished
+Why: Public speaking isn't one-way. Watching your audience lets you adjust: slow down if they look lost, add an example, or speak louder.
+
+Q: What is the most common form of speech anxiety?
+Topic: Managing Anxiety
+* Nervousness before and during a speech; nearly everyone experiences it
+- Freezing completely and being unable to start, which affects most new speakers
+- Forgetting the whole speech partway through, which happens to about half of speakers
+- Anxiety that appears only after the speech, when speakers replay their mistakes
+Why: Fear of public speaking is one of the most common fears. Some nervousness is normal and can even boost energy. What helps: thorough preparation, practicing out loud, slow breathing, and remembering the audience usually can't see how nervous you feel.
+
+Q: Which is the BEST way to reduce speech anxiety?
+Topic: Managing Anxiety
+- Memorize the speech word for word so there's nothing left to chance on the day
+- Avoid rehearsing too much, since practice makes delivery sound stiff and robotic
+* Prepare thoroughly and rehearse out loud several times, ideally in front of someone
+- Write out the full speech and read it from the page so you can't lose your place
+Why: Confidence comes from familiarity. Rehearsing out loud, timing yourself, and practicing in front of a friend makes the real thing feel routine. Memorizing word for word can backfire if you lose your place.
+
+Q: What is audience analysis?
+Topic: Audience & Purpose
+* Learning your listeners' backgrounds, knowledge, attitudes and interests to adapt your speech
+- Watching the audience during the speech and changing your topic if they look bored
+- Surveying the audience afterward to find out how well they liked your speech
+- Studying famous speeches to see how great speakers handled their audiences
+Why: A speech about budgeting for college freshmen should differ from one for retirees. Demographics (age, major, culture) and attitudes (do they agree, disagree, or not care?) shape your examples, language, and approach.
+
+Q: What are the three general purposes of a speech?
+Topic: Audience & Purpose
+- Introduction, body and conclusion
+* To inform, to persuade, and to entertain (or mark a special occasion)
+- Ethos, pathos and logos
+- To inform, to argue, and to demonstrate a process step by step
+Why: An informative speech teaches, a persuasive speech changes beliefs or actions, and a special-occasion speech (like a toast or a eulogy) celebrates or commemorates. The specific purpose states exactly what you want the audience to know or do.
+
+Q: What is a central idea (thesis) in a speech?
+Topic: Organization
+- The title of the speech, which tells the audience the topic
+* A one-sentence summary of the speech's main message
+- The attention-getter that opens the introduction
+- The list of main points previewed in the introduction
+Why: For example: "Getting enough sleep improves college students' grades, mood, and health." Your main points should each develop part of the central idea. You usually state it near the end of the introduction.
+
+Q: How many main points should a typical classroom speech have?
+Topic: Organization
+- 1
+* 2 to 5, often 3
+- 10 or more
+- As many as possible
+Why: Listeners can't flip back a page like readers can, so they can only follow a few main points. Three is a classic, memorable number. Each main point needs supporting material like examples, statistics, and testimony.
+
+Q: A speech on "how to change a tire" step by step uses which organizational pattern?
+Topic: Organization
+* Chronological (time order)
+- Spatial (by location)
+- Problem-solution
+- Cause-effect
+Why: Chronological order follows steps or events in time. Spatial goes by location, topical divides a subject into categories, problem-solution describes a problem and then a fix, and cause-effect explains why something happens.
+
+Q: A speech about campus food insecurity that first describes the issue and then proposes a free pantry uses which pattern?
+Topic: Organization
+- Chronological
+- Cause-effect
+* Problem-solution
+- Topical
+Why: Problem-solution is a natural fit for persuasive speeches. Show that a problem exists and matters, then present a workable solution and explain why it works.
+
+Q: What should a speech introduction accomplish?
+Topic: Introductions & Conclusions
+* Get attention, reveal the topic, establish credibility, relate to the audience, and preview the main points
+- Present the strongest evidence right away, so the audience is convinced before the body begins
+- Summarize the main points, signal the end, and close with a memorable line for the audience
+- Thank the audience for coming and explain why you chose the topic for the assignment
+Why: Start with an attention-getter (a story, startling fact, question or quote), say why you're qualified and why the audience should care, and preview your main points so listeners can follow along. Don't open with "Um, so my speech is about..."
+
+Q: Which is the strongest attention-getter?
+Topic: Introductions & Conclusions
+- "Hi, my name is Alex, and today my speech is going to be about the importance of sleep."
+- "According to the dictionary, sleep is a natural state of rest for the mind and body."
+* "Last semester I slept four hours a night, and I failed two exams I'd studied for."
+- "I didn't have much time to prepare, so bear with me while I talk about sleep."
+Why: A personal story or startling fact immediately makes listeners care. Starting with apologies or flat announcements loses the audience in seconds.
+
+Q: What should a conclusion do?
+Topic: Introductions & Conclusions
+- Introduce a new main point that leaves the audience thinking after you sit down
+* Signal the end, summarize the main points, and finish with a memorable closing line
+- Thank the audience, ask if there are questions, and then summarize the main points
+- Repeat the introduction word for word so the speech comes full circle
+Why: Use a phrase like "In conclusion" or "Let me leave you with this," review your main points, then end strong, perhaps by tying back to your opening story (a "bookend") or with a call to action.
+
+Q: What is a signpost or transition in a speech?
+Topic: Organization
+* Words that tell the audience where you are, like "First," "My second point is," or "Now that we've seen..."
+- A visual aid, like a slide with an arrow, that points the audience to the next main idea
+- A note card that lists your main points in order so you don't lose your place
+- A gesture, like holding up fingers, used to count off the main points instead of saying them
+Why: Listeners need more verbal guideposts than readers do. Transitions between main points help the audience follow your structure.
+
+Q: What is a preparation outline?
+Topic: Organization
+* A detailed, full-sentence outline used while building the speech, with points, subpoints and sources
+- Brief notes with keywords and delivery cues that you hold while giving the speech
+- The final word-for-word script that you read aloud during the speech
+- A handout for the audience listing the main points, subpoints and sources
+Why: Instructors often require it to check your structure. The speaking outline is the short, keyword version you actually use while presenting.
+
+Q: Which delivery method do most public speaking instructors recommend?
+Topic: Delivery
+- Manuscript (reading word for word)
+- Memorized (reciting from memory)
+* Extemporaneous (well-prepared, delivered from brief notes)
+- Impromptu (little or no preparation, speaking off the cuff)
+Why: Extemporaneous speaking combines preparation with natural, conversational delivery and eye contact. Reading or memorizing tends to sound stiff, and impromptu means no preparation at all.
+
+Q: Why is eye contact important?
+Topic: Delivery
+- It lets you check the clock at the back of the room without the audience noticing
+* It builds connection and credibility and lets you see audience feedback
+- It replaces the need for notes, since the audience's faces remind you of the points
+- It's required by most instructors, but research shows it has little effect on listeners
+Why: Look at different people across the room, not at the ceiling, your slides, or one person. In some cultures direct eye contact is used differently, so know your audience.
+
+Q: What are vocalized pauses?
+Topic: Delivery
+* Filler sounds like "um," "uh," "like," and "you know"
+- Silent pauses used for emphasis before an important point
+- Pauses where the speaker takes a breath between sentences
+- Long silences caused by forgetting what comes next
+Why: Too many fillers make a speaker seem unprepared. A silent pause actually sounds more confident. Practicing and recording yourself helps you notice and cut them.
+
+Q: Which is an example of nonverbal communication in a speech?
+Topic: Delivery
+- The words you choose and how formal they are
+* Gestures, facial expressions, posture and movement
+- The sources you cite and how you introduce them
+- The order of your main points
+Why: Your body sends messages too. Stand tall, use natural gestures that match your words, and show appropriate facial expressions. Avoid distractions like swaying, pacing, or playing with a pen.
+
+Q: What does "vocal variety" refer to?
+Topic: Delivery
+* Changing your rate, pitch and volume to keep the audience engaged and stress key ideas
+- Using many different words for the same idea so you don't repeat yourself
+- Speaking with a steady, even tone so the audience can focus on the content
+- Switching between formal and informal language depending on the topic
+Why: A monotone voice makes even interesting content boring. Slow down for important points, pause before key lines, and vary your pitch to sound natural and enthusiastic.
+
+Q: What's a key rule for PowerPoint or other slides?
+Topic: Visual Aids
+- Put your whole speech on the slides so you can read along and never lose your place
+* Keep slides simple, with few words and big visuals, and talk to the audience, not the slides
+- Use many animations and transitions so the audience stays interested in every slide
+- Use small fonts so every detail fits, since the audience can read along at their own pace
+Why: Slides support you; they don't replace you. A common guideline is no more than about six lines of text, with readable fonts and high contrast. Practice with your slides so they flow smoothly.
+
+Q: What is the difference between hearing and listening?
+Topic: Listening
+* Hearing is physically receiving sound; listening is actively paying attention and making sense of it
+- Listening is physically receiving sound; hearing is actively paying attention and making sense of it
+- They're the same process; "listening" is just the term used in communication courses
+- Hearing requires effort and attention, while listening happens automatically
+Why: You can hear a lecture while scrolling your phone and absorb nothing. Active listening means focusing, avoiding distractions, asking questions, and paraphrasing to check your understanding.
+
+Q: In persuasive speaking, what is Monroe's Motivated Sequence?
+Topic: Persuasion
+- A pattern for informative speeches: introduce, explain, demonstrate, review, and conclude
+* A five-step pattern: attention, need, satisfaction, visualization, action
+- A five-step pattern: problem, cause, solution, evidence, and conclusion
+- A method for citing sources out loud in five steps
+Why: Grab attention, show a need or problem, offer the solution (satisfaction), help the audience picture the results (visualization), then tell them exactly what to do (action). It's used a lot in ads and calls to action.
+
+Q: Which supporting material is usually most persuasive for a skeptical audience?
+Topic: Persuasion
+- Your personal experience and opinion, since sincerity convinces more than numbers
+* Credible evidence like statistics, expert testimony and examples from reliable, cited sources
+- A strong emotional story, since skeptical audiences are moved by feelings, not facts
+- Repeating your main claim several times, since repetition makes ideas feel true
+Why: Skeptical listeners need proof. Combine logos (evidence), ethos (your credibility and citing experts) and pathos (an emotional example) for the strongest effect.
+
+Q: How should you cite a source out loud in a speech?
+Topic: Ethics & Research
+- You don't need to cite sources in speeches, only in written papers
+* Use an oral citation, like "According to a 2023 study in the Journal of Sleep Research..."
+- Read the full Works Cited entry for each source at the end of the speech
+- Show the source's URL on a slide for a moment, without mentioning it aloud to the audience
+Why: Oral citations tell listeners where your information comes from and boost your credibility. Using others' ideas without credit is plagiarism in speeches too.
+
+Q: What is ethical public speaking?
+Topic: Ethics & Research
+* Being honest, citing sources, avoiding name-calling and manipulation, and respecting your audience
+- Saying whatever wins the audience over, as long as you don't break any laws or rules
+- Only speaking about topics you're already an expert in, so you never make mistakes
+- Never disagreeing with your audience, so nobody feels uncomfortable or offended
+Why: Ethical speakers have a clear, responsible goal, use accurate evidence, and treat opposing views fairly. Unethical techniques may work in the short term but destroy your credibility.
+
+Q: What is an impromptu speech?
+Topic: Delivery
+- A speech you memorize and recite without notes
+* A speech given with little or no preparation
+- A speech read word for word from a manuscript
+- A speech delivered from brief notes after preparation
+Why: Examples include being called on in class or speaking up in a meeting. A quick structure helps: state your point, give a reason or example, and restate your point.
+
+Q: What is a "speaking outline"?
+Topic: Organization
+- The full-sentence version of your speech, including every main point and source
+* Brief notes with keywords, main points and delivery cues that you use while presenting
+- A handout for the audience listing your main points and sources
+- The rubric your instructor uses to grade your delivery and content
+Why: It keeps you on track without tempting you to read. Many speakers add cues like "PAUSE," "SLOW," or "show slide 3."
+
+Q: What's the most effective way to rehearse a speech?
+Topic: Managing Anxiety
+- Read it silently several times until you know it well, then rest your voice
+* Practice out loud, standing, timing it, with your notes and slides, and record yourself
+- Practice only the introduction and conclusion, since the body will come naturally
+- Rehearse once the morning of the speech so it stays fresh in your mind
+Why: Saying it out loud reveals awkward phrasing and timing problems you'd never notice silently. Watching a recording shows filler words and distracting habits.
+
+# ---- Must-know formulas and facts for this class ----
+
+Q: Must-know: what are the 5 steps of Monroe's Motivated Sequence?
+Topic: Must-Know Facts
+* Attention, need, satisfaction, visualization, action
+- Attention, problem, solution, evidence, conclusion
+- Introduction, need, solution, benefits, summary
+- Hook, thesis, preview, body, conclusion
+Why: Grab attention, show a problem the audience cares about, present your solution, help them picture the result, then tell them exactly what to do. It's built for persuasive speeches.
+
+Q: Must-know: what are the main parts of a speech introduction?
+Topic: Must-Know Facts
+* Attention-getter, reveal the topic, establish credibility, relate to the audience, preview the main points
+- Thank the audience, state your name, apologize for nerves, read the thesis, begin the body
+- Thesis, evidence, counterargument, rebuttal, conclusion
+- Joke, statistic, quote, story, question
+Why: A strong introduction answers the audience's unspoken questions: Why should I listen? What's this about? Why should I trust you? Where are we going?
+
+Q: Must-know: what are the 4 methods of speech delivery?
+Topic: Must-Know Facts
+* Manuscript, memorized, impromptu, extemporaneous
+- Formal, informal, persuasive, informative
+- Introduction, body, transition, conclusion
+- Verbal, nonverbal, visual, written
+Why: Extemporaneous (well prepared, delivered from brief notes) is the method most instructors grade for, because it sounds natural while staying organized.
+
+Q: Must-know: what are the most common organizational patterns for speeches?
+Topic: Must-Know Facts
+* Chronological, spatial, topical, cause-effect, problem-solution
+- Introduction, body, conclusion, question-and-answer, summary
+- Inform, persuade, entertain, commemorate, demonstrate
+- Ethos, pathos, logos, kairos, mythos
+Why: Choose the pattern that fits your content. Use time order for processes and history, location for places, categories for most informative topics, and problem-solution for most persuasive ones.
+
+Q: Must-know: what are the 3 general purposes of a speech?
+Topic: Must-Know Facts
+* To inform, to persuade, and to entertain (or mark a special occasion)
+- To teach, to argue, and to summarize what research says
+- To introduce a topic, to explain it, and to conclude with a call to action
+- To research, to outline, and to deliver
+Why: The general purpose leads to your specific purpose, like "to persuade my audience to get 8 hours of sleep before exams," and then to your central idea.
+
+Q: Must-know: what are the parts of the transactional model of communication?
+Topic: Must-Know Facts
+* Communicators who send and receive at once, messages, channels, noise, feedback, and context
+- A sender, a receiver, and a message moving in one direction only
+- A speaker, a podium, a microphone, and an audience
+- Ethos, pathos, logos, and kairos
+Why: Unlike the older linear model, the transactional model says both sides send and receive at the same time. While you speak, the audience is "talking back" with nods, frowns and posture.
+
+Q: Must-know: what are the 3 parts of a strong conclusion?
+Topic: Must-Know Facts
+* Signal the end, summarize the main points, and finish with a memorable clincher
+- Introduce a new point, thank the audience, and take questions
+- Repeat the introduction, apologize for running long, and sit down
+- Restate your name, list your sources, and end abruptly
+Why: A phrase like "In closing" tells listeners to pay attention. Calling back to your opening story is a classic clincher.
+
+Q: Must-know: what are the types of listening?
+Topic: Must-Know Facts
+* Appreciative, empathic, comprehensive, critical
+- Hearing, sensing, interpreting, remembering
+- Active, passive, aggressive, assertive
+- Verbal, nonverbal, written, visual
+Why: Appreciative listening is for enjoyment, empathic for support, comprehensive for understanding and remembering (lectures), and critical for evaluating a message (persuasive speeches and ads).

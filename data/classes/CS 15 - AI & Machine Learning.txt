@@ -1,0 +1,389 @@
+# quizzahh question file. The file name is the class name.
+#
+# CS 15: Artificial Intelligence and Machine Learning (search, learning types, models, neural
+# networks, evaluation, ethics).
+#
+# Each question looks like this (leave a blank line between questions):
+#
+#   Q: What is the powerhouse of the cell?
+#   Topic: Cells
+#   - Nucleus
+#   * Mitochondria        <- the star marks the correct answer
+#   - Ribosome
+#   - Golgi apparatus
+#   Why: Mitochondria make ATP, the cell's energy.
+#
+# Lines starting with # are ignored.
+
+# Which year of a computer science degree this class usually falls in (used by the year filter):
+Year: 4
+
+Q: What does A* search use to decide which node to expand next?
+Topic: Search
+- Only the cost so far, g(n), always expanding the cheapest path found yet
+- Only the estimated cost to the goal, h(n), always expanding whichever node looks closest
+* f(n) = g(n) + h(n), the cost so far plus the estimated cost to the goal
+- f(n) = g(n) × h(n), so nodes that are both cheap and close are expanded first
+Why: With an admissible heuristic, A* is guaranteed to find an optimal path. Using only g gives uniform-cost search; using only h gives greedy best-first search, which is fast but not guaranteed optimal.
+
+Q: What makes a heuristic admissible?
+Topic: Search
+- It's always exactly equal to the true remaining cost
+* It never overestimates the true remaining cost to the goal
+- It never underestimates the true remaining cost to the goal
+- It can be computed in constant time for every node
+Why: Straight-line distance is admissible for road travel, because no road route is shorter than a straight line. Overestimating can make A* skip the true best path.
+
+Q: Which uninformed search finds the shortest path (fewest steps) and is complete, but can use a lot of memory?
+Topic: Search
+- Depth-first search
+* Breadth-first search
+- Greedy best-first search
+- Iterative hill climbing
+Why: BFS explores level by level, keeping the whole frontier in memory, which can grow exponentially. DFS uses little memory but can get lost down deep or infinite paths. Iterative deepening combines the benefits of both.
+
+Q: What does the minimax algorithm do in two-player games?
+Topic: Search
+- Chooses the move that maximizes your own score, assuming the opponent picks moves at random
+* Picks moves assuming the opponent plays optimally: you maximize the outcome, they minimize it
+- Chooses the move that minimizes the largest number of pieces you could lose on the next turn
+- Searches only the most promising line of play and ignores the rest of the game tree
+Why: Alpha-beta pruning skips branches that can't affect the final decision, often letting minimax search about twice as deep in the same time.
+
+Q: What is supervised learning?
+Topic: Learning Types
+* Learning a mapping from inputs to outputs using labeled examples
+- Learning structure, like clusters, from data that has no labels
+- Learning which actions earn the most reward through trial and error
+- Learning with a human who approves or rejects each prediction live
+Why: Spam filtering (emails labeled spam or not) and house price prediction (houses with known prices) are supervised. Unsupervised learning finds patterns like clusters without labels. Reinforcement learning learns from rewards.
+
+Q: Predicting tomorrow's temperature in degrees is which kind of problem?
+Topic: Learning Types
+- Classification
+* Regression
+- Clustering
+- Dimensionality reduction
+Why: Regression predicts a continuous number. Classification predicts a category, like "rain" or "no rain." The same data can often be framed either way.
+
+Q: Grouping customers into segments without any labels is an example of what?
+Topic: Learning Types
+- Supervised classification
+* Unsupervised clustering
+- Reinforcement learning
+- Linear regression
+Why: Algorithms like k-means discover the groups themselves. People then interpret what each cluster means.
+
+Q: In reinforcement learning, what does an agent try to maximize?
+Topic: Learning Types
+- The number of correctly labeled examples it sees during each episode
+* The cumulative (often discounted) reward it gets from the environment over time
+- The immediate reward of the very next action, ignoring anything that comes later
+- The accuracy of its predictions about what the environment will do next
+Why: The agent takes actions in states and receives rewards. It must balance exploration (trying new actions) and exploitation (using what works). This approach mastered Go and many video games.
+
+Q: Why do we split data into training and test sets?
+Topic: Evaluation
+- To make training faster, since the model only needs to see part of the data
+* To measure how well the model generalizes to data it has never seen
+- To have two models, one trained on each half, then average them
+- To find and remove outliers before training begins
+Why: Scoring a model on its own training data rewards memorization. A validation set (or cross-validation) is used for tuning, and the test set is touched only at the very end.
+
+Q: A model gets 99% accuracy on training data but 70% on test data. What's most likely happening?
+Topic: Evaluation
+- Underfitting: the model is too simple to capture the patterns in the data
+* Overfitting: it memorized noise in the training data that doesn't generalize
+- The test set is harder than the training set, so the gap is expected and fine
+- Data leakage: test examples accidentally ended up in the training set
+Why: Fixes include more data, a simpler model, regularization, dropout, early stopping and data augmentation. Underfitting is the opposite: poor performance even on the training data.
+
+Q: What is the bias-variance tradeoff?
+Topic: Evaluation
+- Simple models have high variance and flexible models have high bias, so pick the most flexible model you can
+* Simple models have high bias (underfit); flexible ones have high variance (overfit); the best balances both
+- Bias is caused by bad data and variance by bad code, so fixing both gives a perfect model
+- It's a tradeoff between how fast a model trains and how much memory it uses
+Why: A straight line fit to curved data has high bias. A wiggly polynomial passing through every point has high variance. Good generalization lives in between.
+
+Q: What does regularization (like L2 or ridge regularization) do?
+Topic: Training
+- Adds more training examples by copying and slightly changing existing ones
+* Adds a penalty for large weights to the loss, discouraging overly complex models
+- Removes a random subset of features before each training step
+- Rescales every feature so that all of them have mean 0 and variance 1
+Why: L1 (lasso) regularization can push some weights all the way to zero, effectively selecting features. Its strength is a hyperparameter, tuned on validation data.
+
+Q: What does linear regression with mean squared error try to minimize?
+Topic: Models
+- The largest single error between any prediction and its actual value
+* The average of the squared differences between predicted and actual values
+- The average of the absolute differences between predicted and actual values
+- The number of predictions that don't exactly match the actual value
+Why: Squaring punishes large errors more and makes the math smooth. It can be solved directly (the normal equation) or with gradient descent.
+
+Q: Despite its name, what does logistic regression do?
+Topic: Models
+- Predicts continuous values, like regression, but with a logarithmic curve fitted to them
+* Classification: it outputs a probability between 0 and 1 using the sigmoid function
+- Clustering: it groups unlabeled points by how close they are to each other
+- Ranking: it orders items by a score computed from a logarithm of their features
+Why: The sigmoid squashes a linear score into a probability. A threshold, often 0.5, turns that probability into a class. It's trained with log loss (cross-entropy).
+
+Q: How does k-nearest neighbors (k-NN) classify a new point?
+Topic: Models
+- By fitting a line that separates the classes as widely as possible
+* By finding the k closest training points and taking a majority vote of their labels
+- By building a tree of yes-or-no questions about the point's features
+- By grouping all the points into k clusters and labeling the new point with its cluster's average
+Why: k-NN does no training, but each prediction is slow on big datasets. Feature scaling matters, because otherwise a feature measured in large units dominates the distance.
+
+Q: How does k-means clustering work?
+Topic: Models
+- It needs labeled data, then draws k boundaries that separate the labels as cleanly as possible
+* It repeatedly assigns points to the nearest of k centroids, then moves each centroid to its points' mean
+- It builds a tree of clusters by repeatedly merging the two closest groups of points
+- It finds the right number of clusters k automatically, then assigns each point at random
+Why: You choose k in advance, often using the "elbow method." Results depend on the starting centroids, so it's usually run several times.
+
+Q: How does a decision tree choose where to split?
+Topic: Models
+- It splits on the features in the order they appear in the dataset
+* It picks the feature and threshold that best separate the classes, by information gain or Gini impurity
+- It splits on a random feature at each node to keep the tree from overfitting
+- It splits on whichever feature has the largest range of values, at that range's midpoint
+Why: Deep trees overfit easily. Random forests, which average many trees trained on random subsets, and gradient boosting are far more accurate in practice.
+
+Q: What does gradient descent do?
+Topic: Training
+- Finds the parameters with the largest loss, then moves away from them
+* Repeatedly moves parameters a small step in the direction that most decreases the loss
+- Tries random parameter values until one of them gives a low enough loss
+- Solves for the exact best parameters in one step using a closed-form formula
+Why: The update rule is w = w - (learning rate × gradient). Stochastic or mini-batch gradient descent uses small random batches of data, which is faster and adds helpful noise.
+
+Q: What happens if the learning rate is too large?
+Topic: Training
+- Training just goes slower, but the model eventually reaches the same minimum
+* Updates overshoot the minimum, so the loss can bounce around or even blow up
+- The model gets more accurate, since bigger steps explore more of the loss surface
+- Training stops early, because the gradient becomes zero after a few steps
+Why: Too small a learning rate makes training painfully slow and can stall. Learning-rate schedules and optimizers like Adam help in practice.
+
+Q: Why do neural networks need nonlinear activation functions like ReLU?
+Topic: Neural Networks
+- To make training run faster on GPUs, which are optimized for nonlinear math
+* Without them, stacked layers collapse into one linear function and can't learn complex patterns
+- To keep every weight positive, which stops gradients from vanishing during training
+- To normalize each layer's output so that the values stay between 0 and 1
+Why: ReLU(x) = max(0, x) is simple and works well in deep networks. Sigmoid and tanh suffer from vanishing gradients when used in many layers.
+
+Q: What does backpropagation compute?
+Topic: Neural Networks
+- The network's predictions, by passing inputs forward through every layer
+* The gradient of the loss for every weight, using the chain rule from the output backward
+- The best number of layers and neurons for the network
+- The new weights directly, so the network doesn't need a learning rate or an optimizer
+Why: Gradient descent then uses those gradients to update the weights. Backpropagation makes training networks with millions or billions of parameters practical.
+
+Q: Why are convolutional neural networks (CNNs) good for images?
+Topic: Neural Networks
+- They treat each pixel independently, so the position of a feature never matters
+* Small shared filters slide over the image to find local patterns, with far fewer parameters
+- They use one huge fully connected layer so every pixel connects to every neuron
+- They sort the pixels by brightness first, which makes objects easier to separate
+Why: Early layers find edges, and later layers combine them into shapes and objects. Weight sharing also lets a pattern be recognized wherever it appears in the image.
+
+Q: What key mechanism do transformer models, like those behind large language models, use?
+Topic: Neural Networks
+- Recurrence: each word is processed in order, with a hidden state passed along
+* Self-attention: each token weighs how relevant every other token in the context is
+- Convolution: small filters slide across the text to find local patterns
+- Retrieval: each answer is looked up in a database of documents
+Why: Attention handles long-range relationships and runs in parallel on GPUs, unlike older recurrent networks that process tokens one at a time. LLMs are trained to predict the next token on huge amounts of text.
+
+Q: Why can a large language model produce a confident answer that's false ("hallucination")?
+Topic: Neural Networks
+- It looks up answers in a database, and some entries in that database are wrong
+* It generates likely-sounding text from learned patterns, which isn't guaranteed to be true
+- It's deliberately trained to give confident answers even when it knows they're false
+- Its training data contained no facts, only examples of writing style
+Why: That's why you verify important claims against reliable sources. Techniques like retrieval (giving the model source documents) and citing sources help reduce the problem.
+
+Q: A cancer test labels 95 of 100 healthy people as healthy, but misses most actual cancers. If only 1% of people have cancer, why is high accuracy misleading?
+Topic: Evaluation
+- Accuracy is always the best metric, so a 95% score means the test is excellent
+* With rare positives, a model can score high accuracy while catching few real cases
+- Accuracy can't be computed for medical tests, since there's no labeled data
+- Because 1% is too small a group for any metric to measure reliably
+Why: A model that says "healthy" to everyone is 99% accurate here and completely useless. For imbalanced classes, look at the confusion matrix, precision, recall, F1 and ROC curves.
+
+Q: What does recall measure?
+Topic: Evaluation
+- Of the predicted positives, how many were actually positive
+* Of the actual positives, how many the model found
+- Of all predictions, how many were correct
+- Of the actual negatives, how many were correctly rejected
+Why: Recall = true positives ÷ (true positives + false negatives). Precision = true positives ÷ (true positives + false positives). F1 is their harmonic mean. Which matters more depends on the cost of each kind of error.
+
+Q: For a spam filter, which error is usually worse, and so which metric should be high?
+Topic: Evaluation
+- Missing spam is worse; maximize recall even if real emails get filtered
+* Marking a real email as spam is worse; keep precision high
+- Both errors cost the same, so accuracy is the only metric that matters
+- Marking a real email as spam is worse; keep recall high
+Why: A legitimate job offer lost in the spam folder costs more than one spam message reaching the inbox. For disease screening, it's the reverse: missed cases are worse, so recall matters most.
+
+Q: What is k-fold cross-validation?
+Topic: Evaluation
+- Training k different kinds of models on the same data and picking the one with the best score
+* Splitting data into k parts, training on k − 1 and validating on the last, rotating and averaging
+- Testing the model on its own training data k times to make sure the score is stable
+- Removing the k most unusual examples from the data before training
+Why: It gives a more reliable performance estimate than one split, especially on small datasets, and it's common for tuning hyperparameters.
+
+Q: Why is feature scaling (like standardization) important for many models?
+Topic: Training
+- It converts every feature into a label, so models can treat them as categories
+* Features on very different scales can dominate distances and slow down gradient descent
+- It increases the amount of data, since scaled copies of each example are added
+- It removes outliers, since any value outside the scale range is dropped
+Why: Income in dollars (tens of thousands) would swamp age in years for k-NN. Standardizing gives each feature a mean of 0 and a standard deviation of 1. Fit the scaler on training data only, to avoid data leakage.
+
+Q: What is data leakage in machine learning?
+Topic: Evaluation
+- Accidentally publishing the training data, exposing private information
+* Information from the test set or the future getting into training, inflating results
+- Training with too little data, so the model can't learn the patterns
+- A model that is too small to store everything it learned
+Why: Examples include scaling with statistics from all the data, or a feature that's only known after the outcome. The model looks amazing, then fails in the real world.
+
+Q: Naive Bayes classifiers make which "naive" assumption?
+Topic: Models
+- All classes are equally likely before seeing any data
+* Features are conditionally independent of each other given the class
+- The data contains no errors, missing values or outliers of any kind
+- Each feature follows a normal (bell-shaped) distribution
+Why: The assumption is usually false, like words in an email being independent, yet Naive Bayes works surprisingly well for text classification and is very fast.
+
+Q: A hiring model trained on past decisions rejects more women for engineering jobs. What is the most likely cause?
+Topic: Ethics
+- The model has too few layers to understand the job descriptions properly
+* The training data reflected past biased decisions, and the model learned to repeat them
+- The model was trained with too high a learning rate, so its errors are random
+- More women applied, so the model rejected more of them by chance
+Why: Models learn whatever patterns are in the data, including historical discrimination. That's why datasets get audited, fairness gets measured across groups, and people stay accountable for decisions.
+
+Q: What is transfer learning?
+Topic: Training
+- Copying a trained model to a new computer so it can run there
+* Starting from a model pretrained on a large dataset and fine-tuning it for a related task
+- Training two models at once so each one learns from the other's mistakes
+- Converting a trained model from one programming framework to another
+Why: An image model pretrained on millions of photos can learn to recognize your specific plant species from a few hundred examples. Pretrained language models are fine-tuned the same way.
+
+Q: What is the purpose of a validation set, separate from the test set?
+Topic: Evaluation
+- It isn't needed; tuning on the test set is fine as long as you report the final score
+* Tuning hyperparameters and choosing models without "using up" the test set
+- Training the model faster by using a smaller, cleaner subset of the data
+- Checking for duplicate rows in the training data before the model is trained
+Why: If you tune on the test set, you slowly overfit to it, and the reported score becomes optimistic.
+
+Q: What is a hyperparameter?
+Topic: Training
+- A weight that the model learns during training using gradient descent
+* A setting chosen before training, like the learning rate, number of layers, or k in k-NN
+- The model's final accuracy on the test set after training is done
+- A parameter that the optimizer updates more often than the others during training
+Why: Parameters, like a network's weights, are learned from data. Hyperparameters are chosen by you, often using grid search, random search, or cross-validation.
+
+Q: What does dropout do during neural network training?
+Topic: Neural Networks
+- Removes the training examples with the highest loss after each epoch
+* Randomly turns off some neurons on each training step, so no single one is relied on too much
+- Stops training as soon as the validation loss starts to rise
+- Permanently deletes the neurons and layers that contribute least to the network's output
+Why: Dropout is a regularizer that reduces overfitting. At test time all neurons are used, with outputs scaled to match.
+
+Q: What is the Turing test?
+Topic: AI Foundations
+- A benchmark that measures how quickly a computer can solve a set of logic puzzles
+* Turing's proposal: if a judge chatting by text can't tell a machine from a human, call it intelligent
+- A way to prove that a Turing machine halts on every possible input
+- A test that checks whether a program's output matches a reference solution on hidden inputs
+Why: Turing proposed this "imitation game" in 1950. Critics argue that imitating conversation isn't the same as understanding, as in John Searle's Chinese Room argument.
+
+Q: In a confusion matrix, what is a false positive?
+Topic: Evaluation
+- A correct "yes" prediction
+* Predicting "yes" when the true answer is "no"
+- Predicting "no" when the true answer is "yes"
+- A correct "no" prediction
+Why: False positives are also called type I errors. False negatives (missing real "yes" cases) are type II errors. A fire alarm going off with no fire is a false positive.
+
+# ---- Must-know formulas and facts for this class ----
+
+Q: Formula check: what are precision and recall?
+Topic: Formulas
+* Precision = TP / (TP + FP); recall = TP / (TP + FN)
+- Precision = TP / (TP + FN); recall = TP / (TP + FP)
+- Precision = (TP + TN) / total; recall = TP / total
+- Precision = TP / (FP + FN); recall = TN / (TN + FP)
+Why: Precision asks "of the items I flagged, how many were right?" Recall asks "of the real positives, how many did I catch?" The third option is accuracy.
+
+Q: Formula check: what is the F1 score?
+Topic: Formulas
+* 2 · (precision · recall) / (precision + recall)
+- (precision + recall) / 2
+- precision · recall
+- 2 · (precision + recall) / (precision · recall)
+Why: It's the harmonic mean, which is low if EITHER precision or recall is low. A model with precision 1.0 and recall 0.1 gets an F1 of only about 0.18.
+
+Q: Formula check: what is the gradient descent update rule?
+Topic: Formulas
+* w ← w − η · ∇L(w)
+- w ← w + η · ∇L(w)
+- w ← η · ∇L(w)
+- w ← w − L(w) / η
+Why: η is the learning rate. You move against the gradient because the gradient points uphill and you want to go down the loss surface. The plus version would do gradient ascent.
+
+Q: Formula check: what is the sigmoid function used in logistic regression?
+Topic: Formulas
+* σ(z) = 1 / (1 + e^(−z))
+- σ(z) = e^(−z) / (1 + z)
+- σ(z) = max(0, z)
+- σ(z) = (e^z − e^(−z)) / (e^z + e^(−z))
+Why: It squashes any number into the range 0 to 1, so it can be read as a probability. max(0, z) is ReLU, and the last option is tanh.
+
+Q: Formula check: what is mean squared error?
+Topic: Formulas
+* MSE = (1/n) Σ (yᵢ − ŷᵢ)²
+- MSE = (1/n) Σ |yᵢ − ŷᵢ|
+- MSE = Σ (yᵢ − ŷᵢ)
+- MSE = √(Σ (yᵢ − ŷᵢ))
+Why: Squaring makes all errors positive and punishes big errors much more than small ones. The absolute-value version is MAE, which is less sensitive to outliers.
+
+Q: Formula check: what is the entropy of a set where class i appears with proportion pᵢ?
+Topic: Formulas
+* H = −Σ pᵢ log₂ pᵢ
+- H = Σ pᵢ²
+- H = −Σ log₂ pᵢ
+- H = 1 − Σ pᵢ
+Why: Entropy is 0 when the set is pure and 1 bit for a 50/50 split of two classes. Decision trees pick the split with the largest drop in entropy (information gain). 1 − Σ pᵢ² is Gini impurity.
+
+Q: Formula check: what is Bayes' rule as Naive Bayes uses it?
+Topic: Formulas
+* P(class | features) ∝ P(class) · Π P(featureᵢ | class)
+- P(class | features) = Σ P(featureᵢ | class)
+- P(class | features) = P(features) / P(class)
+- P(class | features) ∝ P(class) · Σ P(class | featureᵢ)
+Why: The "naive" part is treating features as independent given the class, so their probabilities just multiply. You pick the class with the highest score.
+
+Q: Formula check: what is the ReLU activation function?
+Topic: Formulas
+* ReLU(z) = max(0, z)
+- ReLU(z) = 1 / (1 + e^(−z))
+- ReLU(z) = |z|
+- ReLU(z) = min(0, z)
+Why: It passes positive values through and zeros out negative ones. It's cheap to compute and helps with the vanishing gradients that sigmoid causes in deep networks.

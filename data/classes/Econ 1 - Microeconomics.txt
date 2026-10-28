@@ -1,0 +1,324 @@
+# quizzahh question file. The file name is the class name.
+#
+# Econ 1: Principles of Microeconomics (common social science gen ed).
+#
+# Each question looks like this (leave a blank line between questions):
+#
+#   Q: What is the powerhouse of the cell?
+#   Topic: Cells
+#   - Nucleus
+#   * Mitochondria        <- the star marks the correct answer
+#   - Ribosome
+#   - Golgi apparatus
+#   Why: Mitochondria make ATP, the cell's energy.
+#
+# Lines starting with # are ignored.
+
+# Which year of a computer science degree this class usually falls in (used by the year filter):
+Year: 2
+
+Q: What is the basic economic problem that all societies face?
+Topic: Basics
+* Scarcity: unlimited wants, but limited resources
+- Inflation: prices rising faster than incomes over time
+- Unemployment: more people want jobs than there are jobs
+- Inequality: resources are spread unevenly across people
+Why: Because resources like time, money, labor and land are limited, we have to make choices. Economics is the study of how people make those choices.
+
+Q: You skip a shift that pays $80 to go to a concert with a $50 ticket. What is the opportunity cost of the concert?
+Topic: Basics
+- $50
+- $80
+* $130 (the ticket plus the wages you gave up)
+- $30 (the wages minus the ticket)
+Why: Opportunity cost is the value of the next best alternative you gave up. You pay $50 and also lose the $80 you could have earned. Economists count both.
+
+Q: What is a "sunk cost," and how should it affect your decisions?
+Topic: Basics
+- A cost you expect to pay in the future, so it should guide every decision you make now
+* A cost already paid that you can't get back, so it shouldn't affect future decisions
+- A cost already paid, so you should keep going with a project to avoid wasting it
+- A cost hidden in the price of a product, like taxes, which buyers should look for
+Why: If you paid for a movie and it's terrible after 20 minutes, the ticket money is gone either way. Staying "to get your money's worth" is the sunk cost fallacy. Rational choices compare only future costs and benefits.
+
+Q: What does "thinking at the margin" mean?
+Topic: Basics
+* Comparing the extra benefit of one more unit to its extra cost
+- Comparing the average benefit of all units to their average cost
+- Comparing the total benefit of a choice to its total cost
+- Deciding based on the smallest profit a business can accept
+Why: Should you study one more hour? Compare the marginal benefit (a better grade) to the marginal cost (lost sleep or fun). Keep going as long as the marginal benefit is at least as big as the marginal cost.
+
+Q: What does a production possibilities frontier (PPF) show?
+Topic: Basics
+- How market prices for two goods are set by the supply and demand for each
+* The maximum combinations of two goods an economy can make with its resources and technology
+- How much of two goods consumers want to buy at every possible combination of prices
+- The combinations of two goods that give consumers the same level of satisfaction
+Why: Points on the curve are efficient, points inside it waste resources, and points outside it are currently impossible. Moving along the curve shows opportunity cost, and economic growth shifts the whole curve outward.
+
+Q: What is comparative advantage?
+Topic: Basics
+- Being able to produce more of a good than others, using the same resources
+* Being able to produce something at a lower opportunity cost than others
+- Being able to sell a good at a higher price than anyone else in the market
+- Being the only producer of a good, so you can set its price
+Why: Even if one person is better at everything (absolute advantage), both gain if each specializes in what they give up the least to produce, and then they trade. This is the basis for why trade benefits both sides.
+
+Q: What does the law of demand say?
+Topic: Supply & Demand
+* As price rises, quantity demanded falls (other things equal)
+- As price rises, quantity supplied rises (other things equal)
+- As income rises, demand for every good rises
+- As price rises, the whole demand curve shifts left
+Why: Higher prices make people buy less: they switch to substitutes and their money stretches less far. That's why the demand curve slopes downward.
+
+Q: The price of pizza rises. What happens?
+Topic: Supply & Demand
+- The demand curve for pizza shifts left, since people want less pizza
+* Quantity demanded of pizza falls: a movement along the demand curve
+- The supply curve shifts right, since sellers want to sell more pizza
+- The demand curve shifts right, since pizza now seems more valuable
+Why: A change in the good's own price moves you along the curve (a change in quantity demanded). The whole curve shifts only when something else changes, like income, tastes, prices of related goods, expectations, or the number of buyers.
+
+Q: Coffee gets more expensive. What happens to the demand for tea, a substitute?
+Topic: Supply & Demand
+* Demand for tea increases (the curve shifts right)
+- Demand for tea decreases (the curve shifts left)
+- Quantity demanded of tea rises, a move along its curve
+- Supply of tea increases (the curve shifts right)
+Why: When a substitute gets pricier, people switch over. For complements, which are used together like coffee and creamer, a higher coffee price decreases demand for creamer.
+
+Q: As income rises, demand for a good falls. What kind of good is it?
+Topic: Supply & Demand
+- Normal good
+* Inferior good
+- Luxury good
+- Complementary good
+Why: Inferior goods, like ramen noodles or bus rides, get replaced as people earn more. For normal goods, demand rises with income.
+
+Q: What is the market equilibrium?
+Topic: Supply & Demand
+* The price where quantity demanded equals quantity supplied
+- The price where sellers earn the most total profit
+- The price where buyers get the most total value
+- The price where the demand curve crosses the price axis
+Why: Above equilibrium there's a surplus, and sellers cut prices. Below it there's a shortage, and prices rise. The market tends to settle where the supply and demand curves cross.
+
+Q: A new technology makes producing TVs cheaper. What happens to the TV market?
+Topic: Supply & Demand
+- Supply decreases (shifts left); equilibrium price rises and quantity falls
+* Supply increases (shifts right); equilibrium price falls and quantity rises
+- Demand increases (shifts right); equilibrium price and quantity both rise
+- Supply increases (shifts right); equilibrium price rises and quantity rises
+Why: Lower production costs shift supply right, so more is offered at every price. That's why electronics usually get cheaper over time.
+
+Q: The government sets a rent control below the equilibrium rent. What happens?
+Topic: Government in Markets
+* A shortage of apartments: more people want them than are available
+- A surplus of apartments: more are available than people want to rent
+- Rents rise above the equilibrium because landlords raise other fees
+- No effect, since a price ceiling below equilibrium is never binding
+Why: A price ceiling set below equilibrium creates a shortage. Long waiting lists, less maintenance, and fewer new buildings are common results. A ceiling set above equilibrium has no effect.
+
+Q: A minimum wage set above the equilibrium wage is an example of what?
+Topic: Government in Markets
+- A price ceiling
+* A price floor
+- A subsidy
+- A tax on consumers
+Why: A price floor sets a legal minimum price, which can create a surplus. In the labor market, that surplus means more people want jobs than employers want to hire. Economists debate how large that effect is in practice.
+
+Q: What does a tax on a good usually do to the market?
+Topic: Government in Markets
+* Raises the price buyers pay, lowers the price sellers receive, and reduces the quantity traded
+- Raises the price buyers pay by the full tax, while sellers receive the same price as before
+- Lowers the price sellers receive by the full tax, while buyers pay the same price as before
+- Raises prices for both buyers and sellers, but leaves the quantity traded the same
+Why: Buyers and sellers share the burden. Whoever is less able to switch away (more inelastic) bears more of it. The trades that no longer happen are called deadweight loss.
+
+Q: What does price elasticity of demand measure?
+Topic: Elasticity
+- How quickly prices change when a market moves out of equilibrium
+* How much quantity demanded responds to a change in price
+- How much demand responds to a change in consumers' incomes
+- How much quantity supplied responds to a change in price
+Why: Elasticity = % change in quantity demanded ÷ % change in price. Greater than 1 is elastic (very responsive); less than 1 is inelastic.
+
+Q: Which good likely has the most inelastic demand?
+Topic: Elasticity
+- A specific brand of cereal
+- Vacations
+* Insulin for a diabetic
+- Movie tickets
+Why: Necessities with no good substitutes are inelastic: people buy them even if prices rise a lot. Goods with many substitutes, like a specific brand, or luxuries, are elastic.
+
+Q: If demand is inelastic and a firm raises its price, what happens to total revenue?
+Topic: Elasticity
+* It increases
+- It decreases
+- It stays the same
+- It becomes zero
+Why: With inelastic demand, quantity drops by a smaller percentage than the price rises, so revenue (price × quantity) goes up. With elastic demand, raising the price lowers revenue. This is called the total revenue test.
+
+Q: What is the difference between fixed costs and variable costs?
+Topic: Costs & Production
+- Fixed costs change with output, like ingredients; variable costs don't, like rent
+* Fixed costs don't change with output, like rent; variable costs do, like ingredients
+- Fixed costs are paid once when a business opens; variable costs are paid every month
+- Fixed costs are set by the government; variable costs are set by the market
+Why: A pizza shop pays the same rent whether it sells 10 pizzas or 1,000, but it buys more dough and cheese as it makes more pizzas. Total cost = fixed cost + variable cost.
+
+Q: What is the law of diminishing marginal returns?
+Topic: Costs & Production
+- Adding more workers always increases total output by the same amount
+* After a point, adding more of one input to fixed inputs adds less and less extra output
+- After a point, adding more workers makes total output fall below zero
+- As a firm produces more, its average cost of production always falls, no matter its size
+Why: A small kitchen with 2 cooks works well. Adding a 10th cook adds little, because they get in each other's way. That's why marginal cost eventually rises.
+
+Q: How does an economist's "economic profit" differ from accounting profit?
+Topic: Costs & Production
+* Economic profit also subtracts implicit costs, like the owner's opportunity cost of time and money
+- Accounting profit also subtracts implicit costs, so it's always smaller than economic profit
+- Economic profit ignores fixed costs, since they don't change with the amount produced
+- They're the same number, but economists report it before taxes and accountants after
+Why: If your business earns $50,000 in accounting profit but you gave up a $60,000 job to run it, your economic profit is -$10,000. Zero economic profit means you're doing just as well as your next best option, which is a "normal" profit.
+
+Q: At what output level does any firm maximize profit?
+Topic: Costs & Production
+- Where total revenue is highest
+- Where average total cost is lowest
+* Where marginal revenue equals marginal cost (MR = MC)
+- Where price equals average total cost
+Why: If the next unit brings in more than it costs (MR > MC), make it. If it costs more than it brings in, don't. Profit is maximized where they're equal. This rule holds for every market structure.
+
+Q: Which is a characteristic of perfect competition?
+Topic: Market Structures
+* Many firms selling identical products, with each one a price taker
+- Many firms selling slightly different products, each with some control over price
+- A few large firms whose pricing decisions depend on each other
+- One firm selling a product with no close substitutes
+Why: Farmers selling wheat are close to perfect competition: no single farmer can affect the price. In the long run, firms there earn zero economic profit because new firms enter whenever there are profits.
+
+Q: What is a monopoly?
+Topic: Market Structures
+- Many firms selling similar but slightly different products, each with some control over price
+* A single seller of a product with no close substitutes, protected by barriers to entry
+- A few large firms that dominate a market and watch each other's prices closely
+- A single buyer of a product, who can push down the price sellers receive
+Why: Monopolies set price above marginal cost, producing less and charging more than a competitive market would. Barriers include patents, control of key resources, and huge startup costs. Antitrust laws limit monopolies.
+
+Q: Which market structure is a few large firms that watch and react to each other, like airlines or cell carriers?
+Topic: Market Structures
+- Perfect competition
+- Monopolistic competition
+* Oligopoly
+- Monopoly
+Why: In an oligopoly, each firm's choices affect the others, which is often studied with game theory (like the prisoner's dilemma). Colluding to fix prices (a cartel) is illegal in the U.S. but tempting.
+
+Q: Restaurants, clothing brands and hair salons are examples of which market structure?
+Topic: Market Structures
+- Perfect competition
+* Monopolistic competition
+- Oligopoly
+- Natural monopoly
+Why: There are many firms selling similar but differentiated products, through branding, location and quality. Each has a little pricing power, and entry is easy, so long-run economic profits shrink toward zero.
+
+Q: What is a negative externality?
+Topic: Market Failures
+* A cost of an activity that falls on people not involved in it, like pollution
+- A benefit of an activity that goes to people not involved in it, like vaccination
+- A cost a firm pays that doesn't change with output, like rent
+- A cost added by the government to discourage an activity, like a tax
+Why: Because the producer doesn't pay the full cost, the market produces too much of it. Solutions include taxes (Pigouvian taxes), regulations, and cap-and-trade. Education and vaccines create positive externalities, so markets produce too little of them.
+
+Q: What makes something a public good, like national defense or a lighthouse?
+Topic: Market Failures
+- The government produces it and sells it to citizens at the cost of making it
+* It's non-excludable (no one can be kept from using it) and non-rival (use doesn't reduce others' use)
+- It's excludable but non-rival, like a streaming service that many people can watch
+- It's rival but non-excludable, like fish in the open ocean that anyone with a boat can catch
+Why: Because people can benefit without paying (the free-rider problem), private markets underprovide public goods, so they're often funded through taxes.
+
+Q: What is the "tragedy of the commons"?
+Topic: Market Failures
+* Overuse of a shared resource, since each user gains from using more while costs are spread across all
+- A single firm gaining control of a shared resource and charging high prices for it
+- Underproduction of a public good, because people wait for others to pay for it
+- A shared resource that no one uses, because everyone expects someone else to maintain it
+Why: Overfishing is the classic example: each boat catches more, and the fish run out for everyone. Solutions include quotas, property rights and regulation.
+
+Q: What is asymmetric information?
+Topic: Market Failures
+- When information is free and available to everyone in the market
+* When one side knows more than the other, like a used car seller hiding problems
+- When both buyer and seller know the same facts but value them differently
+- When the government hides prices so that markets can't reach equilibrium
+Why: It can cause adverse selection (the "market for lemons") and moral hazard, where people take more risks once they're insured. Warranties, reviews, inspections and disclosure laws help.
+
+# ---- Must-know formulas and facts for this class ----
+
+Q: Formula check: what is the price elasticity of demand?
+Topic: Formulas
+* % change in quantity demanded ÷ % change in price
+- % change in price ÷ % change in quantity demanded
+- change in quantity demanded ÷ change in price
+- % change in quantity demanded ÷ % change in income
+Why: If |E| > 1, demand is elastic: buyers react strongly, so raising the price lowers total revenue. Dividing by % change in income gives income elasticity instead.
+
+Q: Formula check: what is the midpoint (arc) formula for the percent change used in elasticity?
+Topic: Formulas
+* (new − old) ÷ ((new + old) / 2)
+- (new − old) ÷ old
+- (new − old) ÷ new
+- (new + old) ÷ (new − old)
+Why: Dividing by the average gives the same answer whether the price goes up or down. Going from 4 to 6 is a 40% change by the midpoint method.
+
+Q: Formula check: how are profit and total revenue calculated?
+Topic: Formulas
+* Profit = total revenue − total cost; total revenue = price × quantity
+- Profit = price × quantity; total revenue = profit − total cost
+- Profit = total cost − total revenue; total revenue = price ÷ quantity
+- Profit = marginal revenue − marginal cost; total revenue = price + quantity
+Why: Selling 100 units at $8 with $500 of total cost gives revenue $800 and profit $300. Economic profit also subtracts implicit (opportunity) costs.
+
+Q: Formula check: what are average total cost and marginal cost?
+Topic: Formulas
+* ATC = TC ÷ Q; MC = ΔTC ÷ ΔQ
+- ATC = ΔTC ÷ ΔQ; MC = TC ÷ Q
+- ATC = TC × Q; MC = TC − Q
+- ATC = FC ÷ Q; MC = VC ÷ Q
+Why: Average cost is cost per unit, and marginal cost is the cost of ONE more unit. The MC curve crosses the ATC curve at ATC's lowest point.
+
+Q: Formula check: what is the profit-maximizing rule for any firm?
+Topic: Formulas
+* Produce where MR = MC
+- Produce where P = ATC
+- Produce where TR is largest
+- Produce where MC is lowest
+Why: If one more unit adds more revenue than cost (MR > MC), make it; if not, stop. In perfect competition MR = P, so the rule becomes P = MC.
+
+Q: Formula check: how do you find consumer surplus on a linear demand graph?
+Topic: Formulas
+* The triangle between the demand curve and the market price: ½ × base × height
+- The rectangle under the market price: price × quantity
+- The triangle between the supply curve and the market price
+- The area under the supply curve up to the quantity sold
+Why: Consumer surplus is what buyers were willing to pay minus what they actually paid. The triangle between price and the supply curve is producer surplus.
+
+Q: Formula check: what is the cross-price elasticity, and what does its sign tell you?
+Topic: Formulas
+* % change in quantity of good A ÷ % change in price of good B; positive means substitutes, negative means complements
+- % change in price of A ÷ % change in quantity of B; positive means complements, negative means substitutes
+- % change in quantity of A ÷ % change in income; positive means normal, negative means inferior
+- % change in quantity of A ÷ % change in price of A; positive means luxury, negative means necessity
+Why: Coffee and tea are substitutes (coffee's price up, tea demand up). Printers and ink are complements (ink's price up, printer demand down). The income version tells normal from inferior goods.
+
+Q: Formula check: how much of a tax do buyers versus sellers pay?
+Topic: Formulas
+* The side that is LESS elastic (less able to adjust) pays more of the tax
+- The side that is MORE elastic always pays more of the tax
+- Whoever the law says must pay it pays all of it
+- Buyers and sellers always split the tax 50/50
+Why: Tax incidence depends on elasticity, not on who sends the check to the government. Cigarette taxes fall mostly on smokers because their demand is inelastic.

@@ -1,0 +1,407 @@
+# quizzahh question file. The file name is the class name.
+#
+# CS 11: Database Systems (the relational model, SQL, design and normalization, transactions,
+# indexes).
+#
+# Each question looks like this (leave a blank line between questions):
+#
+#   Q: What is the powerhouse of the cell?
+#   Topic: Cells
+#   - Nucleus
+#   * Mitochondria        <- the star marks the correct answer
+#   - Ribosome
+#   - Golgi apparatus
+#   Why: Mitochondria make ATP, the cell's energy.
+#
+# Lines starting with # are ignored.
+
+# Which year of a computer science degree this class usually falls in (used by the year filter):
+Year: 3
+
+Q: In the relational model, what is a relation?
+Topic: Relational Model
+- A link between two tables, stored as a pair of matching key columns in each one
+* A table: a set of rows (tuples) that all share the same columns (attributes)
+- A single row of a table, identified by its primary key
+- A saved SQL query whose results are recomputed every time it's used
+Why: Formally, a relation is a set of tuples, so in theory the rows have no order and no duplicates. SQL tables are a practical version of relations that can contain duplicate rows.
+
+Q: What is a primary key?
+Topic: Keys
+- The first column of every table, which the database fills in with row numbers automatically
+* A column, or set of columns, that uniquely identifies each row and can't be NULL
+- A column that refers to a row in another table and must match one of its values
+- Any column with an index on it, so lookups by that column are fast
+Why: For example, student_id in a Students table. A table has exactly one primary key, though it may have other candidate keys that could have served, like a unique email.
+
+Q: What is a foreign key?
+Topic: Keys
+- A column whose values must be unique within its own table, though it may be NULL
+* A column that refers to another table's primary key, so the referenced row must exist
+- A second primary key added to a table when the first one isn't unique enough
+- A column that's encrypted with a key stored in a different database
+Why: Enrollments.student_id referencing Students.student_id prevents enrolling a student who doesn't exist. This is called referential integrity.
+
+Q: What does this query return?
+SELECT name FROM Students WHERE gpa > 3.5 ORDER BY name;
+Topic: SQL Queries
+- Every column for every student, filtered to GPAs above 3.5 and sorted by GPA
+* The names of students with a GPA above 3.5, sorted alphabetically
+- The number of students whose GPA is above 3.5, sorted alphabetically by name
+- The names of students with a GPA of 3.5 or higher, sorted from highest GPA down
+Why: SELECT picks columns, FROM picks the table, WHERE filters rows, and ORDER BY sorts them (ascending by default; add DESC for descending).
+
+Q: Which query counts the students in each major?
+Topic: Aggregation
+- SELECT major, COUNT(*) FROM Students;
+* SELECT major, COUNT(*) FROM Students GROUP BY major;
+- SELECT COUNT(major) FROM Students ORDER BY major;
+- SELECT major, COUNT(*) FROM Students HAVING major;
+Why: GROUP BY makes one group per major, and COUNT counts the rows in each group. Without GROUP BY, most databases reject mixing a plain column with an aggregate.
+
+Q: What is the difference between WHERE and HAVING?
+Topic: Aggregation
+- HAVING filters rows before grouping; WHERE filters groups afterward, so only WHERE can use aggregates
+* WHERE filters rows before grouping; HAVING filters groups after, so it can use aggregates
+- They do the same thing, but HAVING is the newer keyword and runs slightly faster
+- WHERE is only used with joins, while HAVING is used for every other kind of filter
+Why: For example: SELECT major, AVG(gpa) FROM Students GROUP BY major HAVING AVG(gpa) > 3.0. You can't write WHERE AVG(gpa) > 3.0, because the groups don't exist yet at that point.
+
+Q: What does an INNER JOIN return?
+Topic: Joins
+- Every row from both tables, with NULLs filled in wherever the condition doesn't match
+* Only the rows where the join condition matches in both tables
+- Every row from the left table, plus matching rows from the right table
+- Every possible pairing of rows, whether or not the condition matches
+Why: Students INNER JOIN Enrollments ON the student IDs shows only students who have enrollments. Students with no enrollments disappear from the result.
+
+Q: You want ALL students, including those with no enrollments, plus their courses when they have any. Which join should you use?
+Topic: Joins
+- Students INNER JOIN Enrollments, which keeps every student
+* Students LEFT JOIN Enrollments
+- Students CROSS JOIN Enrollments, then filter out the empty rows
+- Enrollments LEFT JOIN Students
+Why: A LEFT (outer) JOIN keeps every row from the left table and fills the right side's columns with NULL when there's no match.
+
+Q: What does a CROSS JOIN produce for tables with 10 and 20 rows?
+Topic: Joins
+- 30 rows, the rows of both tables stacked together
+* 200 rows, every pairing (the Cartesian product)
+- 20 rows, one for each row of the larger table
+- 10 rows, one for each row of the smaller table
+Why: Every row is paired with every row. Forgetting a join condition accidentally does this and can produce enormous, wrong results.
+
+Q: What does WHERE email = NULL return?
+Topic: NULL Handling
+- Every row whose email column is empty or missing
+* No rows, because comparing anything to NULL gives "unknown", not true
+- Every row, since NULL matches any value in a comparison
+- An error, because NULL isn't allowed in a WHERE clause in any database
+Why: Use WHERE email IS NULL instead. SQL uses three-valued logic: true, false and unknown. Aggregates like AVG ignore NULLs, but COUNT(*) counts every row.
+
+Q: What's the difference between COUNT(*) and COUNT(phone)?
+Topic: NULL Handling
+- COUNT(*) counts only rows where every column is filled in; COUNT(phone) counts all rows
+* COUNT(*) counts all rows; COUNT(phone) counts only rows where phone is not NULL
+- COUNT(phone) counts the distinct phone numbers, while COUNT(*) counts all rows
+- They always return the same number; COUNT(phone) is just faster
+Why: If 100 students exist but 20 have no phone on file, COUNT(*) is 100 and COUNT(phone) is 80.
+
+Q: What does SELECT DISTINCT major FROM Students return?
+Topic: SQL Queries
+- Every student's major, one row per student, repeats included
+* Each different major once, with duplicates removed
+- The single most common major among all students
+- The number of different majors in the table
+Why: DISTINCT removes duplicate rows from the result. COUNT(DISTINCT major) would count the different majors.
+
+Q: What does this subquery find?
+SELECT name FROM Students WHERE gpa = (SELECT MAX(gpa) FROM Students);
+Topic: Subqueries
+- The names of all students, sorted from the highest GPA to the lowest
+* The name or names of the students with the highest GPA
+- Only the first student who has the highest GPA, even if there are ties
+- An error, because a subquery can't be used inside a WHERE clause
+Why: The inner query computes one value, the maximum GPA, and the outer query finds who has it. If several students tie, they're all returned.
+
+Q: Which statement changes existing rows?
+Topic: Modifying Data
+- INSERT
+* UPDATE
+- SELECT
+- CREATE
+Why: UPDATE Students SET major = 'CS' WHERE id = 7. Without a WHERE clause, UPDATE and DELETE affect EVERY row, which is a classic disaster.
+
+Q: Which of these is DDL (data definition language) rather than DML (data manipulation)?
+Topic: Modifying Data
+- INSERT
+- DELETE
+* CREATE TABLE
+- UPDATE
+Why: DDL defines structure: CREATE, ALTER and DROP. DML works with the data itself: SELECT, INSERT, UPDATE and DELETE.
+
+Q: In an ER diagram, a student can enroll in many courses and a course has many students. What kind of relationship is this, and how is it stored?
+Topic: ER Design
+- One-to-many; put a course_id foreign key column in the Students table
+- One-to-one; merge both tables into a single Students_Courses table
+* Many-to-many; use a separate junction table, like Enrollments(student_id, course_id)
+- Many-to-many; store a comma-separated list of course IDs in each student's row
+Why: The junction table's primary key is often the pair of foreign keys, and it can hold attributes of the relationship itself, like the grade.
+
+Q: For a one-to-many relationship (one advisor, many students), where does the foreign key go?
+Topic: ER Design
+- In the Advisors table, as a list of student IDs for each advisor
+* In the Students table (the "many" side), like Students.advisor_id
+- In a new junction table, which every one-to-many relationship needs
+- In both tables, so either side can find the other directly
+Why: Each student row points to one advisor. Putting a list of student IDs inside the advisor row would break first normal form.
+
+Q: What does first normal form (1NF) require?
+Topic: Normalization
+- Every table must have a primary key made of exactly one column, never a combination
+* Every column holds a single, atomic value, with no lists or repeating groups
+- No non-key column may depend on only part of a composite key
+- No non-key column may depend on another non-key column
+Why: A phone column holding "555-1234, 555-9876" violates 1NF. Move multiple phones into their own table, with one row per phone number.
+
+Q: What problem does normalization mainly solve?
+Topic: Normalization
+- Slow queries, by splitting tables so that every lookup touches fewer rows
+* Redundant data that causes update, insert and delete anomalies
+- Missing data, by requiring a default value in every column of every table
+- Security problems, by separating sensitive columns into their own tables
+Why: If an instructor's office is repeated on every course row, changing it means updating many rows, and missing one leaves the data inconsistent. That's an update anomaly.
+
+Q: What does the functional dependency A → B mean?
+Topic: Normalization
+- A and B always contain equal values in every row of the table
+* Any two rows with the same value of A must have the same value of B
+- A is a foreign key that points to the table where B is the primary key
+- Any two rows with the same value of B must have the same value of A
+Why: For example, student_id → name. Functional dependencies are the tool for finding keys and checking normal forms.
+
+Q: A table Enrollment(student_id, course_id, grade, student_name) has the key (student_id, course_id). Why isn't it in second normal form (2NF)?
+Topic: Normalization
+- grade depends on the whole key, which is a partial dependency
+* student_name depends on only part of the key (student_id), a partial dependency
+- The key has two columns, and 2NF only allows single-column primary keys
+- student_name depends on grade, which is a transitive dependency
+Why: 2NF forbids non-key columns that depend on just part of a composite key. The fix is to move student_name into a Students table.
+
+Q: What does third normal form (3NF) forbid?
+Topic: Normalization
+- Composite keys made of more than one column
+* Transitive dependencies: a non-key column depending on another non-key column
+- Partial dependencies, where a column depends on only part of a composite key
+- NULL values in any column that isn't part of the primary key
+Why: In Students(id, zip, city), city depends on zip, which depends on id. Move zip and city into their own table. BCNF is a slightly stricter version.
+
+Q: What does ACID stand for in transactions?
+Topic: Transactions
+* Atomicity, Consistency, Isolation, Durability
+- Availability, Consistency, Integrity, Distribution
+- Atomicity, Concurrency, Indexing, Durability
+- Accuracy, Consistency, Isolation, Dependability
+Why: Atomicity means all or nothing. Consistency means constraints hold. Isolation means concurrent transactions don't interfere. Durability means committed data survives crashes.
+
+Q: A bank transfer subtracts $100 from one account, then the system crashes before adding it to the other. Which ACID property prevents the lost money?
+Topic: Transactions
+* Atomicity: either both steps happen or neither does
+- Isolation: other transactions can't see the account balances until the transfer is complete
+- Durability: once the first step is written to disk, it is permanently saved
+- Consistency: the database checks that balances never go below zero
+Why: Databases use logs, such as write-ahead logging, to undo incomplete transactions after a crash and to redo committed ones.
+
+Q: What is a dirty read?
+Topic: Transactions
+- Reading a row from a table whose data file has been corrupted on disk
+* Reading another transaction's uncommitted changes, which might be rolled back
+- Reading the same row twice in one transaction and getting different values each time
+- Reading old data from a backup copy instead of the live database
+Why: Isolation levels trade safety for speed. READ UNCOMMITTED allows dirty reads, READ COMMITTED prevents them, and SERIALIZABLE prevents all anomalies.
+
+Q: What does two-phase locking (2PL) guarantee?
+Topic: Concurrency Control
+- No deadlocks can happen, because every transaction takes its locks in the same order
+* Serializable schedules: a transaction acquires all its locks before releasing any
+- Each transaction locks the entire database while it runs, so only one runs at a time
+- Two copies of each lock are kept, so a crash never loses track of who holds what
+Why: The growing phase acquires locks and the shrinking phase releases them. 2PL can still deadlock, so databases detect deadlocks and abort one of the transactions.
+
+Q: Why add an index on a column?
+Topic: Indexes
+- To save disk space by storing that column's values in compressed, sorted form
+* To speed up lookups and range queries on that column, at the cost of storage and slower writes
+- To make the column unique, since every indexed column rejects duplicate values
+- To make writes faster, since the database knows where each new row belongs
+Why: Without an index, finding rows can require scanning the whole table. Most databases use B+ tree indexes, which keep lookups and range scans O(log n).
+
+Q: Why are B+ trees used for database indexes instead of binary search trees?
+Topic: Indexes
+- They are simpler to code, since they never need to be rebalanced after inserts or deletes
+* Each node holds many keys, so the tree is shallow and needs few disk reads; linked leaves speed range scans
+- They keep all keys in a single sorted array in memory, so lookups never touch the disk
+- They use hashing at each level, so every lookup takes exactly one disk read
+Why: With hundreds of keys per node, even a billion rows need only about 4 levels. A binary tree would need about 30 levels, each possibly a separate disk read.
+
+Q: When is a hash index better than a B+ tree index?
+Topic: Indexes
+* For exact-match lookups (WHERE id = 5); it can't help with ranges
+- For range queries like WHERE price BETWEEN 10 AND 20, since hash buckets are kept in sorted order
+- For sorting results with ORDER BY, since the hash function preserves the order of the keys
+- Never; B+ trees are faster than hash indexes for every kind of query
+Why: Hashing scatters keys, so neighboring values aren't stored together. B+ trees keep keys in order, which supports both exact and range lookups.
+
+Q: What is SQL injection?
+Topic: Security
+- A fast way to load lots of data by injecting rows directly into the table files
+* An attack where user input is pasted into a SQL string and changes the query, like ' OR '1'='1
+- A bug where a query runs twice because the user double-clicked the submit button
+- A technique for adding a column to a table without locking it
+Why: Building queries by string concatenation is dangerous. Use parameterized queries (prepared statements) so input is always treated as data, never as SQL code.
+
+Q: What is a view in SQL?
+Topic: SQL Queries
+- A copy of a table's data, saved at the moment the view was created
+* A saved query that behaves like a virtual table
+- An index that speeds up queries on several columns at once
+- A read-only user account that can only see certain tables
+Why: For example: CREATE VIEW HonorStudents AS SELECT * FROM Students WHERE gpa >= 3.5. Views simplify queries and can limit which columns users can see.
+
+Q: When would a NoSQL database, like a document store, be chosen over a relational one?
+Topic: Database Types
+- When you need complex joins across many tables and strict transactions on every write
+* When data is flexible or semi-structured and the system must scale out across servers
+- When the data is small enough to fit in memory and has a fixed, well-known schema
+- When every record must follow the same strict schema that's checked on each insert
+Why: Document stores (like MongoDB), key-value stores (like Redis), and graph databases each fit different workloads. Relational databases remain the default for structured data with relationships and strong consistency.
+
+Q: In which order does a database logically process the clauses of a query?
+Topic: SQL Queries
+- SELECT, FROM, WHERE, GROUP BY, HAVING, ORDER BY
+* FROM (and joins), WHERE, GROUP BY, HAVING, SELECT, ORDER BY
+- FROM, SELECT, WHERE, HAVING, GROUP BY, ORDER BY
+- FROM (and joins), SELECT, WHERE, GROUP BY, HAVING, ORDER BY
+Why: This explains why a column alias defined in SELECT usually can't be used in WHERE, but can be used in ORDER BY.
+
+Q: What does a UNIQUE constraint do?
+Topic: Keys
+- Makes the column the table's primary key, so it can't be NULL
+* Prevents two rows from having the same value in that column
+- Prevents NULL values in that column but allows duplicates
+- Makes sure each value also exists in another table
+Why: A Users table might have id as the primary key and a UNIQUE constraint on email. Most databases still allow NULLs in a UNIQUE column.
+
+Q: What does ON DELETE CASCADE on a foreign key do?
+Topic: Keys
+- Blocks the delete if any rows in another table still refer to it
+* When the referenced row is deleted, the rows that refer to it are deleted too
+- Sets the foreign key in the referring rows to NULL
+- Deletes the referenced table once it has no rows left
+Why: Deleting a student would also delete their enrollments. The alternatives are RESTRICT (block the delete) and SET NULL. Choose carefully, because cascades can remove a lot of data.
+
+Q: Which SQL keyword searches for a pattern, like names starting with "He"?
+Topic: SQL Queries
+- MATCH, as in WHERE name MATCH 'He*'
+* LIKE, as in WHERE name LIKE 'He%'
+- IN, as in WHERE name IN ('He%')
+- CONTAINS, as in WHERE name CONTAINS 'He'
+Why: In LIKE patterns, % matches any sequence of characters and _ matches exactly one. A pattern with a leading %, like '%son', usually can't use a normal index.
+
+Q: What does a query optimizer do?
+Topic: Indexes
+- It checks your SQL for syntax errors and rewrites any invalid parts before running them
+* It chooses an efficient plan to run the query, like which indexes to use and the join order
+- It compresses tables that aren't used often so the database takes up less space
+- It caches the results of every query so the same query never has to run twice
+Why: SQL is declarative: you say what you want, not how to get it. The optimizer estimates the costs of different plans. EXPLAIN shows the plan it chose.
+
+Q: What does denormalization mean, and why would anyone do it?
+Topic: Normalization
+- Removing data that's no longer needed to keep the tables small and fast
+* Deliberately adding redundant data to cut joins and speed up reads, accepting harder updates
+- Splitting tables further so that no column depends on anything except the whole key
+- Moving the data from a relational database into a NoSQL document store
+Why: Reporting systems and data warehouses often denormalize. Transactional systems usually stay normalized to keep their data consistent.
+
+Q: What does a transaction's COMMIT do, compared with ROLLBACK?
+Topic: Transactions
+- COMMIT saves a backup of the database; ROLLBACK restores the most recent backup
+* COMMIT makes the transaction's changes permanent; ROLLBACK undoes everything since it began
+- COMMIT only saves the last statement; ROLLBACK undoes only the last statement
+- Both undo changes, but ROLLBACK also releases all locks the transaction holds
+Why: Statements between BEGIN and COMMIT are treated as one unit. An error partway through means you can roll back to a clean state.
+
+Q: Students(id, name) has 4 rows and Enrollments(student_id, course) has 6 rows. Every enrollment matches a student, and one student has no enrollments. How many rows does a LEFT JOIN from Students to Enrollments return?
+Topic: Joins
+- 4
+- 6
+* 7
+- 24
+Why: The 6 enrollments each match one student, giving 6 rows. The student with no enrollments still appears once, with NULLs. That makes 7.
+
+# ---- Must-know formulas and facts for this class ----
+
+Q: Must-know: what is the order of clauses when you WRITE a SQL SELECT statement?
+Topic: Must-Know Facts
+* SELECT, FROM, WHERE, GROUP BY, HAVING, ORDER BY, LIMIT
+- SELECT, WHERE, FROM, GROUP BY, ORDER BY, HAVING, LIMIT
+- FROM, SELECT, WHERE, HAVING, GROUP BY, ORDER BY, LIMIT
+- SELECT, FROM, GROUP BY, WHERE, ORDER BY, HAVING, LIMIT
+Why: That's the order you type them. The database runs them in a different order: FROM, WHERE, GROUP BY, HAVING, SELECT, ORDER BY, LIMIT. That's why you can't use a SELECT alias in WHERE.
+
+Q: Must-know: what are the 5 standard SQL aggregate functions?
+Topic: Must-Know Facts
+* COUNT, SUM, AVG, MIN, MAX
+- COUNT, TOTAL, MEAN, LOW, HIGH
+- SUM, AVG, MEDIAN, MODE, RANGE
+- COUNT, DISTINCT, GROUP, ORDER, LIMIT
+Why: Aggregates collapse many rows into one value per group. They ignore NULLs, except COUNT(*), which counts every row.
+
+Q: Must-know: what do the four SQL join types return?
+Topic: Must-Know Facts
+* INNER: matches only; LEFT: all left rows; RIGHT: all right rows; FULL OUTER: all rows from both
+- INNER: all rows; LEFT: left matches only; RIGHT: right matches only; FULL OUTER: matches only
+- INNER: matches only; LEFT: all right rows; RIGHT: all left rows; FULL OUTER: no rows
+- INNER: every pairing; LEFT: matches only; RIGHT: all rows; FULL OUTER: unmatched rows only
+Why: Outer joins fill in NULLs where there's no match. "Every pairing" is a CROSS JOIN.
+
+Q: Must-know: what do 1NF, 2NF and 3NF each add?
+Topic: Must-Know Facts
+* 1NF: atomic values; 2NF: no partial dependencies on the key; 3NF: no transitive dependencies
+- 1NF: a primary key; 2NF: foreign keys; 3NF: indexes on every column
+- 1NF: no transitive dependencies; 2NF: atomic values; 3NF: no partial dependencies
+- 1NF: one table; 2NF: two tables; 3NF: three tables
+Why: A classic summary: every non-key attribute must depend on "the key (1NF), the whole key (2NF), and nothing but the key (3NF)."
+
+Q: Must-know: which SQL commands are DDL, and which are DML?
+Topic: Must-Know Facts
+* DDL: CREATE, ALTER, DROP; DML: SELECT, INSERT, UPDATE, DELETE
+- DDL: SELECT, INSERT, UPDATE; DML: CREATE, ALTER, DROP
+- DDL: GRANT, REVOKE; DML: COMMIT, ROLLBACK
+- DDL: CREATE, INSERT, DELETE; DML: SELECT, ALTER, DROP
+Why: DDL defines structure (tables, columns, indexes), and DML works with the data inside them. GRANT and REVOKE are DCL, and COMMIT and ROLLBACK are transaction control.
+
+Q: Must-know: how do you get a list of how many students are in each major, keeping only majors with more than 10?
+Topic: Must-Know Facts
+* SELECT major, COUNT(*) FROM Students GROUP BY major HAVING COUNT(*) > 10;
+- SELECT major, COUNT(*) FROM Students WHERE COUNT(*) > 10 GROUP BY major;
+- SELECT major, COUNT(*) FROM Students GROUP BY major WHERE COUNT(*) > 10;
+- SELECT major FROM Students HAVING COUNT(*) > 10 ORDER BY major;
+Why: WHERE runs before grouping, so it can't see COUNT(*). HAVING filters the groups after they're formed.
+
+Q: Must-know: what isolation problems does each SQL isolation level prevent?
+Topic: Must-Know Facts
+* Read committed stops dirty reads; repeatable read also stops non-repeatable reads; serializable also stops phantoms
+- Read uncommitted stops dirty reads; read committed stops phantoms; serializable stops deadlocks
+- Every level prevents all anomalies; they differ only in speed
+- Serializable stops dirty reads only; repeatable read stops everything else
+Why: Stronger isolation means fewer anomalies but more locking or aborted transactions. Many databases default to read committed.
+
+Q: Must-know: what is the typical height of a B+ tree index over n keys with fan-out f?
+Topic: Must-Know Facts
+* About log_f(n), so only 3–4 levels for millions of rows
+- About log₂(n), so 20 or more levels for a million rows
+- About n / f levels
+- About √n levels
+Why: With a fan-out of a few hundred, a 3-level tree holds tens of millions of keys. Each level is roughly one disk read, so lookups are very fast.

@@ -1,0 +1,469 @@
+# quizzahh question file. The file name is the class name.
+#
+# Math 4: Discrete Mathematics (logic, proofs, sets, functions, relations, counting, number theory,
+# recurrences, graphs). This is the math class that CS uses the most.
+#
+# Each question looks like this (leave a blank line between questions):
+#
+#   Q: What is the powerhouse of the cell?
+#   Topic: Cells
+#   - Nucleus
+#   * Mitochondria        <- the star marks the correct answer
+#   - Ribosome
+#   - Golgi apparatus
+#   Why: Mitochondria make ATP, the cell's energy.
+#
+# Lines starting with # are ignored.
+
+# Which year of a computer science degree this class usually falls in (used by the year filter):
+Year: 2
+
+Q: When is the implication p → q false?
+Topic: Logic
+- Whenever p is false, since nothing follows from a false premise
+- Whenever q is true but p is false
+* Only when p is true and q is false
+- When p and q are both false
+Why: "If it rains, I'll bring an umbrella" is only broken if it rains and I don't bring one. When p is false, the implication is "vacuously true." This trips up a lot of students.
+
+Q: What is the contrapositive of "If a number is divisible by 4, then it is even"?
+Topic: Logic
+- If a number is even, then it is divisible by 4
+* If a number is not even, then it is not divisible by 4
+- If a number is not divisible by 4, then it is not even
+- A number is divisible by 4 and not even
+Why: The contrapositive of p → q is ¬q → ¬p, and it's always logically equivalent to the original. The converse (q → p) and the inverse (¬p → ¬q) are NOT equivalent. Here the converse is false, because 6 is even but not divisible by 4.
+
+Q: What is the negation of p → q?
+Topic: Logic
+- ¬p → ¬q
+- q → p
+* p ∧ ¬q
+- ¬p ∨ q
+Why: p → q is equivalent to ¬p ∨ q, and by De Morgan's law its negation is p ∧ ¬q. So the negation of "if it rains, the game is canceled" is "it rains and the game is not canceled."
+
+Q: By De Morgan's law, ¬(p ∧ q) is equivalent to what?
+Topic: Logic
+* ¬p ∨ ¬q
+- ¬p ∧ ¬q
+- p ∨ q
+- ¬p → q
+Why: "Not both" means "at least one is false." The partner law: ¬(p ∨ q) is equivalent to ¬p ∧ ¬q. These show up everywhere, including in if-statements in code.
+
+Q: How many rows does a truth table with 3 propositional variables have?
+Topic: Logic
+- 3
+- 6
+* 8
+- 9
+Why: Each variable is true or false, so there are 2³ = 8 combinations. With n variables there are 2ⁿ rows, which is why brute-force checking gets expensive quickly.
+
+Q: Which statement is a tautology, meaning true no matter what?
+Topic: Logic
+* p ∨ ¬p
+- p ∧ ¬p
+- p → ¬p
+- p ∧ q
+Why: Either p or not p must hold. p ∧ ¬p is a contradiction, always false. Two statements are logically equivalent when the statement "they have the same truth value" is a tautology.
+
+Q: What is the negation of "Every student passed the exam"?
+Topic: Predicates & Quantifiers
+- No student passed the exam
+* Some student did not pass the exam
+- Every student did not pass the exam
+- At least one student passed the exam
+Why: ¬∀x P(x) is equivalent to ∃x ¬P(x): to disprove "all," you just need one counterexample. Similarly, ¬∃x P(x) is equivalent to ∀x ¬P(x).
+
+Q: Which translates "Every CS major takes discrete math" correctly?
+Topic: Predicates & Quantifiers
+- ∀x (CSMajor(x) ∧ TakesDiscrete(x))
+* ∀x (CSMajor(x) → TakesDiscrete(x))
+- ∃x (CSMajor(x) → TakesDiscrete(x))
+- ∃x (CSMajor(x) ∧ TakesDiscrete(x))
+Why: "All A are B" uses → with ∀. Using ∧ would claim that EVERYONE in the domain is a CS major. "Some A are B" uses ∧ with ∃.
+
+Q: To prove "If n² is even, then n is even," which method is most natural?
+Topic: Proofs
+- Direct proof: write n² = 2k and take the square root of both sides to get n
+* Proof by contrapositive: assume n is odd and show n² is odd
+- Proof by contradiction: assume n² is odd and show n is even
+- Proof by cases: check n = 0, 1, 2 and generalize the pattern
+Why: If n = 2k + 1, then n² = 4k² + 4k + 1 = 2(2k² + 2k) + 1, which is odd. Working with n directly is much easier than working with n².
+
+Q: What is the structure of a proof by contradiction?
+Topic: Proofs
+- Show the statement holds for enough examples that a counterexample is unlikely
+* Assume the statement is false and derive something impossible
+- Assume the conclusion is false and show the hypothesis must be false
+- Prove the converse of the statement, which is logically equivalent
+Why: The classic example is that √2 is irrational. Assume √2 = a/b in lowest terms. Then a² = 2b², so a is even, then b is even too, which contradicts "lowest terms."
+
+Q: What two parts does a proof by mathematical induction have?
+Topic: Induction
+- A base case, and an inductive step showing that if the claim holds for k + 1, it holds for k
+* A base case, and an inductive step showing that if it holds for k, it holds for k + 1
+- Two base cases, n = 0 and n = 1, from which every other case follows by symmetry
+- An inductive step, and a final step showing the claim holds as n goes to infinity
+Why: Like dominoes: the first one falls (base case), and each falling domino knocks over the next (inductive step), so they all fall. In the inductive step you ASSUME the claim for k, which is the inductive hypothesis.
+
+Q: In proving 1 + 2 + ... + n = n(n + 1)/2 by induction, what do you add to both sides in the inductive step?
+Topic: Induction
+- n, to go from the sum up to n − 1 to the sum up to n
+* k + 1, to go from the sum up to k to the sum up to k + 1
+- 2k + 1, the difference between consecutive square numbers
+- k, to double-count the sum and reach k(k + 1)
+Why: Assume 1 + ... + k = k(k + 1)/2. Then 1 + ... + k + (k + 1) = k(k + 1)/2 + (k + 1) = (k + 1)(k + 2)/2, which is exactly the formula for k + 1.
+
+Q: When is strong induction especially useful?
+Topic: Induction
+- When the base case is hard to prove, so you assume several base cases instead
+* When proving the claim for k + 1 needs it for several smaller values, not just k
+- When the statement is about real numbers instead of integers
+- When you need to prove the statement for infinitely many base cases
+Why: For example, every integer greater than 1 is a product of primes: n might split as a × b where a and b are any smaller numbers. Strong induction lets you assume the claim for all values up to k.
+
+Q: How many elements does the power set of a 3-element set have?
+Topic: Sets
+- 3
+- 6
+* 8
+- 9
+Why: Each element is either in a subset or not, giving 2³ = 8 subsets, counting the empty set and the whole set. In general a set with n elements has 2ⁿ subsets.
+
+Q: A = {1, 2, 3, 4} and B = {3, 4, 5}. What is A - B (the elements in A but not B)?
+Topic: Sets
+- {3, 4}
+* {1, 2}
+- {5}
+- {1, 2, 5}
+Why: The set difference A - B keeps the elements of A that aren't in B. A ∩ B = {3, 4}, A ∪ B = {1, 2, 3, 4, 5}, and the symmetric difference is {1, 2, 5}.
+
+Q: A has 3 elements and B has 4. How many elements does the Cartesian product A × B have?
+Topic: Sets
+- 7
+* 12
+- 81
+- 64
+Why: A × B is the set of all ordered pairs (a, b), so its size is 3 × 4 = 12. It's the basis of relations and of database tables.
+
+Q: 30 students take CS, 25 take Math, and 10 take both. How many take at least one of them?
+Topic: Counting
+- 55
+* 45
+- 35
+- 65
+Why: By inclusion-exclusion: 30 + 25 - 10 = 45. Adding the two counts counts the 10 students in both twice, so subtract them once.
+
+Q: What does it mean for a function f: A → B to be one-to-one (injective)?
+Topic: Functions
+- Every element of B is the output of at least one input from A
+* Different inputs always give different outputs: f(a₁) = f(a₂) forces a₁ = a₂
+- Every input has exactly one output, so f is well-defined
+- Equal outputs always come from different inputs, like f(1) = f(2)
+Why: Onto (surjective) means every element of B is hit. A bijection is both one-to-one and onto, and only bijections have full inverse functions.
+
+Q: Is f(x) = x², as a function from the real numbers to the real numbers, one-to-one or onto?
+Topic: Functions
+- Both
+- One-to-one only
+- Onto only
+* Neither
+Why: It's not one-to-one, since f(2) = f(-2) = 4. It's not onto, since no real x gives -1. If you restrict the domain and codomain to non-negative reals, it becomes a bijection.
+
+Q: If f(x) = 2x + 1 and g(x) = x², what is (f ∘ g)(3)?
+Topic: Functions
+- 49
+* 19
+- 13
+- 36
+Why: (f ∘ g)(x) means f(g(x)): first g(3) = 9, then f(9) = 19. Order matters: (g ∘ f)(3) = g(7) = 49.
+
+Q: Which three properties make a relation an equivalence relation?
+Topic: Relations
+- Reflexive, antisymmetric, transitive
+* Reflexive, symmetric, transitive
+- Symmetric, antisymmetric, irreflexive
+- One-to-one, onto, transitive
+Why: "Has the same birthday as" is an equivalence relation, and it splits people into classes. Reflexive, antisymmetric and transitive instead describe a partial order, like ≤.
+
+Q: How many equivalence classes does "congruent mod 5" create on the integers?
+Topic: Relations
+- 2
+* 5
+- Infinitely many
+- 10
+Why: The classes are by remainder: 0, 1, 2, 3 and 4. Modular arithmetic works with these classes, and it's used in hashing, cryptography and checksums.
+
+Q: Is ≤ on the integers a partial order?
+Topic: Relations
+* Yes: it's reflexive, antisymmetric and transitive
+- No, because it isn't symmetric: 2 ≤ 3, but 3 ≤ 2 is false
+- No, because every pair of integers is comparable, so it's a total order instead
+- Yes, but only because it's also symmetric and reflexive
+Why: Antisymmetric means a ≤ b and b ≤ a force a = b. Since any two integers can be compared, it's actually a total order. "Divides" on positive integers is a partial order where some pairs can't be compared, like 2 and 3.
+
+Q: How many 4-digit PIN codes are possible if digits can repeat?
+Topic: Counting
+- 40
+- 5,040
+* 10,000
+- 9,999
+Why: By the product rule there are 10 choices for each of 4 positions: 10⁴ = 10,000. Without repeats it would be 10 × 9 × 8 × 7 = 5,040.
+
+Q: How many ways can 5 different books be arranged on a shelf?
+Topic: Counting
+- 25
+* 120
+- 5
+- 3,125
+Why: 5! = 5 × 4 × 3 × 2 × 1 = 120. Each arrangement is a permutation: 5 choices for the first spot, then 4, and so on.
+
+Q: How many ways can you choose a 3-person committee from 10 people?
+Topic: Counting
+- 720
+* 120
+- 30
+- 1,000
+Why: Order doesn't matter, so it's a combination: 10 choose 3 = 10!/(3! × 7!) = 120. If the roles were different (president, vice president, secretary), order would matter, giving 10 × 9 × 8 = 720.
+
+Q: How many bit strings of length 8 contain exactly three 1s?
+Topic: Counting
+- 24
+* 56
+- 256
+- 8
+Why: Choose which 3 of the 8 positions hold 1s: 8 choose 3 = 56. Choosing positions like this is a powerful counting trick.
+
+Q: What is the coefficient of x²y³ in (x + y)⁵?
+Topic: Counting
+- 5
+* 10
+- 6
+- 20
+Why: By the binomial theorem, the term is (5 choose 2) x²y³ = 10x²y³. The coefficients 1, 5, 10, 10, 5, 1 are row 5 of Pascal's triangle.
+
+Q: At least how many people must be in a room to guarantee two share a birth month?
+Topic: Counting
+- 12
+* 13
+- 24
+- 366
+Why: The pigeonhole principle: 13 people (pigeons) into 12 months (holes) forces at least one month to hold 2. It's simple but proves surprising facts.
+
+Q: How many ways can 10 identical candies be given to 3 kids, if a kid may get none?
+Topic: Counting
+- 30
+- 120
+* 66
+- 1,000
+Why: Stars and bars: arrange 10 stars and 2 bars in a row, which is 12 choose 2 = 66. The bars split the candies into three groups.
+
+Q: Using the Euclidean algorithm, what is gcd(48, 18)?
+Topic: Number Theory
+- 3
+* 6
+- 9
+- 18
+Why: 48 = 2 × 18 + 12, then 18 = 1 × 12 + 6, then 12 = 2 × 6 + 0. The last nonzero remainder, 6, is the gcd. It runs in about O(log n) steps.
+
+Q: What is -7 mod 3 (using the mathematical convention with a result from 0 to 2)?
+Topic: Number Theory
+- -1
+* 2
+- 1
+- 0
+Why: -7 = 3 × (-3) + 2, so the remainder is 2. Careful: some programming languages, like C and Java, give -1 for -7 % 3, while Python gives 2.
+
+Q: What is 2¹⁰ mod 7?
+Topic: Number Theory
+- 1
+* 2
+- 4
+- 3
+Why: 2³ = 8 ≡ 1 (mod 7), so 2⁹ = (2³)³ ≡ 1, and 2¹⁰ ≡ 2. Reducing as you go, instead of computing 1024 first, is how computers do modular exponentiation for cryptography.
+
+Q: What does the Fundamental Theorem of Arithmetic say?
+Topic: Number Theory
+- Every integer greater than 1 is either prime or a product of exactly two primes
+* Every integer greater than 1 is a product of primes in exactly one way, apart from order
+- Every even integer greater than 2 can be written as the sum of two primes
+- There are infinitely many primes, so every integer has a prime factor
+Why: For example, 60 = 2² × 3 × 5, and no other prime factorization exists. "Every even number greater than 2 is the sum of two primes" is Goldbach's conjecture, which is still unproven.
+
+Q: The security of RSA encryption relies mainly on what?
+Topic: Number Theory
+- Prime numbers being rare, so attackers can't guess which ones were used
+* The difficulty of factoring a huge n = p × q into its two prime factors
+- Keeping the encryption algorithm itself secret from attackers
+- The difficulty of finding discrete logarithms modulo a large prime
+Why: Multiplying two big primes is easy, but recovering them from the product is believed to be very hard for classical computers. The public exponent and modular arithmetic do the rest.
+
+Q: Solve the recurrence a(n) = 2·a(n - 1) with a(0) = 3.
+Topic: Recurrences
+- a(n) = 2n + 3
+* a(n) = 3 × 2ⁿ
+- a(n) = 6n
+- a(n) = 3ⁿ
+Why: Unroll it: 3, 6, 12, 24, and so on. Each step doubles. Recurrences like this describe things such as the number of nodes at each level of a binary tree.
+
+Q: A graph has vertices with degrees 3, 3, 2 and 2. How many edges does it have?
+Topic: Graph Theory
+- 10
+* 5
+- 4
+- 6
+Why: The handshake lemma says the sum of the degrees is twice the number of edges, because each edge has two ends. 10 = 2E, so E = 5. It also means the number of odd-degree vertices is always even.
+
+Q: How many edges does a tree with 20 vertices have?
+Topic: Graph Theory
+- 20
+* 19
+- 21
+- 40
+Why: A tree is connected and has no cycles, and every tree with n vertices has exactly n - 1 edges. Adding any edge creates a cycle; removing one disconnects it.
+
+Q: When does a connected graph have an Euler circuit, a closed walk using every edge exactly once?
+Topic: Graph Theory
+- When it has no cycles
+* When every vertex has even degree
+- When it has exactly two odd vertices
+- When it's complete
+Why: Each time you pass through a vertex you use two edges, one in and one out. With exactly two odd-degree vertices you get an Euler path (not closed) instead. Hamilton paths, which visit every vertex once, are much harder: NP-complete.
+
+Q: How many edges does the complete graph on n vertices have?
+Topic: Graph Theory
+- n²
+* n(n − 1)/2
+- n(n + 1)/2
+- n − 1
+Why: Every pair of vertices is joined by an edge, so it's n choose 2. For example, the complete graph on 5 vertices has 10 edges.
+
+Q: When is a graph bipartite?
+Topic: Graph Theory
+- When its vertices can be split into two groups with no edges between the two groups at all
+* When its vertices split into two groups with every edge between them, i.e. it has no odd cycles
+- When its vertices split into two groups with every edge between them, i.e. it has no even cycles
+- When it can be drawn on paper without any edges crossing each other
+Why: You can test it with BFS coloring: alternate two colors and check for a conflict. Bipartite graphs model matching problems, like students and projects.
+
+Q: Three fair coins are flipped. What's the probability of exactly two heads?
+Topic: Probability
+- 1/2
+* 3/8
+- 2/3
+- 1/4
+Why: There are 2³ = 8 equally likely outcomes, and 3 of them have exactly two heads: HHT, HTH and THH. Counting the favorable outcomes and dividing by the total works whenever the outcomes are equally likely.
+
+Q: A proof uses a single counterexample. What kind of statement can that disprove?
+Topic: Proofs
+- An existential statement like "some prime is even"
+* A universal statement like "all primes are odd"
+- Any statement at all
+- None; counterexamples prove nothing
+Why: The single example 2 disproves "all primes are odd." To prove a universal statement you need a general argument, and examples are never enough. To prove an existential statement, one example is enough.
+
+Q: Is "n² + n + 41 is prime for every positive integer n" true?
+Topic: Proofs
+- Yes; it has been checked by computer for every n up to one million
+* No; at n = 40 it equals 41², which isn't prime
+- Yes; it can be proved by induction on n
+- No; it fails at n = 2, where it equals 47
+Why: This famous formula works for n = 1 through 39, which shows why checking many cases isn't a proof. At n = 40, 40² + 40 + 41 = 1681 = 41 × 41.
+
+# ---- Must-know formulas and facts for this class ----
+
+Q: Formula check: what is the number of permutations of r items chosen from n, P(n, r)?
+Topic: Formulas
+* n! / (n − r)!
+- n! / (r!(n − r)!)
+- n! / r!
+- nʳ
+Why: Order matters for permutations. Dividing by r! as well gives combinations, C(n, r), where order doesn't matter. nʳ counts choices with repetition allowed.
+
+Q: Formula check: what is the number of combinations C(n, r), "n choose r"?
+Topic: Formulas
+* n! / (r!(n − r)!)
+- n! / (n − r)!
+- n! / r!
+- (n − r)! / r!
+Why: Count the ordered arrangements, n!/(n − r)!, then divide by r! because each group of r items was counted once for every way of ordering it.
+
+Q: Formula check: how many ways can you place n identical items into k distinct boxes (stars and bars)?
+Topic: Formulas
+* C(n + k − 1, k − 1)
+- C(n + k, k)
+- kⁿ
+- C(n − 1, k − 1)
+Why: Line up n stars and k − 1 bars, then choose where the bars go. For 10 candies and 3 kids, that's C(12, 2) = 66. kⁿ would be for distinct items.
+
+Q: Formula check: what is the inclusion-exclusion rule for two sets?
+Topic: Formulas
+* |A ∪ B| = |A| + |B| − |A ∩ B|
+- |A ∪ B| = |A| + |B| + |A ∩ B|
+- |A ∪ B| = |A| · |B| − |A ∩ B|
+- |A ∪ B| = |A| + |B|
+Why: Adding |A| and |B| counts the overlap twice, so you subtract it once. For three sets you add back the triple overlap at the end.
+
+Q: Formula check: what is the sum 1 + 2 + 3 + ... + n?
+Topic: Formulas
+* n(n + 1) / 2
+- n(n − 1) / 2
+- n² / 2
+- n(n + 1)(2n + 1) / 6
+Why: Pair the first and last terms, the second and second-to-last, and so on: each pair sums to n + 1. n(n + 1)(2n + 1)/6 is the sum of the squares.
+
+Q: Formula check: what is the sum 1 + 2 + 4 + ... + 2ⁿ⁻¹?
+Topic: Formulas
+* 2ⁿ − 1
+- 2ⁿ
+- 2ⁿ⁺¹ − 1
+- n · 2ⁿ⁻¹
+Why: In binary, that's n ones in a row, which is one less than 2ⁿ. This explains why a full binary tree of height h has 2ʰ⁺¹ − 1 nodes.
+
+Q: Formula check: what is the Handshake Lemma for a graph with E edges?
+Topic: Formulas
+* The degrees of all vertices add up to 2E
+- The degrees of all vertices add up to E
+- The number of vertices equals E + 1
+- Every vertex has degree E / 2
+Why: Each edge has two ends, so it adds 1 to the degree of two vertices. A consequence is that the number of odd-degree vertices is always even.
+
+Q: Formula check: how many edges does a tree with n vertices have?
+Topic: Formulas
+* n − 1
+- n
+- n + 1
+- n(n − 1) / 2
+Why: Adding one more edge to a tree would make a cycle, and removing one would disconnect it. n(n − 1)/2 is the edge count of the complete graph Kₙ.
+
+Q: Formula check: what does the Pigeonhole Principle say for n items in k boxes?
+Topic: Formulas
+* Some box gets at least ⌈n/k⌉ items
+- Some box gets at most ⌊n/k⌋ items
+- Every box gets exactly n/k items
+- Some box gets at least n − k items
+Why: If every box had fewer than ⌈n/k⌉, the total would be less than n. With 13 people and 12 months, some month has at least ⌈13/12⌉ = 2 birthdays.
+
+Q: Formula check: which statement is logically equivalent to p → q?
+Topic: Formulas
+* ¬p ∨ q
+- p ∨ ¬q
+- ¬p ∧ q
+- q → p
+Why: An implication is false only when p is true and q is false, which is exactly when ¬p ∨ q is false. q → p is the converse, which is not equivalent.
+
+Q: Formula check: how many subsets does a set with n elements have?
+Topic: Formulas
+* 2ⁿ
+- n²
+- n!
+- 2n
+Why: For each element you choose "in" or "out," and those choices are independent. So a 3-element set has 2³ = 8 subsets, counting the empty set and the set itself.
+
+Q: Formula check: what does the Binomial Theorem give as the coefficient of xᵏyⁿ⁻ᵏ in (x + y)ⁿ?
+Topic: Formulas
+* C(n, k)
+- n! / k!
+- nᵏ
+- k · C(n − 1, k)
+Why: Each term comes from choosing x from k of the n factors and y from the rest, and there are C(n, k) ways to choose which factors give x. These are the numbers in Pascal's triangle.

@@ -1,0 +1,388 @@
+# quizzahh question file. The file name is the class name.
+#
+# Bio 1: General Biology (common lab-science gen ed).
+#
+# Each question looks like this (leave a blank line between questions):
+#
+#   Q: What is the powerhouse of the cell?
+#   Topic: Cells
+#   - Nucleus
+#   * Mitochondria        <- the star marks the correct answer
+#   - Ribosome
+#   - Golgi apparatus
+#   Why: Mitochondria make ATP, the cell's energy.
+#
+# Lines starting with # are ignored.
+
+# Which year of a computer science degree this class usually falls in (used by the year filter):
+Year: 2
+
+Q: What makes a hypothesis scientific?
+Topic: Science of Biology
+- It has been confirmed by enough experiments that no one doubts it anymore
+* It is testable and could be shown false (falsifiable)
+- It is supported by experts in the field and published in a journal
+- It explains every observation, including ones that contradict each other
+Why: A scientific hypothesis makes predictions you can test with observations or experiments. If no possible result could disprove it, it isn't scientific. Science never "proves" hypotheses absolutely; it supports them or rules them out.
+
+Q: In science, what is a theory, like the theory of evolution or cell theory?
+Topic: Science of Biology
+- An educated guess that scientists plan to test in future experiments
+* A well-tested, broad explanation supported by a large body of evidence
+- A hypothesis that has been tested once and not yet proven wrong
+- A law of nature that has been proven true and can never be revised
+Why: In everyday speech "theory" means a hunch, but in science it's the highest level of explanation. Theories explain why things happen, while laws describe what happens.
+
+Q: What are the characteristics shared by all living things?
+Topic: Science of Biology
+* Made of cells, use energy, respond to stimuli, reproduce, grow, keep homeostasis, and evolve
+- Made of cells with a nucleus, breathe oxygen, move on their own, grow, and reproduce sexually
+- Make their own food, use energy, contain DNA in a nucleus, grow, and reproduce
+- Made of organic molecules, move, breathe, reproduce, and stay the same over generations
+Why: All life is made of one or more cells, processes energy, senses and responds, keeps internal conditions stable (homeostasis), reproduces using DNA, and evolves as populations. Viruses are borderline because they can't reproduce on their own.
+
+Q: What makes water such a good solvent and gives it cohesion?
+Topic: Chemistry of Life
+- It is nonpolar, so it dissolves fats and oils easily
+* It is polar and forms hydrogen bonds
+- It forms ionic bonds with itself, like table salt
+- It is a very small molecule with no partial charges
+Why: Oxygen pulls electrons harder than hydrogen does, so a water molecule has a slightly negative end and slightly positive ends. Hydrogen bonds between water molecules cause cohesion (surface tension), high heat capacity, and ice floating, and the polarity lets water dissolve salts and sugars.
+
+Q: Which macromolecule stores genetic information?
+Topic: Chemistry of Life
+- Carbohydrates
+- Lipids
+- Proteins
+* Nucleic acids
+Why: DNA and RNA are nucleic acids, built from nucleotides. Carbohydrates provide quick energy and structure, lipids store long-term energy and form membranes, and proteins do most of the cell's work (enzymes, structure, transport).
+
+Q: What are the building blocks (monomers) of proteins?
+Topic: Chemistry of Life
+* Amino acids
+- Nucleotides
+- Fatty acids
+- Monosaccharides
+Why: Twenty kinds of amino acids link through peptide bonds into chains that fold into specific shapes. The shape determines the protein's function, which is why denaturing (unfolding) a protein with heat or acid ruins it.
+
+Q: How do enzymes speed up chemical reactions?
+Topic: Chemistry of Life
+- By adding heat energy to the reactants so that they collide harder
+* By lowering the activation energy needed for the reaction to start
+- By being used up in the reaction and becoming part of the products
+- By shifting the equilibrium so that more product is made overall
+Why: Enzymes are catalysts. They bind substrates at their active site and make the reaction easier, without being consumed. Temperature and pH affect them, because extremes change their shape.
+
+Q: What is the difference between prokaryotic and eukaryotic cells?
+Topic: Cells
+- Prokaryotes have a nucleus and organelles; eukaryotes, like bacteria, don't
+* Eukaryotes have a nucleus and membrane-bound organelles; prokaryotes, like bacteria, don't
+- Prokaryotes are larger and more complex, and they make up all plants and animals
+- Only eukaryotes have DNA; prokaryotes store their genetic information in RNA
+Why: Prokaryotes (bacteria and archaea) are small and simple, with their DNA in a region called the nucleoid. Eukaryotes (animals, plants, fungi, protists) keep DNA in a nucleus and have organelles like mitochondria. Both have ribosomes, membranes and DNA.
+
+Q: Which organelle makes most of the cell's ATP through cellular respiration?
+Topic: Cells
+- Nucleus
+* Mitochondrion
+- Golgi apparatus
+- Ribosome
+Why: The mitochondria are the "powerhouse of the cell." They have their own DNA, which is evidence they came from ancient bacteria that were engulfed by a host cell (endosymbiotic theory). Chloroplasts in plants have a similar origin.
+
+Q: What do ribosomes do?
+Topic: Cells
+* Build proteins by translating mRNA
+- Copy DNA into mRNA in the nucleus
+- Make ATP through cellular respiration
+- Package and ship proteins out of the cell
+Why: Ribosomes read mRNA and link amino acids together. Ribosomes on the rough ER make proteins to be exported or put in membranes, and free ribosomes make proteins used in the cytoplasm. Lysosomes are the ones that digest waste.
+
+Q: Which structures do plant cells have that animal cells don't?
+Topic: Cells
+- Mitochondria, ribosomes, and a cell membrane
+* A cell wall, chloroplasts, and a large central vacuole
+- Chloroplasts, lysosomes, and centrioles
+- A cell wall, mitochondria, and a much smaller set of lysosomes
+Why: The cellulose cell wall gives plants structure, chloroplasts do photosynthesis, and the central vacuole stores water and keeps the cell firm. Plant cells have mitochondria too, because they also do cellular respiration.
+
+Q: What is the structure of the cell membrane?
+Topic: Membranes & Transport
+- A single layer of protein that controls what enters and leaves the cell
+* A phospholipid bilayer with embedded proteins (the fluid mosaic model)
+- A phospholipid bilayer with the hydrophobic tails facing outward
+- A rigid wall of cellulose that gives the cell its shape
+Why: Phospholipids have water-loving heads facing outward and water-fearing tails facing inward, forming a barrier. Proteins float in it like a mosaic, acting as channels, pumps and receptors. Small nonpolar molecules like O2 pass through easily.
+
+Q: What is osmosis?
+Topic: Membranes & Transport
+- Movement of any molecule across a membrane using energy from ATP
+* Diffusion of water across a semipermeable membrane, toward the side with more solute
+- Diffusion of water across a membrane, toward the side with less dissolved solute
+- The cell engulfing a large particle by wrapping its membrane around it
+Why: Water moves to where solutes are more concentrated. Put a red blood cell in pure water (hypotonic) and it swells and can burst. In very salty water (hypertonic) it shrivels.
+
+Q: What is the difference between active and passive transport?
+Topic: Membranes & Transport
+* Active transport uses ATP to move substances against their gradient; passive transport needs no energy
+- Passive transport uses ATP to move substances down their gradient; active transport needs no energy
+- Active transport only moves water, while passive transport moves ions and sugars
+- Both use energy, but active transport moves molecules faster than passive transport does
+Why: Diffusion and osmosis are passive: things move from high to low concentration on their own. The sodium-potassium pump uses ATP to push ions "uphill" from low to high concentration, which nerve cells depend on.
+
+Q: What is the overall equation for photosynthesis?
+Topic: Energy in Cells
+* 6CO2 + 6H2O + light energy → C6H12O6 + 6O2
+- C6H12O6 + 6O2 → 6CO2 + 6H2O + energy (ATP)
+- 6CO2 + 6O2 + light energy → C6H12O6 + 6H2O
+- 6H2O + light energy → C6H12O6 + 6CO2
+Why: Plants use light energy to turn carbon dioxide and water into glucose, releasing oxygen as a byproduct. It happens in chloroplasts. Cellular respiration is roughly the reverse.
+
+Q: Where does the oxygen released in photosynthesis come from?
+Topic: Energy in Cells
+- Carbon dioxide, which is split in the Calvin cycle
+* Water, which is split in the light reactions
+- Glucose, which is broken down in the stroma
+- Minerals absorbed from the soil by the roots
+Why: In the light-dependent reactions, water molecules are split to replace electrons lost by chlorophyll, releasing O2. The Calvin cycle then uses CO2, ATP and NADPH to build sugar.
+
+Q: What are the main stages of aerobic cellular respiration, in order?
+Topic: Energy in Cells
+- Krebs cycle, glycolysis, electron transport chain
+* Glycolysis, Krebs (citric acid) cycle, electron transport chain
+- Glycolysis, electron transport chain, Krebs cycle
+- Glycolysis, Calvin cycle, then the light-dependent reactions
+Why: Glycolysis splits glucose in the cytoplasm and makes 2 ATP. The Krebs cycle in the mitochondria releases CO2 and loads electron carriers. The electron transport chain uses oxygen to make most of the ATP, roughly 30 or more per glucose.
+
+Q: What do cells do when there isn't enough oxygen for aerobic respiration?
+Topic: Energy in Cells
+- Stop glycolysis and break down stored fat directly into ATP until oxygen returns to the cell
+* Fermentation: glycolysis continues, making a little ATP, with lactic acid or alcohol as byproducts
+- Run the Krebs cycle faster to make up for the missing electron transport chain
+- Use the Calvin cycle to make oxygen from carbon dioxide
+Why: Fermentation recycles NAD+ so glycolysis can keep running. Your hard-working muscles make lactic acid, and yeast makes ethanol and CO2, which is how bread rises and beer is brewed. It produces far less ATP than aerobic respiration.
+
+Q: In DNA, which bases pair together?
+Topic: DNA & Protein Synthesis
+* A with T, and C with G
+- A with C, and T with G
+- A with G, and C with T
+- A with U, and C with G
+Why: Complementary base pairing holds the double helix together: adenine-thymine and cytosine-guanine. In RNA, uracil (U) replaces thymine, so A pairs with U. Watson and Crick described the structure in 1953, using Rosalind Franklin's X-ray images.
+
+Q: What is the "central dogma" of molecular biology?
+Topic: DNA & Protein Synthesis
+- DNA → protein → RNA (translation, then transcription)
+* DNA → RNA → protein (transcription, then translation)
+- RNA → DNA → protein (reverse transcription, then translation)
+- DNA → RNA → protein (translation, then transcription)
+Why: In transcription, DNA is copied into messenger RNA in the nucleus. In translation, ribosomes read the mRNA and build a protein. That's how genes become traits.
+
+Q: In translation, what does a codon (three mRNA bases) specify?
+Topic: DNA & Protein Synthesis
+- A whole gene, from its start signal to its stop signal
+* One amino acid (or a stop signal)
+- One nucleotide in the DNA template
+- One tRNA molecule, which is reused for every amino acid
+Why: Each three-letter codon matches an amino acid, and tRNA molecules bring the right amino acid by pairing their anticodons with the codons. AUG is the start codon, and three codons mean stop.
+
+Q: What is a mutation?
+Topic: DNA & Protein Synthesis
+- A change in DNA that is always harmful and usually causes disease
+* A change in the DNA sequence, which can be harmful, neutral, or occasionally helpful
+- A change in an organism's traits caused by its environment during its lifetime
+- A change in the protein shape that happens after translation is finished
+Why: Mutations happen from copying errors or from things like UV light. Many have no effect, some cause disease, and a few are beneficial. Mutations are the raw material that evolution works with.
+
+Q: What is the result of mitosis?
+Topic: Cell Division
+* Two genetically identical diploid daughter cells
+- Four genetically different haploid cells
+- Two genetically different haploid cells
+- Four genetically identical diploid cells
+Why: Mitosis is for growth and repair. It copies the cell exactly, keeping the full chromosome number. Its phases are prophase, metaphase, anaphase and telophase (PMAT), followed by cytokinesis to split the cell.
+
+Q: What is the result of meiosis?
+Topic: Cell Division
+- Two genetically identical diploid body cells
+* Four genetically different haploid cells (gametes like sperm and egg)
+- Four genetically identical haploid cells that become body cells
+- Two haploid cells that fuse into one diploid zygote
+Why: Meiosis halves the chromosome number (in humans, 46 to 23), so fertilization restores 46. Crossing over and independent assortment make every gamete unique, which is why siblings differ.
+
+Q: What is cancer, at the cell level?
+Topic: Cell Division
+- An infection that spreads through the blood and attacks healthy organs
+* Uncontrolled cell division caused by mutations in genes that regulate the cell cycle
+- Cells dividing too slowly, so damaged tissue builds up instead of being replaced
+- Cells that stop dividing and grow very large instead
+Why: Normally checkpoints stop damaged cells from dividing. Mutations in tumor-suppressor genes (like p53) or proto-oncogenes break those controls, so cells keep dividing and can spread (metastasis).
+
+Q: What's the difference between genotype and phenotype?
+Topic: Genetics
+* Genotype is the genetic makeup (like Bb); phenotype is the observable trait (like brown eyes)
+- Phenotype is the genetic makeup (like Bb); genotype is the observable trait (like brown eyes)
+- Genotype is the DNA sequence of a whole organism; phenotype is the sequence of one gene
+- They're the same thing; phenotype is just the term used for plants
+Why: Your genotype is the alleles you carry. Your phenotype is how they show up, which is also influenced by the environment.
+
+Q: Crossing two heterozygous pea plants (Pp × Pp), where purple (P) is dominant over white (p), what phenotype ratio do you expect?
+Topic: Genetics
+- 1 purple : 1 white
+* 3 purple : 1 white
+- All purple
+- 1 purple : 2 white
+Why: The Punnett square gives PP, Pp, Pp and pp. Three of the four have at least one P, so they're purple, and one is white. The genotype ratio is 1 : 2 : 1. This is Mendel's classic result.
+
+Q: What does Mendel's law of segregation say?
+Topic: Genetics
+- Genes for different traits are inherited independently of each other
+* The two alleles for a gene separate during gamete formation, so each gamete gets one
+- A dominant allele always hides a recessive one when both are present
+- Offspring show a blend of both parents' traits, so alleles mix together and can't be separated
+Why: Each parent passes on one of their two alleles at random. The law of independent assortment adds that genes for different traits (on different chromosomes) sort independently of each other.
+
+Q: Why are X-linked recessive traits like color blindness more common in males?
+Topic: Genetics
+- Males have more genes on their X chromosome than females do
+* Males have only one X, so a single recessive allele on it will show
+- The gene is on the Y chromosome, which only males have
+- Females can't inherit X-linked traits from their fathers
+Why: Females (XX) need two copies of the recessive allele to show the trait, but males (XY) only need one, since the Y has no matching gene to hide it.
+
+Q: What is natural selection?
+Topic: Evolution
+- Individuals change their own traits during their lives to fit the environment, then pass those changes on
+* Individuals with inherited traits suited to their environment survive and reproduce more, so those traits spread
+- Random changes in a population's gene frequencies caused by chance, especially in small populations
+- Humans choosing which plants or animals breed to produce offspring with the traits they want
+Why: Darwin's key insight requires variation, inheritance, overproduction of offspring, and differences in survival and reproduction. Individuals don't evolve; populations do, over generations.
+
+Q: Which is NOT evidence for evolution?
+Topic: Evolution
+- The fossil record
+- Homologous structures, like similar bones in human arms and whale flippers
+- DNA similarities between species
+* Organisms changing their genes on purpose to survive
+Why: Fossils, comparative anatomy, embryology, DNA comparisons, and observed changes (like antibiotic resistance) all support evolution. The idea that organisms change their own genes on purpose is a misconception; mutations are random, and selection isn't.
+
+Q: How does antibiotic resistance develop in bacteria?
+Topic: Evolution
+- Individual bacteria learn to resist the drug after being exposed to small amounts of it
+* Randomly resistant bacteria survive the antibiotic and reproduce, so the population becomes resistant
+- The antibiotic damages the bacteria's DNA in a way that creates resistance genes on purpose
+- Patients' bodies become immune to the antibiotic, so it stops working against the bacteria
+Why: It's natural selection happening fast. That's why you should finish prescribed antibiotics and not use them for viruses like colds, where they don't work.
+
+Q: What is a species, by the biological species concept?
+Topic: Evolution
+* A group whose members can interbreed in nature and produce fertile offspring
+- A group of organisms that look alike and share the same body structure
+- A group of organisms living in the same area and sharing resources
+- A group whose members can produce offspring together, fertile or not
+Why: Horses and donkeys can produce mules, but mules are sterile, so horses and donkeys are separate species. New species form when populations become reproductively isolated, for example by geography.
+
+Q: In a food chain, about how much energy passes from one trophic level to the next?
+Topic: Ecology
+- About 100%
+- About 50%
+* About 10%
+- About 1%
+Why: Most energy is used for life processes or lost as heat, so only about 10% is stored in the next level. That's why food chains are short and there are far fewer top predators than plants.
+
+Q: Organisms that make their own food from sunlight, like plants, are called...
+Topic: Ecology
+* Producers (autotrophs)
+- Consumers (heterotrophs)
+- Decomposers
+- Predators
+Why: Producers form the base of nearly every food web. Consumers eat other organisms, and decomposers like fungi and bacteria break down dead material and recycle nutrients.
+
+Q: What is the relationship between a tick and a dog?
+Topic: Ecology
+- Mutualism
+- Commensalism
+* Parasitism
+- Competition
+Why: In parasitism one benefits and the other is harmed. In mutualism both benefit, like bees and flowers. In commensalism one benefits and the other isn't affected, like barnacles on a whale.
+
+Q: What is a keystone species?
+Topic: Ecology
+- The most common species in an area, which makes up most of the biomass
+* A species whose effect on its ecosystem is far larger than its numbers suggest
+- The first species to move into an area after a disturbance like a fire
+- The top predator in a food chain, which has no natural enemies
+Why: When sea otters were hunted out, sea urchins exploded and destroyed kelp forests. Bringing wolves back to Yellowstone changed elk behavior and helped plants and rivers recover.
+
+Q: What is homeostasis?
+Topic: Science of Biology
+* Keeping a stable internal environment (like temperature and blood sugar) despite outside changes
+- Changing internal conditions to match the outside environment, like a lizard warming in the sun
+- A population adapting to its environment over many generations by natural selection
+- The process by which cells specialize into different tissues as an organism grows
+Why: Most homeostasis works through negative feedback: when you get too hot you sweat to cool down, and when blood sugar rises insulin lowers it. Diabetes is a failure of blood sugar homeostasis.
+
+# ---- Must-know formulas and facts for this class ----
+
+Q: Formula check: what is the overall equation for aerobic cellular respiration?
+Topic: Formulas
+* C₆H₁₂O₆ + 6O₂ → 6CO₂ + 6H₂O + energy (about 30–32 ATP)
+- 6CO₂ + 6H₂O + light → C₆H₁₂O₆ + 6O₂
+- C₆H₁₂O₆ → 2C₂H₅OH + 2CO₂ + 2 ATP
+- C₆H₁₂O₆ + 6H₂O → 6CO₂ + 6O₂ + energy (about 2 ATP)
+Why: It's photosynthesis run in reverse. The third option is alcoholic fermentation, which makes only 2 ATP per glucose and doesn't need oxygen.
+
+Q: Formula check: what are the Hardy-Weinberg equations?
+Topic: Formulas
+* p + q = 1 and p² + 2pq + q² = 1
+- p + q = 2 and p² + q² = 1
+- p × q = 1 and p² − 2pq + q² = 0
+- p + q = 1 and p² + pq + q² = 1
+Why: p and q are the two allele frequencies. p² and q² are the two homozygous genotypes, and 2pq is the heterozygotes. If 16% of people show a recessive trait, q² = 0.16, so q = 0.4.
+
+Q: Formula check: what is the expected phenotype ratio for a dihybrid cross (AaBb × AaBb)?
+Topic: Formulas
+* 9:3:3:1
+- 3:1
+- 1:2:1
+- 1:1:1:1
+Why: Each gene independently gives a 3:1 split, and (3:1) × (3:1) = 9:3:3:1. 3:1 is a monohybrid cross, 1:2:1 is its genotype ratio, and 1:1:1:1 is a test cross.
+
+Q: Formula check: how do you calculate a microscope's total magnification?
+Topic: Formulas
+* Eyepiece magnification × objective magnification
+- Eyepiece magnification + objective magnification
+- Objective magnification ÷ eyepiece magnification
+- Eyepiece magnification squared
+Why: A 10× eyepiece with a 40× objective gives 400×. Higher magnification doesn't help past the microscope's resolution limit.
+
+Q: Must-know: what are the base-pairing rules in DNA and RNA?
+Topic: Formulas
+* DNA: A–T and C–G; RNA: A–U and C–G
+- DNA: A–G and C–T; RNA: A–C and G–U
+- DNA: A–U and C–G; RNA: A–T and C–G
+- DNA and RNA: A–T and C–G
+Why: RNA uses uracil (U) instead of thymine (T). A–T pairs have 2 hydrogen bonds and C–G pairs have 3, so G–C-rich DNA is harder to separate.
+
+Q: Must-know: what are the phases of mitosis, in order?
+Topic: Formulas
+* Prophase, metaphase, anaphase, telophase (then cytokinesis)
+- Metaphase, prophase, anaphase, telophase (then cytokinesis)
+- Prophase, anaphase, metaphase, telophase (then cytokinesis)
+- Interphase, prophase, telophase, anaphase (then metaphase)
+Why: PMAT: chromosomes condense, line up in the middle, are pulled apart, then two nuclei form. Interphase (G1, S, G2) is when the DNA is copied, before mitosis starts.
+
+Q: Must-know: what are the levels of biological organization, from smallest to largest?
+Topic: Formulas
+* Cell, tissue, organ, organ system, organism, population, community, ecosystem
+- Cell, organ, tissue, organism, organ system, community, population, ecosystem
+- Tissue, cell, organ, organism, organ system, population, ecosystem, community
+- Cell, tissue, organ system, organ, organism, ecosystem, population, community
+Why: Above the ecosystem comes the biosphere, all life on Earth. Below the cell come organelles, molecules and atoms.
+
+Q: Must-know: what are the levels of taxonomic classification, from broadest to most specific?
+Topic: Formulas
+* Domain, kingdom, phylum, class, order, family, genus, species
+- Kingdom, domain, class, phylum, family, order, species, genus
+- Domain, phylum, kingdom, order, class, genus, family, species
+- Species, genus, family, order, class, phylum, kingdom, domain
+Why: A common memory trick is "Dear King Philip Came Over For Good Soup." Scientific names use the last two: Homo sapiens is genus Homo, species sapiens.

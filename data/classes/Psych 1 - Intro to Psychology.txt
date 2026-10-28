@@ -1,0 +1,460 @@
+# quizzahh question file. The file name is the class name.
+#
+# Psych 1: Introduction to Psychology (common gen ed social science).
+#
+# Each question looks like this (leave a blank line between questions):
+#
+#   Q: What is the powerhouse of the cell?
+#   Topic: Cells
+#   - Nucleus
+#   * Mitochondria        <- the star marks the correct answer
+#   - Ribosome
+#   - Golgi apparatus
+#   Why: Mitochondria make ATP, the cell's energy.
+#
+# Lines starting with # are ignored.
+
+# Which year of a computer science degree this class usually falls in (used by the year filter):
+Year: 1
+
+Q: Who is often called the founder of psychology as a science, for opening the first psychology lab in 1879?
+Topic: History & Approaches
+- Sigmund Freud
+* Wilhelm Wundt
+- B. F. Skinner
+- William James
+Why: Wundt opened the first experimental psychology lab in Leipzig, Germany, in 1879, which marks psychology's start as a science separate from philosophy. William James founded American psychology, Freud founded psychoanalysis, and Skinner is a key behaviorist.
+
+Q: Which perspective focuses on observable behavior and how it's learned, rather than inner mental states?
+Topic: History & Approaches
+- Psychodynamic
+* Behaviorism
+- Humanistic
+- Cognitive
+Why: Behaviorists like Watson and Skinner argued psychology should only study what can be observed and measured. The cognitive perspective studies thinking and memory, the psychodynamic perspective studies unconscious conflicts, and the humanistic perspective focuses on growth and free will.
+
+Q: Which perspective, associated with Carl Rogers and Abraham Maslow, emphasizes personal growth and free will?
+Topic: History & Approaches
+- Behaviorism
+- Psychoanalysis
+* Humanistic psychology
+- Evolutionary psychology
+Why: Humanistic psychology arose as a reaction against both Freud and behaviorism. It focuses on people's potential, self-actualization, and the importance of feeling accepted.
+
+Q: Which research method is the only one that can show cause and effect?
+Topic: Research Methods
+- Case study
+- Survey
+- Correlational study
+* Experiment
+Why: In an experiment the researcher manipulates one variable and randomly assigns participants to groups, which rules out other explanations. Correlational studies show that two things are related, but not why.
+
+Q: In an experiment, what is the independent variable?
+Topic: Research Methods
+* The variable the researcher manipulates
+- The variable that's measured as the outcome
+- A variable the researcher can't control
+- The number of participants
+Why: The independent variable is the cause being tested, like how much sleep participants get. The dependent variable is the measured outcome, like their test score, and it "depends" on the independent variable.
+
+Q: Researchers find a strong correlation between ice cream sales and drowning deaths. What's the best conclusion?
+Topic: Research Methods
+- Eating ice cream right before swimming causes cramps, which leads to more drownings
+- Drownings make people buy more ice cream, since grieving families seek comfort food
+* A third variable, like hot weather, may explain both, since correlation doesn't prove causation
+- The correlation must be a coincidence, since the two variables have nothing to do with each other
+Why: Summer heat increases both ice cream buying and swimming. This "third variable problem" is why correlation alone can't tell you what causes what.
+
+Q: What does a correlation coefficient of -0.85 indicate?
+Topic: Research Methods
+- A weak negative relationship, since the number is less than zero
+* A strong negative relationship: as one variable goes up, the other tends to go down
+- A strong positive relationship, since 0.85 is close to 1 and the sign doesn't matter
+- That increases in one variable cause decreases in the other variable
+Why: Correlations range from -1 to +1. The sign shows direction, and the size shows strength: -0.85 is close to -1, so it's strong. For example, more hours spent on phones might go with lower GPAs.
+
+Q: What is a placebo?
+Topic: Research Methods
+- The real drug being tested, given to the experimental group
+* An inactive substance or fake treatment given to a control group
+- A lower dose of the real drug, used to find the right amount
+- An unexpected improvement caused by the real drug
+Why: A placebo lets researchers separate the treatment's real effect from the effect of simply believing you're being treated (the placebo effect). In double-blind studies, neither the participants nor the researchers know who got what.
+
+Q: Why is random assignment important in experiments?
+Topic: Research Methods
+- It makes sure the sample represents the whole population, so the results can be generalized
+* It spreads participants' differences evenly across groups, so the groups start out equivalent
+- It guarantees that neither the participants nor the researchers know who is in which group
+- It lets participants choose the group they're most comfortable in, which lowers dropout rates
+Why: If people chose their own groups, differences like motivation could explain the results. Random assignment controls for that. Don't confuse it with random sampling, which is about who gets into the study at all.
+
+Q: Which part of a neuron receives messages from other neurons?
+Topic: Biology & the Brain
+* Dendrites
+- Axon
+- Axon terminals
+- Myelin sheath
+Why: Dendrites branch out to receive signals. The cell body processes them, the axon carries the signal away, and the terminals release neurotransmitters to the next cell. Myelin insulates the axon and speeds up the signal.
+
+Q: Which neurotransmitter is most associated with reward, motivation, and movement?
+Topic: Biology & the Brain
+- Serotonin
+* Dopamine
+- GABA
+- Acetylcholine
+Why: Dopamine drives reward and motivation, and its loss in certain brain areas causes the movement problems of Parkinson's disease. Serotonin is linked to mood, GABA is the main calming (inhibitory) neurotransmitter, and acetylcholine is involved in muscles and memory.
+
+Q: Which brain area handles planning, decision-making, and impulse control?
+Topic: Biology & the Brain
+* Prefrontal cortex (frontal lobe)
+- Occipital lobe
+- Cerebellum
+- Amygdala
+Why: The prefrontal cortex is the brain's "executive" and is one of the last areas to fully mature, in the mid-20s. The occipital lobe handles vision, the cerebellum handles coordination and balance, and the medulla controls heartbeat and breathing.
+
+Q: Which brain structure is key for forming new long-term memories?
+Topic: Biology & the Brain
+- Amygdala
+* Hippocampus
+- Hypothalamus
+- Thalamus
+Why: The famous patient H.M. had his hippocampus removed and could no longer form new long-term memories, though old memories and skills remained. The amygdala handles fear and emotion, the hypothalamus regulates hunger, temperature and hormones, and the thalamus relays sensory information.
+
+Q: Which part of the nervous system triggers the "fight or flight" response?
+Topic: Biology & the Brain
+* Sympathetic nervous system
+- Parasympathetic nervous system
+- Somatic nervous system
+- Central nervous system
+Why: The sympathetic system revs you up: faster heart rate, more adrenaline, digestion paused. The parasympathetic system calms you back down ("rest and digest"). Both are parts of the autonomic nervous system.
+
+Q: What is the difference between sensation and perception?
+Topic: Sensation & Perception
+- Perception is detecting physical stimuli with the senses; sensation is the brain interpreting them
+* Sensation is detecting stimuli with the senses; perception is the brain organizing and interpreting them
+- They're the same process, but "perception" is the term used for vision and hearing only
+- Sensation happens in the brain, while perception happens in the sense organs themselves
+Why: Your eyes detect light (sensation), and your brain recognizes a face (perception). Optical illusions show perception going beyond the raw sensation.
+
+Q: What is the "absolute threshold"?
+Topic: Sensation & Perception
+- The strongest stimulus a sense can detect before it's damaged
+* The minimum intensity of a stimulus you can detect at least 50% of the time
+- The smallest difference between two stimuli you can notice 50% of the time
+- The intensity at which a stimulus becomes painful to most people
+Why: For example, the faintest sound you can hear half the time. The smallest noticeable difference between two stimuli is the difference threshold, or "just noticeable difference," described by Weber's law.
+
+Q: You stop noticing the smell of your own room after a few minutes. This is called...
+Topic: Sensation & Perception
+* Sensory adaptation
+- Selective attention
+- Habituation of memory
+- Perceptual set
+Why: Sensory receptors respond less to constant, unchanging stimuli. That frees your attention for changes, which are usually more important.
+
+Q: In classical conditioning (Pavlov's dogs), what was the bell after conditioning?
+Topic: Learning
+- Unconditioned stimulus
+* Conditioned stimulus
+- Unconditioned response
+- Neutral response
+Why: Food is the unconditioned stimulus (it naturally causes drooling). The bell starts out neutral, but after being paired with food it becomes a conditioned stimulus, and drooling to the bell is the conditioned response.
+
+Q: In operant conditioning, taking away something unpleasant to increase a behavior is called...
+Topic: Learning
+- Positive reinforcement
+* Negative reinforcement
+- Positive punishment
+- Negative punishment
+Why: Reinforcement increases a behavior, and punishment decreases it. "Positive" means adding something and "negative" means removing something. Your seatbelt alarm stops when you buckle up, which removes an annoyance, so you buckle up more. That's negative reinforcement, not punishment.
+
+Q: A teen loses phone privileges for breaking curfew. This is...
+Topic: Learning
+- Negative reinforcement
+- Positive punishment
+* Negative punishment
+- Positive reinforcement
+Why: Something desirable (the phone) is removed to decrease a behavior (breaking curfew). Positive punishment would be adding something unpleasant, like extra chores.
+
+Q: Which reinforcement schedule produces behavior most resistant to extinction, like gambling on slot machines?
+Topic: Learning
+- Fixed-ratio
+- Fixed-interval
+* Variable-ratio
+- Continuous reinforcement
+Why: On a variable-ratio schedule, rewards come after an unpredictable number of responses, so people keep going because the next try might pay off. Continuous reinforcement is the fastest to learn but the quickest to fade once rewards stop.
+
+Q: Albert Bandura's Bobo doll experiment showed that children learn by...
+Topic: Learning
+- Classical conditioning, pairing the doll with a loud noise
+* Observing and imitating others (observational learning)
+- Operant conditioning, being rewarded for hitting the doll
+- Trial and error, trying different ways to play with the doll
+Why: Kids who watched an adult hit a Bobo doll were more likely to act aggressively toward it themselves. Learning doesn't always require direct rewards; we learn a lot by watching models.
+
+Q: What are the three basic stages of memory, in order?
+Topic: Memory
+* Encoding, storage, retrieval
+- Retrieval, encoding, storage
+- Storage, encoding, retrieval
+- Sensory, rehearsal, forgetting
+Why: Encoding gets information into memory, storage keeps it over time, and retrieval gets it back out. Forgetting can happen at any stage. Often information was never properly encoded in the first place.
+
+Q: About how many items can short-term (working) memory hold at once?
+Topic: Memory
+- About 2 or 3 items
+* About 7, plus or minus 2
+- About 15 to 20 items
+- An unlimited number, if rehearsed
+Why: George Miller's "magical number seven." Newer research suggests closer to 4 chunks. Grouping information into meaningful chunks, like phone number parts, lets you hold more.
+
+Q: Studying in short sessions over several days instead of cramming the night before is called... and it improves memory.
+Topic: Memory
+- Massed practice
+* Spaced practice (the spacing effect)
+- Elaborative rehearsal
+- The serial position effect
+Why: Spreading out study and testing yourself (retrieval practice) leads to much better long-term retention than cramming. That's the idea behind using this quiz app regularly!
+
+Q: Old information interfering with learning new information is called...
+Topic: Memory
+* Proactive interference
+- Retroactive interference
+- Repression
+- Encoding failure
+Why: Proactive means the interference acts forward: an old password keeps popping up when you try to remember the new one. Retroactive is the reverse, where new learning disrupts old memories.
+
+Q: Elizabeth Loftus's research showed that eyewitness memories...
+Topic: Memory
+- Are usually accurate, especially when the witness feels very confident about them
+* Can be changed by misleading questions or info after the event (the misinformation effect)
+- Only fade with time, but the details that remain are always accurate
+- Can't be influenced by questions, but can be blocked by stress during the event
+Why: When asked how fast cars were going when they "smashed" versus "hit" each other, people estimated higher speeds, and some later "remembered" broken glass that wasn't there. Memory is reconstructive, not a recording.
+
+Q: According to Piaget, in which stage do children develop object permanence?
+Topic: Development
+* Sensorimotor (birth to about 2)
+- Preoperational (2 to 7)
+- Concrete operational (7 to 11)
+- Formal operational (12 and up)
+Why: Object permanence is understanding that things still exist when out of sight, which is why peekaboo stops being surprising. Preoperational kids are egocentric, concrete operational kids grasp conservation, and formal operational thinkers can reason abstractly.
+
+Q: A child believes a tall, thin glass holds more juice than a short, wide glass with the same amount. They haven't mastered...
+Topic: Development
+- Object permanence
+* Conservation
+- Theory of mind
+- Attachment
+Why: Conservation is understanding that quantity stays the same even when its shape or appearance changes. Piaget found children usually master it in the concrete operational stage, around ages 7 to 11.
+
+Q: In Harlow's monkey experiments, baby monkeys preferred...
+Topic: Development
+- The wire "mother" that gave milk, since food was the main source of attachment
+* The soft cloth "mother," even though it didn't give food
+- Whichever "mother" was placed closest to their cage
+- Neither one, since monkeys raised alone didn't form attachments
+Why: The monkeys only went to the wire mother to eat and clung to the cloth mother for comfort, especially when scared. This showed attachment is about comfort and security, not just food.
+
+Q: According to Erikson, what is the main challenge of adolescence?
+Topic: Development
+- Trust vs. mistrust
+* Identity vs. role confusion
+- Intimacy vs. isolation
+- Industry vs. inferiority
+Why: Erikson proposed eight psychosocial stages across the lifespan. Teens work out who they are, including values, goals and roles. Young adults then face intimacy vs. isolation, building close relationships.
+
+Q: What are the "Big Five" personality traits?
+Topic: Personality
+* Openness, Conscientiousness, Extraversion, Agreeableness, Neuroticism
+- Openness, Confidence, Extraversion, Assertiveness, Narcissism
+- Introversion, Sensing, Thinking, Judging, Feeling
+- Optimism, Conscientiousness, Empathy, Agreeableness, Neuroticism
+Why: Remember it as OCEAN. It's the most research-supported personality model, and the traits are fairly stable across adulthood. The Myers-Briggs (MBTI) is popular but has weak scientific support.
+
+Q: In Freud's theory, which part of personality is the "moral conscience"?
+Topic: Personality
+- Id
+- Ego
+* Superego
+- Preconscious
+Why: The id wants immediate pleasure, the superego holds moral standards learned from parents and society, and the ego balances them against reality. Freud is historically important, but most of his ideas are hard to test scientifically.
+
+Q: You're secretly jealous of your friend's grades, but you accuse her of being jealous of you. Which Freudian defense mechanism is this?
+Topic: Personality
+- Denial
+* Projection
+- Sublimation
+- Regression
+Why: Projection means putting your own unacceptable feelings onto someone else. Denial is refusing to accept reality, sublimation is channeling urges into acceptable activities like sports, and regression is retreating to childish behavior.
+
+Q: What sits at the top of Maslow's hierarchy of needs?
+Topic: Motivation & Emotion
+- Safety
+- Love and belonging
+- Esteem
+* Self-actualization
+Why: From the bottom up: physiological needs (food, sleep), safety, love and belonging, esteem, and self-actualization (reaching your full potential). The idea is that basic needs usually have to be met before higher ones matter.
+
+Q: How does the Yerkes-Dodson law describe arousal and performance?
+Topic: Motivation & Emotion
+- More arousal always improves performance, up to the point of exhaustion
+* Performance is best at a moderate level of arousal; too little or too much hurts it
+- Performance is best at low arousal for simple tasks and at high arousal for hard ones
+- Arousal has no effect on performance once a skill is well practiced
+Why: Some test nerves keep you focused, but panic tanks your score. For difficult tasks, the best level of arousal is a bit lower than for easy tasks.
+
+Q: During which sleep stage does most vivid dreaming occur?
+Topic: Consciousness & Sleep
+- Stage 1 (N1)
+- Deep sleep (N3)
+* REM sleep
+- Stage 2 (N2)
+Why: In REM (rapid eye movement) sleep the brain is very active, but your muscles are mostly paralyzed so you don't act out your dreams. A full sleep cycle takes about 90 minutes, and REM periods get longer toward morning.
+
+Q: What did the Milgram obedience experiments show?
+Topic: Social Psychology
+- Most people refused to give strong shocks once the learner began to protest
+* Most people obeyed an authority figure's orders to give what they believed were dangerous shocks
+- Only people with cruel personalities were willing to give the strongest shocks
+- People obeyed only when they believed the learner had agreed to the shocks beforehand
+Why: About 65% of participants went all the way to the maximum "450-volt" level when told to continue by an experimenter in a lab coat. (No real shocks were given.) It showed how powerful situations and authority are, and it led to stronger research ethics rules.
+
+Q: In Asch's line experiments, participants often agreed with an obviously wrong group answer. This shows...
+Topic: Social Psychology
+* Conformity
+- Obedience
+- The bystander effect
+- Groupthink
+Why: About 75% of people conformed at least once, giving a clearly wrong answer to match the group. Conformity is changing your behavior to match a group, while obedience is following direct orders from an authority.
+
+Q: The bystander effect says a person is LESS likely to help in an emergency when...
+Topic: Social Psychology
+- They're alone and no one else can help
+* Other people are present
+- The victim is a stranger to them
+- They aren't trained in first aid
+Why: With more bystanders, responsibility spreads out ("someone else will help"), which is called diffusion of responsibility. If you need help, point at one specific person and give them a task.
+
+Q: Assuming someone tripped because they're clumsy, while ignoring that the floor was wet, is the...
+Topic: Social Psychology
+- Self-serving bias
+* Fundamental attribution error
+- Confirmation bias
+- Actor-observer bias
+Why: We overestimate personality and underestimate the situation when explaining other people's behavior. Interestingly, when we trip ourselves, we usually blame the wet floor.
+
+Q: Feeling uncomfortable when your actions conflict with your beliefs, and then changing a belief to reduce that discomfort, is...
+Topic: Social Psychology
+- Groupthink
+* Cognitive dissonance
+- Self-perception theory
+- Deindividuation
+Why: Festinger's theory. For example, someone who smokes but knows it's harmful might downplay the risks. People are strongly motivated to make their beliefs and actions feel consistent.
+
+Q: Looking only for information that supports what you already believe is called...
+Topic: Thinking & Biases
+* Confirmation bias
+- Hindsight bias
+- Availability heuristic
+- Anchoring
+Why: Confirmation bias is everywhere, especially in social media feeds. To fight it, actively look for evidence that could prove you wrong. Hindsight bias is the "I knew it all along" feeling.
+
+Q: Thinking plane crashes are more common than car crashes because they're all over the news is the...
+Topic: Thinking & Biases
+- Representativeness heuristic
+* Availability heuristic
+- Framing effect
+- Belief perseverance
+Why: We judge how likely something is by how easily examples come to mind. Dramatic events are memorable, so we overestimate them, even though driving is statistically far more dangerous than flying.
+
+Q: Which disorder involves at least two weeks of depressed mood or loss of interest, along with symptoms like sleep and appetite changes?
+Topic: Disorders & Therapy
+- Generalized anxiety disorder
+* Major depressive disorder
+- Bipolar disorder
+- Schizophrenia
+Why: Major depressive disorder is one of the most common mental disorders, and it's very treatable with therapy, medication, or both. Bipolar disorder includes manic episodes as well as depressive ones. Schizophrenia involves psychosis, like hallucinations and delusions.
+
+Q: Which therapy focuses on changing unhelpful thought patterns and behaviors, and is among the most researched treatments?
+Topic: Disorders & Therapy
+- Psychoanalysis
+* Cognitive-behavioral therapy (CBT)
+- Humanistic (client-centered) therapy
+- Exposure therapy alone
+Why: CBT teaches you to notice and challenge distorted thoughts ("I'll fail everything") and to practice new behaviors. It's strongly effective for depression and anxiety. Most colleges offer free counseling, and it's worth using if you need it.
+
+Q: What is the DSM-5?
+Topic: Disorders & Therapy
+- A brain-imaging scan used to diagnose mental disorders
+* The manual clinicians use to diagnose mental disorders
+- A personality test that measures the Big Five traits
+- The international list of all physical and mental illnesses
+Why: The Diagnostic and Statistical Manual of Mental Disorders, published by the American Psychiatric Association, lists the criteria for each diagnosis. It's on its fifth edition, with a text revision called DSM-5-TR.
+
+# ---- Must-know formulas and facts for this class ----
+
+Q: Must-know: what are Piaget's four stages of cognitive development, in order?
+Topic: Must-Know Facts
+* Sensorimotor, preoperational, concrete operational, formal operational
+- Preoperational, sensorimotor, formal operational, concrete operational
+- Oral, anal, phallic, genital
+- Trust, autonomy, initiative, industry
+Why: Roughly birth–2, 2–7, 7–11 and 12+. Object permanence develops in the sensorimotor stage, conservation in the concrete stage, and abstract reasoning in the formal stage.
+
+Q: Must-know: what are the levels of Maslow's hierarchy of needs, from bottom to top?
+Topic: Must-Know Facts
+* Physiological, safety, love and belonging, esteem, self-actualization
+- Safety, physiological, esteem, love and belonging, self-actualization
+- Physiological, esteem, safety, self-actualization, love and belonging
+- Self-actualization, esteem, love and belonging, safety, physiological
+Why: Maslow argued that lower needs like food and safety usually have to be met before higher ones motivate us. The last option lists the levels from the top down.
+
+Q: Must-know: which researcher goes with which famous study?
+Topic: Must-Know Facts
+* Pavlov: dogs and classical conditioning; Skinner: operant conditioning; Milgram: obedience; Zimbardo: the Stanford prison study
+- Pavlov: operant conditioning; Skinner: dogs and classical conditioning; Milgram: the Stanford prison study; Zimbardo: obedience
+- Pavlov: obedience; Skinner: the Bobo doll; Milgram: attachment in monkeys; Zimbardo: conformity lines
+- Pavlov: memory; Skinner: cognitive development; Milgram: the bystander effect; Zimbardo: attachment
+Why: Others to know: Bandura (Bobo doll, observational learning), Asch (conformity), Harlow (monkey attachment), Loftus (false memories), and Piaget (cognitive development).
+
+Q: Must-know: in classical conditioning, which terms describe a dog learning to drool at a bell?
+Topic: Must-Know Facts
+* Food = unconditioned stimulus; drool at food = unconditioned response; bell = conditioned stimulus; drool at bell = conditioned response
+- Bell = unconditioned stimulus; drool at bell = unconditioned response; food = conditioned stimulus; drool at food = conditioned response
+- Food = reinforcement; bell = punishment; drool = behavior
+- Food = conditioned stimulus; bell = neutral response; drool = unconditioned stimulus
+Why: Before learning, the bell is a neutral stimulus. After being paired with food, it becomes a conditioned stimulus that causes drooling on its own.
+
+Q: Must-know: what are the four kinds of consequences in operant conditioning?
+Topic: Must-Know Facts
+* Positive reinforcement (add good), negative reinforcement (remove bad), positive punishment (add bad), negative punishment (remove good)
+- Positive reinforcement (remove bad), negative reinforcement (add bad), positive punishment (add good), negative punishment (remove good)
+- Reward, bribe, threat, and penalty
+- Classical, operant, observational, and latent learning
+Why: "Positive" and "negative" mean adding or removing something, not good or bad. Reinforcement increases a behavior, and punishment decreases it. A seatbelt beep that stops when you buckle is negative reinforcement.
+
+Q: Must-know: what are the lobes of the brain and their main jobs?
+Topic: Must-Know Facts
+* Frontal: planning and movement; parietal: touch and space; temporal: hearing and memory; occipital: vision
+- Frontal: vision; parietal: hearing; temporal: planning; occipital: touch
+- Frontal: hearing; parietal: vision; temporal: touch; occipital: planning and movement
+- Frontal: memory; parietal: language; temporal: vision; occipital: balance
+Why: Other key parts: the cerebellum handles coordination, the hippocampus forms new memories, the amygdala handles fear, and the brainstem controls breathing and heart rate.
+
+Q: Must-know: what are Erikson's psychosocial stages from adolescence through old age?
+Topic: Must-Know Facts
+* Identity vs. role confusion, intimacy vs. isolation, generativity vs. stagnation, integrity vs. despair
+- Trust vs. mistrust, autonomy vs. shame, initiative vs. guilt, industry vs. inferiority
+- Intimacy vs. isolation, identity vs. role confusion, integrity vs. despair, generativity vs. stagnation
+- Identity vs. isolation, intimacy vs. despair, integrity vs. stagnation, generativity vs. confusion
+Why: The second option lists the four childhood stages. Erikson's eight stages each center on a social conflict, while Freud's stages focused on psychosexual development.
+
+Q: Must-know: what are the 3 stages of the Atkinson-Shiffrin memory model?
+Topic: Must-Know Facts
+* Sensory memory, short-term (working) memory, long-term memory
+- Encoding, storage, and retrieval
+- Episodic, semantic, and procedural memory
+- Iconic, echoic, and haptic (touch) memory
+Why: Information you pay attention to moves from sensory to short-term memory, and rehearsal or deeper processing moves it to long-term memory. Encoding, storage and retrieval are the PROCESSES of memory, not its stages.

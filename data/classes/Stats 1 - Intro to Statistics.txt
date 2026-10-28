@@ -1,0 +1,404 @@
+# quizzahh question file. The file name is the class name.
+#
+# Stats 1: Introduction to Statistics (common math gen ed; great prep for AI/data).
+#
+# Each question looks like this (leave a blank line between questions):
+#
+#   Q: What is the powerhouse of the cell?
+#   Topic: Cells
+#   - Nucleus
+#   * Mitochondria        <- the star marks the correct answer
+#   - Ribosome
+#   - Golgi apparatus
+#   Why: Mitochondria make ATP, the cell's energy.
+#
+# Lines starting with # are ignored.
+
+# Which year of a computer science degree this class usually falls in (used by the year filter):
+Year: 2
+
+Q: What's the difference between a population and a sample?
+Topic: Data & Sampling
+* The population is the whole group you want to study; a sample is the subset you collect data from
+- The sample is the whole group you want to study; a population is the subset you collect data from
+- They're the same thing, but "population" is used only when the subjects are people
+- A population is any group of 100 or more, and a sample is any group smaller than that
+Why: You usually can't survey every college student in the U.S. (the population), so you study a sample and use it to make inferences. Numbers describing a population are parameters, and numbers from a sample are statistics.
+
+Q: Which is a categorical (qualitative) variable?
+Topic: Data & Sampling
+- Height in inches
+- Number of siblings
+* Favorite music genre
+- Age in years
+Why: Categorical variables put things into groups or labels. Quantitative variables are numbers you can do math with, either discrete (counts like siblings) or continuous (measurements like height).
+
+Q: Which sampling method gives every member of the population an equal chance of being chosen?
+Topic: Data & Sampling
+- Convenience sampling
+- Voluntary response sampling
+* Simple random sampling
+- Asking your friends
+Why: Random sampling reduces bias, so the sample is likely to represent the population. Convenience and voluntary samples are biased; for example, online polls attract people with strong opinions.
+
+Q: A survey asks "Don't you agree the tuition increase is unfair?" What kind of bias is this?
+Topic: Data & Sampling
+- Sampling bias, since only students were asked
+* Response bias from a leading question
+- Nonresponse bias, since some people won't answer
+- Voluntary response bias, since people chose to respond
+Why: The wording pushes people toward one answer. Neutral wording, like "What is your opinion of the tuition increase?", gives more accurate data. Nonresponse bias is when the people who don't answer differ from those who do.
+
+Q: Find the mean of 2, 4, 4, 5, 10.
+Topic: Describing Data
+- 4
+* 5
+- 4.5
+- 10
+Why: Add them up and divide by how many there are: (2 + 4 + 4 + 5 + 10)/5 = 25/5 = 5.
+
+Q: Find the median of 2, 4, 4, 5, 10.
+Topic: Describing Data
+* 4
+- 5
+- 4.5
+- 2
+Why: The median is the middle value when the numbers are in order, here the 3rd of 5, which is 4. With an even count, average the two middle values.
+
+Q: Find the mode of 2, 4, 4, 5, 10.
+Topic: Describing Data
+- 2
+* 4
+- 5
+- There is no mode
+Why: The mode is the most frequent value; 4 appears twice. A data set can have no mode, one mode, or several.
+
+Q: Which measure of center is most affected by an extreme outlier?
+Topic: Describing Data
+* Mean
+- Median
+- Mode
+- They're all affected equally
+Why: One billionaire moving into a small town raises the mean income a lot, but the median barely changes. That's why "median household income" is usually reported. The median is "resistant" to outliers.
+
+Q: In a right-skewed distribution (long tail to the right), how do the mean and median compare?
+Topic: Describing Data
+- The mean equals the median, since skew doesn't affect either one
+- The mean is less than the median
+* The mean is greater than the median
+- The median is pulled toward the tail more than the mean
+Why: The few large values in the tail pull the mean toward them. Income is a classic right-skewed example. In a left-skewed distribution the mean is less than the median.
+
+Q: What does the standard deviation measure?
+Topic: Describing Data
+- The center of the data, measured from the smallest value
+* How spread out the data is around the mean
+- How far the largest value is from the smallest value
+- How far the mean is from the median
+Why: A small standard deviation means values cluster near the mean, and a large one means they're spread out. It's roughly the typical distance from the mean. The variance is the standard deviation squared.
+
+Q: What is the interquartile range (IQR)?
+Topic: Describing Data
+- The maximum minus the minimum, the spread of all the data
+* Q3 − Q1, the spread of the middle 50% of the data
+- Q3 + Q1 divided by 2, the center of the middle half
+- Q2 − Q1, the spread of the lower half of the data
+Why: The IQR ignores the extreme ends, so outliers don't distort it. A common outlier rule is any value more than 1.5 × IQR below Q1 or above Q3. Box plots show Q1, the median and Q3.
+
+Q: In a normal distribution, about what percent of data falls within 1 standard deviation of the mean?
+Topic: Normal Distribution
+- 50%
+* 68%
+- 95%
+- 99.7%
+Why: The Empirical Rule is 68-95-99.7: about 68% within 1 SD, 95% within 2 SD, and 99.7% within 3 SD. It only applies to roughly bell-shaped, normal data.
+
+Q: SAT scores have mean 1050 and standard deviation 200. What is the z-score for a 1450?
+Topic: Normal Distribution
+- 1.5
+* 2
+- 400
+- 0.5
+Why: z = (value - mean)/SD = (1450 - 1050)/200 = 400/200 = 2. So 1450 is 2 standard deviations above average, which beats about 97.5% of test takers.
+
+Q: What does a z-score of -1 mean?
+Topic: Normal Distribution
+* The value is 1 standard deviation below the mean
+- The value is 1 unit below the mean
+- The value is below the median by 1 quartile
+- The value is 1 standard deviation above the mean
+Why: z-scores measure distance from the mean in standard deviations. Negative means below average, positive means above, and 0 means exactly average. They let you compare different scales, like an SAT score and an ACT score.
+
+Q: What does the Central Limit Theorem say?
+Topic: Normal Distribution
+- All data becomes normally distributed once the sample size is larger than 30
+* For large enough samples, sample means are approximately normal, even if the population isn't
+- For large enough samples, the sample itself looks normal, matching the population's shape
+- Larger samples have means that are always exactly equal to the population mean
+Why: A common rule of thumb is n of 30 or more. This is why so many statistical methods, like confidence intervals and t-tests, work in practice. The spread of sample means shrinks as n grows: SD divided by the square root of n.
+
+Q: What is the probability of rolling a 4 on a fair six-sided die?
+Topic: Probability
+* 1/6
+- 1/4
+- 4/6
+- 1/2
+Why: There's one favorable outcome out of six equally likely ones. Probability is always between 0 (impossible) and 1 (certain).
+
+Q: What is the probability of flipping two heads in a row with a fair coin?
+Topic: Probability
+- 1/2
+* 1/4
+- 1/3
+- 2
+Why: The flips are independent, so multiply: 1/2 × 1/2 = 1/4. The outcomes HH, HT, TH, TT are equally likely, and only HH works.
+
+Q: If P(A) = 0.3, what is the probability that A does NOT happen?
+Topic: Probability
+- 0.3
+* 0.7
+- 1.3
+- 0
+Why: The complement rule: P(not A) = 1 - P(A) = 1 - 0.3 = 0.7. It's often easier to find the probability of "at least one" by subtracting the probability of "none" from 1.
+
+Q: A coin lands heads 5 times in a row. What's the probability the next flip is heads?
+Topic: Probability
+- Less than 1/2, because tails is "due"
+- More than 1/2, because heads is "hot"
+* Exactly 1/2
+- 1/32
+Why: Each flip is independent; the coin has no memory. Believing tails is "due" is the gambler's fallacy. (1/32 is the probability of getting 5 heads in a row before you start flipping.)
+
+Q: What does it mean for two events to be mutually exclusive?
+Topic: Probability
+* They can't happen at the same time
+- One of them causes the other one
+- Knowing one happened doesn't change the other's probability
+- Together they cover every possible outcome
+Why: Rolling a 2 and rolling a 5 on one die are mutually exclusive, so P(2 or 5) = 1/6 + 1/6 = 2/6. Mutually exclusive isn't the same as independent: if one happens, the other definitely can't, so they actually depend on each other.
+
+Q: What is a sampling distribution?
+Topic: Inference
+- The distribution of the values in a single sample of data
+* The distribution of a statistic (like the sample mean) across many possible samples
+- The method used to choose who is included in a sample
+- The distribution of the values in the whole population being studied
+Why: If you took thousands of random samples and computed each one's mean, those means would form the sampling distribution. Its spread (the standard error) tells you how much a sample statistic varies by chance.
+
+Q: A poll reports 52% support with a margin of error of ±3 points at 95% confidence. What's the 95% confidence interval?
+Topic: Inference
+* 49% to 55%
+- 52% to 55%
+- 50% to 54%
+- 47% to 57%
+Why: Interval = estimate ± margin of error = 52 ± 3, which gives 49% to 55%. Since it includes values below 50%, the poll can't confidently say a majority supports it.
+
+Q: What does "95% confident" mean for a confidence interval?
+Topic: Inference
+- There's a 95% chance that the true value lies inside this particular interval we calculated
+* If we repeated the sampling many times, about 95% of intervals built this way would contain the true value
+- About 95% of the individual data values in the sample fall inside the interval
+- The sample statistic is within 5% of the true population value, 95% of the time
+Why: The confidence describes the method's long-run success rate, not one specific interval. It's a subtle point, but professors love to test it.
+
+Q: How does increasing the sample size affect the margin of error?
+Topic: Inference
+- It increases it
+* It decreases it
+- No effect
+- It makes it zero
+Why: Bigger samples give more precise estimates. The margin of error shrinks with the square root of n, so cutting it in half takes 4 times the sample size.
+
+Q: In hypothesis testing, what does the null hypothesis (H0) usually say?
+Topic: Hypothesis Testing
+* There is no effect or no difference (the status quo)
+- The researcher's claim is true, unless shown otherwise
+- There is an effect, but it may be small
+- The sample does not represent the population
+Why: For example, H0 might be "the new drug works no better than a placebo," and the alternative hypothesis (Ha) is "it works better." You look for evidence strong enough to reject H0.
+
+Q: What is a p-value?
+Topic: Hypothesis Testing
+- The probability that the null hypothesis is true, given the data you observed
+* The probability of results at least as extreme as yours, assuming the null hypothesis is true
+- The probability that the alternative hypothesis is true, given the data you observed
+- The probability that your results happened by chance, so 1 − p is the chance they're real
+Why: A small p-value means your data would be surprising if H0 were true, so it's evidence against H0. It's not the probability that H0 is true, which is one of the most common misunderstandings in statistics.
+
+Q: With a significance level of α = 0.05, you get p = 0.02. What do you conclude?
+Topic: Hypothesis Testing
+- Fail to reject H0, since 0.02 is smaller than 0.05
+* Reject H0; the result is statistically significant
+- Accept H0, since it has been shown to be true
+- Reject H0; this proves the alternative hypothesis
+Why: Since p = 0.02 is less than 0.05, the result is significant and you reject H0. If p had been 0.2, you would "fail to reject" H0. You never "accept" or "prove" H0.
+
+Q: What is a Type I error?
+Topic: Hypothesis Testing
+* Rejecting a null hypothesis that is actually true (a false positive)
+- Failing to reject a null hypothesis that is actually false (a false negative)
+- Rejecting a null hypothesis that is actually false (a correct decision)
+- Choosing a significance level that's too high for the study
+Why: For example, concluding a drug works when it doesn't. Its probability is α. A Type II error is the opposite: missing a real effect (a false negative). Lowering α reduces Type I errors but increases Type II errors.
+
+Q: Does "statistically significant" mean the effect is large or important?
+Topic: Hypothesis Testing
+- Yes; a significant result always means the effect is large enough to matter in practice
+* No; it means the effect probably isn't due to chance, but it could still be tiny
+- Yes, as long as the sample size is large, since large samples only detect big effects
+- No; it means the effect is large, but it might still be due to random chance
+Why: With a huge sample, even a tiny, meaningless difference can be "significant." Always look at the effect size (how big the difference is) to judge whether it matters in practice.
+
+Q: What does a correlation of r = 0.9 between study hours and exam score indicate?
+Topic: Regression & Correlation
+* A strong positive linear relationship
+- A strong relationship in which studying causes higher scores
+- About 90% of the variation in scores is explained by study hours
+- A strong negative linear relationship
+Why: r ranges from -1 to 1. Close to 1 means a strong positive linear relationship, and 0 means no linear relationship. But correlation doesn't prove causation; motivated students may both study more and score higher.
+
+Q: A regression line is ŷ = 50 + 5x, where x is hours studied. What does the slope 5 mean?
+Topic: Regression & Correlation
+- The predicted exam score for a student who studies zero hours
+* Each extra hour of study is associated with a 5-point rise in predicted score
+- Each extra point on the exam is associated with 5 more hours of study
+- The correlation between study hours and exam scores is 5
+Why: The slope is the predicted change in y for each one-unit increase in x. The intercept, 50, is the predicted score at 0 hours. Predicting far outside your data range (extrapolation) is risky.
+
+Q: What does r² (the coefficient of determination) tell you?
+Topic: Regression & Correlation
+- The slope of the regression line
+* The proportion of variation in y that the regression line explains
+- The probability that the relationship is due to chance
+- Whether the relationship between x and y is causal or just a coincidence
+Why: If r² = 0.64, then 64% of the variation in exam scores is explained by study hours, and the rest comes from other factors. It's just r squared (0.8² = 0.64).
+
+Q: What is a residual?
+Topic: Regression & Correlation
+* The actual value minus the predicted value (y − ŷ)
+- The predicted value minus the mean of y (ŷ − ȳ)
+- The distance from a point to the mean of x
+- An outlier removed before fitting the line
+Why: Residuals are the prediction errors. The least-squares regression line minimizes the sum of the squared residuals, which is where "least squares" comes from. Random-looking residual plots mean a linear model fits well.
+
+Q: Why is an experiment with random assignment better than an observational study for showing causation?
+Topic: Data & Sampling
+- It's cheaper and faster, since researchers don't have to wait for events to happen naturally
+* Random assignment balances lurking variables across groups, so differences can be pinned on the treatment
+- It always uses larger samples, which is what allows researchers to conclude causation
+- Observational studies always contain errors, while experiments never do
+Why: In observational studies, confounding variables (like income or motivation) might explain the results. Random assignment spreads those factors evenly, so only the treatment differs between groups.
+
+Q: What is a confounding variable?
+Topic: Data & Sampling
+- The variable the researcher measures to see the effect of the treatment
+* An outside variable related to both the explanatory and response variables, hiding what causes what
+- A variable that has no effect on the outcome, so it can be safely ignored
+- A variable the researcher deliberately changes to see what happens to the outcome
+Why: For example, coffee drinkers might have more heart disease, but if they also smoke more, smoking is a confounder. Good study design, like randomization and controls, deals with confounders.
+
+Q: When is the median a better measure of center than the mean?
+Topic: Describing Data
+* When the data is skewed or has outliers
+- When the data is perfectly symmetric
+- When the sample size is very large
+- When the data is categorical
+Why: Home prices, incomes and wait times are usually skewed, so the median better represents a "typical" value. For symmetric data without outliers, the mean and median are about the same, and the mean is often preferred.
+
+# ---- Must-know formulas and facts for this class ----
+
+Q: Formula check: what is the z-score of a value x?
+Topic: Formulas
+* z = (x − μ) / σ
+- z = (μ − x) / σ
+- z = (x − μ) / σ²
+- z = σ (x − μ)
+Why: A z-score says how many standard deviations x is from the mean. Dividing by the variance (σ²) is a common slip.
+
+Q: Formula check: what is the sample standard deviation?
+Topic: Formulas
+* s = √( Σ(x − x̄)² / (n − 1) )
+- s = √( Σ(x − x̄)² / n )
+- s = Σ(x − x̄)² / (n − 1)
+- s = Σ|x − x̄| / n
+Why: Dividing by n − 1 (Bessel's correction) makes the sample variance an unbiased estimate of the population variance. Without the square root it's the variance.
+
+Q: Formula check: what is the standard error of the sample mean?
+Topic: Formulas
+* σ / √n
+- σ / n
+- σ² / n
+- √σ / n
+Why: Sample means vary less than individual values, and the spread shrinks with √n. To cut the standard error in half, you need four times the sample size.
+
+Q: Formula check: what is the general form of a confidence interval?
+Topic: Formulas
+* estimate ± (critical value) × (standard error)
+- estimate ± (critical value) / (standard error)
+- estimate × (critical value) ± (standard error)
+- (critical value) ± estimate × (standard error)
+Why: The part after the ± is the margin of error. For a 95% interval of a mean with known σ, it's x̄ ± 1.96 · σ/√n.
+
+Q: Formula check: what does the 68-95-99.7 rule say about a normal distribution?
+Topic: Formulas
+* About 68%, 95% and 99.7% of data fall within 1, 2 and 3 standard deviations of the mean
+- About 68%, 95% and 99.7% of data fall below 1, 2 and 3 standard deviations above the mean
+- About 68%, 95% and 99.7% of data fall within 3, 2 and 1 standard deviations of the mean
+- Exactly 68%, 95% and 99.7% of any data set fall within 1, 2 and 3 standard deviations
+Why: It only applies to roughly normal data. For skewed data, use Chebyshev's inequality instead, which gives weaker but guaranteed bounds.
+
+Q: Formula check: what is the addition rule for P(A or B)?
+Topic: Formulas
+* P(A ∪ B) = P(A) + P(B) − P(A ∩ B)
+- P(A ∪ B) = P(A) + P(B)
+- P(A ∪ B) = P(A) · P(B)
+- P(A ∪ B) = P(A) + P(B) + P(A ∩ B)
+Why: Adding counts the overlap twice, so subtract it once. When A and B are mutually exclusive, P(A ∩ B) = 0 and you can just add.
+
+Q: Formula check: what is the conditional probability P(A | B)?
+Topic: Formulas
+* P(A ∩ B) / P(B)
+- P(A ∩ B) / P(A)
+- P(A) · P(B)
+- P(B | A) · P(A)
+Why: Given that B happened, B becomes the whole world, so you divide by P(B). If A and B are independent, P(A | B) = P(A).
+
+Q: Formula check: what is Bayes' theorem?
+Topic: Formulas
+* P(A | B) = P(B | A) · P(A) / P(B)
+- P(A | B) = P(B | A) · P(B) / P(A)
+- P(A | B) = P(A) · P(B) / P(B | A)
+- P(A | B) = P(B | A) + P(A) − P(B)
+Why: It flips a conditional probability around. It explains why a positive result on an accurate test for a rare disease can still most likely be a false positive.
+
+Q: Formula check: what are the mean and standard deviation of a binomial distribution with n trials and success probability p?
+Topic: Formulas
+* μ = np and σ = √(np(1 − p))
+- μ = np and σ = np(1 − p)
+- μ = n/p and σ = √(np)
+- μ = p and σ = √(p(1 − p)/n)
+Why: 100 coin flips gives μ = 50 and σ = √25 = 5. √(p(1 − p)/n) is the standard error of a sample PROPORTION, which is a related but different formula.
+
+Q: Formula check: what is the slope of the least-squares regression line?
+Topic: Formulas
+* b = r · (s_y / s_x)
+- b = r · (s_x / s_y)
+- b = s_y / s_x
+- b = r² · (s_y / s_x)
+Why: The line always passes through (x̄, ȳ), so the intercept is a = ȳ − b·x̄. If r = 0 the slope is 0, and the best prediction is just ȳ.
+
+Q: Formula check: what is the standard error of a sample proportion p̂?
+Topic: Formulas
+* √( p̂(1 − p̂) / n )
+- p̂(1 − p̂) / n
+- √( p̂ / n )
+- √( n p̂(1 − p̂) )
+Why: It's the binomial standard deviation divided by n. A 95% confidence interval for a proportion is p̂ ± 1.96 times this value.
+
+Q: Formula check: what are the IQR outlier fences?
+Topic: Formulas
+* Below Q1 − 1.5·IQR or above Q3 + 1.5·IQR
+- Below Q1 − IQR or above Q3 + IQR
+- Below the mean − 1.5·IQR or above the mean + 1.5·IQR
+- Below Q1 − 3·σ or above Q3 + 3·σ
+Why: IQR = Q3 − Q1. Points beyond these fences are drawn as separate dots on a box plot.

@@ -1,0 +1,325 @@
+# quizzahh question file. The file name is the class name.
+#
+# English 2: Research Writing (the second college writing course: research questions, sources,
+# argument, synthesis, citation, and avoiding plagiarism).
+#
+# Each question looks like this (leave a blank line between questions):
+#
+#   Q: What is the powerhouse of the cell?
+#   Topic: Cells
+#   - Nucleus
+#   * Mitochondria        <- the star marks the correct answer
+#   - Ribosome
+#   - Golgi apparatus
+#   Why: Mitochondria make ATP, the cell's energy.
+#
+# Lines starting with # are ignored.
+
+# Which year of a computer science degree this class usually falls in (used by the year filter):
+Year: 2
+
+Q: Which is the strongest research question?
+Topic: Research Questions
+- What percentage of college students in the United States use social media every day?
+- Is social media good or bad for the mental health of teenagers and young adults?
+* How does nightly social media use affect sleep quality among first-year college students?
+- What are all of the effects that social media has had on society since it was invented?
+Why: A strong research question is focused, arguable and researchable. It names a specific group, a specific factor and a specific outcome. "Good or bad" is too broad and vague to answer with evidence.
+
+Q: What is the difference between a primary and a secondary source?
+Topic: Sources
+- A primary source is the most important source for your topic; a secondary source supports it
+* A primary source is firsthand evidence (data, interviews, a speech); a secondary source interprets it
+- A secondary source is firsthand evidence; a primary source analyzes or interprets that evidence
+- A primary source is peer-reviewed, while a secondary source is any source that isn't reviewed
+Why: A published study reporting its own experiment is primary. A journal article reviewing many studies is secondary. An encyclopedia is tertiary. Strong papers use both primary and secondary sources.
+
+Q: What does it mean that a journal article is peer-reviewed?
+Topic: Sources
+- It was written by a team of authors, who checked each other's work
+* Experts in the field evaluated it for quality and accuracy before it was published
+- It has been cited by many other researchers since it was published
+- It was published by a university press rather than a commercial publisher
+Why: Peer review isn't perfect, but it's a strong quality filter. Library databases let you filter results to peer-reviewed (scholarly) articles.
+
+Q: You find a website with no author, no date, and lots of ads selling a supplement it praises. What's the biggest concern?
+Topic: Evaluating Sources
+- It's too short to cover the topic well, so the claims can't be fully explained
+* Its authority and purpose: it may be biased or selling something, with no one accountable
+- It isn't formatted in MLA style, so it can't be cited in a college paper
+- It doesn't include enough images or charts to back up its claims
+Why: The CRAAP test asks about Currency, Relevance, Authority, Accuracy and Purpose. A commercial motive is a red flag for reliability.
+
+Q: What is "lateral reading" when checking a source?
+Topic: Evaluating Sources
+- Reading every part of the source slowly and closely before deciding whether to trust it
+* Leaving the page to see what other trusted sources say about the site, its author and claims
+- Reading several sources side by side and keeping only the claims they all agree on
+- Checking the site's About page and design to judge how professional it looks
+Why: Professional fact-checkers do this. They quickly open new tabs to learn who's behind a source instead of judging it by its own polished design.
+
+Q: In a library database, what does searching sleep AND "college students" NOT caffeine find?
+Topic: Research Strategies
+- Results that mention sleep or college students, but leave out any result about caffeine
+* Results that mention both sleep and the exact phrase college students, but not caffeine
+- Results that mention sleep, college and students anywhere, as long as caffeine also appears
+- Results that mention sleep and college students, sorted so caffeine results appear last
+Why: Boolean operators: AND narrows, OR broadens (good for synonyms), NOT excludes, and quotation marks search an exact phrase.
+
+Q: What is an annotated bibliography?
+Topic: Research Strategies
+- A list of sources in alphabetical order, with each source's full citation and nothing else
+* A list of citations, each followed by a short paragraph summarizing and evaluating the source
+- A list of the quotations you plan to use, with the page number for each quote
+- A draft of the paper in which every sentence is labeled with its source
+Why: It's often assigned before the paper to make sure you've read and thought about your sources, not just collected them.
+
+Q: What does a literature review do?
+Topic: Research Strategies
+- Summarizes each source one at a time, in the order they were published
+* Summarizes and synthesizes existing research on a topic, showing patterns, debates and gaps
+- Reviews works of literature, like novels and poems, to judge their quality and style
+- Gives the author's personal opinion on a topic, supported by a few examples
+Why: It's organized by themes or debates, not source by source. Finding the gap shows why your own question matters.
+
+Q: What does synthesis mean in research writing?
+Topic: Using Sources
+- Summarizing each source in its own paragraph, one after another
+* Combining sources to show how they relate (agree, disagree, build on each other) to support your point
+- Restating a source's ideas in your own words at about the same length
+- Choosing the single strongest source and building the whole paper around its argument
+Why: Weak papers go source by source ("Smith says... Jones says..."). Strong papers are organized around ideas, with sources in conversation: "While Smith found..., Jones argues..."
+
+Q: What is the difference between paraphrasing and summarizing?
+Topic: Using Sources
+- Summarizing restates one passage in your own words at about the same length; paraphrasing condenses the main ideas
+* Paraphrasing restates a passage in your own words at similar length; summarizing condenses the main ideas
+- They're the same thing, but paraphrasing is the term used in MLA and summarizing the term used in APA
+- Summarizing requires quotation marks around the source's words, while paraphrasing needs no citation
+Why: Both still need citations, because the ideas belong to the source. Only common knowledge, like "the Earth orbits the Sun," doesn't need one.
+
+Q: Which is an example of patchwriting, a form of plagiarism?
+Topic: Plagiarism
+- Quoting a sentence with quotation marks and a citation
+* Copying a source's sentence and swapping a few words for synonyms, keeping its structure
+- Summarizing an article's main points in your own words with a citation
+- Using a widely known fact, like the year World War II ended, without a citation
+Why: A real paraphrase changes the wording AND the sentence structure, and is still cited. Read the passage, look away, write it your own way, then check it against the original.
+
+Q: Is turning in a paper you wrote for another class allowed without permission?
+Topic: Plagiarism
+- Yes; since you wrote it yourself, you can reuse it in any class you like
+* No; most schools treat reusing your own work without permission as self-plagiarism
+- Yes, as long as you change the title and update the date on the first page
+- Only if the two classes are taught by the same instructor
+Why: Ask the instructor first. Many will allow building on earlier work if you're open about it.
+
+Q: What does a signal phrase do?
+Topic: Using Sources
+* It introduces a source's words or ideas, often naming the author and their credibility
+- It replaces the in-text citation, so the source doesn't need to be listed at the end
+- It signals the start of the conclusion so the reader knows the paper is ending
+- It marks a sentence as your own opinion, separate from what the sources say
+Why: Signal phrases blend sources smoothly into your writing and show the reader where your ideas end and the source's begin. Avoid "dropped quotes" that appear with no introduction.
+
+Q: What does an MLA in-text citation for a quotation typically look like?
+Topic: Citation Styles
+- (Smith, 2023, p. 45)
+* (Smith 45)
+- [1]
+- Smith (2023)
+Why: MLA uses the author's last name and the page number with no comma. APA uses the author, the year and the page: (Smith, 2023, p. 45). Each in-text citation matches a full entry in the Works Cited or References list.
+
+Q: Which fields usually use APA style?
+Topic: Citation Styles
+- Literature, languages and the arts
+* Psychology, education and the social sciences
+- History, which uses APA for its footnotes
+- Engineering, which requires APA for lab reports
+Why: APA emphasizes the date because research currency matters in those fields. MLA is common in the humanities, and Chicago in history. Engineering and CS often use IEEE, with numbered citations like [1].
+
+Q: What is the purpose of the Works Cited or References page?
+Topic: Citation Styles
+- To list every source you read while researching, even the ones you didn't use
+* To give full details of every source cited, so readers can find and check them
+- To show the instructor that you met the required number of sources
+- To credit the people who helped you write and revise the paper
+Why: Entries are alphabetized by author in MLA and APA. Every source in the list should be cited in the text, and every in-text citation should appear in the list.
+
+Q: What makes a research paper's thesis strong?
+Topic: Argument
+- It states a widely accepted fact that every source agrees with
+* It makes a specific, debatable claim that the paper supports with evidence
+- It asks an open question that the paper explores without answering
+- It lists every topic the paper will cover, in order
+Why: "Colleges should start classes no earlier than 9 a.m. because of research on adolescent sleep" is arguable and specific. "Sleep is important" isn't really arguable.
+
+Q: Why should a research paper address counterarguments?
+Topic: Argument
+- To show the reader both sides equally, without taking a position on which is right
+* It shows you understand the debate, builds credibility, and explains why your position holds
+- To meet the length requirement by adding a section that repeats the main argument
+- To give the opposing side the last word, so the reader can decide for themselves
+Why: The usual move: fairly present the opposing view, then rebut it with evidence or concede a point while showing your claim still stands.
+
+Q: In the Toulmin model of argument, what is a warrant?
+Topic: Argument
+- The final conclusion that the argument is trying to prove
+* The assumption or reasoning that connects the evidence to the claim
+- The evidence, like data or quotes, that supports the claim
+- A limit on the claim, like "in most cases"
+Why: Claim: "Students should get more sleep." Evidence: "Sleep improves memory." Warrant: "Better memory helps students learn." Unstated warrants are where arguments often break down.
+
+Q: Which is a hasty generalization?
+Topic: Logical Fallacies
+- "A study of 10,000 students found online learners scored slightly lower on average."
+* "My two roommates failed with online classes, so online learning doesn't work."
+- "Online classes either work for everyone or they don't work for anyone."
+- "If we allow online classes, soon there will be no campuses left at all."
+Why: It draws a broad conclusion from too little evidence. Other common fallacies include ad hominem (attacking the person), straw man, false dilemma, and slippery slope.
+
+Q: What is a straw man fallacy?
+Topic: Logical Fallacies
+- Attacking the person making the argument instead of the argument itself
+* Misrepresenting someone's position as weaker or more extreme, then attacking that version
+- Assuming that because one thing followed another, the first thing caused the second
+- Claiming something is true because many people believe it
+Why: "They want to reduce homework, so they think students shouldn't learn anything" distorts the real position. Strong writers argue against the best version of the other side.
+
+Q: Correlation versus causation: a study finds students who eat breakfast get higher grades. What's the most careful conclusion?
+Topic: Using Sources
+- Eating breakfast causes higher grades, so colleges should require students to eat it
+* Breakfast and grades are associated, but other factors (like sleep) might explain both
+- Higher grades cause students to eat breakfast, since successful students are more organized
+- The study must be flawed, because what you eat can't affect your grades
+Why: Observational studies show relationships, not causes. Controlled experiments, or careful statistical controls, are needed for causal claims. Research writers report findings at the right strength.
+
+Q: When is quoting better than paraphrasing?
+Topic: Using Sources
+- Always; quotes are more accurate than paraphrases, so they make stronger evidence
+* When the exact wording matters, is especially powerful, or is itself being analyzed
+- Only for statistics, since numbers can't be accurately put into your own words
+- When a passage is long and complicated, since quoting it saves time and space
+Why: Overquoting makes a paper a patchwork of other voices. Quote sparingly, keep quotes short, and always explain how each one supports your point.
+
+Q: What's the difference between revising and editing?
+Topic: Writing Process
+- Editing rethinks content and organization; revising fixes sentences, grammar, and formatting
+* Revising rethinks content and organization; editing fixes sentences, grammar and formatting
+- They're the same step; the only difference is whether you or a peer does it
+- Revising only fixes spelling, while editing changes the thesis and structure
+Why: Revise before you edit. There's no point polishing sentences in a paragraph you might cut.
+
+Q: You used an AI tool to brainstorm and to suggest an outline. What's the responsible approach for a class paper?
+Topic: Academic Integrity
+- Don't mention it, since using AI for brainstorming doesn't count as using a source
+* Follow your instructor's policy, disclose it if required, verify every fact yourself, and keep the thinking yours
+- Cite the AI tool as a peer-reviewed source, since its answers are based on published research papers
+- Use the AI's outline and wording as long as you add your own name and a citation at the end
+Why: AI tools can make up sources and facts ("hallucinate"). Policies differ by class, so check the syllabus. When unsure, ask your instructor.
+
+Q: What should a research paper's introduction do?
+Topic: Writing Process
+- Present all of the strongest evidence right away to convince the reader early
+* Introduce the topic and why it matters, give background, and end with the thesis
+- Summarize each source the paper uses, in the order they appear
+- State the conclusion first, then explain how the paper will reach it
+Why: A good introduction moves from general context to the specific question, then states the paper's answer: the thesis.
+
+Q: What is a scholarly article's abstract?
+Topic: Sources
+* A short summary at the start giving the article's purpose, methods, findings and conclusions
+- The section at the end that explains the limits of the study and future research
+- The section that reviews earlier research before the study is described
+- The list of sources that the article cites, at the end
+Why: Reading abstracts first is the fastest way to decide which sources deserve a full read.
+
+Q: Which source would likely be most appropriate for a college research paper on climate science?
+Topic: Evaluating Sources
+- A well-written blog post by an anonymous author who links to news stories
+- A popular online video by a science communicator with millions of views
+* A peer-reviewed study in a scientific journal, or a report from a major scientific agency
+- A newspaper opinion column written by a well-known politician who sits on an energy committee
+Why: Popular sources, like news articles, can provide context, but core claims should rest on scholarly or official evidence.
+
+Q: What does "currency" mean in evaluating a source?
+Topic: Evaluating Sources
+- How much the source costs to access, and whether it's freely available
+* How recent the information is, and whether that matters for the topic
+- How often other sources cite it, which shows how influential it is
+- How closely it matches the topic of your research question
+Why: For fast-changing topics like technology or medicine, older sources can be out of date. For history, older primary sources may be exactly what you need.
+
+Q: What is the main purpose of using transitions between paragraphs?
+Topic: Writing Process
+* To show how ideas connect (contrast, cause and effect, adding a point) so the reader follows your reasoning
+- To make each paragraph stand alone, so it can be read without the ones around it
+- To restate the thesis at the start of every paragraph, so the reader doesn't lose track
+- To replace topic sentences, so each paragraph starts with a link to the paragraph before it
+Why: Words and phrases like "However," "As a result," and "Building on this" turn a list of paragraphs into an argument.
+
+# ---- Must-know formulas and facts for this class ----
+
+Q: Must-know: what are the parts of the CRAAP test for evaluating sources?
+Topic: Must-Know Facts
+* Currency, relevance, authority, accuracy, purpose
+- Credibility, reliability, authority, age, popularity
+- Clarity, reasoning, argument, appeal, persuasion
+- Citation, research, analysis, abstract, publication
+Why: Ask how recent it is, how well it fits your topic, who wrote it, whether the claims are supported, and why it exists (to inform, sell or persuade).
+
+Q: Must-know: what are the standard sections of an IMRaD scientific article?
+Topic: Must-Know Facts
+* Introduction, Methods, Results, and Discussion
+- Introduction, Materials, Research, and Data
+- Ideas, Methods, Reasoning, and Defense
+- Intro, Main body, Review, and Debate
+Why: Most social science and science journals use this structure, usually with an abstract at the start and references at the end. Reading the abstract and discussion first is a fast way to judge relevance.
+
+Q: Must-know: what does an APA reference entry for a journal article look like?
+Topic: Must-Know Facts
+* Author, A. A. (Year). Title of article. Journal Name, volume(issue), pages. https://doi.org/...
+- Author, First. "Title of Article." Journal Name, vol. 1, no. 2, Year, pp. 1–10.
+- Title of article. Author, A. Journal Name. Year. Pages.
+- (Author, Year). Journal Name: Title of Article, pages.
+Why: The second option is MLA style. APA puts the year right after the author because the social sciences care about how recent research is.
+
+Q: Must-know: what are the parts of the Toulmin model of argument?
+Topic: Must-Know Facts
+* Claim, grounds (evidence), warrant, backing, qualifier, rebuttal
+- Thesis, topic sentence, evidence, analysis, transition, conclusion
+- Ethos, pathos, logos, kairos, telos, mythos
+- Introduction, body, counterargument, conclusion, works cited, appendix
+Why: The warrant, the assumption linking evidence to claim, is the part writers most often leave out. Qualifiers like "usually" and rebuttals make an argument more believable.
+
+Q: Must-know: what are the common Boolean search operators and what do they do?
+Topic: Must-Know Facts
+* AND narrows, OR broadens, NOT excludes, "quotes" match an exact phrase, * matches word endings
+- AND broadens, OR narrows, NOT includes, "quotes" match any word, * excludes words
+- AND excludes, OR includes, NOT narrows, "quotes" ignore order, * sorts results
+- AND, OR and NOT only work in Google, not in library databases
+Why: sleep AND (college OR university) NOT caffeine is a precise search. teen* finds teen, teens and teenager.
+
+Q: Must-know: what are the three ways to bring a source into your paper?
+Topic: Must-Know Facts
+* Quoting, paraphrasing, and summarizing, each with a citation
+- Copying, rewording, and shortening, with citations only for quotes
+- Reading, annotating, and highlighting
+- Primary, secondary, and tertiary
+Why: All three need citations. Quote when the exact words matter, paraphrase a specific passage in your own words, and summarize to give the big picture.
+
+Q: Must-know: what are primary, secondary and tertiary sources?
+Topic: Must-Know Facts
+* Primary: firsthand evidence; secondary: analysis of primary sources; tertiary: summaries like encyclopedias
+- Primary: the most important source; secondary: less important; tertiary: least important
+- Primary: books; secondary: articles; tertiary: websites
+- Primary: newest sources; secondary: older sources; tertiary: oldest sources
+Why: A lab study's data or an interview is primary, a review article is secondary, and Wikipedia or a textbook is tertiary. Tertiary sources are good starting points but usually not what you cite.
+
+Q: Must-know: what is a DOI, and why should you include it?
+Topic: Must-Know Facts
+* A permanent ID (Digital Object Identifier) that keeps an article's link working even if sites change
+- The date the article was first published online, which APA uses instead of the year
+- The name of the library database where you found the article, like JSTOR or EBSCO
+- A code proving that the article was peer-reviewed by experts before it was published
+Why: A DOI looks like https://doi.org/10.1037/a0012345. APA asks for it whenever an article has one.

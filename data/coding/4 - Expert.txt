@@ -1,0 +1,485 @@
+# Tier 4 = Expert: graph algorithms, dynamic programming, backtracking and parsing.
+# Plan on paper (or the scratch paper!) before you type.
+
+=== Maze Solver (BFS)
+Class: CS 7 - Algorithms
+Tier: 4
+Minutes: 45
+--- prompt
+A maze is a list of strings. "#" is a wall, "." is open floor, "S" is the start and "E" is the exit. You can move up, down, left or right (not diagonally).
+
+Write shortest_path_length(maze), which returns the minimum number of moves from S to E, or -1 if E can't be reached.
+
+Then write solve(maze), which returns the maze with the cells of ONE shortest path (not counting S and E) replaced by "*", or None if there's no path.
+
+    maze = ["S.#",
+            "..#",
+            "#.E"]
+    shortest_path_length(maze)  ->  4
+    solve(maze)                 ->  ["S.#", ".*#", "#*E"]  (or ["S*#", ".*#", "#.E"]... any shortest path is fine)
+
+Breadth-first search finds shortest paths in unweighted graphs, because it explores everything 1 step away, then 2 steps, and so on.
+--- starter
+from collections import deque
+
+def shortest_path_length(maze):
+    pass
+
+def solve(maze):
+    pass
+--- tests
+> M = ["S.#", "..#", "#.E"]
+shortest_path_length(M) == 4
+> P = solve(M)
+P is not None and sum(row.count("*") for row in P) == 3 and P[0][0] == "S" and P[2][2] == "E"
+all(P[r][c] != "*" or M[r][c] == "." for r in range(3) for c in range(3))
+shortest_path_length(["S#E"]) == -1 and solve(["S#E"]) is None
+shortest_path_length(["SE"]) == 1
+> BIG = ["S" + "." * 48 + "#"] + ["." * 49 + "#" for _ in range(48)] + ["." * 49 + "E"]
+shortest_path_length(BIG) == 98
+> W = ["S.....", "#####.", "......", ".#####", "....E."]
+shortest_path_length(W) == 18
+sum(row.count("*") for row in solve(W)) == 17
+--- hint
+Find S, then BFS with a deque of (row, col) and a dict "came_from" that maps each visited cell to the cell you reached it from (S maps to None). The distance is found the moment you pop E. To draw the path, follow came_from back from E to S and mark each cell in between. Convert rows to lists of characters so you can change them, then join them back into strings.
+--- solution
+from collections import deque
+
+def _bfs(maze):
+    rows, cols = len(maze), len(maze[0])
+    start = end = None
+    for r in range(rows):
+        for c in range(cols):
+            if maze[r][c] == "S":
+                start = (r, c)
+            elif maze[r][c] == "E":
+                end = (r, c)
+    came = {start: None}
+    q = deque([start])
+    while q:
+        cur = q.popleft()
+        if cur == end:
+            return came, end
+        r, c = cur
+        for nr, nc in ((r + 1, c), (r - 1, c), (r, c + 1), (r, c - 1)):
+            if 0 <= nr < rows and 0 <= nc < cols and maze[nr][nc] != "#" and (nr, nc) not in came:
+                came[(nr, nc)] = cur
+                q.append((nr, nc))
+    return came, None
+
+def shortest_path_length(maze):
+    came, end = _bfs(maze)
+    if end is None:
+        return -1
+    steps, cur = 0, end
+    while came[cur] is not None:
+        cur = came[cur]
+        steps += 1
+    return steps
+
+def solve(maze):
+    came, end = _bfs(maze)
+    if end is None:
+        return None
+    grid = [list(row) for row in maze]
+    cur = came[end]
+    while cur is not None and came[cur] is not None:
+        grid[cur[0]][cur[1]] = "*"
+        cur = came[cur]
+    return ["".join(row) for row in grid]
+
+=== GPS Directions (Dijkstra)
+Class: CS 7 - Algorithms
+Tier: 4
+Minutes: 50
+--- prompt
+A road map is a dict of dicts: graph[a][b] = minutes to drive from a to b (roads may be one-way, and all times are non-negative).
+
+    roads = {"Home": {"Store": 4, "School": 10},
+             "Store": {"School": 3, "Gym": 8},
+             "School": {"Gym": 2},
+             "Gym": {}}
+
+Write dijkstra(graph, start), which returns a dict of the shortest time from start to every reachable place.
+
+Then write route(graph, start, goal), which returns (total_minutes, [list of places from start to goal]), or (None, []) if the goal can't be reached.
+
+    route(roads, "Home", "Gym")  ->  (9, ["Home", "Store", "School", "Gym"])
+
+You MAY use the heapq module here (that's what real implementations use).
+--- starter
+import heapq
+
+def dijkstra(graph, start):
+    pass
+
+def route(graph, start, goal):
+    pass
+--- tests
+> roads = {"Home": {"Store": 4, "School": 10}, "Store": {"School": 3, "Gym": 8}, "School": {"Gym": 2}, "Gym": {}}
+dijkstra(roads, "Home") == {"Home": 0, "Store": 4, "School": 7, "Gym": 9}
+route(roads, "Home", "Gym") == (9, ["Home", "Store", "School", "Gym"])
+route(roads, "Home", "Home") == (0, ["Home"])
+route(roads, "Gym", "Home") == (None, [])
+dijkstra(roads, "School") == {"School": 0, "Gym": 2}
+> G = {"A": {"B": 1, "C": 5}, "B": {"C": 1, "D": 7}, "C": {"D": 1}, "D": {"A": 1}, "X": {}}
+route(G, "A", "D") == (3, ["A", "B", "C", "D"])
+"X" not in dijkstra(G, "A")
+> import random; random.seed(4); N = {i: {j: random.randint(1, 20) for j in random.sample(range(60), 5)} for i in range(60)}
+dijkstra(N, 0)[0] == 0 and all(dijkstra(N, 0)[v] <= dijkstra(N, 0)[u] + w for u in dijkstra(N, 0) for v, w in N[u].items())
+--- hint
+Keep a heap of (distance, node), starting with (0, start), and a dict of best distances. Pop the smallest; if you've already finalized that node, skip it. Otherwise record it, then push (d + w, neighbor) for each road. For route, also store prev[neighbor] = node whenever you find a better distance, then walk prev backward from the goal.
+--- solution
+import heapq
+
+def _run(graph, start):
+    dist, prev = {}, {start: None}
+    best = {start: 0}
+    heap = [(0, start)]
+    while heap:
+        d, u = heapq.heappop(heap)
+        if u in dist:
+            continue
+        dist[u] = d
+        for v, w in graph.get(u, {}).items():
+            nd = d + w
+            if v not in dist and nd < best.get(v, float("inf")):
+                best[v] = nd
+                prev[v] = u
+                heapq.heappush(heap, (nd, v))
+    return dist, prev
+
+def dijkstra(graph, start):
+    return _run(graph, start)[0]
+
+def route(graph, start, goal):
+    dist, prev = _run(graph, start)
+    if goal not in dist:
+        return (None, [])
+    path, cur = [], goal
+    while cur is not None:
+        path.append(cur)
+        cur = prev[cur]
+    return (dist[goal], path[::-1])
+
+=== Course Scheduler (Topological Sort)
+Class: CS 7 - Algorithms
+Tier: 4
+Minutes: 45
+--- prompt
+Your degree plan is a dict from each course to the list of courses that must be taken BEFORE it:
+
+    prereqs = {"CS2": ["CS1"], "CS6": ["CS2", "MATH4"], "CS7": ["CS6"], "CS1": [], "MATH4": []}
+
+Write course_order(prereqs), which returns a list of all courses in an order you could actually take them (every course appears after all of its prerequisites). Courses that only appear as prerequisites still count. If there's a cycle (impossible plan), return None.
+
+Then write semesters(prereqs), which groups courses into the FEWEST semesters, taking any course as soon as all of its prerequisites are done. Return a list of sorted lists (or None if there's a cycle).
+
+    semesters(prereqs)  ->  [["CS1", "MATH4"], ["CS2"], ["CS6"], ["CS7"]]
+
+This is topological sorting, which build systems and package managers use too.
+--- starter
+def course_order(prereqs):
+    pass
+
+def semesters(prereqs):
+    pass
+--- tests
+> P = {"CS2": ["CS1"], "CS6": ["CS2", "MATH4"], "CS7": ["CS6"], "CS1": [], "MATH4": []}
+> O = course_order(P)
+O is not None and sorted(O) == ["CS1", "CS2", "CS6", "CS7", "MATH4"]
+all(O.index(pre) < O.index(c) for c in P for pre in P[c])
+semesters(P) == [["CS1", "MATH4"], ["CS2"], ["CS6"], ["CS7"]]
+course_order({"A": ["B"], "B": ["A"]}) is None
+semesters({"A": ["B"], "B": ["C"], "C": ["A"]}) is None
+sorted(course_order({"B": ["A"]})) == ["A", "B"]
+semesters({"B": ["A"], "C": ["A"], "D": ["B", "C"]}) == [["A"], ["B", "C"], ["D"]]
+course_order({}) == [] and semesters({}) == []
+--- hint
+Kahn's algorithm: count each course's unmet prerequisites (its "in-degree") and build a reverse map from each course to the courses that need it. Start with every course whose count is 0. Each time you "take" a course, decrease the count of everything that needs it; any that hit 0 become available. If you finish with courses left over, there's a cycle. For semesters, process the available courses one whole batch (level) at a time.
+--- solution
+def _graph(prereqs):
+    courses = set(prereqs)
+    for pres in prereqs.values():
+        courses.update(pres)
+    need = {c: 0 for c in courses}
+    unlocks = {c: [] for c in courses}
+    for c, pres in prereqs.items():
+        for p in set(pres):
+            need[c] += 1
+            unlocks[p].append(c)
+    return courses, need, unlocks
+
+def semesters(prereqs):
+    courses, need, unlocks = _graph(prereqs)
+    level = sorted(c for c in courses if need[c] == 0)
+    plan, done = [], 0
+    while level:
+        plan.append(level)
+        done += len(level)
+        nxt = []
+        for c in level:
+            for d in unlocks[c]:
+                need[d] -= 1
+                if need[d] == 0:
+                    nxt.append(d)
+        level = sorted(nxt)
+    return plan if done == len(courses) else None
+
+def course_order(prereqs):
+    plan = semesters(prereqs)
+    return None if plan is None else [c for sem in plan for c in sem]
+
+=== Edit Distance and Diff (Dynamic Programming)
+Class: CS 7 - Algorithms
+Tier: 4
+Minutes: 50
+--- prompt
+The edit distance between two strings is the fewest single-character insertions, deletions or replacements needed to turn one into the other. "kitten" → "sitting" takes 3.
+
+Write edit_distance(a, b) using a dynamic programming table, where d[i][j] is the distance between the first i characters of a and the first j characters of b.
+
+Then write lcs(a, b), which returns the longest common subsequence itself (a longest string whose letters appear in both a and b in the same order, not necessarily next to each other). If there are several, any one is fine.
+
+    edit_distance("kitten", "sitting")  ->  3
+    lcs("ABCBDAB", "BDCABA")            ->  a 4-letter string like "BCBA"
+
+Spell checkers use edit distance, and git diff is built on LCS.
+--- starter
+def edit_distance(a, b):
+    pass
+
+def lcs(a, b):
+    pass
+--- tests
+edit_distance("kitten", "sitting") == 3
+edit_distance("", "abc") == 3 and edit_distance("abc", "") == 3
+edit_distance("same", "same") == 0
+edit_distance("flaw", "lawn") == 2
+edit_distance("intention", "execution") == 5
+len(lcs("ABCBDAB", "BDCABA")) == 4
+> def is_subseq(s, t): it = iter(t); return all(ch in it for ch in s)
+is_subseq(lcs("ABCBDAB", "BDCABA"), "ABCBDAB") and is_subseq(lcs("ABCBDAB", "BDCABA"), "BDCABA")
+lcs("abc", "xyz") == "" and lcs("", "abc") == ""
+lcs("AGGTAB", "GXTXAYB") == "GTAB"
+edit_distance("a" * 300, "b" * 300) == 300
+--- hint
+Edit distance: d[i][0] = i and d[0][j] = j. Then d[i][j] = d[i-1][j-1] if a[i-1] == b[j-1], otherwise 1 + min(d[i-1][j], d[i][j-1], d[i-1][j-1]). LCS: L[i][j] = L[i-1][j-1] + 1 on a match, otherwise max(L[i-1][j], L[i][j-1]). To get the actual string, start at the bottom-right corner and walk backward: on a match, take the letter and go diagonally; otherwise step toward the bigger neighbor.
+--- solution
+def edit_distance(a, b):
+    m, n = len(a), len(b)
+    d = [[0] * (n + 1) for _ in range(m + 1)]
+    for i in range(m + 1):
+        d[i][0] = i
+    for j in range(n + 1):
+        d[0][j] = j
+    for i in range(1, m + 1):
+        for j in range(1, n + 1):
+            if a[i - 1] == b[j - 1]:
+                d[i][j] = d[i - 1][j - 1]
+            else:
+                d[i][j] = 1 + min(d[i - 1][j], d[i][j - 1], d[i - 1][j - 1])
+    return d[m][n]
+
+def lcs(a, b):
+    m, n = len(a), len(b)
+    L = [[0] * (n + 1) for _ in range(m + 1)]
+    for i in range(1, m + 1):
+        for j in range(1, n + 1):
+            if a[i - 1] == b[j - 1]:
+                L[i][j] = L[i - 1][j - 1] + 1
+            else:
+                L[i][j] = max(L[i - 1][j], L[i][j - 1])
+    out, i, j = [], m, n
+    while i > 0 and j > 0:
+        if a[i - 1] == b[j - 1]:
+            out.append(a[i - 1]); i -= 1; j -= 1
+        elif L[i - 1][j] >= L[i][j - 1]:
+            i -= 1
+        else:
+            j -= 1
+    return "".join(reversed(out))
+
+=== Sudoku Solver (Backtracking)
+Class: CS 7 - Algorithms
+Tier: 4
+Minutes: 60
+--- prompt
+A Sudoku board is a list of 9 strings of 9 characters, with digits 1-9 and "." for empty cells. Every row, column and 3×3 box must end up containing 1-9 exactly once.
+
+Write is_valid_board(board), which checks that the FILLED cells don't break any rule (no repeated digit in any row, column or box). Empty cells are fine.
+
+Then write solve_sudoku(board), which returns the solved board (as a list of 9 strings), or None if it can't be solved.
+
+Backtracking: find an empty cell, try each digit that doesn't break a rule, and recurse. If you get stuck, undo the last choice and try the next digit.
+--- starter
+def is_valid_board(board):
+    pass
+
+def solve_sudoku(board):
+    pass
+--- tests
+> B = ["53..7....", "6..195...", ".98....6.", "8...6...3", "4..8.3..1", "7...2...6", ".6....28.", "...419..5", "....8..79"]
+is_valid_board(B) == True
+is_valid_board(["55..7...."] + B[1:]) == False
+is_valid_board(["53..7....", "5..195..."] + B[2:]) == False
+is_valid_board(["53..7....", "6.3195..."] + B[2:]) == False
+> S = solve_sudoku(B)
+S == ["534678912", "672195348", "198342567", "859761423", "426853791", "713924856", "961537284", "287419635", "345286179"]
+all(B[r][c] == "." or B[r][c] == S[r][c] for r in range(9) for c in range(9))
+solve_sudoku(["11......."] + ["........."] * 8) is None
+solve_sudoku(S) == S
+--- hint
+Write a helper ok(grid, r, c, d) that checks row r, column c, and the box starting at (3 * (r // 3), 3 * (c // 3)). Work on a list of lists so you can change cells. Your recursive function finds the first ".", tries digits "1" to "9", and if the recursive call returns True keep the board; if not, set the cell back to "." and try the next digit. If there's no "." left, you're done.
+--- solution
+def is_valid_board(board):
+    for i in range(9):
+        row = [ch for ch in board[i] if ch != "."]
+        col = [board[r][i] for r in range(9) if board[r][i] != "."]
+        br, bc = 3 * (i // 3), 3 * (i % 3)
+        box = [board[r][c] for r in range(br, br + 3) for c in range(bc, bc + 3) if board[r][c] != "."]
+        for group in (row, col, box):
+            if len(group) != len(set(group)):
+                return False
+    return True
+
+def solve_sudoku(board):
+    if not is_valid_board(board):
+        return None
+    g = [list(row) for row in board]
+
+    def ok(r, c, d):
+        if d in g[r]:
+            return False
+        if any(g[i][c] == d for i in range(9)):
+            return False
+        br, bc = 3 * (r // 3), 3 * (c // 3)
+        return all(g[i][j] != d for i in range(br, br + 3) for j in range(bc, bc + 3))
+
+    def bt():
+        for r in range(9):
+            for c in range(9):
+                if g[r][c] == ".":
+                    for d in "123456789":
+                        if ok(r, c, d):
+                            g[r][c] = d
+                            if bt():
+                                return True
+                            g[r][c] = "."
+                    return False
+        return True
+
+    return ["".join(row) for row in g] if bt() else None
+
+=== Calculator (Expression Parser)
+Class: CS 16 - Programming Languages & Compilers
+Tier: 4
+Minutes: 60
+--- prompt
+Write evaluate(expr), which computes the value of a math expression string WITHOUT using eval(). It has to handle:
+
+numbers (whole or decimal), + - * /, parentheses, spaces anywhere, the usual precedence (* and / before + and -), left-to-right order for equal precedence, and unary minus like -3 or -(2 + 1).
+
+Raise ValueError for malformed input like "2 +", "(1 + 2" or "3 $ 4", and ZeroDivisionError for dividing by zero.
+
+    evaluate("2 + 3 * 4")      ->  14
+    evaluate("(2 + 3) * 4")    ->  20
+    evaluate("10 / 4 - -1")    ->  3.5
+
+This is a small version of what a compiler's front end does: a tokenizer (lexer) and a recursive-descent parser.
+--- starter
+def tokenize(expr):
+    pass
+
+def evaluate(expr):
+    pass
+--- tests
+evaluate("2 + 3 * 4") == 14
+evaluate("(2 + 3) * 4") == 20
+evaluate("10 / 4 - -1") == 3.5
+evaluate("8 - 3 - 2") == 3
+evaluate("16 / 4 / 2") == 2
+evaluate("-(2 + 1) * 3") == -9
+evaluate("  3.5*2 ") == 7
+evaluate("((((7))))") == 7
+evaluate("1 + 2 * (3 - 4 / (1 + 1))") == 3
+raises(ValueError, evaluate, "2 +")
+raises(ValueError, evaluate, "(1 + 2")
+raises(ValueError, evaluate, "3 $ 4")
+raises(ValueError, evaluate, "")
+raises(ZeroDivisionError, evaluate, "1 / (2 - 2)")
+"eval(" not in open(__import__("sys").argv[1]).read().replace("evaluate(", "")
+--- hint
+Tokenize into numbers and single-character symbols. Then write one function per precedence level, each calling the next: expression handles + and - (and calls term), term handles * and / (and calls factor), and factor handles a number, a unary minus (factor again), or "(" expression ")". Keep a position index into the token list. After parsing, if there are tokens left over, it's malformed.
+--- solution
+def tokenize(expr):
+    tokens, i = [], 0
+    while i < len(expr):
+        ch = expr[i]
+        if ch.isspace():
+            i += 1
+        elif ch.isdigit() or ch == ".":
+            j = i
+            while j < len(expr) and (expr[j].isdigit() or expr[j] == "."):
+                j += 1
+            try:
+                tokens.append(float(expr[i:j]))
+            except ValueError:
+                raise ValueError("bad number " + expr[i:j])
+            i = j
+        elif ch in "+-*/()":
+            tokens.append(ch)
+            i += 1
+        else:
+            raise ValueError("unexpected character " + ch)
+    return tokens
+
+def evaluate(expr):
+    toks = tokenize(expr)
+    pos = [0]
+
+    def peek():
+        return toks[pos[0]] if pos[0] < len(toks) else None
+
+    def take():
+        t = peek()
+        if t is None:
+            raise ValueError("unexpected end")
+        pos[0] += 1
+        return t
+
+    def expression():
+        v = term()
+        while peek() in ("+", "-"):
+            v = v + term() if take() == "+" else v - term()
+        return v
+
+    def term():
+        v = factor()
+        while peek() in ("*", "/"):
+            if take() == "*":
+                v = v * factor()
+            else:
+                d = factor()
+                if d == 0:
+                    raise ZeroDivisionError("division by zero")
+                v = v / d
+        return v
+
+    def factor():
+        t = take()
+        if t == "-":
+            return -factor()
+        if t == "(":
+            v = expression()
+            if take() != ")":
+                raise ValueError("expected )")
+            return v
+        if isinstance(t, float):
+            return t
+        raise ValueError("unexpected " + str(t))
+
+    result = expression()
+    if peek() is not None:
+        raise ValueError("extra input")
+    return int(result) if result == int(result) else result

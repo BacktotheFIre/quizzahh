@@ -1,0 +1,413 @@
+# quizzahh question file. The file name is the class name.
+#
+# CS 8: Computer Organization and Architecture (data representation, logic, the CPU, pipelining,
+# caches and memory).
+#
+# Each question looks like this (leave a blank line between questions):
+#
+#   Q: What is the powerhouse of the cell?
+#   Topic: Cells
+#   - Nucleus
+#   * Mitochondria        <- the star marks the correct answer
+#   - Ribosome
+#   - Golgi apparatus
+#   Why: Mitochondria make ATP, the cell's energy.
+#
+# Lines starting with # are ignored.
+
+# Which year of a computer science degree this class usually falls in (used by the year filter):
+Year: 2
+
+Q: What is the decimal value of the binary number 101101?
+Topic: Data Representation
+- 43
+* 45
+- 54
+- 37
+Why: Add the place values that hold a 1: 32 + 8 + 4 + 1 = 45. Binary place values double each step from the right: 1, 2, 4, 8, 16, 32.
+
+Q: What is 0x2F in decimal?
+Topic: Data Representation
+- 32
+* 47
+- 215
+- 52
+Why: In hexadecimal, 2F means 2 × 16 + 15 = 47. Each hex digit is exactly 4 bits, so 0x2F is 0010 1111 in binary. That's why hex is a compact way to write binary.
+
+Q: In 8-bit two's complement, what number does 11111111 represent?
+Topic: Data Representation
+- 255
+* -1
+- -127
+- -128
+Why: To find the value of a negative number, flip all the bits and add 1: 00000000 + 1 = 1, so the value is -1. In two's complement the leftmost bit has a negative weight (-128 for 8 bits).
+
+Q: What is the range of an 8-bit two's complement integer?
+Topic: Data Representation
+- 0 to 255
+* -128 to 127
+- -127 to 127
+- -255 to 255
+Why: With n bits, the range is from negative 2 to the (n - 1) up to 2 to the (n - 1) minus 1. There is only one zero, which is why the negative side reaches one further.
+
+Q: When does signed overflow happen when adding two's complement numbers?
+Topic: Data Representation
+- Whenever there's a carry out of the leftmost bit, no matter what the signs of the inputs are
+* When two numbers with the same sign are added and the result has the opposite sign
+- When a positive and a negative number are added and the result is too large to store
+- Never; two's complement is designed so that signed addition can't overflow
+Why: For example, 127 + 1 in 8 bits becomes -128. Adding numbers with different signs can never overflow. A carry out of the top bit by itself is normal in two's complement arithmetic.
+
+Q: In IEEE 754 single-precision floating point, which three fields make up the 32 bits?
+Topic: Data Representation
+* Sign (1 bit), exponent (8 bits), fraction or mantissa (23 bits)
+- Sign (1 bit), exponent (11 bits), fraction or mantissa (20 bits)
+- Exponent (8 bits), sign (1 bit), integer part (23 bits)
+- Sign (1 bit), integer part (15 bits), decimal part (16 bits)
+Why: The value is roughly (-1) to the sign × 1.fraction × 2 to the (exponent - 127). Double precision uses 1, 11 and 52 bits. Because of the limited fraction bits, numbers like 0.1 can't be stored exactly.
+
+Q: Which gate outputs 1 only when its two inputs are different?
+Topic: Digital Logic
+- AND
+- OR
+* XOR
+- NAND
+Why: XOR (exclusive or) gives 1 for 01 and 10. It's the sum bit in a half adder. NAND and NOR are "universal": any circuit can be built from just one of them.
+
+Q: By De Morgan's law, NOT (A AND B) is equivalent to what?
+Topic: Digital Logic
+- (NOT A) AND (NOT B)
+* (NOT A) OR (NOT B)
+- A OR B
+- NOT A AND B
+Why: Negating an AND flips it into an OR of the negations, and vice versa: NOT (A OR B) = (NOT A) AND (NOT B). This is used constantly to simplify circuits and if-conditions.
+
+Q: What does a multiplexer (MUX) do?
+Topic: Digital Logic
+- Combines several inputs with an OR gate so that any active input reaches the output
+* Uses select inputs to choose which one of several data inputs passes to the output
+- Takes one input and sends it to whichever of several outputs the select lines name
+- Stores one bit and updates it only on the rising edge of the clock
+Why: A 4-to-1 MUX uses 2 select bits. Inside a CPU, multiplexers choose between values, for example whether the ALU's second input comes from a register or from the instruction.
+
+Q: What is the difference between combinational and sequential logic?
+Topic: Digital Logic
+- Combinational logic uses a clock and stores state; sequential logic depends only on the current inputs
+* Combinational outputs depend only on current inputs; sequential logic also depends on stored state
+- Combinational logic is built from NAND gates, while sequential logic is built from NOR gates
+- There's no real difference; sequential logic is just combinational logic with more gates in a row
+Why: Adders and multiplexers are combinational. Flip-flops, registers and counters are sequential. A CPU combines both: combinational logic computes, and registers hold the results between clock cycles.
+
+Q: What does a D flip-flop do?
+Topic: Digital Logic
+- It continuously copies D to its output whenever the clock signal is high
+* On the clock edge, it captures D and holds it as the output until the next edge
+- It flips its output to the opposite value on every clock edge
+- It chooses between two inputs based on the value of D
+Why: Flip-flops are the basic 1-bit memory cells of registers. Edge-triggered storage is what lets a CPU advance one clean step per clock cycle.
+
+Q: What does the ALU do?
+Topic: CPU Design
+- Fetches the next instruction from memory and decodes it
+* Performs arithmetic and logic operations, like add, subtract, AND, OR and compare
+- Stores the values the CPU is currently working with
+- Translates virtual addresses into physical ones using the page table
+Why: The arithmetic logic unit (ALU) is the CPU's calculator. The control unit decodes each instruction and tells the ALU and other parts what to do.
+
+Q: What is an instruction set architecture (ISA)?
+Topic: Instruction Sets
+- The physical layout of the CPU's transistors, wires and pipeline stages
+* The software-hardware interface: the instructions, registers, data types and addressing modes
+- The set of programs the operating system lets run on the processor
+- The assembly language a compiler targets, which is completely separate from the hardware
+Why: x86-64, ARM and RISC-V are ISAs. Different chips can implement the same ISA very differently. Compilers target an ISA, not a specific chip design.
+
+Q: How does RISC differ from CISC?
+Topic: Instruction Sets
+- RISC uses many complex, variable-length instructions; CISC uses a few simple, fixed-length ones
+* RISC uses a small set of simple, fixed-length instructions; CISC has many complex, variable-length ones
+- CISC chips can't run full operating systems, so they're only used in embedded devices
+- RISC chips have no registers, so every instruction reads and writes memory directly
+Why: ARM and RISC-V are RISC, and x86 is CISC. RISC designs are easier to pipeline. Modern x86 chips internally break complex instructions into simpler micro-operations.
+
+Q: Why does a load/store architecture (like MIPS or RISC-V) matter?
+Topic: Instruction Sets
+- Any instruction can use a memory address as an operand, which keeps programs short
+* Only load and store instructions touch memory; arithmetic works only on registers
+- All data is kept in memory, and registers are only used to hold addresses
+- Every instruction loads its inputs and stores its result back to memory
+Why: For example, lw loads a word into a register, add works on registers, and sw stores the result back. This keeps instructions simple and uniform, which makes pipelining easier.
+
+Q: The CPU performance equation says CPU time equals what?
+Topic: Performance
+- Instruction count × clock rate × cycles per instruction (CPI)
+* Instruction count × cycles per instruction (CPI) × clock cycle time
+- Instruction count ÷ (CPI × clock cycle time)
+- Number of cores × clock rate × instruction count
+Why: To speed up a program, reduce the instruction count (better compilers or algorithms), lower the CPI (better pipelines and caches), or shorten the cycle time (a higher clock rate).
+
+Q: A program spends 60% of its time in code that can be sped up 3 times. What is the overall speedup, using Amdahl's law?
+Topic: Performance
+- 3 times
+- 1.8 times
+* About 1.67 times
+- About 2.2 times
+Why: The new time is 0.4 + 0.6 ÷ 3 = 0.6 of the original, so the speedup is 1 ÷ 0.6, about 1.67. Amdahl's law shows the part you can't speed up limits the total gain.
+
+Q: What is pipelining?
+Topic: Pipelining
+- Running one instruction at a time from start to finish, then starting the next one
+* Overlapping the stages of several instructions (fetch, decode, execute...), like an assembly line
+- Running the same instruction on several cores at once to finish it faster
+- Sending instructions between CPUs through a shared queue in memory
+Why: In a 5-stage pipeline, up to 5 instructions are in progress at once, so ideally one finishes every cycle. Each single instruction still takes about as long as before (latency), but throughput improves.
+
+Q: What is a data hazard in a pipeline?
+Topic: Pipelining
+- Two instructions use the same memory chip at the same time, so one has to wait
+* An instruction needs a result that an earlier instruction hasn't produced yet
+- A branch goes the wrong way, so the fetched instructions must be thrown away
+- A cache line holding the data is overwritten before it's read
+Why: For example, add x1, x2, x3 followed by sub x4, x1, x5 needs x1 early. Forwarding (bypassing) sends the result straight from the ALU to the next instruction, and stalls (bubbles) cover any remaining gap.
+
+Q: What is a control hazard?
+Topic: Pipelining
+* The pipeline doesn't know which instruction comes next until a branch is resolved
+- Two instructions in the pipeline need the same register or functional unit at once
+- An instruction needs a result that an earlier instruction hasn't produced yet
+- The control unit sends a wrong signal because the clock period is too short
+Why: CPUs guess with branch prediction and keep fetching. A wrong guess means flushing the wrongly fetched instructions. Modern predictors are right well over 90% of the time.
+
+Q: A load is immediately followed by an instruction that uses the loaded value. In a classic 5-stage pipeline with forwarding, what happens?
+Topic: Pipelining
+- Nothing happens; forwarding passes the value along early, so no stall is ever needed
+* One stall cycle is still needed, because the value isn't ready until the memory stage
+- Two stall cycles are needed, since forwarding only works for arithmetic results
+- The load is moved after the next instruction automatically by the hardware
+Why: This is the load-use hazard. Compilers try to schedule an unrelated instruction into that slot to hide the delay.
+
+Q: Why do caches work so well?
+Topic: Memory Hierarchy
+- They're larger than main memory, so they can hold everything a program uses
+* Programs show locality: they reuse recent data (temporal) and access nearby data (spatial)
+- They store a full copy of the hard drive, so data never has to be read from disk
+- They raise the clock speed, since cache memory runs faster than the CPU
+Why: Looping over an array uses nearby addresses (spatial), and loop variables are reused constantly (temporal). A small, fast cache can then serve most accesses.
+
+Q: Order these from fastest to slowest: main memory (DRAM), L1 cache, SSD, registers, L2 cache.
+Topic: Memory Hierarchy
+- L1 cache, registers, L2 cache, DRAM, SSD
+* Registers, L1 cache, L2 cache, DRAM, SSD
+- Registers, L2 cache, L1 cache, DRAM, SSD
+- Registers, L1 cache, DRAM, L2 cache, SSD
+Why: Each level down is larger, cheaper per byte and slower. Registers take about a cycle and DRAM about 100 cycles, while an SSD takes tens of microseconds, around 100,000 cycles.
+
+Q: A cache has a 95% hit rate, a hit time of 1 cycle, and a miss penalty of 100 cycles. What is the average memory access time (AMAT)?
+Topic: Caches
+- 1 cycle
+* 6 cycles
+- 95 cycles
+- 5 cycles
+Why: AMAT = hit time + miss rate × miss penalty = 1 + 0.05 × 100 = 6 cycles. Even a small miss rate matters a lot when the misses are expensive.
+
+Q: In a direct-mapped cache, how many places can a given memory block go?
+Topic: Caches
+* Exactly one cache line, chosen by the index bits of the address
+- Any line in the cache, chosen by the tag bits of the address
+- Any line in one set of several lines, chosen by the offset bits
+- Exactly one line, chosen by the tag bits of the address
+Why: Direct-mapped caches are simple and fast but suffer conflict misses when two hot blocks map to the same line. Set-associative caches give each block a few possible places, and fully associative caches allow any place.
+
+Q: An address is split into tag, index and offset fields. What does the offset select?
+Topic: Caches
+- Which cache set the block maps to
+* Which byte within the cache block
+- Whether the block in the cache matches
+- Which memory page the block belongs to
+Why: The index picks the set, the tag is compared to check that the stored block is the right one, and the offset picks the byte inside the block. With 64-byte blocks, the offset is 6 bits.
+
+Q: What are the "three Cs" of cache misses?
+Topic: Caches
+- Clock (too slow), core (too few), and coherence (other cores changed the data)
+* Compulsory (first access), capacity (cache too small), and conflict (blocks competing for a set)
+- Cold (first access), coherence (shared data), and corruption (bad bits in the cache)
+- Compulsory (first access), coherence (shared data), and context switch (new process)
+Why: Larger blocks reduce compulsory misses, larger caches reduce capacity misses, and higher associativity reduces conflict misses.
+
+Q: How does a write-back cache differ from a write-through cache?
+Topic: Caches
+- Write-through updates memory only when a dirty block is evicted; write-back updates memory on every write
+* Write-back updates memory only when a dirty block is evicted; write-through updates it on every write
+- Write-back is used only for instruction caches, while write-through is used only for data caches
+- They're the same, but write-back also writes the block to disk to keep it safe after power loss
+Why: Write-back saves memory bandwidth, because repeated writes to the same block happen in the cache. A dirty bit tracks which blocks need writing back.
+
+Q: Looping over a 2D array stored row by row (like in C), which loop order is faster?
+Topic: Caches
+* Row by row: the outer loop over rows and the inner loop over columns
+- Column by column: the outer loop over columns and the inner loop over rows
+- They're always identical
+- Whichever has fewer lines of code
+Why: Row-by-row order walks through consecutive addresses, so each cache block brought in gets fully used. Column order jumps a whole row each step, which can cause a miss on almost every access with large arrays.
+
+Q: What does virtual memory give each process?
+Topic: Virtual Memory
+- Extra CPU cores that the OS creates in software when the real cores are busy
+* Its own private address space, which the hardware and OS map to physical memory in pages
+- Direct access to every other process's memory, which makes sharing data faster
+- A guarantee that all of its memory stays in RAM and is never paged out to disk
+Why: Virtual memory isolates processes from each other and lets programs use more memory than physically exists by keeping some pages on disk. The OS handles page faults when a page isn't in RAM.
+
+Q: What is the TLB (translation lookaside buffer)?
+Topic: Virtual Memory
+- A part of the disk used to hold pages that don't fit in RAM
+* A small, fast cache of recent virtual-to-physical page translations
+- The register that holds the address of the next instruction to run
+- The table in RAM that maps every virtual page to a physical frame
+Why: Without the TLB, every memory access would also need extra memory reads to walk the page table. TLB hit rates are usually very high because of locality.
+
+Q: With 4 KB pages, how many bits of an address are the page offset?
+Topic: Virtual Memory
+- 10
+* 12
+- 4
+- 32
+Why: 4 KB = 4096 bytes = 2 to the 12th, so 12 bits pick the byte within the page. The remaining upper bits are the page number, which gets translated.
+
+Q: What does "little-endian" mean?
+Topic: Data Representation
+* The least significant byte of a number is stored at the lowest memory address
+- The most significant byte of a number is stored at the lowest memory address
+- The bits within each byte are stored in reverse order, lowest bit first
+- Numbers are stored with the sign bit at the end instead of the start
+Why: x86 and most ARM systems are little-endian, so the 32-bit value 0x12345678 is stored as the bytes 78 56 34 12. Network protocols use big-endian, so data sent over the network gets converted.
+
+Q: What is DMA (direct memory access)?
+Topic: I/O
+- A way for programs to read other programs' memory directly, bypassing the OS
+* A way for devices like disks to move data to and from memory without the CPU copying each byte
+- A small, fast memory on the CPU that holds recently used data
+- A rating that shows how fast a RAM module can transfer data to and from the CPU
+Why: The CPU sets up the transfer, keeps doing other work, and gets an interrupt when the transfer finishes. That's far better than programmed I/O, where the CPU moves every word itself.
+
+Q: What is an interrupt?
+Topic: I/O
+- A program crash that makes the OS end the process and print an error
+* A signal that makes the CPU pause and run a handler, like when a key is pressed or a disk finishes
+- An instruction that takes many cycles, which stalls the pipeline until it finishes
+- A cache miss that forces the CPU to wait while data comes from main memory
+Why: Interrupts let the CPU respond to events without constantly checking (polling). After the handler finishes, the interrupted program continues where it left off.
+
+Q: Why did CPU makers switch from raising clock speeds to adding more cores, around the mid-2000s?
+Topic: Performance
+- Customers wanted more cores for gaming, so makers stopped improving clock speeds
+* Power and heat grew too fast at higher clocks (the "power wall"), so transistors went into more cores
+- Clock speeds reached the physical limit set by the speed of light inside the chip
+- Memory stopped getting faster, so a faster clock no longer made any difference to real programs
+Why: Dynamic power grows with clock frequency and the square of the voltage. Multicore chips need parallel software to benefit, which is why threads and concurrency matter so much now.
+
+Q: What does the program counter (PC) hold?
+Topic: CPU Design
+- The number of programs that are currently running
+* The memory address of the next instruction to fetch
+- The instruction currently being executed
+- The address of the top of the stack
+Why: Normally the PC moves to the next instruction (PC + 4 in RISC-V or MIPS). Branches and jumps load a new value into the PC.
+
+Q: In a single-cycle datapath, what limits the clock speed?
+Topic: CPU Design
+- The fastest instruction, since the clock must keep up with it
+* The slowest instruction, usually a load, since every instruction gets one full cycle
+- The number of registers, since each one adds delay to the register file
+- The size of the cache, since larger caches take longer to search
+Why: Every instruction must fit in one cycle, so the clock must allow for the longest path. Pipelining splits the work into shorter stages so the clock can run faster.
+
+Q: Two's complement makes subtraction easy for hardware. How does the CPU compute A - B?
+Topic: Data Representation
+- With a separate subtraction circuit
+* As A + (NOT B) + 1, reusing the adder
+- By converting both numbers to decimal
+- By shifting A right
+Why: Negating B in two's complement means inverting its bits and adding 1. The +1 is done by setting the adder's carry-in to 1, so one adder handles both addition and subtraction.
+
+Q: Shifting a binary number left by 3 bits is the same as what?
+Topic: Data Representation
+- Dividing by 3
+* Multiplying by 8
+- Adding 3
+- Multiplying by 3
+Why: Each left shift doubles the value, so three shifts multiply by 2³ = 8. Compilers replace multiplications by powers of 2 with shifts because shifts are very cheap.
+
+Q: Which memory is volatile, meaning it loses its contents when the power goes off?
+Topic: Memory Hierarchy
+- SSD flash storage
+* DRAM main memory
+- A hard disk
+- ROM firmware
+Why: DRAM stores bits as tiny charges that leak and must be refreshed constantly. SSDs and hard drives keep data without power, which is why you save files before turning off a computer.
+
+# ---- Must-know formulas and facts for this class ----
+
+Q: Must-know: what is the CPU performance equation?
+Topic: Formulas
+* CPU time = instruction count × CPI × clock cycle time
+- CPU time = instruction count × clock rate × CPI
+- CPU time = CPI / (instruction count × clock rate)
+- CPU time = instruction count + CPI + clock cycle time
+Why: Since clock cycle time = 1 / clock rate, you can also write CPU time = instruction count × CPI / clock rate. Improving any one of the three factors helps.
+
+Q: Must-know: what is Amdahl's law?
+Topic: Formulas
+* Speedup = 1 / ((1 − f) + f/s), where f is the fraction sped up by a factor s
+- Speedup = f × s, where f is the fraction sped up by a factor s
+- Speedup = 1 / (f + (1 − f)/s), where f is the fraction sped up by a factor s
+- Speedup = s − f, where f is the fraction sped up by a factor s
+Why: Speeding up 60% of a program by 3× gives 1 / (0.4 + 0.2) ≈ 1.67×. The part you didn't improve becomes the bottleneck.
+
+Q: Must-know: what is the average memory access time (AMAT)?
+Topic: Formulas
+* AMAT = hit time + miss rate × miss penalty
+- AMAT = miss rate × (hit time + miss penalty)
+- AMAT = hit time × miss rate + miss penalty
+- AMAT = (hit time + miss penalty) / miss rate
+Why: Every access pays the hit time, and only misses pay the penalty. With multiple cache levels, the L1 miss penalty is itself the AMAT of L2.
+
+Q: Must-know: how do you split an address for a cache with block size B bytes and S sets?
+Topic: Formulas
+* offset = log₂ B bits, index = log₂ S bits, tag = the remaining bits
+- offset = log₂ S bits, index = log₂ B bits, tag = the remaining bits
+- offset = B bits, index = S bits, tag = the remaining bits
+- tag = log₂ B bits, index = log₂ S bits, offset = the remaining bits
+Why: For 32-bit addresses with 64-byte blocks and 256 sets: offset 6 bits, index 8 bits, tag 18 bits. A fully associative cache has only one set, so it has no index bits.
+
+Q: Must-know: what is the range of an n-bit two's complement number?
+Topic: Formulas
+* −2ⁿ⁻¹ to 2ⁿ⁻¹ − 1
+- −2ⁿ to 2ⁿ − 1
+- 0 to 2ⁿ − 1
+- −(2ⁿ⁻¹ − 1) to 2ⁿ⁻¹ − 1
+Why: For 8 bits, that's −128 to 127. 0 to 2ⁿ − 1 is the unsigned range, and the last option is sign-magnitude, which has two zeros.
+
+Q: Must-know: how do you negate a number in two's complement?
+Topic: Formulas
+* Flip every bit, then add 1
+- Flip only the leftmost bit
+- Subtract 1, then flip only the leftmost bit
+- Reverse the order of the bits
+Why: 5 is 0101; flipping gives 1010; adding 1 gives 1011, which is −5. Flipping only the sign bit is how sign-magnitude works, not two's complement.
+
+Q: Must-know: what are the 5 stages of the classic RISC pipeline?
+Topic: Formulas
+* Fetch, decode, execute, memory, write-back
+- Fetch, execute, decode, write-back, memory
+- Load, decode, compute, store, commit
+- Fetch, decode, memory, execute, write-back
+Why: IF reads the instruction, ID decodes it and reads registers, EX uses the ALU, MEM loads or stores data, and WB writes the result to a register. Ideally one instruction finishes every cycle.
+
+Q: Must-know: what is the ideal speedup of a k-stage pipeline over a non-pipelined design, for many instructions?
+Topic: Formulas
+* About k times
+- About 2k times
+- About k² times
+- About log₂ k times
+Why: With k stages, up to k instructions are in flight at once. Hazards, stalls, and uneven stage lengths keep real speedup below k.

@@ -1,0 +1,617 @@
+# Tier 3 = Advanced: build the data structures yourself, plus classic algorithms.
+# Don't use Python shortcuts that do the work for you (like list.sort() inside your sort, or heapq inside your heap).
+
+=== Stack and Balanced Brackets
+Class: CS 6 - Data Structures
+Tier: 3
+Minutes: 30
+--- prompt
+Part 1: write a class Stack backed by a Python list with push(x), pop(), peek(), is_empty() and size(). pop() and peek() on an empty stack should raise IndexError.
+
+Part 2: use YOUR Stack to write balanced(text), which returns True if every bracket in the text is properly matched and nested. The brackets are ( ) [ ] { }, and all other characters are ignored.
+
+    balanced("{[()()]}")        ->  True
+    balanced("([)]")            ->  False
+    balanced("print(a[0])")     ->  True
+
+This is exactly how compilers and code editors check your brackets.
+--- starter
+class Stack:
+    def __init__(self):
+        pass
+
+
+def balanced(text):
+    pass
+--- tests
+> s = Stack()
+s.is_empty() == True and s.size() == 0
+> s.push(1); s.push(2); s.push(3)
+s.peek() == 3 and s.size() == 3
+s.pop() == 3
+s.pop() == 2 and s.size() == 1
+> s.pop()
+raises(IndexError, s.pop)
+raises(IndexError, s.peek)
+balanced("{[()()]}") == True
+balanced("([)]") == False
+balanced("print(a[0])") == True
+balanced("((") == False
+balanced("))") == False
+balanced("") == True
+balanced("}{") == False
+--- hint
+For balanced: push every opening bracket. When you see a closing bracket, the stack must not be empty, and the popped bracket must be its matching opener (a dict like {")": "(", "]": "[", "}": "{"} helps). At the end, the stack must be empty.
+--- solution
+class Stack:
+    def __init__(self):
+        self.items = []
+
+    def push(self, x):
+        self.items.append(x)
+
+    def pop(self):
+        if not self.items:
+            raise IndexError("pop from empty stack")
+        return self.items.pop()
+
+    def peek(self):
+        if not self.items:
+            raise IndexError("peek at empty stack")
+        return self.items[-1]
+
+    def is_empty(self):
+        return len(self.items) == 0
+
+    def size(self):
+        return len(self.items)
+
+
+def balanced(text):
+    pairs = {")": "(", "]": "[", "}": "{"}
+    s = Stack()
+    for ch in text:
+        if ch in "([{":
+            s.push(ch)
+        elif ch in pairs:
+            if s.is_empty() or s.pop() != pairs[ch]:
+                return False
+    return s.is_empty()
+
+=== Linked List
+Class: CS 6 - Data Structures
+Tier: 3
+Minutes: 45
+--- prompt
+Build a singly linked list from scratch. Use a Node class with value and next, and a LinkedList class that keeps a head reference and its length.
+
+LinkedList methods:
+
+push_front(x) and push_back(x) add a value at the start or end.
+
+pop_front() removes and returns the first value (raise IndexError if empty).
+
+find(x) returns the index of the first x, or -1.
+
+remove(x) removes the first x and returns True, or returns False if it isn't there.
+
+reverse() reverses the list IN PLACE by relinking the nodes (no new list!).
+
+to_list() returns a regular Python list of the values, and len(my_list) should work (write __len__).
+--- starter
+class Node:
+    def __init__(self, value, next=None):
+        self.value = value
+        self.next = next
+
+
+class LinkedList:
+    def __init__(self):
+        self.head = None
+        self.length = 0
+--- tests
+> L = LinkedList()
+L.to_list() == [] and len(L) == 0
+> L.push_back(2); L.push_back(3); L.push_front(1)
+L.to_list() == [1, 2, 3] and len(L) == 3
+L.find(3) == 2 and L.find(9) == -1
+L.pop_front() == 1 and L.to_list() == [2, 3]
+> L.push_back(4); L.push_back(5)
+L.remove(4) == True and L.to_list() == [2, 3, 5]
+L.remove(42) == False
+L.remove(2) == True and L.to_list() == [3, 5] and len(L) == 2
+> L.reverse()
+L.to_list() == [5, 3]
+> E = LinkedList()
+raises(IndexError, E.pop_front)
+> E.reverse()
+E.to_list() == []
+> B = LinkedList()
+> for i in range(1000): B.push_back(i)
+> B.reverse()
+B.to_list()[:3] == [999, 998, 997] and len(B) == 1000
+--- hint
+push_back has to walk to the last node (or you can keep a tail pointer). For remove, handle the head separately, then walk with a "previous" node so you can do prev.next = cur.next. For reverse, walk the list with three variables, prev, cur and nxt, flipping each cur.next to point at prev.
+--- solution
+class Node:
+    def __init__(self, value, next=None):
+        self.value = value
+        self.next = next
+
+
+class LinkedList:
+    def __init__(self):
+        self.head = None
+        self.length = 0
+
+    def __len__(self):
+        return self.length
+
+    def push_front(self, x):
+        self.head = Node(x, self.head)
+        self.length += 1
+
+    def push_back(self, x):
+        node = Node(x)
+        if self.head is None:
+            self.head = node
+        else:
+            cur = self.head
+            while cur.next:
+                cur = cur.next
+            cur.next = node
+        self.length += 1
+
+    def pop_front(self):
+        if self.head is None:
+            raise IndexError("empty list")
+        v = self.head.value
+        self.head = self.head.next
+        self.length -= 1
+        return v
+
+    def find(self, x):
+        i, cur = 0, self.head
+        while cur:
+            if cur.value == x:
+                return i
+            cur, i = cur.next, i + 1
+        return -1
+
+    def remove(self, x):
+        prev, cur = None, self.head
+        while cur:
+            if cur.value == x:
+                if prev is None:
+                    self.head = cur.next
+                else:
+                    prev.next = cur.next
+                self.length -= 1
+                return True
+            prev, cur = cur, cur.next
+        return False
+
+    def reverse(self):
+        prev, cur = None, self.head
+        while cur:
+            nxt = cur.next
+            cur.next = prev
+            prev, cur = cur, nxt
+        self.head = prev
+
+    def to_list(self):
+        out, cur = [], self.head
+        while cur:
+            out.append(cur.value)
+            cur = cur.next
+        return out
+
+=== Hash Map from Scratch
+Class: CS 6 - Data Structures
+Tier: 3
+Minutes: 50
+--- prompt
+Build your own hash map (dictionary) WITHOUT using Python's dict or set inside it. Use separate chaining: a list of buckets, where each bucket is a list of [key, value] pairs.
+
+HashMap(capacity=8) starts with that many buckets. Methods:
+
+put(key, value) inserts or updates a key.
+
+get(key, default=None) returns the value or the default.
+
+remove(key) deletes the key and returns True, or returns False if it wasn't there.
+
+__len__ returns how many keys are stored, and keys() returns a list of the keys (any order).
+
+When the load factor (keys ÷ buckets) goes ABOVE 0.75, double the number of buckets and re-insert everything. Expose the current bucket count as capacity().
+
+Use hash(key) % number_of_buckets to pick a bucket.
+--- starter
+class HashMap:
+    def __init__(self, capacity=8):
+        self.buckets = [[] for _ in range(capacity)]
+        self.count = 0
+--- tests
+> m = HashMap()
+len(m) == 0 and m.get("x") is None and m.get("x", 7) == 7
+> m.put("apple", 3); m.put("pear", 5)
+m.get("apple") == 3 and m.get("pear") == 5 and len(m) == 2
+> m.put("apple", 10)
+m.get("apple") == 10 and len(m) == 2
+m.remove("apple") == True and m.get("apple") is None and len(m) == 1
+m.remove("apple") == False
+> big = HashMap(4)
+> for i in range(100): big.put(i, i * i)
+len(big) == 100 and big.get(7) == 49 and big.get(99) == 9801
+big.capacity() >= 128
+len(big) / big.capacity() <= 0.75
+sorted(big.keys()) == list(range(100))
+> t = HashMap(2)
+> t.put((1, 2), "tuple key")
+t.get((1, 2)) == "tuple key"
+"dict" not in open(__import__("sys").argv[1]).read().replace("dictionary", "")
+--- hint
+_bucket(key) returns self.buckets[hash(key) % len(self.buckets)]. In put, loop over the bucket's pairs: if a pair has the key, update pair[1] and return; otherwise append [key, value] and add 1 to count, then check whether count / len(buckets) > 0.75. To resize, save all pairs, make a new list of twice as many empty buckets, reset count to 0, and put() every pair again.
+--- solution
+class HashMap:
+    def __init__(self, capacity=8):
+        self.buckets = [[] for _ in range(capacity)]
+        self.count = 0
+
+    def _bucket(self, key):
+        return self.buckets[hash(key) % len(self.buckets)]
+
+    def put(self, key, value):
+        b = self._bucket(key)
+        for pair in b:
+            if pair[0] == key:
+                pair[1] = value
+                return
+        b.append([key, value])
+        self.count += 1
+        if self.count / len(self.buckets) > 0.75:
+            self._grow()
+
+    def _grow(self):
+        old = [p for b in self.buckets for p in b]
+        self.buckets = [[] for _ in range(len(self.buckets) * 2)]
+        self.count = 0
+        for k, v in old:
+            self.put(k, v)
+
+    def get(self, key, default=None):
+        for k, v in self._bucket(key):
+            if k == key:
+                return v
+        return default
+
+    def remove(self, key):
+        b = self._bucket(key)
+        for i, pair in enumerate(b):
+            if pair[0] == key:
+                del b[i]
+                self.count -= 1
+                return True
+        return False
+
+    def __len__(self):
+        return self.count
+
+    def keys(self):
+        return [p[0] for b in self.buckets for p in b]
+
+    def capacity(self):
+        return len(self.buckets)
+
+=== Min-Heap Priority Queue
+Class: CS 6 - Data Structures
+Tier: 3
+Minutes: 45
+--- prompt
+Build a binary min-heap stored in a Python list, without using the heapq module. With 0-based indexing, the children of index i are at 2i + 1 and 2i + 2, and its parent is at (i - 1) // 2.
+
+MinHeap methods:
+
+push(x) adds x, then "sifts it up" while it's smaller than its parent.
+
+pop() removes and returns the smallest item: move the last item to the root, then "sift it down" by swapping with its smaller child. Raise IndexError if empty.
+
+peek() returns the smallest without removing it, and __len__ returns the size.
+
+Then write heap_sort(nums), which returns a new sorted list using only your MinHeap.
+--- starter
+class MinHeap:
+    def __init__(self):
+        self.a = []
+
+
+def heap_sort(nums):
+    pass
+--- tests
+> h = MinHeap()
+len(h) == 0
+> for x in [5, 3, 8, 1, 9, 2]: h.push(x)
+h.peek() == 1 and len(h) == 6
+h.pop() == 1 and h.pop() == 2 and h.pop() == 3
+len(h) == 3
+all(h.a[i] <= h.a[c] for i in range(len(h.a)) for c in (2 * i + 1, 2 * i + 2) if c < len(h.a))
+raises(IndexError, MinHeap().pop)
+heap_sort([5, 3, 8, 1, 9, 2]) == [1, 2, 3, 5, 8, 9]
+heap_sort([]) == []
+heap_sort([4, 4, 1, 4]) == [1, 4, 4, 4]
+> import random; R = [random.randint(-1000, 1000) for _ in range(500)]
+heap_sort(R) == sorted(R)
+"heapq" not in open(__import__("sys").argv[1]).read()
+--- hint
+Sift up: while i > 0 and a[i] < a[parent], swap them and set i = parent. Sift down: loop forever; find the smallest of i and its (up to two) children; if that's i itself, stop; otherwise swap and continue from the child. In pop, remember a[0], move a.pop() into a[0] (only if anything is left), then sift down.
+--- solution
+class MinHeap:
+    def __init__(self):
+        self.a = []
+
+    def __len__(self):
+        return len(self.a)
+
+    def peek(self):
+        if not self.a:
+            raise IndexError("empty heap")
+        return self.a[0]
+
+    def push(self, x):
+        a = self.a
+        a.append(x)
+        i = len(a) - 1
+        while i > 0:
+            p = (i - 1) // 2
+            if a[i] < a[p]:
+                a[i], a[p] = a[p], a[i]
+                i = p
+            else:
+                break
+
+    def pop(self):
+        a = self.a
+        if not a:
+            raise IndexError("empty heap")
+        top = a[0]
+        last = a.pop()
+        if a:
+            a[0] = last
+            i = 0
+            while True:
+                small = i
+                for c in (2 * i + 1, 2 * i + 2):
+                    if c < len(a) and a[c] < a[small]:
+                        small = c
+                if small == i:
+                    break
+                a[i], a[small] = a[small], a[i]
+                i = small
+        return top
+
+
+def heap_sort(nums):
+    h = MinHeap()
+    for x in nums:
+        h.push(x)
+    return [h.pop() for _ in range(len(nums))]
+
+=== Binary Search Tree
+Class: CS 6 - Data Structures
+Tier: 3
+Minutes: 50
+--- prompt
+Build a binary search tree of numbers.
+
+BST methods:
+
+insert(x) adds x (ignore duplicates).
+
+contains(x) returns True or False.
+
+inorder() returns all values in sorted order (left, node, right).
+
+height() returns the number of EDGES on the longest path from the root to a leaf: an empty tree has height -1 and a single node has height 0.
+
+min() and max() return the smallest and largest values (raise ValueError if empty).
+
+delete(x) removes x if it's there. The hardest case is a node with two children: replace its value with its inorder successor (the smallest value in its right subtree), then delete that successor.
+--- starter
+class TreeNode:
+    def __init__(self, value):
+        self.value = value
+        self.left = None
+        self.right = None
+
+
+class BST:
+    def __init__(self):
+        self.root = None
+--- tests
+> t = BST()
+t.inorder() == [] and t.height() == -1
+> for x in [50, 30, 70, 20, 40, 60, 80, 30]: t.insert(x)
+t.inorder() == [20, 30, 40, 50, 60, 70, 80]
+t.contains(60) == True and t.contains(65) == False
+t.height() == 2
+t.min() == 20 and t.max() == 80
+> t.delete(20)
+t.inorder() == [30, 40, 50, 60, 70, 80]
+> t.delete(30)
+t.inorder() == [40, 50, 60, 70, 80]
+> t.delete(50)
+t.inorder() == [40, 60, 70, 80] and t.contains(50) == False
+> t.delete(999)
+t.inorder() == [40, 60, 70, 80]
+raises(ValueError, BST().min)
+> chain = BST()
+> for x in range(10): chain.insert(x)
+chain.height() == 9
+--- hint
+Recursive helper functions that take a node make this much easier: _insert(node, x) returns the (possibly new) node, and so does _delete(node, x), which lets you write node.left = self._delete(node.left, x). For height: an empty node is -1, otherwise 1 + max(height(left), height(right)).
+--- solution
+class TreeNode:
+    def __init__(self, value):
+        self.value = value
+        self.left = None
+        self.right = None
+
+
+class BST:
+    def __init__(self):
+        self.root = None
+
+    def insert(self, x):
+        self.root = self._insert(self.root, x)
+
+    def _insert(self, node, x):
+        if node is None:
+            return TreeNode(x)
+        if x < node.value:
+            node.left = self._insert(node.left, x)
+        elif x > node.value:
+            node.right = self._insert(node.right, x)
+        return node
+
+    def contains(self, x):
+        node = self.root
+        while node:
+            if x == node.value:
+                return True
+            node = node.left if x < node.value else node.right
+        return False
+
+    def inorder(self):
+        out = []
+        def walk(n):
+            if n:
+                walk(n.left)
+                out.append(n.value)
+                walk(n.right)
+        walk(self.root)
+        return out
+
+    def height(self):
+        def h(n):
+            return -1 if n is None else 1 + max(h(n.left), h(n.right))
+        return h(self.root)
+
+    def min(self):
+        if self.root is None:
+            raise ValueError("empty tree")
+        n = self.root
+        while n.left:
+            n = n.left
+        return n.value
+
+    def max(self):
+        if self.root is None:
+            raise ValueError("empty tree")
+        n = self.root
+        while n.right:
+            n = n.right
+        return n.value
+
+    def delete(self, x):
+        self.root = self._delete(self.root, x)
+
+    def _delete(self, node, x):
+        if node is None:
+            return None
+        if x < node.value:
+            node.left = self._delete(node.left, x)
+        elif x > node.value:
+            node.right = self._delete(node.right, x)
+        else:
+            if node.left is None:
+                return node.right
+            if node.right is None:
+                return node.left
+            succ = node.right
+            while succ.left:
+                succ = succ.left
+            node.value = succ.value
+            node.right = self._delete(node.right, succ.value)
+        return node
+
+=== Sorting Showdown
+Class: CS 7 - Algorithms
+Tier: 3
+Minutes: 45
+--- prompt
+Write three sorting algorithms yourself. Each takes a list and returns a NEW sorted list (don't change the input, and don't use sort() or sorted()).
+
+insertion_sort(nums): O(n²), but great on nearly sorted data.
+
+merge_sort(nums): divide in half, sort each half recursively, then merge. O(n log n) always.
+
+quick_sort(nums): pick a pivot, split into smaller / equal / bigger, and recurse. O(n log n) on average.
+
+Finally, write count_inversions(nums), which counts pairs (i, j) with i < j and nums[i] > nums[j]. A sorted list has 0 inversions. Doing it in O(n log n) is the challenge: count while you merge!
+--- starter
+def insertion_sort(nums):
+    pass
+
+def merge_sort(nums):
+    pass
+
+def quick_sort(nums):
+    pass
+
+def count_inversions(nums):
+    pass
+--- tests
+> import random; R = [random.randint(-50, 50) for _ in range(300)]; ORIG = list(R)
+insertion_sort(R) == sorted(ORIG) and R == ORIG
+merge_sort(R) == sorted(ORIG) and R == ORIG
+quick_sort(R) == sorted(ORIG) and R == ORIG
+merge_sort([]) == [] and quick_sort([]) == [] and insertion_sort([]) == []
+merge_sort([3, 3, 1]) == [1, 3, 3] and quick_sort([3, 3, 1]) == [1, 3, 3]
+quick_sort(list(range(2000))) == list(range(2000))
+count_inversions([1, 2, 3]) == 0
+count_inversions([3, 2, 1]) == 3
+count_inversions([2, 4, 1, 3, 5]) == 3
+count_inversions(R) == sum(1 for i in range(len(R)) for j in range(i + 1, len(R)) if R[i] > R[j])
+"sort(" not in open(__import__("sys").argv[1]).read().replace("_sort(", "")
+--- hint
+Copy first with list(nums). For merge, walk two indexes through the two sorted halves, always taking the smaller front item. For inversions: while merging, whenever you take an item from the RIGHT half, every item still waiting in the left half is bigger than it, so add len(left) - i to the count. For quick sort on sorted input, choose a random pivot (or the middle) so it doesn't hit O(n²).
+--- solution
+import random
+
+def insertion_sort(nums):
+    a = list(nums)
+    for i in range(1, len(a)):
+        x, j = a[i], i - 1
+        while j >= 0 and a[j] > x:
+            a[j + 1] = a[j]
+            j -= 1
+        a[j + 1] = x
+    return a
+
+def _merge_count(a):
+    if len(a) <= 1:
+        return list(a), 0
+    mid = len(a) // 2
+    left, inv_l = _merge_count(a[:mid])
+    right, inv_r = _merge_count(a[mid:])
+    out, i, j, inv = [], 0, 0, inv_l + inv_r
+    while i < len(left) and j < len(right):
+        if left[i] <= right[j]:
+            out.append(left[i]); i += 1
+        else:
+            out.append(right[j]); j += 1
+            inv += len(left) - i
+    out.extend(left[i:]); out.extend(right[j:])
+    return out, inv
+
+def merge_sort(nums):
+    return _merge_count(list(nums))[0]
+
+def quick_sort(nums):
+    if len(nums) <= 1:
+        return list(nums)
+    p = nums[random.randrange(len(nums))]
+    return quick_sort([x for x in nums if x < p]) + [x for x in nums if x == p] + quick_sort([x for x in nums if x > p])
+
+def count_inversions(nums):
+    return _merge_count(list(nums))[1]

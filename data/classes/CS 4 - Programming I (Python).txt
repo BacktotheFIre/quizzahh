@@ -1,0 +1,514 @@
+# quizzahh question file. The file name is the class name.
+#
+# CS 4: Programming I in Python (the first programming course in a CS major, often called CS1).
+# Expect questions like these on quizzes and exams: read code, predict output, find the bug.
+#
+# Each question looks like this (leave a blank line between questions):
+#
+#   Q: What is the powerhouse of the cell?
+#   Topic: Cells
+#   - Nucleus
+#   * Mitochondria        <- the star marks the correct answer
+#   - Ribosome
+#   - Golgi apparatus
+#   Why: Mitochondria make ATP, the cell's energy.
+#
+# Lines starting with # are ignored.
+
+# Which year of a computer science degree this class usually falls in (used by the year filter):
+Year: 1
+
+Q: What does print(7 // 2) display in Python 3?
+Topic: Expressions & Operators
+- 3.5
+* 3
+- 4
+- 3.0
+Why: // is floor division: it divides and rounds down to a whole number. 7 / 2 would give 3.5, because a single slash always gives a float in Python 3.
+
+Q: What does print(7 % 3) display?
+Topic: Expressions & Operators
+- 2
+* 1
+- 0
+- 2.33
+Why: % gives the remainder. 7 divided by 3 is 2 with 1 left over. A common use is checking even numbers: n % 2 == 0 means n is even.
+
+Q: What does print(2 ** 3 ** 2) display?
+Topic: Expressions & Operators
+- 64
+* 512
+- 36
+- 729
+Why: ** (power) groups from right to left, so it means 2 ** (3 ** 2), which is 2 to the 9th, or 512. Most other operators go left to right. When in doubt, add parentheses.
+
+Q: What is the type of the value 3.0?
+Topic: Variables & Types
+- int
+* float
+- str
+- decimal
+Why: Any number written with a decimal point is a float, even if the fractional part is zero. 3 is an int, "3" is a str, and 3.0 is a float.
+
+Q: After name = input("Name? "), the user types 42. What type is name?
+Topic: Variables & Types
+- int
+- float
+* str
+- It depends on what the user types
+Why: input() always returns a string. To do math with it you must convert it, for example age = int(input("Age? ")). Forgetting this causes errors like "can only concatenate str (not int) to str".
+
+Q: What does print("5" + "3") display?
+Topic: Strings
+- 8
+* 53
+- 5 3
+- An error
+Why: With strings, + joins (concatenates) them. "5" + "3" is "53". To add numbers, convert first: int("5") + int("3") gives 8. Mixing them, like "5" + 3, raises a TypeError.
+
+Q: What does print("ha" * 3) display?
+Topic: Strings
+- ha3
+* hahaha
+- An error
+- ha ha ha
+Why: Multiplying a string by an integer repeats it. This also works for lists: [0] * 3 is [0, 0, 0].
+
+Q: Given s = "python", what is s[1:4]?
+Topic: Strings
+- "pyt"
+* "yth"
+- "ytho"
+- "pyth"
+Why: Slices start at the first index and stop just BEFORE the second. Index 1 is "y", and it stops before index 4, giving "yth". Indexes start at 0.
+
+Q: Given s = "hello", what is s[-1]?
+Topic: Strings
+- "h"
+* "o"
+- An IndexError
+- "l"
+Why: Negative indexes count from the end: -1 is the last character, -2 is the second to last, and so on.
+
+Q: What happens when you run s = "cat" and then s[0] = "b"?
+Topic: Strings
+- s becomes "bat", since square brackets can change one character
+* A TypeError, because strings can't be changed in place
+- s becomes "bcat", since the new letter is inserted at index 0
+- An IndexError, because index 0 can only be read, not assigned
+Why: Strings are immutable. To "change" one, build a new string: s = "b" + s[1:]. Lists, on the other hand, are mutable, so items can be replaced in place.
+
+Q: What does len([1, [2, 3], 4]) return?
+Topic: Lists
+- 4
+* 3
+- 2
+- An error
+Why: len counts top-level items. The inner list [2, 3] is a single item. The outer list has three items: 1, [2, 3], and 4.
+
+Q: What is printed?
+a = [1, 2]
+b = a
+b.append(3)
+print(a)
+Topic: Lists
+- [1, 2]
+* [1, 2, 3]
+- [1, 2] [1, 2, 3]
+- [3]
+Why: b = a doesn't copy the list. Both names point to the SAME list object (aliasing), so a change through b shows up in a. Use b = a.copy() or b = a[:] for a separate copy.
+
+Q: What is the difference between nums.append([4, 5]) and nums.extend([4, 5]) when nums = [1, 2, 3]?
+Topic: Lists
+- extend adds the list as one item, giving [1, 2, 3, [4, 5]]; append adds each item, giving [1, 2, 3, 4, 5]
+* append adds the whole list as one item: [1, 2, 3, [4, 5]]; extend adds each item: [1, 2, 3, 4, 5]
+- They do the same thing, but extend returns the new list while append returns None
+- append makes a new list and leaves nums unchanged; extend changes nums in place
+Why: append always adds exactly one element, even if that element is a list. extend loops over its argument and adds each element.
+
+Q: What does list(range(2, 10, 3)) produce?
+Topic: Loops
+- [2, 5, 8, 11]
+* [2, 5, 8]
+- [2, 3, 4, 5, 6, 7, 8, 9]
+- [3, 6, 9]
+Why: range(start, stop, step) starts at 2, adds 3 each time, and stops before 10. That gives 2, 5 and 8.
+
+Q: How many times does this loop print "hi"?
+for i in range(5):
+    print("hi")
+Topic: Loops
+- 4
+* 5
+- 6
+- It runs forever
+Why: range(5) produces 0, 1, 2, 3, 4, which is five values. range(n) always gives n values starting at 0.
+
+Q: What is printed?
+total = 0
+for n in [3, 4, 5]:
+    total += n
+print(total)
+Topic: Loops
+- 5
+* 12
+- 345
+- 0
+Why: This is the accumulator pattern. total starts at 0, then becomes 3, 7, and finally 12. It's one of the most common patterns in CS1.
+
+Q: What does this code print?
+for i in range(10):
+    if i == 3:
+        break
+    print(i)
+Topic: Loops
+- 0 1 2 3
+* 0 1 2
+- 3
+- 0 through 9
+Why: break exits the loop immediately. When i reaches 3, the loop stops before printing it. continue would instead skip just that one pass and keep looping.
+
+Q: Which loop runs forever?
+Topic: Loops
+- for i in range(1000000): pass, since a million steps never finishes
+* i = 0, then while i < 10: print(i), with no line that changes i
+- while i < 10: i = i + 1, starting from i = 0
+- for x in [1, 2, 3]: x = x - 1, since x keeps going down
+Why: A while loop needs something inside it to eventually make the condition false. Here i stays 0, so i < 10 is always true. Forgetting to update the loop variable is a classic infinite loop bug.
+
+Q: What does a Python function return if it has no return statement?
+Topic: Functions
+- 0
+* None
+- An empty string
+- It causes an error
+Why: Every function returns something. Without a return statement it returns None. A common bug is writing result = print(x): print shows x but returns None.
+
+Q: What is printed?
+def double(x):
+    x = x * 2
+n = 5
+double(n)
+print(n)
+Topic: Functions
+- 10
+* 5
+- None
+- An error
+Why: Assigning to x inside the function creates a new local value. It doesn't change n. To get the result back, the function should return x * 2, and the caller should write n = double(n).
+
+Q: What is printed?
+def add_item(item, items=[]):
+    items.append(item)
+    return items
+add_item("a")
+print(add_item("b"))
+Topic: Functions
+- ['b']
+* ['a', 'b']
+- ['a']
+- ['b', 'a']
+Why: A default value is created once, when the function is defined, not each time it's called. So the same list is reused across calls. The safe pattern is items=None, then inside: if items is None: items = [].
+
+Q: What error does this cause?
+count = 0
+def bump():
+    count = count + 1
+bump()
+Topic: Scope
+- No error; count becomes 1, since the function can read the global variable
+* UnboundLocalError: count is treated as a local variable with no value yet
+- NameError: count is not defined anywhere in the program
+- No error, but the global count stays 0 because the change is local
+Why: Assigning to count inside the function makes Python treat it as local, so reading it first fails. Better to pass values in and return results, rather than using the global keyword.
+
+Q: What does this print?
+x = 10
+def show():
+    print(x)
+show()
+Topic: Scope
+* 10
+- An error, because x isn't defined in the function
+- None
+- 0
+Why: A function can read a global variable it doesn't assign to. Python looks up names in order: local, enclosing, global, then built-in (the LEGB rule).
+
+Q: What does {"a": 1, "b": 2}["c"] do?
+Topic: Dictionaries & Sets
+- Returns None
+* Raises a KeyError
+- Returns 0
+- Adds "c" to the dictionary
+Why: Looking up a missing key with square brackets raises a KeyError. Use d.get("c") to get None instead, or d.get("c", 0) to supply a default.
+
+Q: Given d = {"apple": 3, "pear": 5}, what is "pear" in d?
+Topic: Dictionaries & Sets
+* True
+- False
+- 5
+- An error
+Why: in checks a dictionary's keys, not its values. To check values, use 5 in d.values(). Key lookups in a dict are very fast, close to constant time on average.
+
+Q: What does len(set([3, 1, 3, 2, 1])) return?
+Topic: Dictionaries & Sets
+- 5
+* 3
+- 2
+- 1
+Why: A set keeps only unique values, so {1, 2, 3} remains. Converting to a set is a quick way to remove duplicates, but a set has no order.
+
+Q: What is the result of a, b = b, a when a = 1 and b = 2?
+Topic: Tuples
+- a = 1, b = 1
+* a = 2, b = 1
+- An error
+- a = 2, b = 2
+Why: The right side builds the tuple (2, 1) first, then unpacks it into a and b. This is Python's neat way to swap two values without a temporary variable.
+
+Q: Which data structure can be used as a dictionary key?
+Topic: Tuples
+- A list like [1, 2]
+* A tuple like (1, 2)
+- A dictionary like {1: 2}
+- A set like {1, 2}
+Why: Dictionary keys must be hashable, which in practice means immutable. Tuples of immutable values work, but lists, sets and dicts can change, so they can't be keys.
+
+Q: What does [x * x for x in range(4)] produce?
+Topic: Lists
+- [1, 4, 9, 16]
+* [0, 1, 4, 9]
+- [0, 2, 4, 6]
+- 14
+Why: A list comprehension builds a new list from a loop. range(4) is 0 to 3, so the squares are 0, 1, 4 and 9. You can also filter: [x for x in nums if x > 0].
+
+Q: What does nums.sort() return?
+Topic: Lists
+- A new sorted list, leaving nums unchanged
+* None, because it sorts the list in place
+- The sorted list, after sorting it in place
+- True if the list was sorted successfully
+Why: list.sort() changes the list itself and returns None, so nums = nums.sort() wipes out your list. sorted(nums) returns a new sorted list and leaves the original alone.
+
+Q: What does print(0.1 + 0.2 == 0.3) display?
+Topic: Variables & Types
+- True
+* False
+- An error
+- 0.3
+Why: Floats are stored in binary, and many decimals like 0.1 can't be represented exactly. The sum is 0.30000000000000004. Compare floats with a tolerance, like abs(a - b) < 1e-9, or use math.isclose.
+
+Q: What is the difference between == and is?
+Topic: Expressions & Operators
+- is checks whether two values are equal; == checks whether they're the same object in memory
+* == checks whether two values are equal; is checks whether they're the same object in memory
+- They're the same, but is runs faster, so it's preferred for comparing strings and lists
+- is only works on numbers and booleans, while == works on every type
+Why: Two separate lists with the same contents are equal (==) but not identical (is). Use is mainly for comparing with None: if x is None.
+
+Q: What does 0 and (1 / 0) evaluate to?
+Topic: Expressions & Operators
+* 0, with no error
+- ZeroDivisionError
+- True
+- False
+Why: and short-circuits. If the left side is falsy, Python returns it without evaluating the right side. That's why if i < len(a) and a[i] > 0 is safe from index errors.
+
+Q: Which value is "falsy" in Python?
+Topic: Conditionals
+- "False" (the string)
+* [] (an empty list)
+- [0]
+- -1
+Why: Falsy values are False, None, 0, 0.0, and empty collections: "", [], {}, set(). Any non-empty string is truthy, even "False". -1 is truthy because it isn't zero.
+
+Q: What is printed when score = 85?
+if score >= 90:
+    print("A")
+elif score >= 80:
+    print("B")
+elif score >= 70:
+    print("C")
+Topic: Conditionals
+- A
+* B
+- B and C
+- Nothing
+Why: Python checks conditions top to bottom and runs only the first branch that's true. 85 >= 80 is true, so it prints B and skips the rest, even though 85 >= 70 is also true.
+
+Q: What does this print?
+try:
+    x = int("abc")
+    print("A")
+except ValueError:
+    print("B")
+finally:
+    print("C")
+Topic: Files & Exceptions
+- A then C
+* B then C
+- A, B, then C
+- Only C
+Why: int("abc") raises a ValueError, so "A" is skipped and the except block runs. finally always runs, whether or not there was an error, which makes it useful for cleanup.
+
+Q: Why is with open("data.txt") as f: the recommended way to open files?
+Topic: Files & Exceptions
+- It reads the whole file into memory at once, which is much faster than reading line by line
+* It closes the file automatically when the block ends, even if an error happens
+- It's the only way Python can open a file without needing to import the os module
+- It makes a backup copy of the file before you change it
+Why: with uses a context manager. Without it, you must remember to call f.close(), and an error in the middle could leave the file open.
+
+Q: What does every recursive function need to avoid running forever?
+Topic: Recursion
+- A loop inside the function that counts how many times it has been called
+* A base case that returns without making another recursive call
+- A global variable that stops the recursion after a fixed number of calls
+- At least two parameters, so one can shrink while the other stays fixed
+Why: For example, factorial(n) returns 1 when n <= 1 (the base case), otherwise n * factorial(n - 1). Each call must move closer to the base case, or you get a RecursionError.
+
+Q: What does f(4) return?
+def f(n):
+    if n == 0:
+        return 0
+    return n + f(n - 1)
+Topic: Recursion
+- 4
+* 10
+- 24
+- It never stops
+Why: f(4) = 4 + f(3) = 4 + 3 + f(2) = 4 + 3 + 2 + 1 + 0 = 10. It sums the numbers from n down to 0. Tracing recursive calls by hand like this is a common exam skill.
+
+Q: In a class, what is self?
+Topic: Classes & Objects
+- A keyword that makes a method private, so it can only be called inside the class
+* The first parameter of a method, referring to the object the method was called on
+- The name of the class, used to call class methods without an object
+- A built-in variable holding the most recently created object of the class
+Why: When you call dog.bark(), Python runs Dog.bark(dog), so self is dog. Attributes like self.name belong to that one object.
+
+Q: What is __init__ used for?
+Topic: Classes & Objects
+- Deleting an object when it's no longer needed
+* Setting up a new object's starting attributes (the constructor)
+- Defining how an object is shown when printed
+- Running code once when the module is first imported by a program
+Why: Dog("Rex") creates the object and calls __init__(self, "Rex"), where you typically set self.name = name. __str__ controls what print shows for the object.
+
+Q: What error does this cause?
+if x > 5:
+print("big")
+Topic: Debugging
+- SyntaxError
+* IndentationError
+- NameError
+- TabError
+Why: Python uses indentation to define blocks. The body of an if, for, while or def must be indented, usually by 4 spaces.
+
+Q: Your program crashes with NameError: name 'totl' is not defined. What's the most likely cause?
+Topic: Debugging
+- The program ran out of memory while creating the variable
+* A typo in a variable name, or using a variable before it's assigned
+- A function was called with the wrong number of arguments
+- A missing import of the module the variable comes from
+Why: NameError means Python can't find that name. Read the traceback from the bottom up: it names the error and the line where it happened.
+
+Q: What does print(f"{3.14159:.2f}") display?
+Topic: Strings
+- 3.14159
+* 3.14
+- 3.1
+- 3
+Why: In an f-string, :.2f formats a number with exactly 2 digits after the decimal point, rounding as needed. f-strings are the modern way to build output like f"Total: {total}".
+
+Q: What does "a,b,,c".split(",") return?
+Topic: Strings
+- ['a', 'b', 'c']
+* ['a', 'b', '', 'c']
+- ['a', 'b', None, 'c']
+- ['a', 'b', ',', 'c']
+Why: split cuts the string at every comma, so two commas in a row leave an empty string between them. The reverse is ",".join(parts).
+
+Q: Which statement about Python is true?
+Topic: Variables & Types
+- You must declare each variable's type, but Python can convert between types automatically
+* Variables can hold any type, and a variable can later hold a different type
+- Python code is compiled straight to machine code before it runs, like C
+- Indentation is optional, but most programmers use it to keep code readable
+Why: In Python, the value has the type, not the variable. x = 5 and later x = "five" is allowed. That's flexible, but type errors show up only when the code runs. Java, by contrast, is statically typed.
+
+Q: What does the following print?
+words = ["hi", "hello", "hey"]
+print(max(words, key=len))
+Topic: Functions
+- hi
+* hello
+- hey
+- 5
+Why: key=len tells max to compare the items by their length. "hello" is the longest, with 5 letters. Passing a function like this is common with sorted, min and max.
+
+# ---- Must-know formulas and facts for this class ----
+
+Q: Must-know: what are the results of 7 / 2, 7 // 2 and 7 % 2 in Python 3?
+Topic: Must-Know Facts
+* 3.5, 3 and 1
+- 3, 3 and 1
+- 3.5, 3.5 and 1
+- 3.5, 4 and 1
+Why: / always gives a float, // is floor division (rounds down), and % is the remainder. Note that -7 // 2 is -4, because it rounds toward negative infinity.
+
+Q: Must-know: which Python types are immutable?
+Topic: Must-Know Facts
+* int, float, str, tuple, frozenset
+- list, dict, set
+- str, list, tuple, bytearray, set
+- int, float, list, dict, frozenset
+Why: Immutable objects can't be changed in place, so "changing" them really makes a new object. Only immutable (hashable) values can be dictionary keys or set members.
+
+Q: Must-know: what does s[start:stop:step] include?
+Topic: Must-Know Facts
+* From index start up to, but not including, stop, moving by step
+- From index start up to and including stop, moving by step
+- step items, beginning at start and ending at stop
+- Everything except the items between start and stop
+Why: "abcdef"[1:4] is "bcd". Leaving parts out uses defaults, so s[::-1] reverses a string and s[:3] is the first three characters.
+
+Q: Must-know: what does range(2, 11, 3) produce?
+Topic: Must-Know Facts
+* 2, 5, 8
+- 2, 5, 8, 11
+- 3, 6, 9
+- 2, 3, 4, ..., 11
+Why: range(start, stop, step) starts at start, adds step each time, and stops BEFORE reaching stop. That's why range(5) is 0 through 4.
+
+Q: Must-know: which values are "falsy" in Python?
+Topic: Must-Know Facts
+* False, None, 0, 0.0, "", and empty collections like [], {}, ()
+- Only False and None; empty strings and lists are truthy
+- False, 0, and negative numbers like -1
+- False, None, 0, "0", "False", and the string "None"
+Why: Everything else is truthy, including "0" and "False" as strings, since they're non-empty. That's why if my_list: is the Pythonic way to check for an empty list.
+
+Q: Must-know: what is the average time complexity of these Python operations: list.append(x), x in some_list, and x in some_set?
+Topic: Must-Know Facts
+* O(1), O(n) and O(1)
+- O(1), O(1) and O(1)
+- O(n), O(n) and O(log n)
+- O(1), O(log n) and O(n)
+Why: Lists are dynamic arrays, so searching them checks items one by one. Sets and dicts are hash tables. Changing a list to a set can turn a slow loop into a fast one.
+
+Q: Must-know: what is the basic structure of a list comprehension?
+Topic: Must-Know Facts
+* [expression for item in iterable if condition]
+- [for item in iterable: expression if condition]
+- [expression if condition for item in iterable else None]
+- (for item in iterable) => expression
+Why: [x * x for x in range(10) if x % 2 == 0] builds the squares of the even numbers. The if part is optional. The same shape with {} makes a set or dict comprehension.
+
+Q: Must-know: what is the order of the parts of a try statement in Python?
+Topic: Must-Know Facts
+* try, except, else, finally
+- try, finally, except, else
+- try, else, except, finally
+- try, except, finally, else
+Why: except runs if an error happened, else runs only if no error happened, and finally always runs. Only try and at least one of except or finally are required.

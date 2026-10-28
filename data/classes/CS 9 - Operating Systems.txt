@@ -1,0 +1,405 @@
+# quizzahh question file. The file name is the class name.
+#
+# CS 9: Operating Systems (processes, threads, scheduling, synchronization, deadlock, memory,
+# file systems).
+#
+# Each question looks like this (leave a blank line between questions):
+#
+#   Q: What is the powerhouse of the cell?
+#   Topic: Cells
+#   - Nucleus
+#   * Mitochondria        <- the star marks the correct answer
+#   - Ribosome
+#   - Golgi apparatus
+#   Why: Mitochondria make ATP, the cell's energy.
+#
+# Lines starting with # are ignored.
+
+# Which year of a computer science degree this class usually falls in (used by the year filter):
+Year: 3
+
+Q: What are the two main jobs of an operating system?
+Topic: OS Basics
+- Compiling programs into machine code and linking them with the system's libraries before they run
+* Managing hardware (CPU, memory, devices) and giving programs simpler, safer abstractions
+- Providing the desktop, windows and web browser so users can interact with the computer
+- Checking programs for viruses and blocking any that try to read other programs' files
+Why: The OS is both a referee, sharing resources fairly and safely between programs, and an illusionist, making each program think it has its own CPU and memory.
+
+Q: Why does the CPU have a user mode and a kernel mode?
+Topic: OS Basics
+- So the CPU can save power by turning off the privileged circuits when user programs run
+* So ordinary programs can't run privileged instructions or touch hardware; only the kernel can
+- So several users can log in to the same computer at the same time without seeing each other
+- So programs run faster, since user mode skips the security checks that kernel mode does
+Why: If any program could disable interrupts or overwrite other programs' memory, one bug could crash everything. User programs ask the kernel for help through system calls.
+
+Q: What is a system call?
+Topic: OS Basics
+- A call to a function in the program's own code, handled without leaving user mode
+* A request from a program to the kernel, like reading a file or creating a process
+- A signal the kernel sends to a program when something goes wrong
+- A call between two programs that share a library
+Why: Calls like read, write, fork and open switch the CPU into kernel mode in a controlled way, do the privileged work, then return to user mode.
+
+Q: What is the difference between a program and a process?
+Topic: Processes
+- A process is code stored on disk; a program is the running instance with its own memory and state
+* A program is code stored on disk; a process is a running instance with its own memory and state
+- A process is a program written in C, while a program can be written in any language
+- There's no difference; "process" is just the word the kernel uses for a program
+Why: Opening two Notepad windows runs one program as two processes. The OS tracks each process in a process control block (PCB).
+
+Q: A process is waiting for a disk read to finish. Which state is it in?
+Topic: Processes
+- Running
+- Ready
+* Blocked (waiting)
+- Suspended (swapped out)
+Why: The process states are new, ready (waiting for the CPU), running, blocked (waiting for an event like I/O), and terminated. When the disk finishes, the process moves from blocked to ready, not straight to running.
+
+Q: What happens during a context switch?
+Topic: Processes
+- The OS restarts the CPU so that the next process starts with clean registers
+* The OS saves the running process's state (registers, PC) and loads another's saved state
+- The OS copies the running process's entire memory to disk and loads another one
+- The OS ends the current process and creates a new one in its place
+Why: Context switches let many processes share one CPU. They aren't free: saving and restoring state takes time, and caches go "cold" for the new process.
+
+Q: What does fork() do on Unix or Linux?
+Topic: Processes
+- Starts a new thread in the same process; it returns the thread's ID in both
+* Creates a child that copies the parent; it returns 0 in the child and the child's PID in the parent
+- Creates a child that copies the parent; it returns the parent's PID in the child and 0 in the parent
+- Replaces the current process's program with a new one loaded from disk
+Why: Typically the child then calls exec() to load a different program, which is how a shell runs commands. Copy-on-write makes fork cheap, because memory is only copied when one side changes it.
+
+Q: How do threads differ from processes?
+Topic: Threads
+- Threads each have their own separate memory space, while processes share theirs
+* Threads in a process share memory and open files, but each has its own stack and registers
+- Threads share memory, stacks and registers, so only one thread can run at a time
+- A process can have only one thread, so threads are a way to group processes
+Why: Sharing memory makes communication between threads fast, but also makes race conditions possible. Creating a thread is cheaper than creating a process.
+
+Q: Three processes arrive at time 0 in order P1 (burst 24), P2 (3), P3 (3). Under first-come, first-served (FCFS) scheduling, what is the average waiting time?
+Topic: CPU Scheduling
+- 3
+* 17
+- 10
+- 0
+Why: P1 waits 0, P2 waits 24 and P3 waits 27, so the average is 51 ÷ 3 = 17. A long job in front makes everyone wait, which is called the convoy effect.
+
+Q: For the same three processes (P1 = 24, P2 = 3, P3 = 3), what is the average waiting time under shortest job first (SJF)?
+Topic: CPU Scheduling
+* 3
+- 17
+- 6
+- 9
+Why: Run P2, then P3, then P1. The waits are 0, 3 and 6, for an average of 3. SJF gives the minimum average waiting time, but it needs to know burst lengths in advance and can starve long jobs.
+
+Q: What does round robin (RR) scheduling do?
+Topic: CPU Scheduling
+- Runs whichever process has the shortest expected next CPU burst first
+* Gives each ready process a fixed time slice (quantum) in turn, preempting it when it ends
+- Runs each process until it finishes or blocks, in the order the processes arrived
+- Always runs the highest-priority ready process, preempting lower ones
+Why: Round robin gives good response time for interactive systems. If the quantum is too small, context-switch overhead dominates. If it's too large, it behaves like first-come, first-served.
+
+Q: What is starvation in scheduling, and what is a common fix?
+Topic: CPU Scheduling
+- A process uses up all the free memory; the fix is to swap other processes out to disk
+* A process never gets the CPU because others keep priority; aging slowly raises its priority
+- A process runs for so long that others time out; the fix is to kill long-running jobs
+- Two processes each wait for the other's lock; the fix is to always lock in the same order
+Why: Strict priority scheduling and SJF can starve low-priority or long jobs. Aging guarantees that everyone eventually runs.
+
+Q: What is a race condition?
+Topic: Synchronization
+- Two processes competing to finish first so the scheduler gives the winner more CPU time
+* A bug where the result depends on the unpredictable timing of threads using shared data
+- Two threads each waiting forever for a lock that the other one is holding
+- A thread that never gets CPU time because higher-priority threads keep running
+Why: count = count + 1 is really load, add, store. Two threads can both load 5 and both store 6, losing an update. Such bugs are rare and hard to reproduce, so prevention matters.
+
+Q: What three properties must a correct solution to the critical-section problem guarantee?
+Topic: Synchronization
+- Speed, fairness and simplicity
+* Mutual exclusion, progress, and bounded waiting
+- Atomicity, consistency and durability
+- Mutual exclusion, preemption, and circular wait
+Why: Mutual exclusion means only one thread at a time inside. Progress means the decision isn't postponed forever. Bounded waiting means no thread waits forever to enter.
+
+Q: What is a mutex (lock)?
+Topic: Synchronization
+* A lock that only one thread can hold at a time, protecting a critical section
+- A counter that lets up to N threads into a section at once
+- A signal that wakes all waiting threads when data is ready
+- A thread that runs at higher priority than all the others in its process
+Why: The pattern is lock, then update the shared data, then unlock. Forgetting to unlock, or unlocking on the wrong path after an error, causes hangs. Languages offer scoped locks to help.
+
+Q: How does a counting semaphore differ from a mutex?
+Topic: Synchronization
+- They're identical; "semaphore" is just the older name for a mutex
+* A semaphore holds a count, so it can admit up to N threads, and it's also used for signaling
+- A semaphore can never block a thread, so it's only used for counting events
+- A mutex can count higher than a semaphore, so it allows more threads in at once
+Why: wait (P) decrements and blocks if the count would go below zero. signal (V) increments and wakes a waiter. A semaphore starting at N limits access to N identical resources, like database connections.
+
+Q: In the producer-consumer (bounded buffer) problem, what do the "empty" and "full" semaphores track?
+Topic: Synchronization
+- Which thread is the producer and which is the consumer
+* The number of free slots and the number of filled slots in the buffer
+- Whether the buffer is currently locked by a producer or a consumer
+- How many items each thread has produced or consumed in total
+Why: Producers wait on empty and signal full; consumers do the opposite. A mutex also protects the buffer itself while items are added or removed.
+
+Q: Which four conditions must ALL hold for deadlock to be possible?
+Topic: Deadlock
+- Starvation, aging, priority inversion and preemption
+* Mutual exclusion, hold and wait, no preemption, and circular wait
+- Mutual exclusion, progress, bounded waiting and preemption
+- Race condition, hold and wait, starvation and circular wait
+Why: Break any one condition and deadlock can't happen. The most practical fix is usually to prevent circular wait by always acquiring locks in the same global order.
+
+Q: Thread A holds lock 1 and waits for lock 2. Thread B holds lock 2 and waits for lock 1. What is this?
+Topic: Deadlock
+- Starvation
+* Deadlock
+- A race condition
+- Thrashing
+Why: Neither thread can ever proceed: a circular wait. If both threads always acquired lock 1 before lock 2, this could never happen.
+
+Q: What does the banker's algorithm do?
+Topic: Deadlock
+- It detects deadlock after it happens by searching the resource graph for cycles
+* It avoids deadlock by granting a request only if the system stays in a "safe state"
+- It prevents deadlock by making processes request every resource in one fixed order
+- It breaks deadlock by killing the process holding the most resources
+Why: It requires each process to declare its maximum needs in advance, which is rarely practical in real systems, but it's a classic exam topic. You check safety by simulating whether some order lets every process finish.
+
+Q: What is external fragmentation?
+Topic: Memory Management
+- Wasted space inside an allocated block, because blocks come in fixed sizes
+* Free memory split into many small holes, so a large request fails though the total is enough
+- Memory set aside for the kernel that user programs can't allocate
+- Data that's been paged out to disk because RAM is too full to hold it
+Why: Allocating variable-sized contiguous chunks causes it. Paging avoids external fragmentation because any free frame can hold any page. Internal fragmentation is unused space inside an allocated block or page.
+
+Q: How does paging translate a virtual address?
+Topic: Memory Management
+- It adds a fixed base address to every virtual address and checks it against a limit
+* It splits the address into page number and offset, maps the page to a frame, and keeps the offset
+- It searches all of physical memory for a frame tagged with the matching virtual address
+- It splits the address into segment and offset, then adds the segment's base to the offset
+Why: Pages are fixed-size, often 4 KB. Pages that look contiguous to the program can be anywhere in physical memory. The TLB caches recent translations to keep this fast.
+
+Q: What is a page fault?
+Topic: Virtual Memory
+- A bug in a program that always makes the OS kill it
+* A trap when a process accesses a page not in physical memory, so the OS loads it from disk
+- A trap when a process writes to a page it doesn't have permission to modify
+- A hardware error in a RAM chip, detected by its checksum
+Why: Page faults are normal with demand paging. The OS finds a free frame (or evicts a page), reads the page in, updates the page table and restarts the instruction. Too many of them cause thrashing.
+
+Q: Using FIFO page replacement with 3 frames, how many page faults does the reference string 1, 2, 3, 4, 1, 2 cause?
+Topic: Virtual Memory
+- 4
+* 6
+- 3
+- 5
+Why: 1, 2 and 3 fault while filling the frames. 4 faults and evicts 1. Then 1 faults and evicts 2, and 2 faults and evicts 3. Every reference faults: 6 in total.
+
+Q: Which page replacement policy is optimal but impossible to implement exactly?
+Topic: Virtual Memory
+- FIFO (evict the page that has been in memory the longest)
+- LRU (evict the page that was used least recently)
+* OPT (evict the page that won't be used for the longest time)
+- LFU (evict the page that has been used the fewest times)
+Why: OPT needs to know the future, so it serves as a benchmark. LRU (least recently used) approximates it by using the past as a guide, and the clock algorithm approximates LRU cheaply.
+
+Q: What is Belady's anomaly?
+Topic: Virtual Memory
+- With LRU replacement, adding more frames can sometimes cause more page faults
+* With FIFO replacement, adding more frames can sometimes cause MORE page faults
+- With any replacement policy, adding frames beyond the working set causes more faults
+- With FIFO replacement, removing frames can sometimes cause fewer page faults
+Why: The classic reference string 1, 2, 3, 4, 1, 2, 5, 1, 2, 3, 4, 5 gives 9 faults with 3 frames but 10 with 4 frames under FIFO. LRU and OPT never show this anomaly.
+
+Q: What is thrashing?
+Topic: Virtual Memory
+- The CPU running at full speed for so long that it has to slow down to cool off
+* The system spends most of its time swapping pages instead of doing useful work
+- The OS constantly switching between threads, so none of them make progress
+- A disk being defragmented while programs are trying to read from it
+Why: CPU usage drops, so a naive scheduler might add even more processes, making it worse. Fixes include giving processes enough frames for their working sets, or running fewer processes at once.
+
+Q: In a Unix-style file system, what is an inode?
+Topic: File Systems
+- The file's name and the directory it lives in
+* A structure storing a file's metadata (size, owner, permissions, times) and pointers to its data blocks
+- A special file that lists the names of other files, like a folder
+- A backup copy of the file system's metadata, kept in case the main copy is damaged in a crash
+Why: Directory entries map names to inode numbers. That's why hard links work: two names can point to the same inode. Indirect pointers let small inodes describe very large files.
+
+Q: Why do modern file systems use journaling?
+Topic: File Systems
+- To make files smaller by recording only the changes since the last save
+* To keep the file system consistent after a crash by logging changes before applying them
+- To encrypt files so that only their owner can read them
+- To keep a full history of every version of every file so it can be restored
+Why: After a crash, the system replays or discards the journal instead of scanning the whole disk. NTFS, ext4 and APFS all use journaling.
+
+Q: What do the Unix permissions rwxr-x--- mean?
+Topic: File Systems
+- The owner can read and write; the group can execute; others can read
+* The owner can read, write and execute; the group can read and execute; others have no access
+- Everyone can read and execute, but only the owner and group can write to the file
+- The owner and group can read, write and execute; others can only read the file
+Why: The three groups of three are owner, group and others; r is read, w is write and x is execute. In octal this is 750, as in chmod 750 file.
+
+Q: Why is disk scheduling (like SSTF or the elevator algorithm SCAN) used for spinning hard drives?
+Topic: I/O & Storage
+- To spread writes evenly across the disk so that no part of it wears out too early
+* To reorder pending requests and reduce slow movement of the disk head (seek time)
+- To make sure requests are always served in exactly the order they arrived
+- To compress data before it's written so that it takes less time to transfer
+Why: Seeking takes milliseconds, which is ages for a CPU. SCAN sweeps back and forth like an elevator, serving requests along the way. SSDs have no moving head, so these algorithms matter much less for them.
+
+Q: What is a monitor in synchronization?
+Topic: Synchronization
+- A counting semaphore that only allows two threads in at a time
+* A construct bundling shared data with its procedures so one thread is inside at a time, plus condition variables
+- A background thread that watches for deadlocks and kills processes to break them
+- A lock that a thread spins on in a tight loop until another thread releases it and it becomes available
+Why: Java's synchronized methods together with wait() and notify() work like monitors. A condition variable lets a thread wait inside the monitor until some condition becomes true.
+
+Q: When waiting on a condition variable, why should you re-check the condition in a while loop instead of an if?
+Topic: Synchronization
+- A while loop is faster, since the compiler can optimize it better than an if
+* Another thread may change the condition before the woken thread runs, and spurious wakeups happen
+- Condition variables require a loop, or the program won't compile in most languages
+- An if statement would release the lock, while a while loop keeps holding it
+Why: The standard pattern is: while not condition, wait. After waking, the thread must confirm that the condition really holds before going on.
+
+Q: What does the scheduler's "dispatcher" do?
+Topic: CPU Scheduling
+- Picks which process should run next, based on the scheduling policy
+* Gives the CPU to the chosen process: switches context, switches to user mode, and jumps to it
+- Decides how much memory to give each new process when it's created
+- Moves blocked processes back to the ready queue when the I/O they were waiting on finishes
+Why: The scheduler decides; the dispatcher carries out the decision. The time this takes is called dispatch latency, and it should be short.
+
+Q: What is the main purpose of virtualization with a hypervisor?
+Topic: OS Basics
+- Running one program across several physical computers so it can use all of their CPUs
+* Running several isolated operating systems (virtual machines) on one physical computer
+- Running programs written for one CPU type on another by translating each instruction
+- Running each program in its own process so that a crash can't affect others
+Why: Cloud providers run many customers' virtual machines on the same hardware. Containers like Docker are lighter: they share the host's kernel but isolate processes and files.
+
+Q: What is the difference between preemptive and non-preemptive scheduling?
+Topic: CPU Scheduling
+- Preemptive scheduling never switches away from a process; non-preemptive switches on every timer tick
+* Preemptive can take the CPU from a running process (like when its slice ends); non-preemptive waits
+- Non-preemptive scheduling is what most modern desktop operating systems use for user programs
+- There's no real difference; preemptive just means the scheduler runs on a separate core
+Why: Modern operating systems are preemptive, so one misbehaving program can't freeze the whole machine. Round robin is preemptive. Plain first-come, first-served is non-preemptive.
+
+Q: What is the purpose of the TLB in relation to the page table?
+Topic: Memory Management
+- It replaces the page table, so the OS no longer needs to store one in memory
+* It caches recent page-table lookups, so most translations need no extra memory access
+- It stores the pages that were most recently evicted, so they can be brought back quickly
+- It counts page faults so the OS can tell when a process is thrashing
+Why: Each memory access would otherwise need one or more extra memory reads just to translate the address. TLB hits avoid that, and context switches may flush the TLB, which is part of their cost.
+
+Q: What is a zombie process in Unix?
+Topic: Processes
+- A virus that hides by disguising itself as a normal system process
+* A process that has finished, but whose parent hasn't collected its exit status with wait()
+- A process whose parent has exited, so it's adopted by the init process
+- A process that restarts itself automatically after being killed by another user
+Why: The zombie takes up only a process table entry. If the parent dies, init (or systemd) adopts the child and reaps it. Lots of zombies point to a parent program that never calls wait.
+
+Q: What does the working set of a process mean?
+Topic: Virtual Memory
+- All the pages the process will ever use during its lifetime
+* The set of pages it has used recently, which approximates what it needs in memory now
+- The pages it shares with other processes, like shared libraries
+- The pages that are currently swapped out to disk and waiting to be loaded back
+Why: If each process gets enough frames for its working set, page faults stay low. If the total of all working sets exceeds physical memory, the system thrashes.
+
+Q: What is copy-on-write?
+Topic: Memory Management
+- Saving a copy of a file every time it's written, so older versions can be restored
+* Sharing pages between processes until one modifies a page, and only then making a private copy
+- Writing every change to disk twice, so data survives if one write fails
+- Copying the whole program into memory when it starts, so it never page-faults
+Why: It makes fork() fast, since most children immediately call exec() and never touch most of the parent's memory.
+
+# ---- Must-know formulas and facts for this class ----
+
+Q: Must-know: how are turnaround time and waiting time defined in CPU scheduling?
+Topic: Formulas
+* Turnaround = completion − arrival; waiting = turnaround − burst time
+- Turnaround = completion − burst; waiting = completion − arrival
+- Turnaround = burst + arrival; waiting = completion − burst
+- Turnaround = waiting − burst; waiting = arrival − completion
+Why: Turnaround is the whole time from arrival to finish. Waiting is the part of that spent in the ready queue instead of running. Shortest Job First minimizes the average waiting time.
+
+Q: Must-know: what are the five process states in the classic model?
+Topic: Formulas
+* New, ready, running, waiting (blocked), terminated
+- Created, queued, executing, sleeping, killed
+- New, running, paused, swapped, finished
+- Ready, running, waiting, zombie, orphan
+Why: A process moves ready → running when scheduled, running → waiting when it starts I/O, and waiting → ready when the I/O finishes. Preemption moves it from running back to ready.
+
+Q: Must-know: how do you split a virtual address with 4 KB pages?
+Topic: Formulas
+* The low 12 bits are the page offset; the rest is the page number
+- The low 4 bits are the page offset; the rest is the page number
+- The high 12 bits are the page offset; the rest is the page number
+- The low 22 bits are the page offset; the rest is the page number
+Why: 4 KB = 4,096 = 2¹² bytes, so 12 bits address any byte within a page. In a 32-bit address that leaves 20 bits, or about a million possible pages.
+
+Q: Must-know: what is the effective access time with demand paging?
+Topic: Formulas
+* EAT = (1 − p) × memory access time + p × page fault time
+- EAT = p × memory access time + (1 − p) × page fault time
+- EAT = memory access time + page fault time
+- EAT = page fault time / p
+Why: p is the page-fault rate. Page faults take milliseconds while memory takes nanoseconds, so even p = 0.001 can slow memory down by a factor of 100.
+
+Q: Must-know: what are the two semaphore operations, and what do they do?
+Topic: Formulas
+* wait (P) decrements and blocks if the value would go below 0; signal (V) increments and wakes a waiter
+- wait (V) increments and wakes a waiter; signal (P) decrements and blocks if below 0
+- lock acquires a mutex; unlock releases it, with no counter
+- wait blocks forever; signal ends the process
+Why: P and V come from the Dutch words Dijkstra used. A semaphore starting at 1 acts like a mutex, and one starting at N lets N threads in at once.
+
+Q: Must-know: what are the three requirements for a correct critical-section solution?
+Topic: Formulas
+* Mutual exclusion, progress, and bounded waiting
+- Atomicity, consistency, and durability
+- Mutual exclusion, hold and wait, and circular wait
+- Speed, fairness, and simplicity
+Why: Only one thread can be inside at a time, a thread that wants in can't be blocked forever by threads that don't, and there's a limit on how many times others can cut in line.
+
+Q: Must-know: which page replacement algorithm suffers from Belady's anomaly?
+Topic: Formulas
+* FIFO
+- LRU
+- OPT
+- None of them
+Why: With FIFO, giving a process more frames can sometimes cause more page faults. Stack algorithms like LRU and OPT never have this problem.
+
+Q: Must-know: what are the 4 classic disk-scheduling algorithms?
+Topic: Formulas
+* FCFS, SSTF, SCAN (elevator), and C-SCAN
+- FIFO, LRU, OPT, and Clock
+- Round robin, SJF, priority, and multilevel queue
+- RAID 0, RAID 1, RAID 5, and RAID 10
+Why: FCFS is fair but slow, SSTF picks the closest request but can starve far ones, SCAN sweeps back and forth, and C-SCAN sweeps one way for more even waits. SSDs don't need them because they have no moving head.

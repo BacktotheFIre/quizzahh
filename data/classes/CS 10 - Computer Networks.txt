@@ -1,0 +1,388 @@
+# quizzahh question file. The file name is the class name.
+#
+# CS 10: Computer Networks (layers, Ethernet, IP and subnetting, routing, TCP and UDP, DNS, HTTP).
+#
+# Each question looks like this (leave a blank line between questions):
+#
+#   Q: What is the powerhouse of the cell?
+#   Topic: Cells
+#   - Nucleus
+#   * Mitochondria        <- the star marks the correct answer
+#   - Ribosome
+#   - Golgi apparatus
+#   Why: Mitochondria make ATP, the cell's energy.
+#
+# Lines starting with # are ignored.
+
+# Which year of a computer science degree this class usually falls in (used by the year filter):
+Year: 3
+
+Q: What are the layers of the TCP/IP model, from top to bottom?
+Topic: Layers
+- Application, Presentation, Session, Transport, Network, Data Link, Physical
+* Application, Transport, Network (Internet), Link
+- Application, Session, Transport, Link
+- Transport, Application, Network, Physical
+Why: The OSI model has 7 layers: Physical, Data Link, Network, Transport, Session, Presentation, Application. The TCP/IP model merges them into about 4 or 5. Each layer uses the service of the layer below it.
+
+Q: What is encapsulation in networking?
+Topic: Layers
+- Encrypting each packet's payload so that only the receiving host can read it
+* Each layer wraps the data from the layer above with its own header (and sometimes a trailer)
+- Splitting a large message into fixed-size frames that are reassembled by the router
+- Compressing the headers of lower layers so more payload fits in each packet
+Why: HTTP data goes inside a TCP segment, which goes inside an IP packet, which goes inside an Ethernet frame. The receiver unwraps the layers in reverse order.
+
+Q: Which device forwards traffic based on MAC addresses within a local network?
+Topic: Link Layer
+- A router
+* A switch
+- A modem
+- A DNS server
+Why: Switches work at the link layer (layer 2) and learn which MAC address is reachable through which port. Routers work at the network layer (layer 3) and forward IP packets between different networks.
+
+Q: What is a MAC address?
+Topic: Link Layer
+- A 32-bit logical address assigned by DHCP, used to route packets between networks
+* A 48-bit hardware address assigned to a network interface, used for delivery on the local link
+- A 16-bit number that identifies which application on a host should receive the data
+- A 128-bit address that replaces IPv4 so every device can be reached directly
+Why: MAC addresses look like 3C:22:FB:9A:10:7E. They're used only within the local link. IP addresses are used for end-to-end delivery across networks.
+
+Q: What does ARP (Address Resolution Protocol) do?
+Topic: Link Layer
+- Translates a domain name like example.com into the IP address of its server
+* Finds the MAC address that belongs to an IP address on the local network
+- Assigns a free IP address, mask and gateway to a device when it joins
+- Finds the best route to a remote network and adds it to the routing table
+Why: A host broadcasts "Who has 192.168.1.1?" and the owner replies with its MAC address. DNS is the one that maps names to IP addresses.
+
+Q: How many bits are in an IPv4 address and in an IPv6 address?
+Topic: IP Addressing
+- 16 and 32
+* 32 and 128
+- 64 and 128
+- 32 and 64
+Why: IPv4 gives about 4.3 billion addresses, which have run out. IPv6's 128 bits allow about 3.4 × 10 to the 38th. IPv6 addresses are written in hex, like 2001:db8::1.
+
+Q: How many usable host addresses does the subnet 192.168.1.0/24 have?
+Topic: IP Addressing
+- 256
+* 254
+- 255
+- 24
+Why: /24 leaves 32 - 24 = 8 host bits, giving 2⁸ = 256 addresses. Subtract the network address (.0) and the broadcast address (.255), leaving 254 usable.
+
+Q: What is the subnet mask for a /26 network?
+Topic: IP Addressing
+- 255.255.255.0
+* 255.255.255.192
+- 255.255.255.224
+- 255.255.255.128
+Why: 26 network bits means the last octet has 2 network bits set: 11000000 = 128 + 64 = 192. A /26 has 64 addresses, 62 of them usable.
+
+Q: Which of these is a private IPv4 address that can't be routed on the public internet?
+Topic: IP Addressing
+- 8.8.8.8
+* 10.0.0.5
+- 172.217.3.110
+- 151.101.1.69
+Why: The private ranges are 10.0.0.0/8, 172.16.0.0/12 and 192.168.0.0/16. Home networks use them, and a router's NAT translates them to one public address.
+
+Q: What does NAT (network address translation) do on a home router?
+Topic: IP Addressing
+- Gives every device in the house its own public IP address from the ISP's pool
+* Lets many devices with private addresses share one public IP by rewriting addresses and ports
+- Translates the domain names typed in a browser into the IP addresses of servers
+- Converts IPv4 packets into IPv6 packets so older devices can reach newer networks
+Why: NAT helped stretch IPv4's limited address supply. A side effect is that outside devices can't start connections to inside devices unless ports are forwarded.
+
+Q: What does DHCP do?
+Topic: Application Protocols
+- Translates domain names into IP addresses for every device on the local network
+* Automatically gives a joining device an IP address, subnet mask, gateway and DNS server
+- Finds the MAC address that matches a given IP address on the local link
+- Builds routing tables by exchanging path information with neighboring routers
+Why: Without DHCP, every device would need manual configuration. The process is often remembered as DORA: Discover, Offer, Request, Acknowledge.
+
+Q: What does a router use to decide where to send a packet?
+Topic: Routing
+- The destination MAC address, looked up in a table of known hardware addresses
+* Its routing table, picking the entry with the longest prefix matching the destination IP
+- The shortest prefix that matches, so the most general route is always preferred
+- The source IP address, sending replies back along the same path they arrived on
+Why: If 10.1.0.0/16 and 10.1.2.0/24 both match, the more specific /24 wins. A default route, 0.0.0.0/0, catches everything else.
+
+Q: What is the purpose of the TTL (time to live) field in an IP packet?
+Topic: Routing
+- It records the time the packet was sent so the receiver can measure the delay
+* It stops packets looping forever: each router subtracts 1, and the packet is dropped at 0
+- It sets how long the receiver should keep the packet before it is passed to TCP
+- It tells routers how many seconds the connection may stay open before closing
+Why: When TTL hits 0, the router sends back an ICMP "time exceeded" message. traceroute uses this on purpose, with TTL 1, 2, 3 and so on, to discover each router along the path.
+
+Q: What's the difference between TCP and UDP?
+Topic: Transport Layer
+- UDP is connection-oriented and reliable; TCP is connectionless with lower overhead and no guarantees
+* TCP is connection-oriented and reliable, with ordered retransmission; UDP is connectionless with no guarantees
+- TCP is used only for web pages and UDP only for email; otherwise the two protocols are identical
+- Both are reliable, but TCP guarantees order while UDP delivers every packet in whatever order it arrives
+Why: Web pages, email and file transfers use TCP. Video calls, online games, DNS lookups and streaming often use UDP, because a late packet is useless anyway.
+
+Q: What are the three steps of TCP's connection setup (the three-way handshake)?
+Topic: Transport Layer
+* SYN, SYN-ACK, ACK
+- SYN, ACK, FIN
+- ACK, SYN, SYN-ACK
+- SYN, SYN, ACK-FIN
+Why: The client sends SYN with its starting sequence number, the server replies SYN-ACK, and the client confirms with ACK. Closing a connection uses FIN and ACK.
+
+Q: What does a port number identify?
+Topic: Transport Layer
+- The physical jack on the computer that the network cable plugs into
+* Which application or service on a host should receive the data
+- Which router along the path should handle the packet next
+- Which device on the local network the frame should be delivered to
+Why: An IP address gets data to the right machine, and the port gets it to the right program. Common ports: 80 for HTTP, 443 for HTTPS, 22 for SSH, 53 for DNS, and 25 for SMTP.
+
+Q: How does TCP make delivery reliable?
+Topic: Transport Layer
+- By sending each packet along two different paths and keeping whichever copy arrives first
+* With sequence numbers, acknowledgments, retransmission after timeouts, and checksums
+- By encrypting each segment so that routers can't drop or alter it in transit
+- By reserving a fixed amount of bandwidth on every link before sending any data
+Why: The receiver acknowledges what it got. Missing data is resent, and sequence numbers let the receiver reorder segments and discard duplicates.
+
+Q: How is TCP flow control different from congestion control?
+Topic: Transport Layer
+- Flow control keeps the network from overloading; congestion control keeps the receiver's buffer from overflowing
+* Flow control protects the receiver (via the receive window); congestion control protects the network
+- Flow control is used by UDP and congestion control is used by TCP, so they never run together
+- Both are handled entirely by routers, which slow senders down by sending them pause messages
+Why: Congestion control uses a congestion window that grows with slow start and additive increase, and is cut multiplicatively when packet loss signals congestion. That's AIMD: additive increase, multiplicative decrease.
+
+Q: What does DNS do?
+Topic: Application Protocols
+- Automatically assigns IP addresses to devices when they join a network
+* Translates human-friendly domain names like example.com into IP addresses
+- Finds the MAC address belonging to an IP address on the local network
+- Encrypts traffic between your browser and a website using certificates
+Why: Your computer asks a recursive resolver, which may ask a root server, then a TLD server like .com, then the domain's authoritative server. Answers are cached for their TTL to keep lookups fast.
+
+Q: In HTTP, what does a 404 status code mean?
+Topic: Application Protocols
+- Forbidden: the server understood the request but refuses to allow it
+* Not Found: the server can't find the requested resource
+- Internal Server Error: the server crashed while handling the request
+- Moved Permanently: the resource now lives at a different URL
+Why: 2xx means success (200 OK), 3xx means redirect (301 Moved Permanently), 4xx means a client error (404 Not Found, 403 Forbidden), and 5xx means a server error (500 Internal Server Error).
+
+Q: Which HTTP method is normally used to submit a form that creates something on the server?
+Topic: Application Protocols
+- GET
+* POST
+- HEAD
+- TRACE
+Why: GET should only retrieve data and shouldn't change anything. POST sends data in the request body to create or process something. PUT and DELETE update and remove resources in REST APIs.
+
+Q: What does HTTPS add to HTTP?
+Topic: Network Security
+- A faster transfer mode that compresses pages and loads several files at once over UDP
+* Encryption and server authentication using TLS, so others can't read or tamper with traffic
+- A login system that requires users to enter a password before any page can load
+- Error correction that resends any packet the network corrupts on the way
+Why: TLS uses certificates to prove the server's identity, then sets up shared keys to encrypt the session. That's what the padlock in the browser means. It protects data in transit, not on the server.
+
+Q: Bandwidth versus latency: which statement is correct?
+Topic: Performance
+- Latency is how much data per second a link can carry; bandwidth is the delay from one end to the other
+* Bandwidth is how much data per second a link carries; latency is how long a bit takes to cross it
+- They measure the same thing, but bandwidth is used for wired links and latency for wireless ones
+- Higher bandwidth always gives lower latency, because the bits travel faster through a wider link
+Why: Think of a highway: bandwidth is the number of lanes, and latency is the travel time. A satellite link can have high bandwidth but high latency, which hurts online gaming.
+
+Q: How long does it take to transmit a 1,000,000-bit file onto a 10 Mbps link (transmission delay)?
+Topic: Performance
+- 1 second
+* 0.1 seconds
+- 10 seconds
+- 0.01 seconds
+Why: Transmission delay = size ÷ rate = 1,000,000 bits ÷ 10,000,000 bits per second = 0.1 s. Total delay also includes propagation (distance ÷ signal speed), queueing and processing.
+
+Q: What does a firewall do?
+Topic: Network Security
+- Speeds up downloads by caching frequently visited sites close to users
+* Filters traffic by rules, allowing or blocking connections by address, port and protocol
+- Hands out IP addresses and DNS settings to devices when they connect
+- Translates private addresses into one public address for the whole network
+Why: Firewalls can run on routers, servers or your own PC. Blocking all incoming connections by default and allowing only what's needed follows the principle of least privilege.
+
+Q: What is a socket in network programming?
+Topic: Application Protocols
+- A hardware port on the network card that a cable plugs into
+* A communication endpoint, identified by an IP address and port, that programs read and write
+- A small program on the router that forwards packets between separate networks
+- A record in the DNS that maps a domain name to a server
+Why: A server creates a socket, binds it to a port, listens, and accepts connections. A client connects to the server's IP address and port, and both sides then send and receive bytes.
+
+Q: What does the ping command use to check whether a host is reachable?
+Topic: Routing
+- A TCP connection to port 80, checking whether a web server answers
+* ICMP echo request and echo reply messages
+- A DNS query that checks whether the host's name resolves
+- An ARP broadcast asking which device owns the IP address
+Why: ping also measures round-trip time. Some hosts block ICMP for security, so a failed ping doesn't always mean the host is down.
+
+Q: Why do websites use CDNs (content delivery networks)?
+Topic: Performance
+- To translate domain names quickly by keeping a copy of every DNS record nearby
+* To serve copies of content from servers close to users, cutting latency and spreading load
+- To encrypt traffic between browsers and websites without needing certificates
+- To give each website one central server so that every user sees the same version
+Why: A visitor in Japan gets images from a nearby Tokyo server instead of one in Virginia. CDNs also absorb traffic spikes and help resist DDoS attacks.
+
+Q: What is the default gateway on a host's network settings?
+Topic: Routing
+- The DNS server the host asks when it needs to translate a name into an address
+* The router the host sends packets to when the destination is outside its subnet
+- The address of the switch port that the host's cable is plugged into
+- The first address in the subnet, which identifies the network itself
+Why: For destinations on the same subnet, the host delivers directly using ARP. For everything else, it sends the frame to the gateway's MAC address and the router takes it from there.
+
+Q: TCP is "connection-oriented." What does that mean?
+Topic: Transport Layer
+- It requires a physical cable between the two hosts and can't run over Wi-Fi
+* The ends set up shared state (sequence numbers, windows) with a handshake before sending data
+- It reserves a fixed path through the routers that every packet must follow
+- It sends each packet to every host on the network, and only the target keeps it
+Why: UDP just sends datagrams with no setup, which is good for quick request and reply exchanges like DNS.
+
+Q: What is head-of-line blocking in TCP?
+Topic: Transport Layer
+- A router always drops the first packet of a new connection to protect against floods
+* A lost segment holds up later segments that already arrived, since TCP delivers bytes in order
+- The first connection to a server blocks all other clients until it finishes
+- A firewall rejects packets whose headers are larger than the first packet's
+Why: This is one reason HTTP/3 runs over QUIC, which is built on UDP and keeps separate streams independent, so one lost packet doesn't stall every stream.
+
+Q: Which wireless standard family is "Wi-Fi"?
+Topic: Link Layer
+- IEEE 802.3
+* IEEE 802.11
+- Bluetooth 5
+- IEEE 1394
+Why: Ethernet is 802.3. Wi-Fi uses a medium-access method called CSMA/CA, collision avoidance, because a radio can't reliably detect collisions while it is transmitting.
+
+Q: What is the purpose of a checksum in a packet header?
+Topic: Transport Layer
+- Encrypting the payload so it can't be read in transit
+* Detecting whether the bits were corrupted in transit
+- Recording the path of routers the packet passed through
+- Putting packets back in order at the receiver
+Why: The sender computes a value from the data, and the receiver recomputes it. A mismatch means the packet is discarded. TCP then retransmits it; UDP simply drops it.
+
+Q: What does it mean that HTTP is "stateless"?
+Topic: Application Protocols
+- It can't carry headers, so all information must be placed in the URL
+* Each request stands alone; the server doesn't remember earlier ones, so cookies or tokens track sessions
+- It doesn't use TCP, so requests can be lost without the client ever knowing
+- The server keeps a copy of every request it receives, so clients never need to send cookies
+Why: Logging in sets a session cookie that your browser sends with every later request. That's how a site "remembers" you.
+
+Q: Which layer is responsible for getting packets from one network to another, end to end?
+Topic: Layers
+- Physical layer
+- Link layer
+* Network layer
+- Application layer
+Why: The network layer (IP) handles addressing and routing across many networks. The link layer only moves frames across one link, from one device to the next.
+
+Q: A host has IP 192.168.10.37/27. What is its network address?
+Topic: IP Addressing
+- 192.168.10.0
+* 192.168.10.32
+- 192.168.10.36
+- 192.168.10.37
+Why: A /27 means blocks of 32 addresses in the last octet: 0, 32, 64 and so on. 37 falls in the 32 to 63 block, so the network address is .32 and the broadcast address is .63.
+
+Q: What is DNS caching, and why is it useful?
+Topic: Application Protocols
+- Storing copies of web pages so a site still loads when its server is down
+* Resolvers remember recent lookups for a set time (the record's TTL), avoiding repeat queries
+- Keeping a backup of a domain's registration in case its owner forgets to renew it
+- Saving the IP addresses of blocked sites so the firewall can reject them faster
+Why: Caching keeps lookups fast and reduces load on DNS servers. It also explains why a changed DNS record can take time to reach everyone.
+
+Q: What problem does the SYN flood attack exploit?
+Topic: Network Security
+- Sending huge files that fill up the server's disk until it can't accept new data
+* Servers reserve resources for each half-open connection; the attacker never finishes the handshake
+- Weak Wi-Fi passwords that let attackers join the network and read unencrypted traffic
+- Expired TLS certificates that browsers accept without warning the user
+Why: Defenses include SYN cookies, which encode the connection state in the sequence number so the server stores nothing until the final ACK arrives.
+
+# ---- Must-know formulas and facts for this class ----
+
+Q: Must-know: what are the 7 layers of the OSI model, from bottom to top?
+Topic: Formulas
+* Physical, Data Link, Network, Transport, Session, Presentation, Application
+- Physical, Network, Data Link, Transport, Session, Application, Presentation
+- Application, Presentation, Session, Transport, Network, Data Link, Physical
+- Physical, Data Link, Transport, Network, Presentation, Session, Application
+Why: A common memory trick, from the bottom up, is "Please Do Not Throw Sausage Pizza Away." The third option lists the layers from top to bottom instead.
+
+Q: Must-know: how many usable hosts does a subnet with prefix /n have?
+Topic: Formulas
+* 2^(32 − n) − 2
+- 2^n − 2
+- 2^(32 − n)
+- 32 − n
+Why: 32 − n bits are left for hosts. You subtract 2 for the network address and the broadcast address. A /26 has 2⁶ − 2 = 62 usable hosts.
+
+Q: Must-know: what is the transmission delay for a packet of L bits on a link with bandwidth R bits per second?
+Topic: Formulas
+* L / R
+- R / L
+- L × R
+- distance / propagation speed
+Why: Transmission delay is how long it takes to push all the bits onto the wire. distance / speed is the propagation delay, which is how long one bit takes to travel across.
+
+Q: Must-know: what is the maximum throughput of a TCP connection limited by its window size?
+Topic: Formulas
+* window size / round-trip time
+- window size × round-trip time
+- bandwidth / window size
+- round-trip time / window size
+Why: TCP can send one window of data per round trip. A 64 KB window over a 100 ms RTT caps the speed at about 5 Mbps, however fast the link is.
+
+Q: Must-know: what are the default port numbers for HTTP, HTTPS, SSH and DNS?
+Topic: Formulas
+* 80, 443, 22, and 53
+- 8080, 443, 21, and 25
+- 80, 8443, 23, and 67
+- 443, 80, 22, and 25
+Why: Other common ones are FTP 21, SMTP 25, Telnet 23 and DHCP 67/68. Ports below 1024 are "well-known" ports reserved for standard services.
+
+Q: Must-know: what are the private IPv4 address ranges?
+Topic: Formulas
+* 10.0.0.0/8, 172.16.0.0/12, and 192.168.0.0/16
+- 10.0.0.0/16, 172.0.0.0/8, and 192.168.0.0/24
+- 127.0.0.0/8, 169.254.0.0/16, and 192.168.0.0/16
+- 1.0.0.0/8, 100.0.0.0/8, and 200.0.0.0/8
+Why: These aren't routed on the public internet, so home networks reuse them behind NAT. 127.0.0.0/8 is loopback (localhost), and 169.254.0.0/16 is link-local.
+
+Q: Must-know: what are the four steps of DHCP?
+Topic: Formulas
+* Discover, Offer, Request, Acknowledge (DORA)
+- Request, Offer, Accept, Confirm
+- SYN, SYN-ACK, ACK, FIN
+- Discover, Assign, Confirm, Release
+Why: The client broadcasts Discover, servers reply with Offers, the client Requests one, and the server Acknowledges it. Many students remember it as "DORA."
+
+Q: Must-know: what are the sizes of an IPv4 address, an IPv6 address, and a MAC address?
+Topic: Formulas
+* 32 bits, 128 bits, and 48 bits
+- 32 bits, 64 bits, and 32 bits
+- 64 bits, 128 bits, and 48 bits
+- 16 bits, 128 bits, and 64 bits
+Why: IPv4's 32 bits give only about 4.3 billion addresses, which ran out. IPv6's 128 bits give about 3.4 × 10³⁸. MAC addresses are written as six pairs of hex digits.

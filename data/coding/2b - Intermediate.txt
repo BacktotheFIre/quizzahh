@@ -1,0 +1,227 @@
+# More Tier 2 (Intermediate) problems.
+
+=== Matrix Toolkit
+Class: Math 5 - Linear Algebra
+Tier: 2
+Minutes: 30
+--- prompt
+Represent a matrix as a list of rows, like [[1, 2], [3, 4]]. Without using any libraries, write:
+
+transpose(m): swaps rows and columns.
+
+mat_mul(a, b): the matrix product a × b. If the inner sizes don't match (columns of a ≠ rows of b), raise ValueError.
+
+identity(n): the n × n identity matrix.
+
+    transpose([[1, 2, 3], [4, 5, 6]])   ->  [[1, 4], [2, 5], [3, 6]]
+    mat_mul([[1, 2], [3, 4]], [[0, 1], [1, 0]])  ->  [[2, 1], [4, 3]]
+
+This is the same row-times-column rule from Linear Algebra, now as code.
+--- starter
+def transpose(m):
+    pass
+
+def mat_mul(a, b):
+    pass
+
+def identity(n):
+    pass
+--- tests
+transpose([[1, 2, 3], [4, 5, 6]]) == [[1, 4], [2, 5], [3, 6]]
+transpose([[7]]) == [[7]]
+mat_mul([[1, 2], [3, 4]], [[0, 1], [1, 0]]) == [[2, 1], [4, 3]]
+mat_mul([[1, 2, 3]], [[4], [5], [6]]) == [[32]]
+mat_mul([[2, 0], [0, 2]], identity(2)) == [[2, 0], [0, 2]]
+identity(3) == [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
+raises(ValueError, mat_mul, [[1, 2]], [[1, 2]])
+len(mat_mul([[1] * 3] * 2, [[1] * 4] * 3)) == 2 and len(mat_mul([[1] * 3] * 2, [[1] * 4] * 3)[0]) == 4
+--- hint
+Entry (i, j) of a × b is the dot product of row i of a with column j of b: sum(a[i][k] * b[k][j] for k in range(len(b))). Build the result with nested loops over i (rows of a) and j (columns of b).
+--- solution
+def transpose(m):
+    return [[m[r][c] for r in range(len(m))] for c in range(len(m[0]))]
+
+def mat_mul(a, b):
+    if len(a[0]) != len(b):
+        raise ValueError("inner sizes don't match")
+    return [[sum(a[i][k] * b[k][j] for k in range(len(b))) for j in range(len(b[0]))] for i in range(len(a))]
+
+def identity(n):
+    return [[1 if i == j else 0 for j in range(n)] for i in range(n)]
+
+=== Run-Length Encoding
+Class: CS 2 - Fundamentals
+Tier: 2
+Minutes: 25
+--- prompt
+Run-length encoding is a simple compression method: "aaabccdddd" becomes "3a1b2c4d", where each run of the same character turns into its length followed by the character.
+
+Write encode(text) and decode(code). Runs can be longer than 9, so "a" twelve times encodes as "12a", and decode has to read multi-digit numbers. You can assume the original text has no digits in it.
+
+    encode("aaabccdddd")  ->  "3a1b2c4d"
+    decode("12a1b")       ->  "aaaaaaaaaaaab"
+    decode(encode(x)) == x for any text x without digits
+--- starter
+def encode(text):
+    pass
+
+def decode(code):
+    pass
+--- tests
+encode("aaabccdddd") == "3a1b2c4d"
+encode("") == ""
+encode("a") == "1a"
+encode("abc") == "1a1b1c"
+encode("a" * 12) == "12a"
+decode("3a1b2c4d") == "aaabccdddd"
+decode("12a1b") == "a" * 12 + "b"
+decode("") == ""
+decode(encode("hello  world!!")) == "hello  world!!"
+--- hint
+For encode, walk through the text keeping the current character and a counter; when the character changes, write out count + char and reset. Don't forget the last run after the loop. For decode, collect digits into a number string until you hit a non-digit, then repeat that character int(number) times.
+--- solution
+def encode(text):
+    if not text:
+        return ""
+    out = []
+    cur, count = text[0], 1
+    for ch in text[1:]:
+        if ch == cur:
+            count += 1
+        else:
+            out.append(str(count) + cur)
+            cur, count = ch, 1
+    out.append(str(count) + cur)
+    return "".join(out)
+
+def decode(code):
+    out = []
+    num = ""
+    for ch in code:
+        if ch.isdigit():
+            num += ch
+        else:
+            out.append(ch * int(num))
+            num = ""
+    return "".join(out)
+
+=== Tic-Tac-Toe Referee
+Class: CS 4 - Programming I (Python)
+Tier: 2
+Minutes: 35
+--- prompt
+A tic-tac-toe board is a list of 3 strings, each 3 characters long, using "X", "O" and "." for empty:
+
+    ["XOX",
+     ".XO",
+     "O.X"]
+
+Write winner(board), which returns "X" or "O" if that player has three in a row (any row, column or diagonal), "draw" if the board is full with no winner, and "playing" otherwise.
+
+Then write is_valid(board), which checks that the board could happen in a real game where X always goes first: X's count is equal to O's count or one more, and both players can't have won at once.
+--- starter
+def winner(board):
+    pass
+
+def is_valid(board):
+    pass
+--- tests
+winner(["XOX", ".XO", "O.X"]) == "X"
+winner(["OOO", "XX.", "X.."]) == "O"
+winner(["XO.", "XO.", "X.."]) == "X"
+winner(["..O", ".O.", "OXX"]) == "O"
+winner(["XOX", "XOO", "OXX"]) == "draw"
+winner(["X..", "...", "..."]) == "playing"
+winner(["...", "...", "..."]) == "playing"
+is_valid(["X..", "...", "..."]) == True
+is_valid(["O..", "...", "..."]) == False
+is_valid(["XXX", "OOO", "..."]) == False
+is_valid(["XOX", "XOO", "OXX"]) == True
+--- hint
+List all 8 lines as lists of (row, col) positions: 3 rows, 3 columns, 2 diagonals. For each line, look up the three characters and check whether they're all "X" or all "O". Count characters with "".join(board).count("X").
+--- solution
+LINES = [[(r, 0), (r, 1), (r, 2)] for r in range(3)] + \
+        [[(0, c), (1, c), (2, c)] for c in range(3)] + \
+        [[(0, 0), (1, 1), (2, 2)], [(0, 2), (1, 1), (2, 0)]]
+
+def _wins(board, p):
+    return any(all(board[r][c] == p for r, c in line) for line in LINES)
+
+def winner(board):
+    for p in "XO":
+        if _wins(board, p):
+            return p
+    if "." not in "".join(board):
+        return "draw"
+    return "playing"
+
+def is_valid(board):
+    cells = "".join(board)
+    x, o = cells.count("X"), cells.count("O")
+    if not (x == o or x == o + 1):
+        return False
+    if _wins(board, "X") and _wins(board, "O"):
+        return False
+    return True
+
+=== Student Roster with Sets
+Class: CS 11 - Databases & SQL
+Tier: 2
+Minutes: 25
+--- prompt
+Each course roster is a dictionary from course name to a list of student names, like {"CS1": ["Ana", "Ben"], "MATH1": ["Ben", "Cal"]}.
+
+Write:
+
+in_both(rosters, c1, c2): a sorted list of students in BOTH courses (like an SQL INNER JOIN on students).
+
+in_either(rosters, c1, c2): a sorted list of students in at least one of them.
+
+only_in(rosters, c1, c2): a sorted list of students in c1 but not c2.
+
+course_load(rosters): a dict from each student to how many courses they're in.
+
+If a course name doesn't exist, treat it as an empty roster.
+--- starter
+def in_both(rosters, c1, c2):
+    pass
+
+def in_either(rosters, c1, c2):
+    pass
+
+def only_in(rosters, c1, c2):
+    pass
+
+def course_load(rosters):
+    pass
+--- tests
+> R = {"CS1": ["Ana", "Ben", "Dee"], "MATH1": ["Ben", "Cal", "Dee"], "ENG1": ["Ana"]}
+in_both(R, "CS1", "MATH1") == ["Ben", "Dee"]
+in_either(R, "CS1", "MATH1") == ["Ana", "Ben", "Cal", "Dee"]
+only_in(R, "CS1", "MATH1") == ["Ana"]
+only_in(R, "MATH1", "CS1") == ["Cal"]
+in_both(R, "CS1", "NOPE") == []
+in_either(R, "NOPE", "ENG1") == ["Ana"]
+course_load(R) == {"Ana": 2, "Ben": 2, "Dee": 2, "Cal": 1}
+course_load({}) == {}
+--- hint
+Turn each roster into a set with set(rosters.get(name, [])). Then & is intersection, | is union and - is difference. sorted() turns a set back into a sorted list.
+--- solution
+def _s(rosters, c):
+    return set(rosters.get(c, []))
+
+def in_both(rosters, c1, c2):
+    return sorted(_s(rosters, c1) & _s(rosters, c2))
+
+def in_either(rosters, c1, c2):
+    return sorted(_s(rosters, c1) | _s(rosters, c2))
+
+def only_in(rosters, c1, c2):
+    return sorted(_s(rosters, c1) - _s(rosters, c2))
+
+def course_load(rosters):
+    load = {}
+    for course, students in rosters.items():
+        for s in students:
+            load[s] = load.get(s, 0) + 1
+    return load

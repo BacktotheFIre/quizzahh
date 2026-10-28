@@ -1,0 +1,418 @@
+# quizzahh question file. The file name is the class name.
+#
+# CS 6: Data Structures (lists, stacks, queues, hash tables, trees, heaps, graphs).
+#
+# Each question looks like this (leave a blank line between questions):
+#
+#   Q: What is the powerhouse of the cell?
+#   Topic: Cells
+#   - Nucleus
+#   * Mitochondria        <- the star marks the correct answer
+#   - Ribosome
+#   - Golgi apparatus
+#   Why: Mitochondria make ATP, the cell's energy.
+#
+# Lines starting with # are ignored.
+
+# Which year of a computer science degree this class usually falls in (used by the year filter):
+Year: 2
+
+Q: What does O(n) mean for an algorithm's running time?
+Topic: Big-O Review
+- It always takes exactly n steps, no more and no less, on every input of size n
+* Its running time grows at most proportionally to the input size n, for large n
+- It runs in about n seconds on a typical computer
+- Its running time grows at least as fast as n, even on the best input
+Why: Big-O describes an upper bound on growth, ignoring constant factors and smaller terms. 3n + 50 is O(n). Doubling the input roughly doubles the work.
+
+Q: Order these from slowest-growing to fastest-growing: O(n²), O(1), O(n log n), O(log n), O(n), O(2ⁿ).
+Topic: Big-O Review
+- O(1), O(n), O(log n), O(n log n), O(n²), O(2ⁿ)
+* O(1), O(log n), O(n), O(n log n), O(n²), O(2ⁿ)
+- O(log n), O(1), O(n), O(n²), O(n log n), O(2ⁿ)
+- O(1), O(log n), O(n log n), O(n), O(2ⁿ), O(n²)
+Why: Constant, logarithmic, linear, linearithmic, quadratic, exponential. Exponential algorithms become impossible quickly: 2 to the 60th steps would take years.
+
+Q: What is the Big-O of this code?
+for i in range(n):
+    for j in range(n):
+        total += 1
+Topic: Big-O Review
+- O(n)
+* O(n²)
+- O(2n)
+- O(log n)
+Why: The inner loop runs n times for each of the n outer passes, which is n times n steps. Nested loops over the same input are the classic sign of quadratic time.
+
+Q: What is the Big-O of this loop?
+i = n
+while i > 1:
+    i = i // 2
+Topic: Big-O Review
+- O(n)
+* O(log n)
+- O(n log n)
+- O(√n)
+Why: Halving n repeatedly reaches 1 after about log₂ n steps. Anything that cuts the problem in half each step, like binary search, is logarithmic.
+
+Q: Accessing arr[i] in an array takes how long?
+Topic: Arrays & Linked Lists
+* O(1), because the address can be computed directly from the index
+- O(n), because the computer has to walk from the start of the array to index i
+- O(log n), because the index is found with a binary search over the addresses
+- It depends on the size of the value stored at that index
+Why: Arrays store elements next to each other in memory, so the address is start + i × (size of one element). That's called random access. Linked lists can't do this.
+
+Q: What is the cost of inserting at the FRONT of an array-based list with n elements?
+Topic: Arrays & Linked Lists
+- O(1), since only one new slot is written at the front
+* O(n), because every element must shift over by one
+- O(log n), since the shifting can be done in halves
+- O(1) amortized, since the array is resized only occasionally
+Why: Inserting or deleting at the front or middle of an array means moving the elements after it. Inserting at the front of a linked list is O(1): just make a new node point to the old head.
+
+Q: Why is appending to a dynamic array (like a Python list or Java ArrayList) called "amortized O(1)"?
+Topic: Arrays & Linked Lists
+- Every append is instant, because the array always reserves room for a million extra items up front
+* When full, the array is copied into a bigger one (O(n)), but doubling keeps the average cost constant
+- Each append costs O(log n), which is so small that it's rounded down to O(1)
+- The array grows by one slot at a time, so each append copies only one element
+Why: If capacity doubles each time, the total copying over n appends is about 2n, which averages to O(1) per append even though single appends are occasionally slow.
+
+Q: What is a singly linked list?
+Topic: Arrays & Linked Lists
+- An array whose elements are kept sorted in one direction, smallest to largest
+* A chain of nodes where each holds a value and a reference to the next node
+- A chain of nodes where each holds references to both the next and previous nodes
+- A list stored in one contiguous block of memory, like an array
+Why: The list keeps a reference to the head node, and the last node points to null. Doubly linked lists also store a reference to the previous node, which makes deletion and backward traversal easier.
+
+Q: What is the time to find a value in an unsorted linked list of n nodes?
+Topic: Arrays & Linked Lists
+- O(1)
+- O(log n)
+* O(n)
+- O(n log n)
+Why: You have to walk from the head one node at a time. Even a sorted linked list can't be binary searched efficiently, because you can't jump to the middle.
+
+Q: A stack follows which ordering rule?
+Topic: Stacks & Queues
+* Last in, first out (LIFO)
+- First in, first out (FIFO)
+- Sorted order
+- Random order
+Why: push adds to the top and pop removes from the top, like a stack of plates. Uses include the call stack, undo, matching parentheses, and depth-first search.
+
+Q: Starting with an empty stack: push 1, push 2, pop, push 3, push 4, pop, pop. What remains?
+Topic: Stacks & Queues
+- [3]
+* [1]
+- [1, 2]
+- It's empty
+Why: After push 1 and push 2, pop removes 2. Push 3 and 4 gives [1, 3, 4]. Two pops remove 4, then 3, leaving [1].
+
+Q: Which data structure checks whether the brackets in "{[()]}" are balanced most naturally?
+Topic: Stacks & Queues
+- A queue
+* A stack
+- A heap
+- A hash table
+Why: Push each opening bracket. On each closing bracket, pop and check that it matches. The string is balanced if every pop matches and the stack is empty at the end.
+
+Q: A queue follows which ordering rule?
+Topic: Stacks & Queues
+- Last in, first out (LIFO)
+* First in, first out (FIFO)
+- Highest priority first
+- Smallest value first
+Why: enqueue adds to the back and dequeue removes from the front, like a line at a store. Queues are used in breadth-first search, print jobs and task scheduling.
+
+Q: Why is a circular array (ring buffer) used to implement a queue?
+Topic: Stacks & Queues
+- It keeps the items sorted as they're added, so the smallest is always at the front
+* A plain array would shift everything on dequeue (O(n)); wrapping the indexes keeps both ends O(1)
+- It uses less memory than any other queue, since it never needs to store an index
+- Queues are circular by definition, so any other structure would break FIFO order
+Why: The front and back indexes advance with modulo arithmetic: back = (back + 1) % capacity.
+
+Q: What does a hash function do in a hash table?
+Topic: Hash Tables
+- Sorts the keys so that they can be found with binary search
+* Turns a key into an index (bucket) where the value is stored
+- Encrypts the key so that other programs can't read it
+- Counts how many times each key has been inserted
+Why: index = hash(key) % table_size. A good hash function spreads keys evenly, which gives average O(1) insert, lookup and delete.
+
+Q: What is a collision in a hash table?
+Topic: Hash Tables
+- The table fills up and has to be resized
+* Two different keys hash to the same bucket
+- The same key is inserted into the table twice
+- A key hashes to an index beyond the end of the table
+Why: Collisions are unavoidable. Separate chaining keeps a list in each bucket. Open addressing, such as linear probing, looks for the next free slot.
+
+Q: What is the load factor of a hash table, and why does it matter?
+Topic: Hash Tables
+- The number of hash functions used, where more functions spread keys better
+* Entries divided by buckets; when it's too high, collisions rise and the table should resize
+- The time it takes to compute a key's hash, which grows as the keys get longer
+- The size of the largest bucket, which decides the worst-case lookup time
+Why: Many implementations resize (rehash into about twice as many buckets) when the load factor passes around 0.75, keeping operations fast on average.
+
+Q: What is the worst-case lookup time in a hash table with chaining?
+Topic: Hash Tables
+- O(1)
+- O(log n)
+* O(n), if every key lands in the same bucket
+- O(n log n), if the bucket has to be sorted first
+Why: The O(1) is an average that depends on a good hash function. A terrible hash, or an attacker choosing keys on purpose, can pile everything into one long chain.
+
+Q: In a binary tree, what is a leaf?
+Topic: Trees
+- The root node
+* A node with no children
+- A node with exactly one child
+- The tallest path
+Why: The root is the top node. Height is the number of edges on the longest path from the root down to a leaf. Each node in a binary tree has at most two children.
+
+Q: What property defines a binary search tree (BST)?
+Topic: Binary Search Trees
+- Every node has exactly two children, except the leaves
+* For every node, its left subtree is all smaller and its right subtree all larger
+- Every parent is smaller than its children, so the smallest value is at the root
+- The tree is always perfectly balanced, so every leaf is at the same depth
+Why: This ordering lets search skip half of the remaining tree at each step, like binary search, when the tree is balanced.
+
+Q: Insert 50, 30, 70, 20, 40 into an empty BST in that order. Which node is the left child of 30?
+Topic: Binary Search Trees
+* 20
+- 40
+- 70
+- 50
+Why: 50 becomes the root. 30 goes left of 50, and 70 goes right. 20 is less than 50 and less than 30, so it becomes 30's left child. 40 is less than 50 but greater than 30, so it becomes 30's right child.
+
+Q: What is the worst-case search time in a plain (unbalanced) BST with n nodes?
+Topic: Binary Search Trees
+- O(1)
+- O(log n)
+* O(n)
+- O(n log n)
+Why: Inserting already-sorted data, like 1, 2, 3, 4, 5, creates a tree that's really a linked list, with height n. Balanced trees like AVL and red-black trees keep the height O(log n).
+
+Q: Which traversal of a BST visits the values in sorted order?
+Topic: Tree Traversals
+- Preorder
+* Inorder
+- Postorder
+- Level order
+Why: Inorder means left subtree, then the node, then the right subtree. Preorder (node first) is used to copy a tree. Postorder (node last) is used to delete one. Level order uses a queue.
+
+Q: For a tree with root A, left child B and right child C, where B has children D (left) and E (right), what is the preorder traversal?
+Topic: Tree Traversals
+- D B E A C
+* A B D E C
+- D E B C A
+- A B C D E
+Why: Preorder means node, left, right: A, then B's subtree (B, D, E), then C. Inorder would be D B E A C. Postorder would be D E B C A. Level order would be A B C D E.
+
+Q: When deleting a BST node that has two children, what usually replaces it?
+Topic: Binary Search Trees
+- Its parent, which moves down to take the deleted node's position
+* Its inorder successor (smallest in its right subtree) or its inorder predecessor
+- Its left child, always, with the right subtree attached below it
+- The largest value in its right subtree, which keeps the BST order
+Why: Copy the successor's value into the node, then delete the successor, which has at most one child. That keeps the BST ordering intact.
+
+Q: What does an AVL tree guarantee?
+Topic: Balanced Trees
+- Every level is completely full except possibly the last
+* For every node, the left and right subtree heights differ by at most 1
+- All leaves are at exactly the same depth
+- Every path from root to leaf has the same number of black nodes
+Why: After an insert or delete, rotations restore balance, keeping the height O(log n). That makes search, insert and delete O(log n) even in the worst case. Red-black trees use a looser rule.
+
+Q: What is a binary heap (min-heap)?
+Topic: Heaps & Priority Queues
+- A binary search tree stored in an array, with smaller values always on the left
+* A complete binary tree where each parent ≤ its children, so the minimum is at the root
+- A sorted array, where the smallest value is always kept at index 0
+- A complete binary tree where each parent ≥ its children, so the minimum is a leaf
+Why: Heaps implement priority queues. Get-min is O(1). Insert and remove-min are O(log n): the new or moved element "bubbles" up or down the tree's height.
+
+Q: In an array-based heap with 0-based indexing, where are the children of the node at index i?
+Topic: Heaps & Priority Queues
+- i + 1 and i + 2
+* 2i + 1 and 2i + 2
+- 2i and 2i + 1
+- 2i − 1 and 2i
+Why: The parent of i is at (i - 1) // 2. Because a heap is a complete tree, it fits in an array with no gaps and no pointers.
+
+Q: How long does it take to build a heap from n unsorted items using the bottom-up "heapify" method?
+Topic: Heaps & Priority Queues
+- O(n log n)
+* O(n)
+- O(log n)
+- O(n²)
+Why: Most nodes are near the bottom and only sift down a short distance. The total work adds up to linear time, which is a classic surprising result. Inserting items one at a time would take O(n log n).
+
+Q: Which structure is best for always getting the next most urgent task?
+Topic: Heaps & Priority Queues
+- A stack
+- A queue
+* A priority queue (heap)
+- A sorted linked list
+Why: Priority queues are used in CPU schedulers, Dijkstra's shortest path algorithm, event simulations, and Huffman coding.
+
+Q: What is the difference between an adjacency matrix and an adjacency list for a graph?
+Topic: Graphs
+- A list uses V² space and checks any edge in O(1); a matrix uses V + E space and suits sparse graphs
+* A matrix uses V² space and checks any edge in O(1); a list uses V + E space and suits sparse graphs
+- They're identical in space and time, but adjacency lists can't store edge weights
+- A matrix only works for trees, while lists work for any graph, directed or not
+Why: Most real graphs, like social networks or road maps, are sparse, so adjacency lists are the usual choice. A matrix suits dense graphs, or when you need constant-time edge checks.
+
+Q: Breadth-first search (BFS) uses which data structure to decide which node to visit next?
+Topic: Graphs
+- A stack
+* A queue
+- A heap
+- A hash table only
+Why: BFS explores level by level, finding the shortest path in edges in an unweighted graph. Depth-first search (DFS) uses a stack, or recursion, and goes deep before backtracking. Both are O(V + E).
+
+Q: Why do BFS and DFS keep a "visited" set?
+Topic: Graphs
+- To keep the nodes sorted in the order they'll be visited
+* To avoid processing a node twice and getting stuck in cycles
+- To remember the shortest distance found to each node so far
+- They don't need one, since each edge is followed only once
+Why: Without a visited set, a graph with a cycle like A to B to A would loop forever. Trees don't have cycles, but general graphs often do.
+
+Q: What is a directed acyclic graph (DAG) commonly used for?
+Topic: Graphs
+- Representing friendships, where every connection goes both ways
+* Representing dependencies, like course prerequisites, which can be ordered with a topological sort
+- Representing road maps, where cycles are needed so you can return to where you started
+- Storing numbers so they can be searched in sorted order
+Why: A topological sort lists the nodes so every edge points forward, for example taking CS 1 before CS 2. That's only possible when there are no cycles.
+
+Q: What is a trie (prefix tree) especially good for?
+Topic: Other Structures
+- Sorting numbers in linear time by their digits
+* Storing words so words and prefixes can be looked up quickly, as in autocomplete
+- Finding the shortest paths between cities on a map, one letter at a time
+- Storing key-value pairs with O(1) lookups by hashing
+Why: Each edge is a letter, and each path from the root spells a prefix. Looking up a word of length L takes O(L) no matter how many words are stored.
+
+Q: What does a union-find (disjoint set) structure do?
+Topic: Other Structures
+- Sorts the elements of each set and merges two sorted sets in linear time
+* Tracks which items are in the same group, with fast union (merge) and find (which group?)
+- Stores key-value pairs in sorted order, with fast insert and delete
+- Finds the shortest path between two items by repeatedly merging their neighbor sets
+Why: With union by rank and path compression, each operation is nearly O(1). Kruskal's minimum spanning tree algorithm uses it to detect cycles.
+
+Q: Which structure would you choose to implement "undo" in a text editor?
+Topic: Stacks & Queues
+* A stack of previous actions
+- A queue of previous actions
+- A hash table of previous actions
+- A min-heap of previous actions
+Why: The most recent action is undone first: last in, first out. A second stack can hold redo actions.
+
+Q: Which operation is O(1) on a doubly linked list but O(n) on a singly linked list (given a reference to the node)?
+Topic: Arrays & Linked Lists
+- Inserting at the head
+* Deleting that node
+- Reading the head's value
+- Inserting after that node
+Why: To delete a node from a singly linked list you need its predecessor, which requires walking from the head. In a doubly linked list the node already knows its previous node.
+
+Q: You need fast lookups by key AND the keys kept in sorted order (for example, to list them alphabetically). Which is the best fit?
+Topic: Other Structures
+- A hash table, which keeps its keys in sorted order automatically
+* A balanced binary search tree, like a TreeMap
+- A sorted array, which gives O(1) inserts
+- A min-heap, which keeps every key in order
+Why: A balanced BST gives O(log n) operations plus in-order traversal. A hash table is faster on average but has no ordering.
+
+Q: What is the height of a complete binary tree with n nodes?
+Topic: Trees
+- About n
+* About log₂ n
+- About n / 2
+- About √n
+Why: Each level doubles the number of nodes, so n nodes fit in about log₂ n levels. That's why heap operations are O(log n).
+
+Q: Which is the best data structure for checking whether you've seen a value before, among millions of values?
+Topic: Hash Tables
+- An unsorted list
+- A sorted linked list
+* A hash set
+- A stack
+Why: A hash set gives average O(1) membership tests. A list would take O(n) per check, so millions of checks would be far too slow.
+
+# ---- Must-know formulas and facts for this class ----
+
+Q: Must-know: what are the time costs of a dynamic array (ArrayList): get by index, append, and insert at the front?
+Topic: Must-Know Facts
+* O(1), amortized O(1), and O(n)
+- O(n), O(1), and O(1)
+- O(1), O(n), and O(1)
+- O(log n), O(log n), and O(n)
+Why: Arrays compute any element's address directly, append rarely needs a resize, but inserting at the front shifts every element. A linked list flips some of these costs.
+
+Q: Must-know: what are the time costs of a singly linked list with a head pointer: access the k-th item, insert at the head, and search?
+Topic: Must-Know Facts
+* O(k), O(1), and O(n)
+- O(1), O(1), and O(log n)
+- O(1), O(n), and O(n)
+- O(log k), O(1), and O(n)
+Why: You can only reach the k-th item by walking from the head. Linked lists shine when you insert or remove at a position you already hold a reference to.
+
+Q: Must-know: what are the costs of a binary heap: find-min, insert, and extract-min?
+Topic: Must-Know Facts
+* O(1), O(log n), and O(log n)
+- O(log n), O(1), and O(1)
+- O(1), O(1), and O(n)
+- O(n), O(log n), and O(log n)
+Why: The minimum is always at the root. Insert sifts the new item up and extract-min sifts the replacement down, each along one path of height log n. Building a heap from n items takes only O(n).
+
+Q: Must-know: what is the search time in a balanced BST versus an unbalanced (worst-case) BST?
+Topic: Must-Know Facts
+* O(log n) balanced; O(n) unbalanced
+- O(1) balanced; O(log n) unbalanced
+- O(log n) in both cases
+- O(n log n) balanced; O(n²) unbalanced
+Why: Inserting sorted keys into a plain BST builds a chain, which is really a linked list. AVL and red-black trees rebalance to keep the height O(log n).
+
+Q: Must-know: in an array-based heap with 0-based indexing, where is the parent of the node at index i?
+Topic: Must-Know Facts
+* (i − 1) / 2, rounded down
+- i / 2, rounded up
+- 2i + 1
+- i − 2
+Why: Children of i are at 2i + 1 and 2i + 2, so going backward gives ⌊(i − 1)/2⌋. With 1-based indexing the formulas are simpler: children 2i and 2i + 1, parent ⌊i/2⌋.
+
+Q: Must-know: which traversal of a binary search tree visits the keys in sorted order?
+Topic: Must-Know Facts
+* Inorder (left, node, right)
+- Preorder (node, left, right)
+- Postorder (left, right, node)
+- Level order (breadth-first)
+Why: The BST property puts smaller keys on the left and larger on the right, so visiting left, then the node, then the right lists everything in order. Preorder is used to copy a tree, and postorder to delete one.
+
+Q: Must-know: what are the maximum number of nodes in a binary tree of height h, and the number of edges in a tree with n nodes?
+Topic: Must-Know Facts
+* 2ʰ⁺¹ − 1 nodes, and n − 1 edges
+- 2ʰ nodes, and n edges
+- h² nodes, and n − 1 edges
+- 2ʰ⁺¹ nodes, and 2n edges
+Why: A perfect binary tree has 1 + 2 + 4 + ... + 2ʰ = 2ʰ⁺¹ − 1 nodes. Every node except the root has exactly one edge to its parent, giving n − 1 edges.
+
+Q: Must-know: what is the space needed for an adjacency matrix versus an adjacency list?
+Topic: Must-Know Facts
+* O(V²) for the matrix; O(V + E) for the list
+- O(V + E) for the matrix; O(V²) for the list
+- O(E²) for the matrix; O(V) for the list
+- O(V log V) for both
+Why: Most real graphs, like road maps and social networks, are sparse (E is far smaller than V²), so adjacency lists are the usual choice.

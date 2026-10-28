@@ -1,0 +1,437 @@
+# quizzahh question file. The file name is the class name.
+#
+# Math 3: Calculus II (integration techniques, improper integrals, applications, sequences and
+# series, power and Taylor series, parametric and polar curves).
+#
+# Each question looks like this (leave a blank line between questions):
+#
+#   Q: What is the powerhouse of the cell?
+#   Topic: Cells
+#   - Nucleus
+#   * Mitochondria        <- the star marks the correct answer
+#   - Ribosome
+#   - Golgi apparatus
+#   Why: Mitochondria make ATP, the cell's energy.
+#
+# Lines starting with # are ignored.
+
+# Which year of a computer science degree this class usually falls in (used by the year filter):
+Year: 2
+
+Q: What is the integration by parts formula?
+Topic: Integration Techniques
+- ∫ u dv = u dv - ∫ v du
+* ∫ u dv = uv - ∫ v du
+- ∫ u dv = uv + ∫ v du
+- ∫ u dv = u′v′
+Why: It comes from the product rule run backward. Choose u to be something that gets simpler when differentiated, and dv to be something you can integrate.
+
+Q: What is ∫ x eˣ dx?
+Topic: Integration Techniques
+- x²eˣ/2 + C
+* x eˣ − eˣ + C
+- x eˣ + eˣ + C
+- eˣ(x − 1)² + C
+Why: Let u = x (so du = dx) and dv = eˣ dx (so v = eˣ). Then the integral is x eˣ - ∫ eˣ dx = x eˣ - eˣ + C. Check by differentiating your answer.
+
+Q: What is ∫ ln x dx?
+Topic: Integration Techniques
+- 1/x + C
+* x ln x − x + C
+- x ln x + x + C
+- (ln x)²/2 + C
+Why: Use parts with u = ln x and dv = dx. Then du = (1/x) dx and v = x, so the integral is x ln x - ∫ x(1/x) dx = x ln x - x + C.
+
+Q: The LIATE rule of thumb helps with integration by parts. What does it decide?
+Topic: Integration Techniques
+- Which integral in a sum should be evaluated first: Logarithmic, Inverse trig, Algebraic, Trig, then Exponential
+* Which factor to choose as u: Logarithmic, Inverse trig, Algebraic, Trig, Exponential, in that order
+- Which factor to choose as dv: Logarithmic, Inverse trig, Algebraic, Trig, Exponential, in that order
+- Whether to use substitution or parts, by checking the factors in the order L, I, A, T, E
+Why: Logs and inverse trig functions get simpler when differentiated, while exponentials stay easy to integrate. That's why in ∫ x eˣ dx, u = x.
+
+Q: Which identity helps integrate sin²x?
+Topic: Integration Techniques
+- sin²x = (1 + cos 2x)/2
+* sin²x = (1 − cos 2x)/2
+- sin²x = 2 sin x cos x
+- sin²x = 1 + cos²x
+Why: The half-angle identity turns the square into something easy: ∫ sin²x dx = x/2 - sin(2x)/4 + C. Similarly, cos²x = (1 + cos 2x)/2.
+
+Q: For an integral containing √(9 - x²), which trig substitution fits?
+Topic: Integration Techniques
+- x = 3 tan θ
+* x = 3 sin θ
+- x = 3 sec θ
+- x = 9 cos θ
+Why: Then 9 - x² = 9 - 9sin²θ = 9cos²θ, and the square root simplifies to 3cos θ. The patterns: √(a² - x²) uses sine, √(a² + x²) uses tangent, and √(x² - a²) uses secant.
+
+Q: How does partial fraction decomposition split 1/(x² - 1)?
+Topic: Integration Techniques
+- 1/(x − 1) + 1/(x + 1)
+* (1/2)(1/(x − 1) − 1/(x + 1))
+- (1/2)(1/(x + 1) − 1/(x − 1))
+- 1/(x − 1) − 1/(x + 1)
+Why: Factor x² - 1 = (x - 1)(x + 1), write A/(x - 1) + B/(x + 1), and solve to get A = 1/2 and B = -1/2. Each piece then integrates to a logarithm.
+
+Q: What is ∫ 1/(1 + x²) dx?
+Topic: Integration Techniques
+- ln(1 + x²) + C
+* arctan x + C
+- arcsin x + C
+- -1/(1 + x²) + C
+Why: The derivative of arctan x is 1/(1 + x²). Also memorize that the derivative of arcsin x is 1/√(1 - x²).
+
+Q: Evaluate the improper integral ∫ 1/x² dx from 1 to ∞.
+Topic: Improper Integrals
+- It diverges
+* 1
+- 0
+- 2
+Why: The antiderivative is -1/x. Evaluate from 1 to b and let b go to infinity: (-1/b) - (-1) approaches 0 + 1 = 1. An infinite region can still have a finite area.
+
+Q: Does ∫ 1/x dx from 1 to ∞ converge?
+Topic: Improper Integrals
+- Yes, to 1, since 1/x goes to 0 as x goes to infinity
+* No; ln b grows without bound as b goes to infinity
+- Yes, to 0, since the area under the tail shrinks to nothing
+- Yes, to ln 2, just like the alternating harmonic series
+Why: The p-integral rule says ∫ 1/xᵖ from 1 to infinity converges only when p > 1. p = 1 is right at the edge, and it diverges, slowly.
+
+Q: What is the area between y = x and y = x² from x = 0 to x = 1?
+Topic: Applications of Integrals
+- 1/2
+* 1/6
+- 1/3
+- 1
+Why: On [0, 1], x is the top curve. The area is ∫ (x - x²) dx from 0 to 1 = 1/2 - 1/3 = 1/6. Always subtract top minus bottom.
+
+Q: The region under y = √x from x = 0 to x = 4 is rotated around the x-axis. What is the volume?
+Topic: Applications of Integrals
+- 4π
+* 8π
+- 16π
+- 2π
+Why: By the disk method, V = π∫ (√x)² dx from 0 to 4 = π∫ x dx from 0 to 4 = π(16/2) = 8π. Each slice is a disk with radius f(x).
+
+Q: In the shell method for rotating around the y-axis, what is the volume formula?
+Topic: Applications of Integrals
+- π∫ f(x)² dx
+* 2π∫ x f(x) dx
+- π∫ x f(x)² dx
+- 2π∫ f(x)² dx
+Why: Each thin cylindrical shell has circumference 2πx, height f(x), and thickness dx. Shells are often easier than washers when rotating around a vertical axis.
+
+Q: What is the arc length formula for y = f(x) from a to b?
+Topic: Applications of Integrals
+- ∫ (1 + f′(x)) dx from a to b
+* ∫ √(1 + (f′(x))²) dx from a to b
+- ∫ √(1 + f(x)²) dx from a to b
+- √(1 + ∫ (f′(x))² dx) from a to b
+Why: Each tiny piece of curve is the hypotenuse of a triangle with sides dx and dy, so its length is √(dx² + dy²) = √(1 + (dy/dx)²) dx.
+
+Q: How much work does it take to stretch a spring with constant 10 newtons per meter from its natural length to 0.5 meters beyond it?
+Topic: Applications of Integrals
+- 5 joules
+* 1.25 joules
+- 2.5 joules
+- 0.625 joules
+Why: By Hooke's law, F = kx, so W = ∫ 10x dx from 0 to 0.5 = 5x² evaluated at 0.5 = 1.25 joules. Work is force integrated over distance.
+
+Q: What does the sequence aₙ = (n + 1)/n converge to?
+Topic: Sequences
+- 0
+* 1
+- Infinity
+- It diverges
+Why: (n + 1)/n = 1 + 1/n, which approaches 1. A sequence is a list of terms. A series is the sum of a sequence's terms, which is a different question.
+
+Q: What is the sum of the geometric series 1 + 1/2 + 1/4 + 1/8 + ...?
+Topic: Series
+- 1
+* 2
+- Infinity
+- 3/2
+Why: A geometric series with first term a and ratio r sums to a/(1 - r) when |r| < 1. Here that's 1/(1 - 1/2) = 2.
+
+Q: When does a geometric series ∑ arⁿ converge?
+Topic: Series
+- When |r| > 1
+* When |r| < 1
+- When r < 1
+- When |a| < 1
+Why: If |r| ≥ 1, the terms don't shrink to 0, so the sum can't settle down. This is one of the most-used facts in the whole unit.
+
+Q: Does the harmonic series 1 + 1/2 + 1/3 + 1/4 + ... converge?
+Topic: Series
+- Yes; its terms go to 0, so the sum settles at about 2
+- Yes, to ln 2, since the terms shrink fast enough
+* No, it diverges, even though its terms go to 0
+- No, because its terms don't go to 0
+Why: The terms shrink, but too slowly. Grouping terms (1/3 + 1/4 > 1/2, the next four > 1/2, and so on) shows the sum grows forever. Terms going to 0 is necessary but NOT sufficient for convergence.
+
+Q: For which p does the p-series ∑ 1/nᵖ converge?
+Topic: Series
+- p ≥ 1
+* p > 1
+- p < 1
+- All p
+Why: ∑ 1/n² converges (to π²/6), while ∑ 1/n and ∑ 1/√n diverge. It matches the p-integral rule through the integral test.
+
+Q: The divergence (nth-term) test finds that lim aₙ = 0. What can you conclude about ∑ aₙ?
+Topic: Series
+- It converges, since the terms go to 0
+- It diverges, since the limit isn't positive
+* Nothing; the test is inconclusive
+- It converges, and its sum is 0
+Why: The test can only prove DIVERGENCE: if the terms don't approach 0, the series diverges. The harmonic series shows that terms approaching 0 isn't enough.
+
+Q: What is the sum of the telescoping series ∑ 1/(n(n + 1)) from n = 1 to ∞?
+Topic: Series
+- 1/2
+* 1
+- 2
+- It diverges
+Why: Write the term as 1/n - 1/(n + 1). The partial sums collapse to 1 - 1/(N + 1), which approaches 1.
+
+Q: The ratio test computes L, the limit of |next term ÷ current term|. What happens when L = 1?
+Topic: Convergence Tests
+- The series converges, since the terms stop growing
+- The series diverges, since the terms stop shrinking
+* The test is inconclusive
+- The series converges absolutely, but not conditionally
+Why: L < 1 means absolute convergence, L > 1 means divergence, and L = 1 gives no answer. For example, both ∑ 1/n and ∑ 1/n² have L = 1, but only one of them converges.
+
+Q: Which test is usually best for a series with factorials, like ∑ 2ⁿ/n!?
+Topic: Convergence Tests
+- The integral test
+* The ratio test
+- The p-series test
+- The alternating series test
+Why: Factorials cancel nicely in ratios: each term divided by the one before is 2/(n + 1), which approaches 0 < 1, so it converges. Starting from n = 0, it sums to e².
+
+Q: Does the alternating harmonic series 1 - 1/2 + 1/3 - 1/4 + ... converge?
+Topic: Convergence Tests
+- No; it diverges for the same reason the harmonic series does
+* Yes, conditionally (to ln 2): it converges, but ∑ |aₙ| doesn't
+- Yes, absolutely (to ln 2), since ∑ |aₙ| converges too
+- Only if the terms are rearranged into a different order
+Why: The alternating series test applies because the terms decrease and approach 0. Rearranging a conditionally convergent series can change its sum to any value (Riemann's rearrangement theorem).
+
+Q: How can you show ∑ 1/(n² + 1) converges?
+Topic: Convergence Tests
+- The divergence test, since 1/(n² + 1) goes to 0
+* Direct comparison: 1/(n² + 1) < 1/n², and ∑ 1/n² converges
+- The ratio test, since the ratio of terms goes to 0
+- Direct comparison: 1/(n² + 1) < 1/n, and ∑ 1/n converges
+Why: A smaller positive series under a convergent one must converge too. To prove divergence, compare against a smaller divergent series instead.
+
+Q: What's the difference between absolute and conditional convergence?
+Topic: Convergence Tests
+- Absolutely convergent means ∑ aₙ converges but ∑ |aₙ| doesn't; conditionally means both converge
+* Absolutely means ∑ |aₙ| converges; conditionally means ∑ aₙ converges but ∑ |aₙ| doesn't
+- Conditionally convergent series actually diverge, but their partial sums stay bounded
+- They're the same, but "absolute" is used only for series whose terms are all positive
+Why: Absolute convergence is stronger: it implies convergence, and any rearrangement gives the same sum.
+
+Q: What is the Maclaurin series for eˣ?
+Topic: Taylor Series
+- 1 − x + x²/2! − x³/3! + ...
+* 1 + x + x²/2! + x³/3! + ...
+- 1 + x + x² + x³ + ...
+- x + x²/2 + x³/3 + ...
+Why: Every derivative of eˣ is eˣ, which equals 1 at 0, so the nth coefficient is 1/n!. It converges for every x. Setting x = 1 gives e = 1 + 1 + 1/2 + 1/6 + ...
+
+Q: What is the Maclaurin series for sin x?
+Topic: Taylor Series
+* x − x³/3! + x⁵/5! − x⁷/7! + ...
+- 1 − x²/2! + x⁴/4! − x⁶/6! + ...
+- x − x³/3 + x⁵/5 − x⁷/7 + ...
+- x + x³/3! + x⁵/5! + x⁷/7! + ...
+Why: sin x is an odd function, so only odd powers appear, with alternating signs. cos x has the even powers: 1 - x²/2! + x⁴/4! - ...
+
+Q: For which x does 1 + x + x² + x³ + ... equal 1/(1 - x)?
+Topic: Power Series
+- All x
+* -1 < x < 1
+- x > 0
+- x = 0 only
+Why: It's a geometric series with ratio x. Many other series come from it: substitute -x² to get a series for 1/(1 + x²), then integrate to get one for arctan x.
+
+Q: What is the radius of convergence of ∑ xⁿ/n!?
+Topic: Power Series
+- 0
+- 1
+* Infinity
+- e
+Why: By the ratio test, |x|/(n + 1) approaches 0 < 1 for every x. This series is eˣ, which converges everywhere.
+
+Q: In a Taylor series centered at a, what is the coefficient of (x - a)ⁿ?
+Topic: Taylor Series
+- f(a) divided by n!
+* The nth derivative of f at a, divided by n!
+- The nth derivative of f at a, times n!
+- The nth derivative of f at 0, divided by n
+Why: Matching derivatives at the center gives f(a) + f′(a)(x - a) + f″(a)(x - a)²/2! + ... A Taylor polynomial cut off at degree n approximates f near a.
+
+Q: Using series, what is lim x→0 (sin x - x)/x³?
+Topic: Taylor Series
+- 0
+* −1/6
+- 1/6
+- −1/3
+Why: sin x - x = -x³/6 + x⁵/120 - ..., so dividing by x³ gives -1/6 plus terms that go to 0. Series often make hard limits easy.
+
+Q: What curve do the parametric equations x = cos t, y = sin t trace for 0 ≤ t ≤ 2π?
+Topic: Parametric & Polar
+- A straight line
+- An ellipse
+* The unit circle
+- A spiral
+Why: x² + y² = cos²t + sin²t = 1. Parametric equations also tell you the direction and speed of motion, not just the shape.
+
+Q: For a curve given by x(t) and y(t), what is dy/dx?
+Topic: Parametric & Polar
+- (dx/dt) ÷ (dy/dt), wherever dy/dt ≠ 0
+* (dy/dt) ÷ (dx/dt), wherever dx/dt ≠ 0
+- (dy/dt) × (dx/dt)
+- dy/dt − dx/dt
+Why: This comes from the chain rule. Horizontal tangent lines occur where dy/dt = 0 (with dx/dt ≠ 0).
+
+Q: How do you convert the polar point (r, θ) to Cartesian coordinates?
+Topic: Parametric & Polar
+- x = r sin θ, y = r cos θ
+* x = r cos θ, y = r sin θ
+- x = r + θ, y = r - θ
+- x = θ cos r, y = θ sin r
+Why: Also r² = x² + y² and tan θ = y/x. The polar curve r = 2 is a circle of radius 2 centered at the origin.
+
+Q: What is the formula for the area enclosed by a polar curve r = f(θ) from θ = a to θ = b?
+Topic: Parametric & Polar
+- ∫ r dθ from a to b
+* (1/2)∫ r² dθ from a to b
+- π∫ r² dθ from a to b
+- 2∫ r² dθ from a to b
+Why: Each tiny sector of a circle has area (1/2)r² dθ. For r = 2 from 0 to 2π, the area is (1/2)(4)(2π) = 4π, which matches π(2)².
+
+Q: A series ∑ aₙ has positive, decreasing terms with aₙ = f(n), where f is continuous. Which test links it to an integral?
+Topic: Convergence Tests
+- The ratio test: if f(n+1)/f(n) has limit less than 1, both converge
+* The integral test: the series and ∫ f(x) dx from 1 to ∞ both converge or both diverge
+- The limit comparison test, comparing the series against ∫ f(x) dx as n goes to infinity
+- The root test: the series converges when the nth root of f(n) has limit less than 1
+Why: The integral test is how we prove the p-series rule. It does NOT say the series equals the integral, only that they behave the same way.
+
+Q: What is the second-degree Taylor polynomial of cos x centered at 0?
+Topic: Taylor Series
+- 1 + x²/2
+* 1 - x²/2
+- x - x²/2
+- 1 - x
+Why: cos 0 = 1, the first derivative -sin 0 = 0, and the second derivative -cos 0 = -1, so the quadratic term is -x²/2. Near 0, cos x is approximately 1 - x²/2.
+
+Q: Does ∑ n/(n + 1) converge?
+Topic: Series
+- Yes; it converges to 1, since each term gets closer to 1
+* No; its terms approach 1, not 0, so it diverges by the divergence test
+- Yes; it converges by the ratio test, since the ratio of terms goes to 1
+- Only conditionally, like the alternating harmonic series
+Why: Always check the divergence test first. If the terms don't head to 0, you're done: the series diverges.
+
+# ---- Must-know formulas and facts for this class ----
+
+Q: Formula check: what is the volume formula for the disk method, rotating y = f(x) around the x-axis from a to b?
+Topic: Formulas
+* V = π ∫ [f(x)]² dx from a to b
+- V = 2π ∫ x f(x) dx from a to b
+- V = π ∫ f(x) dx from a to b
+- V = ∫ [f(x)]² dx from a to b
+Why: Each slice is a thin disk with radius f(x), so its volume is πr² dx. The shell method, 2π ∫ x f(x) dx, is for rotating around the y-axis.
+
+Q: Formula check: what is the washer method volume for outer radius R(x) and inner radius r(x)?
+Topic: Formulas
+* V = π ∫ (R² − r²) dx
+- V = π ∫ (R − r)² dx
+- V = 2π ∫ (R − r) dx
+- V = π ∫ (R² + r²) dx
+Why: Each slice is a disk with a hole: the big disk's area πR² minus the hole's area πr². Squaring the difference (R − r)² is a common mistake.
+
+Q: Formula check: what is the sum of an infinite geometric series a + ar + ar² + ... when |r| < 1?
+Topic: Formulas
+* a / (1 − r)
+- a / (1 + r)
+- a(1 − rⁿ) / (1 − r)
+- ar / (1 − r)
+Why: The partial sums a(1 − rⁿ)/(1 − r) approach a/(1 − r) because rⁿ goes to 0. For 1 + 1/2 + 1/4 + ..., that's 1/(1 − 1/2) = 2.
+
+Q: Formula check: for which values of p does the p-series ∑ 1/nᵖ converge?
+Topic: Formulas
+* p > 1
+- p ≥ 1
+- p < 1
+- 0 < p < 1
+Why: p = 1 is the harmonic series, which diverges. p = 2 gives ∑ 1/n², which converges to π²/6.
+
+Q: Formula check: what is the Maclaurin series for cos x?
+Topic: Formulas
+* 1 − x²/2! + x⁴/4! − x⁶/6! + ...
+- x − x³/3! + x⁵/5! − x⁷/7! + ...
+- 1 + x²/2! + x⁴/4! + x⁶/6! + ...
+- 1 − x + x²/2! − x³/3! + ...
+Why: cos x is even, so it only has even powers, and its signs alternate. The series with odd powers is sin x, and the one with all plus signs is cosh x.
+
+Q: Formula check: what is the Maclaurin series for ln(1 + x)?
+Topic: Formulas
+* x − x²/2 + x³/3 − x⁴/4 + ...
+- 1 + x + x²/2! + x³/3! + ...
+- x + x²/2 + x³/3 + x⁴/4 + ...
+- x − x³/3 + x⁵/5 − x⁷/7 + ...
+Why: Integrate 1/(1 + x) = 1 − x + x² − ... term by term. It converges for −1 < x ≤ 1, and at x = 1 it gives the alternating harmonic series, which sums to ln 2.
+
+Q: Formula check: what is the geometric power series for 1/(1 − x)?
+Topic: Formulas
+* 1 + x + x² + x³ + ..., for |x| < 1
+- 1 − x + x² − x³ + ..., for |x| < 1
+- 1 + x + x²/2! + x³/3! + ..., for all x
+- x + x² + x³ + ..., for |x| < 1
+Why: This is the geometric series with a = 1 and r = x. Substituting −x gives the alternating version, which is the series for 1/(1 + x).
+
+Q: Formula check: what is ∫ 1/√(1 − x²) dx?
+Topic: Formulas
+* arcsin x + C
+- arctan x + C
+- ln|1 − x²| + C
+- arccos x + C
+Why: It's the derivative of arcsin run backward. ∫ 1/(1 + x²) dx = arctan x + C is the other inverse trig integral you should know cold.
+
+Q: Formula check: which trig substitution fits an integral containing √(x² + a²)?
+Topic: Formulas
+* x = a tan θ
+- x = a sin θ
+- x = a sec θ
+- x = a cos θ
+Why: The identity 1 + tan²θ = sec²θ turns x² + a² into a² sec²θ. Use x = a sin θ for √(a² − x²) and x = a sec θ for √(x² − a²).
+
+Q: Formula check: what is the arc length of a parametric curve x(t), y(t) from t = a to t = b?
+Topic: Formulas
+* ∫ √((dx/dt)² + (dy/dt)²) dt from a to b
+- ∫ ((dx/dt) + (dy/dt)) dt from a to b
+- ∫ √(1 + (dy/dt)²) dt from a to b
+- √(∫ (dx/dt)² dt + ∫ (dy/dt)² dt)
+Why: Each tiny piece of the curve has length √(dx² + dy²), the Pythagorean theorem again. When x = t, this reduces to the familiar ∫ √(1 + (f′(x))²) dx.
+
+Q: Formula check: what does the error bound for an alternating series say?
+Topic: Formulas
+* The error after n terms is at most the size of the first omitted term
+- The error after n terms is at most the size of the last term used
+- The error after n terms is at most 1/n
+- The error after n terms is at most the sum of all remaining terms squared
+Why: For an alternating series with decreasing terms that go to 0, the partial sums bounce around the true value, so you're never off by more than the next term you skipped.
+
+Q: Formula check: what is the formula for integration by parts?
+Topic: Formulas
+* ∫ u dv = uv − ∫ v du
+- ∫ u dv = uv + ∫ v du
+- ∫ u dv = u′v − ∫ uv′ dx
+- ∫ u dv = ∫ u du · ∫ v dv
+Why: It's the product rule rearranged and integrated. Pick u to be something that gets simpler when you differentiate it, which is what LIATE helps with.

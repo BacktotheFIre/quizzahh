@@ -1,0 +1,381 @@
+# quizzahh question file. The file name is the class name.
+#
+# Physics 2: Calculus-based Electricity and Magnetism (charge, fields, circuits, magnetism,
+# induction, electromagnetic waves). The physics underneath every computer.
+#
+# Each question looks like this (leave a blank line between questions):
+#
+#   Q: What is the powerhouse of the cell?
+#   Topic: Cells
+#   - Nucleus
+#   * Mitochondria        <- the star marks the correct answer
+#   - Ribosome
+#   - Golgi apparatus
+#   Why: Mitochondria make ATP, the cell's energy.
+#
+# Lines starting with # are ignored.
+
+# Which year of a computer science degree this class usually falls in (used by the year filter):
+Year: 3
+
+Q: Two small charged spheres are moved twice as far apart. What happens to the electric force between them?
+Topic: Electric Charge & Force
+- It becomes half as strong
+* It becomes one quarter as strong
+- It becomes twice as strong
+- It becomes one eighth as strong
+Why: Coulomb's law: F = kq₁q₂/r², an inverse-square law just like gravity. Like charges repel and opposite charges attract.
+
+Q: Which way does the electric field point near a positive charge?
+Topic: Electric Fields
+* Away from the charge
+- Toward the charge
+- In circles around it
+- It has no direction
+Why: Field lines show which way a positive test charge would be pushed: away from positive charges and toward negative ones. The field is force per unit charge, measured in newtons per coulomb.
+
+Q: Why are you safe inside a car (a metal box) during a lightning strike?
+Topic: Electric Fields
+- The rubber tires insulate the car from the ground, so current can't flow through it
+* In a conductor, charge spreads over the outer surface and the field inside stays near zero (a Faraday cage)
+- The car's metal body absorbs the lightning's energy and turns it into heat before it reaches you
+- The glass windows block the electric field, so charge can't reach the inside of the car
+Why: Charges in a conductor move until the interior field cancels out. The same idea shields cables and is why phones lose signal in elevators.
+
+Q: What does a voltage of 9 volts mean?
+Topic: Electric Potential
+- 9 amps of current flow through any circuit connected to it
+* Each coulomb of charge gains or loses 9 joules moving between the two points
+- The battery stores 9 coulombs of charge in total
+- Each electron gains 9 joules of energy moving through the battery
+Why: Voltage is the electric potential difference, energy per charge (1 volt = 1 joule per coulomb). Current is how fast charge flows, measured in amperes.
+
+Q: A 12 volt battery is connected across a 4 ohm resistor. What current flows?
+Topic: Circuits
+- 48 amps
+* 3 amps
+- 0.33 amps
+- 16 amps
+Why: Ohm's law: V = IR, so I = V/R = 12/4 = 3 A. Memorize all three forms: V = IR, I = V/R, and R = V/I.
+
+Q: Resistors of 2, 3 and 5 ohms are connected in series. What is the total resistance?
+Topic: Circuits
+* 10 ohms
+- About 0.97 ohms
+- 30 ohms
+- 5 ohms
+Why: In series, resistances add, and the same current flows through each one. The voltage divides among them in proportion to their resistance.
+
+Q: Two 6 ohm resistors are connected in parallel. What is the total resistance?
+Topic: Circuits
+- 12 ohms
+* 3 ohms
+- 6 ohms
+- 36 ohms
+Why: For parallel resistors, 1/R = 1/6 + 1/6 = 1/3, so R = 3 ohms. Parallel branches share the same voltage, and adding a branch always LOWERS the total resistance.
+
+Q: Why are household outlets wired in parallel rather than in series?
+Topic: Circuits
+- Parallel wiring uses less wire, which makes it cheaper and safer to install
+* Each device gets the full voltage and works alone; in series, one device off would cut power to the rest
+- Series wiring would give each device more voltage than it's designed for
+- Parallel wiring has more total resistance, which keeps the current in each outlet safely low
+Why: Old holiday lights wired in series all went dark when one bulb failed. Parallel circuits keep each branch independent.
+
+Q: A 60 watt bulb runs on 120 volts. What current does it draw?
+Topic: Electric Power
+* 0.5 amps
+- 2 amps
+- 7,200 amps
+- 60 amps
+Why: P = IV, so I = P/V = 60/120 = 0.5 A. Other forms: P = I²R and P = V²/R.
+
+Q: What does Kirchhoff's junction rule say?
+Topic: Circuits
+- The voltage changes around any closed loop add up to zero
+* The current flowing into a junction equals the current flowing out
+- The current is the same at every point in a parallel circuit
+- The voltage across every branch at a junction is the same
+Why: It's conservation of charge: charge doesn't pile up at a junction. The loop rule, that voltages around any closed loop add to zero, is conservation of energy.
+
+Q: How does a wire's resistance change if you make it twice as long?
+Topic: Circuits
+- It halves
+* It doubles
+- It stays the same
+- It quadruples
+Why: R = ρL/A: resistance grows with length L and shrinks with cross-sectional area A. Thick, short wires have low resistance, which is why power cables are thick.
+
+Q: A capacitor of 2 microfarads is charged to 5 volts. How much charge does it hold?
+Topic: Capacitors
+- 2.5 microcoulombs
+* 10 microcoulombs
+- 0.4 microcoulombs
+- 7 microcoulombs
+Why: Q = CV = 2 × 5 = 10 microcoulombs. Capacitors store energy in an electric field: U = ½CV². Computer memory (DRAM) stores each bit as charge on a tiny capacitor.
+
+Q: How do capacitors combine in parallel?
+Topic: Capacitors
+- Like resistors in parallel
+* Their capacitances simply add
+- The total is always the smallest one
+- They cancel out
+Why: Capacitors combine the opposite way from resistors: they add in parallel, and in series the reciprocals add. Parallel plates effectively make a bigger plate.
+
+Q: In an RC circuit with R = 1,000 ohms and C = 1 millifarad, what is the time constant?
+Topic: Capacitors
+- 1,000 seconds
+* 1 second
+- 0.001 seconds
+- 1,001 seconds
+Why: τ = RC = 1000 × 0.001 = 1 second. After one time constant, a charging capacitor reaches about 63% of its final voltage. RC delays help set the timing of real circuits.
+
+Q: Conventional current flows from + to - outside a battery. Which way do the electrons actually move in the wire?
+Topic: Circuits
+- The same way
+* The opposite way, from - to +
+- Back and forth only
+- Electrons don't move in wires
+Why: The convention was chosen before electrons were discovered. Positive charge moving one way is equivalent to negative charge moving the other way, so the math works either way.
+
+Q: When is the magnetic force on a moving charge zero?
+Topic: Magnetism
+- When the charge moves perpendicular to the magnetic field
+* When it moves parallel to the magnetic field (or isn't moving)
+- When the charge is moving very fast, near the speed of light
+- When the field and the velocity make a 45° angle
+Why: F = qvB sin θ, where θ is the angle between the velocity and the field. The force is always perpendicular to the velocity, so magnetic forces change a charge's direction but not its speed.
+
+Q: A charged particle enters a uniform magnetic field moving perpendicular to it. What path does it follow?
+Topic: Magnetism
+- A straight line
+* A circle
+- A parabola
+- It stops
+Why: The force is always perpendicular to the velocity, which is exactly what makes circular motion: qvB = mv²/r. Mass spectrometers and old CRT televisions use this.
+
+Q: What is the shape of the magnetic field around a long, straight wire carrying current?
+Topic: Magnetism
+- Straight lines along the wire
+* Circles around the wire
+- Lines pointing away from the wire
+- There's no field
+Why: Use the right-hand rule: point your thumb along the current, and your fingers curl in the direction of the field. The field gets weaker with distance from the wire.
+
+Q: Two parallel wires carry current in the same direction. What happens?
+Topic: Magnetism
+* They attract each other
+- They repel each other
+- Nothing
+- They twist around each other
+Why: Each wire sits in the other's magnetic field and feels a force. Currents in the same direction attract; opposite currents repel. This effect was once used to define the ampere.
+
+Q: According to Faraday's law, what creates an induced voltage (EMF) in a loop of wire?
+Topic: Induction
+- A strong, constant magnetic field passing through the loop
+* A changing magnetic flux through the loop
+- A current flowing steadily in a nearby wire
+- A charged object held near the loop
+Why: Moving a magnet into a coil, or spinning a coil in a field, changes the flux and drives current. This is how generators, wireless chargers and induction stoves work.
+
+Q: What does Lenz's law say about an induced current?
+Topic: Induction
+- It flows in the direction that strengthens the change in flux that caused it
+* It flows in the direction that opposes the change in flux that caused it
+- It always flows clockwise when viewed from the direction of the field
+- It flows in whichever direction gives the loop the least resistance
+Why: That's the minus sign in Faraday's law, and it's conservation of energy: if the induced current helped the change, you'd get energy for free. A magnet dropped through a copper pipe falls slowly because of it.
+
+Q: A transformer has 10 times as many turns on its primary coil as on its secondary. If 120 volts AC goes in, what comes out?
+Topic: Induction
+- 1,200 volts
+* 12 volts
+- 120 volts
+- 0 volts, because transformers block AC
+Why: Vs/Vp = Ns/Np, so this step-down transformer gives 12 V. Transformers only work with AC, because they need a CHANGING magnetic flux.
+
+Q: Why is electricity sent over long power lines at very high voltage?
+Topic: Electric Power
+- High voltage makes the electricity travel faster, so it reaches homes with less delay
+* For the same power, higher voltage means lower current, so heat lost in the wires (I²R) drops
+- Higher voltage means higher current, which overcomes the resistance of very long wires
+- High voltage keeps the wires cool, since voltage and resistance cancel each other out
+Why: Halving the current cuts the wire losses to one quarter. Transformers then step the voltage back down near homes.
+
+Q: What does an electric motor do, and what does a generator do?
+Topic: Induction
+- A motor turns motion into electricity using induction; a generator turns electricity into motion
+* A motor turns electrical energy into motion via magnetic forces; a generator turns motion into electricity via induction
+- Both turn heat into electricity, but a generator uses steam and a motor uses a battery
+- A motor stores electric charge for later use, while a generator stores energy in a magnetic field
+Why: They're basically the same machine run in opposite directions. Electric cars use this: when braking, the motor acts as a generator and recharges the battery.
+
+Q: How fast do electromagnetic waves travel in a vacuum?
+Topic: Electromagnetic Waves
+- About 340 meters per second, the speed of sound
+* About 3 × 10⁸ meters per second (the speed of light)
+- It depends on their frequency, so blue light moves faster than red
+- About 3 × 10⁵ meters per second
+Why: Light, radio, Wi-Fi, X-rays and microwaves are all electromagnetic waves traveling at c. Maxwell's equations predicted this speed from electricity and magnetism alone.
+
+Q: An FM radio station broadcasts at 100 MHz. What is its wavelength?
+Topic: Electromagnetic Waves
+- 300 meters
+* 3 meters
+- 0.3 meters
+- 30 meters
+Why: c = fλ, so λ = (3 × 10⁸)/(1 × 10⁸) = 3 m. Wi-Fi at 2.4 GHz has a wavelength of about 12.5 centimeters.
+
+Q: Which electromagnetic wave has the highest frequency?
+Topic: Electromagnetic Waves
+- Radio waves
+- Visible light
+- Microwaves
+* X-rays
+Why: The order from low to high frequency is radio, microwave, infrared, visible, ultraviolet, X-ray, gamma ray. Higher frequency means more energy per photon, which is why X-rays can damage cells.
+
+Q: What is the main difference between AC and DC?
+Topic: Circuits
+* AC reverses direction many times per second; DC flows in one direction
+- AC flows in one direction; DC reverses direction many times per second
+- AC is always higher voltage than DC, which is why it's used in homes
+- AC is used only in batteries, while DC comes from power plants
+Why: Wall outlets in the U.S. supply AC at 60 Hz. Batteries and the chips inside computers use DC, so chargers and power supplies convert AC to DC.
+
+Q: Inside a CPU, what does a transistor mostly act as?
+Topic: Applications
+- A small battery that stores the 1s and 0s between clock cycles
+* A tiny switch controlled by a voltage, turning current on or off to represent 1s and 0s
+- A resistor that sets how much current reaches each part of the chip on every clock cycle
+- A tiny capacitor that holds data permanently, even when the power is off
+Why: Billions of transistors combine into logic gates, then adders, registers and whole processors. Smaller transistors switch faster and use less energy per switch.
+
+Q: What happens in a short circuit?
+Topic: Circuits
+- The circuit gains extra resistance, so almost no current flows through it
+* A very low-resistance path lets a huge current flow, overheating wires until a fuse or breaker cuts it
+- The voltage rises without limit, so devices on the circuit receive too much voltage
+- The current stops completely, which is harmless but turns off everything on the circuit
+Why: By I = V/R, a tiny R means a huge I. Circuit breakers trip when the current passes a safe limit.
+
+Q: What does Gauss's law relate?
+Topic: Electric Fields
+- The current through a conductor to the voltage across it and its resistance
+* The electric flux through a closed surface to the total charge inside it
+- The magnetic flux through a loop to the voltage induced around it
+- The magnetic field around a wire to the current flowing through it
+Why: It makes highly symmetric problems easy, like the field of a charged sphere or a long wire. It's one of the four Maxwell equations.
+
+Q: How much energy is stored in a 10 microfarad capacitor charged to 100 volts?
+Topic: Capacitors
+- 1,000 joules
+* 0.05 joules
+- 0.001 joules
+- 5 joules
+Why: U = ½CV² = ½ × 0.00001 × 10,000 = 0.05 J. Camera flashes charge a capacitor and then dump the energy all at once.
+
+Q: Adding another bulb in parallel to a battery-powered circuit does what to the current drawn from the battery?
+Topic: Circuits
+- Decreases it, since the battery's voltage is now shared among more bulbs
+* Increases it, since total resistance drops and each branch draws its own current
+- Leaves it unchanged, since each bulb gets the same voltage as before
+- Doubles the voltage across each bulb, so they all glow brighter
+Why: More branches mean more paths for current. That's why plugging too many devices into one outlet strip can trip a breaker.
+
+# ---- Must-know formulas and facts for this class ----
+
+Q: Formula check: what is Coulomb's law?
+Topic: Formulas
+* F = k q₁q₂ / r²
+- F = k q₁q₂ / r
+- F = k (q₁ + q₂) / r²
+- F = q₁q₂ / (k r²)
+Why: It has the same inverse-square form as gravity. k is about 8.99 × 10⁹ N·m²/C². Like charges repel and opposite charges attract.
+
+Q: Formula check: what is Ohm's law?
+Topic: Formulas
+* V = IR
+- V = I / R
+- V = I²R
+- V = R / I
+Why: Voltage pushes, current flows, and resistance resists. Solve it for whichever quantity you need: I = V/R, R = V/I.
+
+Q: Formula check: which formulas give electric power?
+Topic: Formulas
+* P = IV = I²R = V²/R
+- P = I/V = IR² = V/R²
+- P = IV = IR = V/R
+- P = I²V = I²R = V²R
+Why: Start from P = IV and substitute Ohm's law to get the other two. I²R is why power lines lose energy as heat when the current is high.
+
+Q: Formula check: how do resistors add in series and in parallel?
+Topic: Formulas
+* Series: R = R₁ + R₂; parallel: 1/R = 1/R₁ + 1/R₂
+- Series: 1/R = 1/R₁ + 1/R₂; parallel: R = R₁ + R₂
+- Series: R = R₁R₂; parallel: R = R₁ + R₂
+- Both: R = R₁ + R₂
+Why: In series the current must pass through every resistor, so resistance adds. In parallel there are more paths, so the total is less than the smallest resistor. Capacitors combine the opposite way.
+
+Q: Formula check: what is the charge on a capacitor, and the energy it stores?
+Topic: Formulas
+* Q = CV and U = (1/2)CV²
+- Q = V/C and U = CV²
+- Q = CV² and U = (1/2)CV
+- Q = C/V and U = (1/2)QV²
+Why: Capacitance is charge per volt. The energy can also be written U = (1/2)QV = Q²/(2C).
+
+Q: Formula check: what is the time constant of an RC circuit?
+Topic: Formulas
+* τ = RC
+- τ = R/C
+- τ = 1/(RC)
+- τ = C/R
+Why: After one time constant, a charging capacitor reaches about 63% of its final voltage. A 1,000 Ω resistor with a 1 mF capacitor gives τ = 1 second.
+
+Q: Formula check: what is the magnetic force on a charge q moving at velocity v in a field B?
+Topic: Formulas
+* F = qvB sin θ
+- F = qvB cos θ
+- F = qB / v
+- F = qE + B
+Why: The force is perpendicular to both v and B, so it changes direction but never speed. It's zero when the charge moves parallel to the field (θ = 0).
+
+Q: Formula check: what is the magnetic field at distance r from a long straight wire with current I?
+Topic: Formulas
+* B = μ₀I / (2πr)
+- B = μ₀I / (2πr²)
+- B = μ₀I r / 2π
+- B = μ₀ / (2πIr)
+Why: It falls off as 1/r, not 1/r², and circles the wire. μ₀ = 4π × 10⁻⁷ T·m/A.
+
+Q: Formula check: what is Faraday's law of induction?
+Topic: Formulas
+* EMF = −N dΦ/dt
+- EMF = N Φ / t
+- EMF = −N dB/dI
+- EMF = I R dΦ/dt
+Why: Only a CHANGING flux induces a voltage. N is the number of loops, and the minus sign is Lenz's law: the induced current opposes the change.
+
+Q: Formula check: how are wave speed, frequency and wavelength related?
+Topic: Formulas
+* v = fλ
+- v = f/λ
+- v = λ/f²
+- v = 1/(fλ)
+Why: For light in a vacuum, c = fλ with c = 3 × 10⁸ m/s. A 100 MHz radio station has λ = 3 × 10⁸ / 10⁸ = 3 meters.
+
+Q: Formula check: what is the ideal transformer equation?
+Topic: Formulas
+* V_s / V_p = N_s / N_p
+- V_s / V_p = N_p / N_s
+- V_s · V_p = N_s · N_p
+- V_s / V_p = (N_s / N_p)²
+Why: Voltage scales with the number of turns. Since power is conserved in an ideal transformer, current scales the opposite way.
+
+Q: Formula check: what is the resistance of a wire with resistivity ρ, length L and cross-sectional area A?
+Topic: Formulas
+* R = ρL / A
+- R = ρA / L
+- R = ρLA
+- R = L / (ρA)
+Why: A longer wire means more resistance, and a thicker wire means less. That's why high-current appliances need thick cords.

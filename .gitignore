@@ -1,0 +1,19 @@
+# Build output
+*.exe
+*.bak
+
+# Voice engines and models (~1.4 GB, see README for downloads)
+kokoro/
+piper/
+
+# Character art and 3D model aren't mine to redistribute
+model-src/
+avatar.png
+heather.png
+quiz-icon2.ico
+
+# Old single-page prototype
+CS-Quiz.html
+
+# Personal Code Lab saves
+data/coding/saves/

@@ -1,0 +1,380 @@
+# quizzahh question file. The file name is the class name.
+#
+# Gov 1: American (U.S.) Government (common required gen ed).
+#
+# Each question looks like this (leave a blank line between questions):
+#
+#   Q: What is the powerhouse of the cell?
+#   Topic: Cells
+#   - Nucleus
+#   * Mitochondria        <- the star marks the correct answer
+#   - Ribosome
+#   - Golgi apparatus
+#   Why: Mitochondria make ATP, the cell's energy.
+#
+# Lines starting with # are ignored.
+
+# Which year of a computer science degree this class usually falls in (used by the year filter):
+Year: 2
+
+Q: What was the main weakness of the Articles of Confederation?
+Topic: Founding & Constitution
+- The national government was too powerful: it could tax citizens directly and overrule state courts
+* The national government was too weak: it couldn't tax, regulate trade, or enforce laws
+- It gave the president too much power, including an absolute veto over Congress
+- It gave large states far more votes in Congress than small states
+Why: After fighting a king, Americans made the first national government deliberately weak. Congress couldn't raise money or enforce its decisions, and Shays' Rebellion (1786-87) exposed the problem. That led to the Constitutional Convention of 1787.
+
+Q: What did the Great (Connecticut) Compromise create?
+Topic: Founding & Constitution
+* A two-house Congress: the House based on population and the Senate with two members per state
+- A two-house Congress: the Senate based on population and the House with two members per state
+- A one-house Congress where each state got votes based on both population and wealth
+- A system where the president is chosen by Congress instead of by the states
+Why: Large states wanted representation by population (the Virginia Plan), while small states wanted equal representation (the New Jersey Plan). The compromise did both, which is why California and Wyoming each have two senators but very different numbers of House members.
+
+Q: What was the Three-Fifths Compromise?
+Topic: Founding & Constitution
+- Laws needed the approval of three-fifths of Congress, instead of a simple majority, to pass
+* Enslaved people were counted as three-fifths of a person for representation and taxes
+- Three-fifths of the states had to ratify the Constitution before it could take effect
+- Enslaved people were counted as three-fifths of a person for representation, but not for taxes
+Why: Southern states wanted enslaved people counted to gain more House seats, while Northern states objected. The compromise boosted slaveholding states' power. It was effectively ended by the 13th and 14th Amendments after the Civil War.
+
+Q: Who were the Anti-Federalists?
+Topic: Founding & Constitution
+- Supporters of the Constitution who wanted a strong national government and opposed adding a bill of rights
+* Opponents of the Constitution who feared a too-powerful central government and demanded a bill of rights
+- Colonists who stayed loyal to Britain during the Revolution and later opposed independence
+- Opponents of the Constitution who wanted to keep a king, but with limits set by Congress
+Why: Federalists like Hamilton, Madison and Jay argued for ratification in the Federalist Papers. Anti-Federalists worried about tyranny and the loss of states' power. Their pressure led to the Bill of Rights being added in 1791.
+
+Q: What is federalism?
+Topic: Federalism
+- Rule by a single central government, with states acting only as local offices
+* The division of power between the national government and the state governments
+- The separation of power among the legislative, executive and judicial branches
+- A system where the states hold all power and the national government only advises
+Why: In the U.S., some powers belong to the national government (like coining money and declaring war), some are reserved to the states (like running elections and schools), and some are shared (like taxing). This structure is one of the Constitution's key features.
+
+Q: Which amendment reserves powers not given to the federal government to the states or the people?
+Topic: Federalism
+- 1st Amendment
+- 5th Amendment
+* 10th Amendment
+- 14th Amendment
+Why: The 10th Amendment is the basis for state powers like education, local policing, and licensing. Arguments over federal versus state power often cite it.
+
+Q: Which clause lets Congress pass laws "necessary and proper" to carry out its listed powers?
+Topic: Federalism
+* The Elastic (Necessary and Proper) Clause
+- The Supremacy Clause
+- The Commerce Clause
+- The General Welfare (Taxing and Spending) Clause
+Why: It "stretches" Congress's powers to cover implied powers. In McCulloch v. Maryland (1819), the Supreme Court used it to uphold creating a national bank, even though the Constitution never mentions banks.
+
+Q: What does the Supremacy Clause say?
+Topic: Federalism
+- States may ignore federal laws they believe go beyond Congress's listed powers
+* The Constitution and federal laws are the supreme law of the land, above conflicting state laws
+- Federal laws apply only in states whose legislatures have voted to accept them
+- The Supreme Court's rulings are supreme over the Constitution itself
+Why: In Article VI, when a valid federal law conflicts with a state law, the federal law wins. McCulloch v. Maryland also used this clause: a state couldn't tax the federal bank.
+
+Q: What are the three branches of the U.S. government?
+Topic: Separation of Powers
+* Legislative, executive, and judicial
+- Federal, state, and local
+- House, Senate, and president
+- Democratic, Republican, and independent
+Why: Congress makes laws (legislative), the president enforces them (executive), and the courts interpret them (judicial). Splitting power this way keeps any one group from becoming too powerful.
+
+Q: Which is an example of checks and balances?
+Topic: Separation of Powers
+- States run their own elections, so the national government can't control voting
+* The president can veto a bill, and Congress can override it with two-thirds of both houses
+- The president can veto a bill, and the Supreme Court can override it with a majority vote
+- Citizens vote for representatives, who must follow the majority's wishes
+Why: Each branch can limit the others. Other checks: the Senate confirms judges and approves treaties, the courts can strike down laws, and Congress can impeach officials.
+
+Q: Which Supreme Court case established judicial review, the power to strike down laws as unconstitutional?
+Topic: Courts & Civil Liberties
+- Brown v. Board of Education
+* Marbury v. Madison (1803)
+- McCulloch v. Maryland
+- Roe v. Wade
+Why: Chief Justice John Marshall declared that it is "emphatically the province and duty of the judicial department to say what the law is." The Constitution doesn't spell out judicial review, which is why this case matters so much.
+
+Q: How long is a U.S. House member's term?
+Topic: Congress
+* 2 years
+- 4 years
+- 6 years
+- Life
+Why: The House was designed to stay close to public opinion, so the whole House is up for election every 2 years. Senators serve 6-year terms, with about a third elected every 2 years.
+
+Q: How many senators are there?
+Topic: Congress
+- 50
+* 100
+- 435
+- 538
+Why: Two per state times 50 states. The House has 435 voting members divided among the states by population. 538 is the number of Electoral College votes (435 + 100 + 3 for D.C.).
+
+Q: Which power belongs only to the House of Representatives?
+Topic: Congress
+* Starting (originating) revenue bills and impeaching officials
+- Confirming Supreme Court justices and approving treaties
+- Holding the impeachment trial and removing officials
+- Declaring war and approving the federal budget alone
+Why: The House brings the charges (impeachment, by simple majority) and must start tax bills. The Senate holds the impeachment trial (two-thirds needed to remove), confirms appointments, and ratifies treaties.
+
+Q: What is a filibuster?
+Topic: Congress
+- A presidential veto that can't be overridden
+* Using unlimited debate in the Senate to delay or block a vote
+- A rule limiting debate in the House to one hour per bill
+- Attaching an unrelated provision to a popular bill
+Why: Senate rules allow extended debate. Ending it (cloture) takes 60 votes, so most major legislation in practice needs 60 senators. The House has strict debate limits, so filibusters only happen in the Senate.
+
+Q: What is gerrymandering?
+Topic: Congress
+- Counting the population every 10 years to divide House seats among states
+* Drawing district lines to give one party or group an advantage
+- Reassigning House seats among the states after each census
+- Requiring voters to show photo ID before casting a ballot
+Why: After each census, states redraw House districts (redistricting). Packing opponents into a few districts, or cracking them across many, can give a party more seats than its share of the vote. Courts have limited racial gerrymandering.
+
+Q: What is the minimum age to be president?
+Topic: The Presidency
+- 30
+* 35
+- 40
+- 25
+Why: The president must be at least 35, a natural-born citizen, and a U.S. resident for 14 years. Senators must be 30, and House members must be 25.
+
+Q: Which amendment limits a president to two elected terms?
+Topic: The Presidency
+- 12th
+- 20th
+* 22nd
+- 25th
+Why: Ratified in 1951 after Franklin Roosevelt won four elections. Before that, presidents followed George Washington's informal two-term tradition. The 25th Amendment covers presidential succession and disability.
+
+Q: What is an executive order?
+Topic: The Presidency
+- A law passed by Congress and signed by the president
+* A directive from the president on how the executive branch should carry out the law
+- An agreement between the president and another country that doesn't need Senate approval
+- A ruling by a federal court that orders an agency to stop an action
+Why: Executive orders have the force of law for federal agencies, but they can be overturned by courts, undone by later presidents, or limited by Congress. They can't create new laws on their own.
+
+Q: How is the president formally elected?
+Topic: Elections & Parties
+- Directly by the national popular vote, with the most votes winning
+* By the Electoral College, where a majority of 270 electoral votes wins
+- By the Electoral College, where whoever wins the most states wins
+- By Congress, after each state's voters choose their preferred candidate
+Why: Each state gets electors equal to its House members plus its senators. Most states give all their electors to the statewide winner, so a candidate can win the presidency while losing the national popular vote, as in 2000 and 2016.
+
+Q: What happens if no presidential candidate wins a majority in the Electoral College?
+Topic: Elections & Parties
+- The Supreme Court decides, based on which candidate won the most states
+* The House chooses the president, with each state delegation getting one vote
+- The Senate chooses the president, with each senator getting one vote
+- The winner of the national popular vote becomes president automatically
+Why: Under the 12th Amendment, the House picks the president and the Senate picks the vice president. The House has chosen the president twice: in 1800, under the original rules (that messy election led to the 12th Amendment), and in 1824.
+
+Q: Why does the U.S. tend to have a two-party system?
+Topic: Elections & Parties
+* Winner-take-all, single-member district elections make it hard for third parties to win seats
+- The Constitution requires exactly two major parties to compete in national elections
+- Federal law limits ballot access to parties that won at least 5% of the vote in 1860
+- Proportional representation gives seats only to the two largest parties in each state
+Why: With winner-take-all elections, only first place gets anything, so voters avoid "wasting" votes on small parties (Duverger's law). The Constitution never mentions political parties at all.
+
+Q: Which amendment lowered the voting age to 18?
+Topic: Elections & Parties
+- 15th
+- 19th
+* 26th
+- 24th
+Why: Ratified in 1971, during the Vietnam War: "old enough to fight, old enough to vote." The 15th banned race-based voting restrictions, the 19th gave women the vote, and the 24th banned poll taxes in federal elections.
+
+Q: Which amendment gave women the right to vote?
+Topic: Elections & Parties
+- 15th
+* 19th
+- 21st
+- 26th
+Why: Ratified in 1920 after decades of suffrage activism. The 21st Amendment repealed Prohibition (the 18th).
+
+Q: What does the 1st Amendment protect?
+Topic: Courts & Civil Liberties
+* Freedom of religion, speech, press, assembly, and petition
+- Freedom of speech, the right to bear arms, and a free press
+- Protection from unreasonable searches and seizures
+- Freedom of speech and religion, plus the right to vote
+Why: Remember RAPPS: Religion, Assembly, Press, Petition, Speech. It limits the government, not private companies, so a social media site removing a post usually isn't a 1st Amendment violation.
+
+Q: Which amendment protects against unreasonable searches and seizures?
+Topic: Courts & Civil Liberties
+- 2nd
+* 4th
+- 6th
+- 8th
+Why: Police generally need a warrant based on probable cause. Under the exclusionary rule (Mapp v. Ohio), illegally obtained evidence usually can't be used in court. The 8th bans cruel and unusual punishment.
+
+Q: "Pleading the Fifth" refers to which right?
+Topic: Courts & Civil Liberties
+* The right not to testify against yourself
+- The right to have a lawyer during questioning
+- The right to a speedy and public trial
+- The right to remain silent about others' crimes
+Why: The 5th Amendment also bans double jeopardy and guarantees due process. Miranda v. Arizona (1966) requires police to warn suspects in custody of this right: "You have the right to remain silent..."
+
+Q: What did Gideon v. Wainwright (1963) decide?
+Topic: Courts & Civil Liberties
+- Police must tell suspects their rights before questioning them
+* States must provide a lawyer to criminal defendants who can't afford one
+- Evidence found in an illegal search can't be used in state courts
+- Defendants have the right to a jury in every criminal case
+Why: Based on the 6th Amendment right to counsel, applied to the states through the 14th Amendment. It's why public defenders exist.
+
+Q: What did Brown v. Board of Education (1954) decide?
+Topic: Civil Rights
+- "Separate but equal" public facilities are constitutional as long as they're equal
+* Racial segregation in public schools is unconstitutional
+- Racial segregation is unconstitutional in all private businesses
+- Schools must be desegregated within one year, using federal troops if needed
+Why: It overturned the "separate but equal" doctrine of Plessy v. Ferguson (1896) for public schools, ruling that segregated schools are inherently unequal under the 14th Amendment's Equal Protection Clause.
+
+Q: Which amendment includes the Equal Protection and Due Process Clauses that apply to the states?
+Topic: Civil Rights
+- 10th
+- 13th
+* 14th
+- 15th
+Why: The 14th Amendment (1868) made formerly enslaved people citizens and requires states to give everyone equal protection of the laws. Through "selective incorporation," it also applies most of the Bill of Rights to state governments.
+
+Q: What's the difference between civil liberties and civil rights?
+Topic: Civil Rights
+- Civil rights protect you from government interference; civil liberties guarantee equal treatment
+* Civil liberties protect you from government interference; civil rights guarantee equal treatment
+- They're the same thing; "civil rights" is the newer term used since the 1960s
+- Civil liberties apply only to criminal cases, while civil rights apply only to voting
+Why: Free speech is a civil liberty: the government can't stop you. Being protected from discrimination at work or school is a civil right, as in the Civil Rights Act of 1964.
+
+Q: What was the purpose of the Voting Rights Act of 1965?
+Topic: Civil Rights
+* To end discriminatory practices like literacy tests that kept Black Americans from voting
+- To lower the voting age from 21 to 18 so young people drafted to war could vote
+- To give women the right to vote in federal elections for the first time
+- To ban poll taxes in federal elections, which the Constitution had previously allowed
+Why: It enforced the 15th Amendment by banning literacy tests and putting federal oversight on areas with a history of discrimination. Voter registration among Black Southerners rose dramatically afterward.
+
+Q: How is a constitutional amendment most commonly proposed and ratified?
+Topic: Founding & Constitution
+- Proposed by the president, then ratified by a majority of states
+* Proposed by two-thirds of both houses of Congress, then ratified by three-fourths of the states
+- Proposed by three-fourths of Congress, then ratified by two-thirds of the states
+- Proposed by a national convention, then ratified by a national popular vote
+Why: The process is hard on purpose, which is why there are only 27 amendments. A convention called by two-thirds of the states could also propose amendments, but that has never happened.
+
+Q: What is the role of interest groups?
+Topic: Participation & Media
+- To nominate candidates and run campaigns for public office under their name
+* To influence policy for a cause or group, through lobbying, donations and public campaigns
+- To review new laws and decide whether they are constitutional
+- To organize elections and count the votes in each state
+Why: Examples include the AARP, the NRA, labor unions, and environmental groups. Unlike political parties, they don't try to win elections themselves; they try to shape policy. Super PACs can spend unlimited money independently, after Citizens United v. FEC (2010).
+
+Q: What is "the bureaucracy" in American government?
+Topic: The Presidency
+- The committees in Congress that write and review bills before votes
+* The executive branch departments and agencies that carry out laws, like the EPA and IRS
+- The federal courts below the Supreme Court that hear most cases
+- The staff members who work for senators and representatives in their offices
+Why: Millions of federal employees put laws into practice and write detailed regulations. The president oversees them, Congress creates and funds them, and courts review their rules.
+
+Q: What is the "power of the purse"?
+Topic: Congress
+* Congress's power to tax and decide how federal money is spent
+- The president's power to veto spending bills passed by Congress
+- The Treasury's power to print money and set interest rates
+- The Supreme Court's power to strike down unconstitutional taxes
+Why: No money can be spent without an appropriation from Congress. It's one of Congress's strongest checks on the president: it can fund or defund programs. Failing to pass a budget leads to government shutdowns.
+
+Q: Who is commander in chief of the military, and who has the power to declare war?
+Topic: Separation of Powers
+- The president is commander in chief and also has the power to declare war
+* The president is commander in chief; Congress declares war
+- Congress is commander in chief; the president declares war
+- The Secretary of Defense commands the military; the Senate declares war
+Why: The founders split war powers on purpose. In practice presidents have sent troops without formal declarations. The War Powers Resolution (1973) requires the president to notify Congress within 48 hours and limits deployments to 60 days without approval.
+
+# ---- Must-know formulas and facts for this class ----
+
+Q: Must-know: how many members are in the House and Senate, and how long are their terms?
+Topic: Must-Know Facts
+* House: 435 members, 2-year terms; Senate: 100 members, 6-year terms
+- House: 100 members, 6-year terms; Senate: 435 members, 2-year terms
+- House: 435 members, 4-year terms; Senate: 100 members, 8-year terms
+- House: 538 members, 2-year terms; Senate: 50 members, 6-year terms
+Why: About one-third of the Senate is up for election every two years. The president serves 4-year terms with a two-term limit (22nd Amendment), and federal judges serve for life.
+
+Q: Must-know: how many electoral votes are there, and how many does it take to win?
+Topic: Must-Know Facts
+* 538 total; 270 to win
+- 535 total; 268 to win
+- 435 total; 218 to win
+- 538 total; 300 to win
+Why: 538 = 435 House members + 100 senators + 3 for Washington, D.C. (23rd Amendment). 270 is the smallest number that's more than half.
+
+Q: Must-know: what are the age and citizenship requirements for president, senator and representative?
+Topic: Must-Know Facts
+* President 35 (natural-born, 14 years' residency); senator 30 (9 years a citizen); rep 25 (7 years)
+- President 30 (natural-born, 10 years' residency); senator 25 (7 years a citizen); rep 21 (5 years)
+- President 40 (natural-born, 20 years' residency); senator 35 (10 years a citizen); rep 30 (10 years)
+- President 35 (any citizen, 10 years' residency); senator 25 (9 years a citizen); rep 18 (5 years)
+Why: These come from Articles I and II of the Constitution. Natural-born citizenship is required only for president.
+
+Q: Must-know: what does each of the first 10 amendments (the Bill of Rights) mainly protect?
+Topic: Must-Know Facts
+* 1 speech/religion/press, 2 arms, 3 no quartering troops, 4 searches, 5 self-incrimination and due process, 6 speedy trial and lawyer, 7 civil juries, 8 cruel punishment, 9 unlisted rights, 10 powers reserved to states
+- 1 speech/religion/press, 2 arms, 3 searches, 4 no quartering troops, 5 speedy trial and lawyer, 6 self-incrimination, 7 bail, 8 civil juries, 9 powers reserved to states, 10 unlisted rights
+- 1 speech and religion, 2 voting rights, 3 freedom of the press, 4 privacy, 5 arms, 6 property, 7 jury trials, 8 civil juries, 9 elections, 10 powers reserved to states
+- 1 religion, 2 speech and press, 3 assembly and petition, 4 arms, 5 no quartering troops, 6 searches, 7 trials and lawyers, 8 civil juries, 9 bail and fines, 10 unlisted rights
+Why: Students most often get tested on the 1st, 2nd, 4th, 5th, 6th, 8th and 10th. The 10th Amendment is the basis of federalism arguments.
+
+Q: Must-know: which later amendments expanded voting rights?
+Topic: Must-Know Facts
+* 15th (race), 19th (women), 24th (no poll taxes), 26th (age 18)
+- 13th (race), 18th (women), 21st (no poll taxes), 25th (age 18)
+- 14th (race), 19th (age 18), 22nd (women), 26th (no poll taxes)
+- 15th (women), 17th (race), 24th (age 18), 27th (no poll taxes)
+Why: The 17th made senators directly elected by voters. The 13th ended slavery, and the 14th guaranteed citizenship and equal protection.
+
+Q: Must-know: what do the first three articles of the Constitution set up?
+Topic: Must-Know Facts
+* Article I: Congress; Article II: the president; Article III: the courts
+- Article I: the president; Article II: Congress; Article III: the courts
+- Article I: the Bill of Rights; Article II: Congress; Article III: the states
+- Article I: the courts; Article II: Congress; Article III: the president
+Why: Article IV covers relations among the states, V the amendment process, VI the Supremacy Clause, and VII ratification.
+
+Q: Must-know: what are the vote thresholds for overriding a veto, removing an impeached official, and approving a treaty?
+Topic: Must-Know Facts
+* Override: 2/3 of both houses; removal: 2/3 of the Senate; treaty: 2/3 of the Senate
+- Override: a simple majority of both houses; removal: 3/4 of the Senate; treaty: a simple majority of the House
+- Override: 3/4 of both houses; removal: a majority of the House; treaty: 2/3 of the House
+- Override: 2/3 of the Senate only; removal: a majority of the Senate; treaty: 3/5 of the Senate
+Why: Impeachment itself (the charges) only needs a simple majority of the House. Ending a Senate filibuster (cloture) needs 60 votes, or 3/5.
+
+Q: Must-know: what did Marbury v. Madison (1803) establish?
+Topic: Must-Know Facts
+* Judicial review: courts can strike down laws that violate the Constitution
+- The president can ignore Supreme Court rulings
+- States can nullify federal laws
+- Congress can remove Supreme Court justices by majority vote
+Why: Chief Justice John Marshall's opinion made the Supreme Court a co-equal branch. Judicial review isn't written in the Constitution itself; this case established it.

@@ -1,0 +1,447 @@
+# quizzahh question file. The file name is the class name.
+#
+# Math 5: Linear Algebra (systems, matrices, determinants, vector spaces, eigenvalues,
+# orthogonality). Used everywhere in graphics, machine learning and data science.
+#
+# Each question looks like this (leave a blank line between questions):
+#
+#   Q: What is the powerhouse of the cell?
+#   Topic: Cells
+#   - Nucleus
+#   * Mitochondria        <- the star marks the correct answer
+#   - Ribosome
+#   - Golgi apparatus
+#   Why: Mitochondria make ATP, the cell's energy.
+#
+# Lines starting with # are ignored.
+
+# Which year of a computer science degree this class usually falls in (used by the year filter):
+Year: 3
+
+Q: Row reducing a system's augmented matrix produces a row of the form [0 0 0 | 5]. What does that mean?
+Topic: Linear Systems
+- Infinitely many solutions, since that row adds a free variable
+- Exactly one solution, with the last variable equal to 5
+* No solution: the system is inconsistent, since that row says 0 = 5
+- The system has a solution only if the other rows are all zero
+Why: A row of all zeros except the last entry is a contradiction. A row of all zeros, including the last entry, just means one equation was redundant.
+
+Q: How many solutions can a system of linear equations have?
+Topic: Linear Systems
+- Any number, like exactly 2
+* None, exactly one, or infinitely many
+- Always exactly one
+- At most as many as there are equations
+Why: Two different solutions would mean the whole line through them also works, giving infinitely many. That's why a linear system can never have exactly 2 solutions.
+
+Q: After row reduction, a consistent system with 4 unknowns has 2 pivot columns. How many free variables are there?
+Topic: Linear Systems
+- 0
+* 2
+- 4
+- 6
+Why: Free variables = number of unknowns - number of pivots = 4 - 2 = 2. Free variables mean infinitely many solutions, written in parametric form.
+
+Q: Which operation is NOT an elementary row operation?
+Topic: Linear Systems
+- Swapping two rows
+- Multiplying a row by a nonzero constant
+- Adding a multiple of one row to another
+* Squaring every entry in a row
+Why: The three elementary row operations never change the solution set. Squaring entries isn't linear and would change the equations' meaning.
+
+Q: If A is 2 × 3 and B is 3 × 4, what is the size of AB?
+Topic: Matrix Operations
+- 3 × 3
+* 2 × 4
+- 4 × 2
+- It isn't defined
+Why: The inner dimensions (3 and 3) must match, and the outer ones give the result: 2 × 4. BA isn't defined here, because B's 4 columns don't match A's 2 rows.
+
+Q: Which is true for square matrices A and B in general?
+Topic: Matrix Operations
+- AB = BA always, as long as both products are defined
+* AB and BA are usually different
+- AB = 0 means that A = 0 or B = 0
+- (AB)ᵀ = AᵀBᵀ for all square matrices
+Why: Matrix multiplication isn't commutative. Even AB = 0 can happen with nonzero A and B. The transpose rule reverses the order: (AB)ᵀ = BᵀAᵀ.
+
+Q: Compute AB.
+A = | 1  2 |    B = | 0  1 |
+    | 3  4 |        | 1  0 |
+Topic: Matrix Operations
+- [[1, 2], [3, 4]]
+* [[2, 1], [4, 3]]
+- [[3, 4], [1, 2]]
+- [[0, 2], [3, 0]]
+Why: Each entry is a row of A dotted with a column of B. Row 1 · column 1 = 1·0 + 2·1 = 2, and row 1 · column 2 = 1·1 + 2·0 = 1. Multiplying by B on the right swaps A's columns.
+
+Q: What is the determinant of this matrix?
+| 3  1 |
+| 2  4 |
+Topic: Determinants
+- 14
+* 10
+- 2
+- 12
+Why: For a 2 × 2 matrix [[a, b], [c, d]], the determinant is ad - bc = 3·4 - 1·2 = 10. It also gives the area-scaling factor of the transformation.
+
+Q: What is the inverse of this matrix?
+| 2  1 |
+| 5  3 |
+Topic: Inverses
+- [[3, 1], [5, 2]]
+* [[3, -1], [-5, 2]]
+- [[-2, 1], [5, -3]]
+- It has no inverse
+Why: The inverse of [[a, b], [c, d]] is (1/det) times [[d, -b], [-c, a]]. Here det = 6 - 5 = 1. Check: multiplying the matrix by its inverse gives the identity.
+
+Q: When does a square matrix have an inverse?
+Topic: Inverses
+- When none of its entries is zero
+* Exactly when its determinant is not zero
+- When it's symmetric, so Aᵀ = A
+- When its trace (diagonal sum) is not zero
+Why: det(A) = 0 means the transformation squashes space into a lower dimension, and you can't undo that. The Invertible Matrix Theorem lists many equivalent conditions.
+
+Q: For an n × n matrix A, which statement is NOT equivalent to "A is invertible"?
+Topic: Inverses
+- Ax = 0 has only the solution x = 0
+- The columns of A are linearly independent
+- det(A) ≠ 0
+* A has at least one zero entry
+Why: The Invertible Matrix Theorem says invertible, det ≠ 0, independent columns, full rank, only the trivial solution to Ax = 0, and 0 not being an eigenvalue all go together. Zero entries don't matter by themselves.
+
+Q: If det(A) = 3 and det(B) = 5 for 3 × 3 matrices, what is det(AB)?
+Topic: Determinants
+- 8
+* 15
+- 2
+- 125
+Why: det(AB) = det(A)·det(B). Also det(Aᵀ) = det(A), det(A⁻¹) = 1/det(A), and det(cA) = cⁿ det(A) for an n × n matrix.
+
+Q: Swapping two rows of a matrix does what to its determinant?
+Topic: Determinants
+- Nothing; the determinant ignores row order
+* Multiplies it by −1
+- Multiplies it by the product of the two rows' pivots
+- Makes it 0, since the rows are now dependent
+Why: Swapping changes the sign. Multiplying a row by k multiplies the determinant by k, and adding a multiple of one row to another changes nothing. These rules make determinants easy to find by row reduction.
+
+Q: What is the determinant of an upper triangular matrix?
+Topic: Determinants
+* The product of its diagonal entries
+- The sum of its diagonal entries
+- The product of its first row's entries
+- Always 1, after row reduction
+Why: Expanding along the first column leaves just one nonzero term at each step. The sum of the diagonal entries is the trace, which is something else.
+
+Q: What does it mean for vectors v₁, v₂, ..., vₖ to be linearly independent?
+Topic: Vector Spaces
+- No two of them point in the same direction, so none is a multiple of another one
+* The only way to combine them into the zero vector is with all coefficients equal to 0
+- Every pair of them is perpendicular, so their dot products are all equal to 0
+- They span the whole space, so every vector can be written as a combination of them
+Why: If some combination with nonzero coefficients gives zero, one vector can be written using the others, so it's redundant. Perpendicular nonzero vectors are independent, but independent vectors don't have to be perpendicular.
+
+Q: Can three vectors in ℝ² be linearly independent?
+Topic: Vector Spaces
+- Yes, as long as none of them is the zero vector
+* No; ℝ² has dimension 2, so any 3 vectors in it are dependent
+- Yes, as long as no two of them are parallel to each other
+- No, unless one of them is perpendicular to the other two
+Why: In an n-dimensional space, any set of more than n vectors is dependent. A basis of ℝ² has exactly 2 vectors.
+
+Q: Which set is a subspace of ℝ²?
+Topic: Vector Spaces
+- All (x, y) with y = 2x + 1
+* All (x, y) with y = 2x
+- All (x, y) with x ≥ 0
+- All (x, y) with xy = 0
+Why: A subspace must contain the zero vector and be closed under addition and scalar multiplication. The line y = 2x + 1 misses the origin. x ≥ 0 isn't closed under multiplying by -1. xy = 0 (the two axes) isn't closed under addition.
+
+Q: What is a basis of a vector space?
+Topic: Vector Spaces
+- Any set of vectors whose combinations reach every vector in the space
+* A linearly independent set that spans the whole space
+- Any linearly independent set of vectors in the space
+- A set of perpendicular unit vectors, one per coordinate
+Why: Every vector can then be written in exactly one way as a combination of the basis vectors. Every basis of a given space has the same number of vectors, which is its dimension.
+
+Q: A is a 5 × 7 matrix with rank 4. What is the dimension of its null space?
+Topic: Rank & Null Space
+- 1
+* 3
+- 4
+- 2
+Why: The rank-nullity theorem: rank + nullity = number of columns. So 4 + nullity = 7, and nullity = 3. That means Ax = 0 has a 3-dimensional space of solutions.
+
+Q: What is the column space of a matrix A?
+Topic: Rank & Null Space
+- The set of every x for which Ax = 0, also called the kernel of A
+* The span of A's columns: every b for which Ax = b has a solution
+- The span of A's rows, which has the same dimension as the column space
+- The set of columns of A that contain a pivot after row reduction
+Why: Ax is always a combination of A's columns with the weights in x. Its dimension is the rank. The null space, in contrast, is the set of x with Ax = 0.
+
+Q: Is T(x) = x + 1, a map from ℝ to ℝ, a linear transformation?
+Topic: Linear Transformations
+- Yes; its graph is a straight line, and every straight line is linear
+* No; a linear map must send 0 to 0, but T(0) = 1
+- Yes; it satisfies T(x + y) = T(x) + T(y) for all x and y
+- No; it fails only for negative values of x
+Why: Linear means T(u + v) = T(u) + T(v) and T(cu) = cT(u). Shifting by 1 breaks both. Lines through the origin, like T(x) = 3x, are linear.
+
+Q: Which matrix rotates vectors in ℝ² by 90° counterclockwise?
+Topic: Linear Transformations
+- [[1, 0], [0, 1]]
+* [[0, -1], [1, 0]]
+- [[0, 1], [1, 0]]
+- [[-1, 0], [0, -1]]
+Why: The columns show where the basis vectors go: (1, 0) goes to (0, 1) and (0, 1) goes to (-1, 0). The general rotation matrix is [[cos θ, -sin θ], [sin θ, cos θ]].
+
+Q: The columns of a transformation's matrix tell you what?
+Topic: Linear Transformations
+* Where the standard basis vectors land
+- The eigenvalues of the transformation
+- Which vectors the transformation sends to zero
+- Where the rows of the identity matrix land
+Why: Since every vector is a combination of e₁, e₂, ..., knowing where those go determines the whole transformation. This is how you build the matrix for a rotation, reflection or scaling.
+
+Q: What is an eigenvector of A?
+Topic: Eigenvalues
+- Any vector that A leaves completely unchanged, so Av = v
+* A nonzero vector that A only stretches or flips: Av = λv for some λ
+- Any vector, including zero, for which Av = λv for some λ
+- A column of A that has a pivot after row reduction
+Why: Eigenvectors keep their direction (or reverse it) under the transformation, and λ, the eigenvalue, is the stretch factor. They reveal a matrix's natural axes.
+
+Q: What are the eigenvalues of this matrix?
+| 2  0 |
+| 0  5 |
+Topic: Eigenvalues
+- 0 and 7
+* 2 and 5
+- 10
+- 2.5 and 2.5
+Why: For diagonal (and triangular) matrices, the eigenvalues are the diagonal entries. The eigenvectors here are (1, 0) and (0, 1).
+
+Q: What are the eigenvalues of this matrix?
+| 4  1 |
+| 2  3 |
+Topic: Eigenvalues
+- 4 and 3
+* 2 and 5
+- 1 and 6
+- -2 and -5
+Why: Solve det(A - λI) = 0: (4 - λ)(3 - λ) - 2 = λ² - 7λ + 10 = (λ - 2)(λ - 5). Check: 2 + 5 = 7, the trace, and 2 × 5 = 10, the determinant.
+
+Q: For any square matrix, the sum of its eigenvalues equals what?
+Topic: Eigenvalues
+- Its determinant
+* Its trace (the sum of the diagonal entries)
+- Its rank
+- The product of its diagonal entries (its determinant)
+Why: The eigenvalues multiply to the determinant and add up to the trace, counting repeated ones. These make quick checks on exams.
+
+Q: When is an n × n matrix diagonalizable, so A = PDP⁻¹?
+Topic: Eigenvalues
+- When its determinant isn't zero, so it's invertible
+* When it has n linearly independent eigenvectors
+- When it has n eigenvalues, counted with repetition
+- When it's upper triangular, so its eigenvalues are on the diagonal
+Why: P's columns are the eigenvectors and D holds the eigenvalues. Having n distinct eigenvalues guarantees it. Then Aᵏ = PDᵏP⁻¹, which makes large powers easy to compute.
+
+Q: What is the dot product of (1, 2, 3) and (4, -5, 6)?
+Topic: Orthogonality
+- 0
+* 12
+- -12
+- 32
+Why: 1·4 + 2·(-5) + 3·6 = 4 - 10 + 18 = 12. The dot product also equals the two lengths times the cosine of the angle between the vectors.
+
+Q: When are two nonzero vectors orthogonal?
+Topic: Orthogonality
+- When they have the same length
+* When their dot product is 0
+- When one is a multiple of the other
+- When their cross product is 0
+Why: A dot product of 0 means cos θ = 0, so the angle is 90°. Orthogonal sets of nonzero vectors are automatically linearly independent.
+
+Q: What is the projection of b onto a nonzero vector a?
+Topic: Orthogonality
+- ((a · b) / (b · b)) b
+* ((a · b) / (a · a)) a
+- ((a · b) / |a|) a
+- (a · b) a
+Why: It's the "shadow" of b along a. The leftover b minus its projection is perpendicular to a. This idea powers least squares and Gram-Schmidt.
+
+Q: What does the Gram-Schmidt process do?
+Topic: Orthogonality
+- Finds the eigenvalues of a matrix by repeatedly projecting it onto its columns
+* Turns a basis into an orthogonal (or orthonormal) basis for the same space
+- Row-reduces a matrix into reduced echelon form so its rank can be read off
+- Factors a matrix into a lower and an upper triangular matrix
+Why: It subtracts from each vector its projections onto the earlier ones, then normalizes. It's the basis of the QR factorization.
+
+Q: What is special about an orthogonal matrix Q?
+Topic: Orthogonality
+- All of its entries are 0 or 1, with exactly one 1 in each row
+* QᵀQ = I, so Q⁻¹ = Qᵀ, and it preserves lengths and angles
+- Qᵀ = Q, so all of its eigenvalues are real numbers
+- Its determinant is 0, since its columns are perpendicular
+Why: Rotations and reflections are orthogonal matrices. Their determinant is 1 or -1, and they're numerically stable, which is why algorithms love them.
+
+Q: Ax = b has no exact solution. What do the normal equations AᵀAx = Aᵀb find?
+Topic: Least Squares
+- The exact solution, found by multiplying both sides by Aᵀ
+* The least-squares solution: the x that makes Ax as close as possible to b
+- The x with the smallest length among all solutions to Ax = b
+- The projection of x onto the column space of A, written proj(x)
+Why: This is how a line of best fit is computed: minimize the sum of squared errors. Geometrically, Ax becomes the projection of b onto A's column space.
+
+Q: How do 3D graphics programs move (translate) points using matrix multiplication?
+Topic: Applications
+- Translation can't be done with matrices, so it's always added separately after rotating
+* They use 4 × 4 matrices and homogeneous coordinates, giving each point a 4th coordinate of 1
+- They use 3 × 3 matrices with the translation amounts placed along the diagonal
+- They multiply by a 3 × 3 matrix and then add a 3 × 3 matrix of the offsets
+Why: Translation isn't linear in 3D, but in homogeneous coordinates it becomes a matrix multiplication. Then rotations, scaling and translations can all be combined into one matrix. GPUs do this billions of times per second.
+
+Q: Google's original PageRank algorithm is essentially what kind of problem?
+Topic: Applications
+- Solving a small system of linear equations, one per page
+* Finding an eigenvector (eigenvalue 1) of a huge matrix describing links between pages
+- Inverting the link matrix to find how far each page is from the most popular one
+- Computing the determinant of the link matrix to measure each page's importance
+Why: A page's importance depends on the importance of the pages linking to it, which leads to Mv = v. The power method, which repeatedly multiplies by M, finds it.
+
+Q: In machine learning, principal component analysis (PCA) uses what?
+Topic: Applications
+- The determinant of the data, which measures how spread out it is
+* The eigenvectors of the data's covariance matrix (the directions of greatest variation)
+- Row reduction of the data matrix, keeping only the pivot columns
+- The inverse of the covariance matrix, which removes correlations between features
+Why: Keeping just the top few principal components compresses data while keeping most of its information. It's used for visualization, noise reduction and speeding up models.
+
+Q: What does the rank of a matrix tell you?
+Topic: Rank & Null Space
+- The number of rows, minus the number of rows that are all zero to begin with
+* The number of independent columns, which equals the pivots and the column space's dimension
+- The number of free variables in Ax = 0, which equals the null space's dimension
+- The number of nonzero entries on the diagonal of the original matrix
+Why: Row rank always equals column rank. A full-rank square matrix is invertible. Rank also tells you how many equations in a system really carry new information.
+
+Q: If Ax = b has a solution, and Ax = 0 has infinitely many solutions, how many solutions does Ax = b have?
+Topic: Linear Systems
+- Exactly one
+* Infinitely many
+- None
+- As many as the number of free variables
+Why: Every solution of Ax = b is one particular solution plus any solution of Ax = 0. A whole family of homogeneous solutions gives a whole family of solutions to Ax = b.
+
+Q: What does the determinant's absolute value say about a 2 × 2 transformation?
+Topic: Determinants
+- How many eigenvectors it has, counting repeated ones
+* How much it scales areas: a unit square's image has area |det|
+- How much it scales lengths: every vector's length is multiplied by |det|
+- Whether it rotates the plane clockwise or counterclockwise
+Why: A negative determinant also means the transformation flips orientation, like a mirror. A determinant of 0 squashes the plane onto a line or a point.
+
+# ---- Must-know formulas and facts for this class ----
+
+Q: Formula check: what is the determinant of the 2 × 2 matrix [[a, b], [c, d]]?
+Topic: Formulas
+* ad − bc
+- ab − cd
+- ad + bc
+- ac − bd
+Why: Multiply down the main diagonal and subtract the product of the other diagonal. If ad − bc = 0, the matrix has no inverse.
+
+Q: Formula check: what is the inverse of the 2 × 2 matrix [[a, b], [c, d]]?
+Topic: Formulas
+* (1/(ad − bc)) · [[d, −b], [−c, a]]
+- (1/(ad − bc)) · [[a, −b], [−c, d]]
+- (1/(ad − bc)) · [[−d, b], [c, −a]]
+- (ad − bc) · [[d, −b], [−c, a]]
+Why: Swap the diagonal entries, negate the off-diagonal entries, and divide by the determinant. Check by multiplying: you should get the identity matrix.
+
+Q: Formula check: what is the Rank-Nullity Theorem for an m × n matrix A?
+Topic: Formulas
+* rank(A) + nullity(A) = n, the number of columns
+- rank(A) + nullity(A) = m, the number of rows
+- rank(A) = nullity(A)
+- rank(A) × nullity(A) = n
+Why: Each column either has a pivot (counted in the rank) or gives a free variable (counted in the nullity). So a 5 × 7 matrix with rank 4 has a 3-dimensional null space.
+
+Q: Formula check: how do you find the eigenvalues of a square matrix A?
+Topic: Formulas
+* Solve det(A − λI) = 0
+- Solve det(A) − λ = 0
+- Solve (A − λI)x = b
+- Solve Ax = 0 for x
+Why: Av = λv with v ≠ 0 means (A − λI)v = 0 has a nonzero solution, which happens exactly when A − λI is singular. det(A − λI) is called the characteristic polynomial.
+
+Q: Formula check: what is the dot product u · v in terms of lengths and the angle θ between them?
+Topic: Formulas
+* |u| |v| cos θ
+- |u| |v| sin θ
+- |u| + |v| cos θ
+- |u × v| cos θ
+Why: This is how you find angles: cos θ = (u · v)/(|u||v|). When u · v = 0, cos θ = 0 and the vectors are perpendicular.
+
+Q: Formula check: what is the length (norm) of v = (v₁, v₂, ..., vₙ)?
+Topic: Formulas
+* √(v₁² + v₂² + ... + vₙ²)
+- v₁ + v₂ + ... + vₙ
+- (v₁² + v₂² + ... + vₙ²)²
+- |v₁| · |v₂| · ... · |vₙ|
+Why: It's the Pythagorean theorem in n dimensions, and it equals √(v · v). To make a unit vector, divide v by its length.
+
+Q: Formula check: what is (AB)⁻¹, for invertible matrices A and B?
+Topic: Formulas
+* B⁻¹A⁻¹
+- A⁻¹B⁻¹
+- (A⁻¹)(B⁻¹)ᵀ
+- A⁻¹ + B⁻¹
+Why: To undo "do B, then A," you undo A first, then B, like taking off shoes before socks. The same order reversal applies to transposes: (AB)ᵀ = BᵀAᵀ.
+
+Q: Formula check: what is det(Aᵀ) and det(A⁻¹), in terms of det(A)?
+Topic: Formulas
+* det(Aᵀ) = det(A) and det(A⁻¹) = 1/det(A)
+- det(Aᵀ) = −det(A) and det(A⁻¹) = −det(A)
+- det(Aᵀ) = 1/det(A) and det(A⁻¹) = det(A)
+- det(Aᵀ) = det(A)² and det(A⁻¹) = 1/det(A)²
+Why: Transposing doesn't change the determinant. Since det(A)·det(A⁻¹) = det(I) = 1, the inverse's determinant is the reciprocal.
+
+Q: Formula check: what is det(cA) for an n × n matrix A and a scalar c?
+Topic: Formulas
+* cⁿ · det(A)
+- c · det(A)
+- n · c · det(A)
+- c² · det(A)
+Why: Multiplying the matrix by c multiplies every one of the n rows by c, and each row scaling multiplies the determinant by c. A 3 × 3 matrix doubled has 8 times the determinant.
+
+Q: Formula check: what is the product of the eigenvalues of a square matrix?
+Topic: Formulas
+* Its determinant
+- Its trace
+- Its rank
+- The sum of its diagonal entries
+Why: The sum of the eigenvalues is the trace, and their product is the determinant. That's a quick way to check your eigenvalue work.
+
+Q: Formula check: in the Gram-Schmidt process, how is the second orthogonal vector u₂ built from v₂?
+Topic: Formulas
+* u₂ = v₂ − ((v₂ · u₁)/(u₁ · u₁)) u₁
+- u₂ = v₂ + ((v₂ · u₁)/(u₁ · u₁)) u₁
+- u₂ = v₂ − (v₂ · u₁) v₂
+- u₂ = v₂ × u₁
+Why: Subtract the projection of v₂ onto u₁, which removes the part of v₂ that points along u₁. What's left is perpendicular to u₁.
+
+Q: Formula check: what is the 2 × 2 matrix that rotates vectors counterclockwise by angle θ?
+Topic: Formulas
+* [[cos θ, −sin θ], [sin θ, cos θ]]
+- [[cos θ, sin θ], [−sin θ, cos θ]]
+- [[sin θ, −cos θ], [cos θ, sin θ]]
+- [[cos θ, −sin θ], [−sin θ, cos θ]]
+Why: The first column is where (1, 0) goes, (cos θ, sin θ), and the second is where (0, 1) goes, (−sin θ, cos θ). The second option rotates clockwise instead.

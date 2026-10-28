@@ -1,0 +1,413 @@
+# quizzahh question file. The file name is the class name.
+#
+# CS 7: Design and Analysis of Algorithms (sorting, divide and conquer, greedy, dynamic programming,
+# graph algorithms, NP-completeness).
+#
+# Each question looks like this (leave a blank line between questions):
+#
+#   Q: What is the powerhouse of the cell?
+#   Topic: Cells
+#   - Nucleus
+#   * Mitochondria        <- the star marks the correct answer
+#   - Ribosome
+#   - Golgi apparatus
+#   Why: Mitochondria make ATP, the cell's energy.
+#
+# Lines starting with # are ignored.
+
+# Which year of a computer science degree this class usually falls in (used by the year filter):
+Year: 3
+
+Q: What does f(n) = Θ(g(n)) mean?
+Topic: Asymptotic Analysis
+- f grows strictly slower than g, so g is an upper bound that is never reached
+* f is bounded above and below by constant multiples of g for large n (a tight bound)
+- f is bounded above by g for large n, but may be much smaller (an upper bound only)
+- f and g are exactly equal for every value of n larger than some starting point
+Why: Big-O is an upper bound, Big-Omega (Ω) is a lower bound, and Theta (Θ) means both. For example, 3n² + 5n is Θ(n²).
+
+Q: Which statement is TRUE?
+Topic: Asymptotic Analysis
+- n² is O(n)
+* n is O(n²)
+- 2ⁿ is O(n³)
+- n log n is O(n)
+Why: Big-O is only an upper bound, so a linear function is also O(n²) (just not tight). Exponential functions eventually beat every polynomial, so 2ⁿ is not O(n³).
+
+Q: Using the Master Theorem, what does T(n) = 2T(n/2) + n solve to?
+Topic: Recurrences
+- Θ(n)
+* Θ(n log n)
+- Θ(n²)
+- Θ(n log² n)
+Why: This is merge sort's recurrence. a = 2 and b = 2, so n to the power log base b of a is n, which matches the extra work f(n) = n. Equal work at every level, across log n levels, gives n log n.
+
+Q: What does T(n) = T(n/2) + 1 solve to?
+Topic: Recurrences
+* Θ(log n)
+- Θ(n)
+- Θ(n log n)
+- Θ(1)
+Why: This is binary search: one comparison, then half the problem. Halving can happen only about log₂ n times before reaching size 1.
+
+Q: What does T(n) = 2T(n - 1) + 1, with T(0) = 0, solve to?
+Topic: Recurrences
+- Θ(n)
+- Θ(n²)
+* Θ(2ⁿ)
+- Θ(n log n)
+Why: Each call makes two calls on a problem only one smaller, so the work doubles at each level: 1, 3, 7, 15... which is 2ⁿ - 1. Towers of Hanoi works like this. Exponential recurrences often show up when overlapping subproblems aren't memoized.
+
+Q: What is merge sort's running time in the worst case?
+Topic: Sorting
+- O(n²)
+* O(n log n)
+- O(n)
+- O(n log² n)
+Why: Split the array in half, sort each half recursively, then merge in linear time. There are log n levels of splitting with O(n) merging per level. Merge sort is stable but needs O(n) extra space.
+
+Q: What is quicksort's worst-case running time, and when does it happen?
+Topic: Sorting
+- O(n log n) in every case, since the pivot always splits the array roughly in half
+* O(n²), when the pivot is always the smallest or largest element, like sorted input with a first-element pivot
+- O(n²), but only on random data, since a randomly chosen pivot can land anywhere in the array
+- O(n log² n), when many keys are equal and the partition step has to scan them repeatedly
+Why: Bad pivots split n items into 0 and n - 1, making n levels of work. Random pivots make the expected time O(n log n), and in practice quicksort is very fast and sorts in place.
+
+Q: What is the lower bound for any comparison-based sorting algorithm in the worst case?
+Topic: Sorting
+- Ω(n)
+* Ω(n log n)
+- Ω(n²)
+- Ω(n log log n)
+Why: There are n factorial possible orderings. Each comparison has two outcomes, so a decision tree needs at least log₂ of n factorial comparisons, which is on the order of n log n. Counting sort and radix sort beat this by not using comparisons.
+
+Q: What does it mean for a sorting algorithm to be stable?
+Topic: Sorting
+- It always runs in O(n log n), even in the worst case
+* Items with equal keys keep their original relative order
+- It uses no extra memory beyond the input array
+- It gives the same output no matter what order the input is in
+Why: Stability matters when sorting by several keys, like sorting by last name after sorting by first name. Merge sort and insertion sort are stable. Typical quicksort and heapsort are not.
+
+Q: Which sort is best on an array that's already nearly sorted?
+Topic: Sorting
+- Selection sort
+* Insertion sort
+- Heapsort
+- Quicksort with a first-element pivot
+Why: Insertion sort runs in O(n + d), where d is the number of out-of-order pairs, so it's almost linear on nearly sorted data. Selection sort always does O(n²) comparisons.
+
+Q: Counting sort runs in O(n + k). What is k?
+Topic: Sorting
+- The number of comparisons made while counting each key
+* The range of the key values (largest minus smallest, plus one)
+- The number of passes made over the input array
+- The number of digits in the largest key
+Why: Counting sort tallies how many times each value appears. It's great for small integer ranges, like test scores from 0 to 100, but useless when k is huge.
+
+Q: What must be true for binary search to work?
+Topic: Divide & Conquer
+- The array must have a length that's a power of two
+* The data must be sorted (and allow direct access by index)
+- The target must be somewhere in the array
+- The array must contain only distinct integers
+Why: Each comparison with the middle element rules out half of what's left, so it runs in O(log n). On unsorted data, comparing with the middle tells you nothing about where the target is.
+
+Q: What is the key idea of divide and conquer?
+Topic: Divide & Conquer
+- Try every possible combination and keep whichever answer turns out to be best
+* Split into smaller subproblems of the same kind, solve them recursively, then combine
+- At each step, make the choice that looks best right now and never revisit it
+- Store the answer to every subproblem in a table so it's never computed twice
+Why: Merge sort, quicksort, binary search, and Karatsuba multiplication are divide and conquer. The Master Theorem analyzes their recurrences.
+
+Q: What is the key idea of a greedy algorithm?
+Topic: Greedy Algorithms
+- Try every combination of choices, but skip any branch that can't beat the best found so far
+* At each step, make the choice that looks best right now, and never go back
+- Split the problem in half, solve each half, then merge the two answers together
+- Fill in a table of subproblem answers from the smallest up to the full problem
+Why: Greedy is simple and fast, but it's only correct for problems with the right structure. You usually prove it with an exchange argument. Greedy coin change works for U.S. coins but fails for some coin systems.
+
+Q: For activity selection (fit the most non-overlapping meetings in one room), which greedy rule is optimal?
+Topic: Greedy Algorithms
+- Pick the shortest meeting first, then repeat with the meetings that don't overlap it
+- Pick the earliest-starting meeting first, then repeat with meetings after it ends
+* Pick the meeting that ends earliest, then repeat with meetings that start after it
+- Pick the meeting with the fewest conflicts first, then repeat with the rest
+Why: Finishing earliest leaves the most room for everything else. The other rules have counterexamples. For example, the shortest meeting might overlap two meetings that would otherwise both fit.
+
+Q: Huffman coding builds an optimal prefix code by repeatedly doing what?
+Topic: Greedy Algorithms
+- Giving the most common symbol the longest code, so rare symbols stay short
+* Merging the two least frequent symbols (or subtrees) into one node
+- Merging the two most frequent symbols (or subtrees) into one node
+- Splitting the symbols into two halves of equal total frequency
+Why: Frequent symbols end up near the root with short codes, and rare symbols get long codes. A priority queue makes it run in O(n log n). Huffman coding is used inside ZIP and JPEG compression.
+
+Q: What two properties signal that dynamic programming will work?
+Topic: Dynamic Programming
+- A greedy-choice property and an input that's already sorted
+* Optimal substructure and overlapping subproblems
+- Independent subproblems and a recursive structure
+- A heap of candidates and a problem of polynomial size
+Why: Optimal substructure means a best solution is built from best solutions to subproblems. Overlapping subproblems means the same subproblems repeat, so storing their answers (memoization or a table) saves huge amounts of work.
+
+Q: Naive recursive Fibonacci, fib(n) = fib(n - 1) + fib(n - 2), runs in exponential time. What does memoization make it?
+Topic: Dynamic Programming
+- Still exponential
+* O(n)
+- O(log n)
+- O(n²)
+Why: Each fib(k) is computed once and then looked up. Without memoization, fib(n - 2) is recomputed inside fib(n - 1) again and again, leading to roughly 1.6 to the n calls.
+
+Q: What is the difference between top-down and bottom-up dynamic programming?
+Topic: Dynamic Programming
+- Top-down makes greedy choices at each step; bottom-up tries every choice and keeps the best one
+* Top-down is recursion plus a memo; bottom-up fills a table in order from the smallest subproblems
+- Bottom-up is always slower, since it computes subproblems that the answer may never need
+- They solve different kinds of problems: top-down is for trees, bottom-up is for arrays
+Why: Both give the same time bound. Bottom-up avoids recursion overhead and stack overflow. Top-down only solves the subproblems that are actually needed.
+
+Q: For the longest common subsequence (LCS) of strings of lengths m and n, what is the dynamic programming running time?
+Topic: Dynamic Programming
+- O(m + n)
+* O(m × n)
+- O(2 to the m + n)
+- O(log(m × n))
+Why: The table has one cell per pair of prefixes, and each cell takes O(1): if the characters match, take the diagonal plus 1; otherwise take the larger of the left and above cells. LCS powers diff tools.
+
+Q: The 0/1 knapsack problem (capacity W, n items) can be solved by dynamic programming in O(nW). Why isn't that considered polynomial time?
+Topic: Dynamic Programming
+- It is polynomial; the O(nW) bound is simply stated in terms of two variables instead of one
+* W is a number whose input size is only about log W bits, so O(nW) can be exponential in input size
+- Because n is usually small in practice, so the running time is treated as constant
+- Because knapsack doesn't have optimal substructure, so the table may give a wrong answer
+Why: Doubling W adds just one bit to the input but doubles the work. Knapsack is NP-complete. Fractional knapsack, where you can take parts of items, is solved greedily by value per weight.
+
+Q: What does Dijkstra's algorithm find, and what's its main requirement?
+Topic: Graph Algorithms
+- A minimum spanning tree; the graph must be undirected and connected
+* Shortest paths from one source; all edge weights must be non-negative
+- Shortest paths from one source; the graph must have no cycles
+- All-pairs shortest paths; all edge weights must be positive integers
+Why: Dijkstra greedily finalizes the closest unvisited node using a priority queue, giving O((V + E) log V). A negative edge can break it, because a "finalized" distance might later get shorter.
+
+Q: Which algorithm handles negative edge weights and detects negative cycles for single-source shortest paths?
+Topic: Graph Algorithms
+- Dijkstra
+* Bellman-Ford
+- Prim
+- A* search
+Why: Bellman-Ford relaxes every edge V - 1 times, in O(VE). If one more round still improves a distance, there's a negative cycle, so no shortest path exists.
+
+Q: Floyd-Warshall computes what, and how fast?
+Topic: Graph Algorithms
+- Shortest paths from one source to all vertices, O(V + E)
+* Shortest paths between all pairs of vertices, O(V³)
+- A minimum spanning tree, O(E log V)
+- Shortest paths between all pairs of vertices, O(V² log V)
+Why: It's dynamic programming: for each possible middle vertex k, check whether going through k improves the path from i to j. It's simple and works with negative edges, as long as there are no negative cycles.
+
+Q: What does a minimum spanning tree (MST) connect?
+Topic: Graph Algorithms
+- Two chosen vertices by the cheapest path, which may skip some vertices entirely
+* All vertices of a connected, weighted, undirected graph with the least total weight, no cycles
+- All vertices of a directed graph in an order where every edge points forward
+- All vertices using the fewest possible edges, ignoring the edge weights
+Why: An MST on V vertices has exactly V - 1 edges. Think of connecting towns with the least total cable. Kruskal's and Prim's algorithms are both greedy and both correct.
+
+Q: How does Kruskal's algorithm build a minimum spanning tree?
+Topic: Graph Algorithms
+- Start from one vertex and keep adding the cheapest edge that connects the tree to a new vertex
+* Sort all edges by weight and add each unless it would create a cycle (checked with union-find)
+- Run BFS from any vertex and keep the edges of the BFS tree it builds along the way
+- Repeatedly remove the heaviest edge in any cycle until no cycles remain in the graph
+Why: Sorting gives O(E log E). Prim's algorithm is the "grow from one vertex" approach and uses a priority queue.
+
+Q: What does a topological sort produce, and when does one exist?
+Topic: Graph Algorithms
+- A list of the edges sorted by weight; it exists for any connected graph
+* An order of vertices where every edge goes from earlier to later; only for DAGs
+- An order of vertices where every edge goes from earlier to later; for any directed graph
+- A minimum spanning tree; it exists only for undirected graphs
+Why: One method is DFS, listing vertices in reverse finishing order. Another is Kahn's algorithm, which repeatedly removes vertices with no incoming edges. Both are O(V + E). A cycle makes it impossible.
+
+Q: What does the max-flow min-cut theorem say?
+Topic: Graph Algorithms
+- The max flow equals the sum of the capacities of all edges leaving the source
+* The maximum flow from source to sink equals the capacity of the smallest cut separating them
+- The max flow equals the capacity of the largest cut separating the source and the sink
+- Every flow network has exactly one minimum cut, which the max flow passes through
+Why: Ford-Fulkerson keeps finding augmenting paths in the residual graph until none remain. Max flow models pipelines, network bandwidth, and matching problems like assigning students to projects.
+
+Q: What is the class P?
+Topic: NP-Completeness
+- Problems whose solutions can be checked quickly, but may not be quickly found
+* Decision problems solvable by a deterministic algorithm in polynomial time
+- Problems that can be solved by a nondeterministic algorithm in polynomial time
+- Problems that can be solved in polynomial space, however long it takes
+Why: Examples include sorting, shortest paths, and checking whether a graph is connected. Polynomial time is the usual definition of "efficient."
+
+Q: What is the class NP?
+Topic: NP-Completeness
+- Problems that are "not polynomial," so no fast algorithm can exist for them
+* Decision problems where a "yes" answer (a certificate) can be verified in polynomial time
+- Problems that require exponential time on a deterministic machine, no matter what
+- Problems at least as hard as SAT, whether or not they're decision problems
+Why: NP stands for nondeterministic polynomial, not "not polynomial." For Sudoku, checking a filled grid is easy even if finding one is hard. Every problem in P is also in NP. Whether P = NP is one of the biggest open problems.
+
+Q: What makes a problem NP-complete?
+Topic: NP-Completeness
+- It's known to need exponential time on every input
+* It's in NP, and every problem in NP reduces to it in polynomial time
+- It reduces to every problem in NP in polynomial time, so it's the easiest in NP
+- It has no algorithm at all, like the halting problem
+Why: If anyone found a polynomial algorithm for one NP-complete problem, then P = NP. SAT was the first, by the Cook-Levin theorem. Others include 3-SAT, vertex cover, Hamiltonian cycle, and the decision version of the traveling salesman problem.
+
+Q: To prove a new problem X is NP-hard, which direction should the reduction go?
+Topic: NP-Completeness
+- Reduce X to a known NP-complete problem
+* Reduce a known NP-complete problem to X
+- Reduce X to a problem in P
+- No reduction is needed
+Why: Showing that a known hard problem can be solved using X proves that X is at least as hard. Reducing in the other direction only shows X is no harder than something hard, which proves nothing.
+
+Q: The traveling salesman problem is NP-hard. What do practical programs usually do on big inputs?
+Topic: NP-Completeness
+- Give up, since an NP-hard problem can't be solved for more than about 20 cities
+* Use approximation algorithms or heuristics that find good, not always perfect, routes quickly
+- Run brute force on a supercomputer, which can check every route in a few minutes
+- Use dynamic programming, which solves it exactly in polynomial time for any input size
+Why: For example, with triangle-inequality distances, an MST-based method is guaranteed within 2 times the optimum. Real delivery companies use heuristics and local search.
+
+Q: What is amortized analysis?
+Topic: Analysis Techniques
+- The cost of an algorithm in its best case
+* The average cost per operation over a worst-case sequence of operations
+- The average cost per operation over all possible random inputs
+- The cost of the single most expensive operation
+Why: Dynamic array appends are amortized O(1): rare O(n) resizes are paid for by many cheap appends. Unlike average-case analysis, no assumptions about random input are needed.
+
+Q: What is the worst-case running time of heapsort?
+Topic: Sorting
+- O(n²)
+* O(n log n)
+- O(n)
+- O(n log² n)
+Why: Build a heap in O(n), then remove the maximum n times at O(log n) each. Heapsort sorts in place with a guaranteed O(n log n), but it isn't stable.
+
+Q: BFS on an unweighted graph from a source s finds what?
+Topic: Graph Algorithms
+- A minimum spanning tree of the graph
+* The shortest path, by number of edges, from s to every reachable vertex
+- The shortest path by total weight, as long as no weights are negative
+- A topological order of the reachable vertices
+Why: BFS visits all vertices 1 edge away, then 2 edges away, and so on. With different edge weights you need Dijkstra instead.
+
+Q: What does it mean for an algorithm to be in-place?
+Topic: Analysis Techniques
+- It runs in O(1) time, no matter how large the input is
+* It uses only O(1) extra memory (or a little, like O(log n)) beyond the input
+- It doesn't change the input; it builds a new array for the output
+- It sorts in a single pass, so it never revisits an element
+Why: Heapsort and insertion sort are in-place. Merge sort usually needs O(n) extra space for merging.
+
+Q: The "two pointers" technique on a sorted array can find whether two numbers add up to a target in what time?
+Topic: Analysis Techniques
+- O(n²)
+* O(n)
+- O(log n)
+- O(n log n) after sorting, then O(n²)
+Why: Start one pointer at each end. If the sum is too small, move the left pointer right. If it's too big, move the right pointer left. Each step rules out one element. Checking all pairs would be O(n²).
+
+Q: A dynamic programming solution makes a table with n × n entries, and each entry takes O(n) time to fill. What's the total?
+Topic: Dynamic Programming
+- O(n²)
+* O(n³)
+- O(n)
+- O(2ⁿ)
+Why: The number of subproblems times the work per subproblem gives the running time. Matrix-chain multiplication is a classic example of an O(n³) dynamic program.
+
+Q: Why does Dijkstra's algorithm fail with a negative edge?
+Topic: Graph Algorithms
+- It doesn't fail; it just runs more slowly, since it has to revisit nodes many times
+* It finalizes a node's distance and never revisits it, but a later negative edge could give a shorter path
+- Negative numbers can't be stored as keys in a priority queue, so the heap breaks
+- It only fails on undirected graphs, where a negative edge makes an instant negative cycle
+Why: Dijkstra's greedy choice assumes adding edges never makes a path shorter. Negative weights break that assumption, so use Bellman-Ford instead.
+
+Q: What is a common way to show a greedy algorithm is correct?
+Topic: Greedy Algorithms
+- Test it on several random examples and check it against brute force
+* An exchange argument: show any optimal solution can be swapped step by step into the greedy one
+- Show it runs in polynomial time, since greedy algorithms are correct when they're fast
+- Show that it makes the locally best choice at every step, which proves it's globally best
+Why: Passing examples doesn't prove correctness, because greedy algorithms often fail on special cases. Proofs by exchange argument or "greedy stays ahead" are standard on algorithms exams.
+
+# ---- Must-know formulas and facts for this class ----
+
+Q: Must-know: what is the recurrence for merge sort?
+Topic: Must-Know Facts
+* T(n) = 2T(n/2) + O(n)
+- T(n) = T(n/2) + O(1)
+- T(n) = T(n − 1) + O(n)
+- T(n) = 2T(n − 1) + O(1)
+Why: It splits into two halves and merges in linear time, which gives Θ(n log n). T(n/2) + O(1) is binary search, T(n − 1) + O(n) is selection sort or worst-case quicksort, and 2T(n − 1) + O(1) is exponential.
+
+Q: Must-know: what are the best, average and worst-case running times of quicksort?
+Topic: Must-Know Facts
+* O(n log n), O(n log n), and O(n²)
+- O(n), O(n log n), and O(n log n)
+- O(n log n), O(n²), and O(n²)
+- O(log n), O(n log n), and O(n²)
+Why: Bad pivots (always the smallest or largest) cause the O(n²) case. Picking the pivot at random makes that extremely unlikely, which is why quicksort is fast in practice.
+
+Q: Must-know: what are the running times of Kruskal's and Prim's MST algorithms with good data structures?
+Topic: Must-Know Facts
+* Both O(E log V)
+- Kruskal O(V²), Prim O(E)
+- Both O(V · E)
+- Kruskal O(E), Prim O(V log V)
+Why: Kruskal is dominated by sorting the edges, and Prim (with a binary heap) by heap operations. Prim with a Fibonacci heap reaches O(E + V log V).
+
+Q: Must-know: which shortest-path algorithm fits each case: unweighted graph, non-negative weights, negative weights, all pairs?
+Topic: Must-Know Facts
+* BFS, Dijkstra, Bellman-Ford, Floyd-Warshall
+- DFS, Bellman-Ford, Dijkstra, Prim
+- BFS, Prim, Kruskal, Dijkstra
+- Dijkstra, BFS, Floyd-Warshall, Bellman-Ford
+Why: Match the tool to the graph. BFS is O(V + E), Dijkstra O((V + E) log V), Bellman-Ford O(V·E) and also detects negative cycles, and Floyd-Warshall O(V³).
+
+Q: Must-know: what is the dynamic programming recurrence for the 0/1 knapsack problem?
+Topic: Must-Know Facts
+* best(i, w) = max(best(i−1, w), value_i + best(i−1, w − weight_i))
+- best(i, w) = best(i−1, w) + value_i
+- best(i, w) = max(value_i, best(i, w − weight_i))
+- best(i, w) = min(best(i−1, w), weight_i + best(i−1, w − value_i))
+Why: For each item you either skip it or take it (if it fits) and use the leftover capacity on the earlier items. The table has n × W cells, which gives O(nW) time.
+
+Q: Must-know: what is the recurrence for the edit (Levenshtein) distance between strings a and b?
+Topic: Must-Know Facts
+* d(i, j) = min(d(i−1, j) + 1, d(i, j−1) + 1, d(i−1, j−1) + [aᵢ ≠ bⱼ])
+- d(i, j) = d(i−1, j−1) + [aᵢ ≠ bⱼ], since only replacements are allowed
+- d(i, j) = max(d(i−1, j) + 1, d(i, j−1) + 1, d(i−1, j−1) + [aᵢ = bⱼ])
+- d(i, j) = d(i−1, j) + d(i, j−1)
+Why: The three choices are delete, insert, and replace (free if the characters already match). It runs in O(mn) time, and spell checkers use it.
+
+Q: Must-know: what does a polynomial-time reduction A ≤p B let you conclude?
+Topic: Must-Know Facts
+* If B is easy, A is easy; if A is hard, B is hard
+- If A is easy, B is easy; if B is hard, A is hard
+- A and B are always equally hard
+- A and B both belong to NP
+Why: A reduction turns any A instance into a B instance, so a fast B solver gives a fast A solver. To prove a new problem is NP-hard, reduce a known NP-hard problem TO it.
+
+Q: Must-know: what is the sum 1 + 2 + ... + n, which appears when analyzing nested loops?
+Topic: Must-Know Facts
+* n(n + 1)/2, which is Θ(n²)
+- n²/4, which is Θ(n log n)
+- 2ⁿ − 1, which is Θ(2ⁿ)
+- n log n, which is Θ(n log n)
+Why: A loop like "for i in range(n): for j in range(i):" runs 0 + 1 + ... + (n − 1) times, which is Θ(n²). That's why insertion sort is quadratic.
