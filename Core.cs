@@ -29,6 +29,10 @@ class Q
     public string[] Options;
     public int Answer;
     public int Seconds; // from a "Time:" line; 0 = estimate it (see Timing)
+    public bool Calculator; // "Calculator: yes" shows the calculator on this question
+    public string Formula;  // "Formula:" line: the rule or equation the question uses
+    public List<string> Steps = new List<string>(); // "Step:" lines: the worked solution, in order
+    public bool HasWork { get { return !string.IsNullOrWhiteSpace(Formula) || Steps.Count > 0; } }
 }
 
 // How long a question should reasonably take: reading the choices plus thinking time that depends on
@@ -277,6 +281,14 @@ static class QuestionFile
             else if (Starts(line, "Topic:")) { cur.Topic = After(line); inText = false; }
             else if (Starts(line, "Why:")) { cur.Why = After(line); inText = false; }
             else if (Starts(line, "Time:")) { cur.Seconds = ParseTime(After(line)); inText = false; }
+            else if (Starts(line, "Formula:")) { cur.Formula = After(line); inText = false; }
+            else if (Starts(line, "Step:")) { cur.Steps.Add(After(line)); inText = false; }
+            else if (Starts(line, "Calculator:"))
+            {
+                var v = After(line).ToLowerInvariant();
+                cur.Calculator = v == "yes" || v == "true" || v == "1";
+                inText = false;
+            }
             else if (line.StartsWith("*")) { inText = false; if (ans < 0) ans = opts.Count; opts.Add(line.Substring(1).Trim()); }
             else if (line.StartsWith("-")) { inText = false; opts.Add(line.Substring(1).Trim()); }
             else if (inText) cur.Text += "\n" + raw.TrimEnd().Replace("\t", "    ");
@@ -323,8 +335,11 @@ static class QuestionFile
         sb.Append("Q: ").Append(q.Text).Append("\r\n");
         sb.Append("Topic: ").Append(q.Topic).Append("\r\n");
         if (q.Seconds > 0) sb.Append("Time: ").Append(q.Seconds).Append("\r\n");
+        if (q.Calculator) sb.Append("Calculator: yes\r\n");
         for (int i = 0; i < q.Options.Length; i++)
             sb.Append(i == q.Answer ? "* " : "- ").Append(q.Options[i]).Append("\r\n");
+        if (!string.IsNullOrWhiteSpace(q.Formula)) sb.Append("Formula: ").Append(q.Formula).Append("\r\n");
+        foreach (var s in q.Steps) sb.Append("Step: ").Append(s).Append("\r\n");
         if (!string.IsNullOrWhiteSpace(q.Why)) sb.Append("Why: ").Append(q.Why).Append("\r\n");
         return sb.ToString();
     }

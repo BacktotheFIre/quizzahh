@@ -16,7 +16,7 @@ $ico = if (Test-Path "$d\quiz-icon2.ico") { "/win32icon:`"$d\quiz-icon2.ico`"" }
 & "$fw\csc.exe" /nologo /target:winexe /codepage:65001 /optimize $ico @res `
   /r:"$fw\WPF\PresentationFramework.dll" /r:"$fw\WPF\PresentationCore.dll" /r:"$fw\WPF\WindowsBase.dll" /r:"$fw\System.Xaml.dll" /r:System.Xml.dll `
   /r:System.Windows.Forms.dll /r:System.Drawing.dll /r:"C:\WINDOWS\Microsoft.Net\assembly\GAC_MSIL\System.Speech\v4.0_4.0.0.0__31bf3856ad364e35\System.Speech.dll" `
-  /out:"$Out" "$d\Core.cs" "$d\Quiz.cs" "$d\Questions.cs" "$d\Heather3D.cs" "$d\Scratch.cs" "$d\CodeLab.cs" 2>&1 | Select-String -NotMatch "CS0169|CS0414|CS0649"
+  /out:"$Out" "$d\Core.cs" "$d\Quiz.cs" "$d\Questions.cs" "$d\Heather3D.cs" "$d\Scratch.cs" "$d\CodeLab.cs" "$d\Calculator.cs" "$d\Exam.cs" 2>&1 | Select-String -NotMatch "CS0169|CS0414|CS0649"
 "build exit: $LASTEXITCODE"
 if ($Install -and $LASTEXITCODE -eq 0) {
   Start-Process "$d\CS-Quiz.exe" -ArgumentList "--startup"

@@ -15,5 +15,8 @@ quiz-icon2.ico
 # Old single-page prototype
 CS-Quiz.html
 
+# Personal practice tests (kept off GitHub)
+data/classes/*ALEKS*
+
 # Personal Code Lab saves
 data/coding/saves/

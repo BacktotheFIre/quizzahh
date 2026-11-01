@@ -748,7 +748,15 @@ partial class QuizWindow : Window
     void AddToNotes(Q q, Btn button)
     {
         if (notesFor != quizClass) LoadNotes(quizClass);
-        string entry = "• " + q.Text + "\n   → " + q.Options[q.Answer] + (string.IsNullOrWhiteSpace(q.Why) ? "" : "\n   " + q.Why) + "\n\n";
+        string entry = "• " + q.Text + "\n   → " + q.Options[q.Answer];
+        if (!string.IsNullOrWhiteSpace(q.Formula)) entry += "\n   Formula: " + q.Formula;
+        if (q.Steps.Count > 0)
+        {
+            entry += "\n   How:";
+            for (int s = 0; s < q.Steps.Count; s++) entry += "\n     " + (s + 1) + ". " + q.Steps[s];
+        }
+        if (!string.IsNullOrWhiteSpace(q.Why)) entry += "\n   " + (q.HasWork ? "Why: " : "") + q.Why;
+        entry += "\n\n";
         string text = notesBox.Text;
         if (text.Length > 0 && !text.EndsWith("\n\n")) entry = (text.EndsWith("\n") ? "\n" : "\n\n") + entry;
         notesBox.AppendText(entry);
@@ -759,6 +767,42 @@ partial class QuizWindow : Window
         ((TextBlock)button.Child).Text = "✓  added to notes";
         button.IsHitTestVisible = false;
         Say(Pick(new[] { "Written down. Future you says thanks.", "Good call. Now actually read it later.", "Noted. Literally." }), null, false);
+    }
+
+    // The formula and numbered steps for a question, shown once it's answered and in the results review
+    Border workCard;
+
+    static Border WorkedSolution(Q q)
+    {
+        var sp = new StackPanel();
+        if (!string.IsNullOrWhiteSpace(q.Formula))
+        {
+            sp.Children.Add(T("FORMULA", 11, FontWeights.Bold, Gold));
+            var f = T(q.Formula, 14.5, FontWeights.SemiBold, TextMain);
+            f.Margin = new Thickness(0, 3, 0, q.Steps.Count > 0 ? 10 : 0);
+            sp.Children.Add(f);
+        }
+        if (q.Steps.Count > 0)
+        {
+            sp.Children.Add(T("HOW TO GET IT", 11, FontWeights.Bold, Gold));
+            for (int i = 0; i < q.Steps.Count; i++)
+            {
+                var row = new Grid { Margin = new Thickness(0, 4, 0, 0) };
+                row.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(22) });
+                row.ColumnDefinitions.Add(new ColumnDefinition());
+                row.Children.Add(T((i + 1) + ".", 13.5, FontWeights.Bold, Muted));
+                var st = T(q.Steps[i], 13.5, FontWeights.Normal, TextMain);
+                Grid.SetColumn(st, 1);
+                row.Children.Add(st);
+                sp.Children.Add(row);
+            }
+        }
+        return new Border
+        {
+            CornerRadius = new CornerRadius(12), Background = Hex("#12FFFFFF"), BorderBrush = Hex("#33C9A13B"),
+            BorderThickness = new Thickness(1), Padding = new Thickness(14, 10, 14, 12), Margin = new Thickness(0, 10, 0, 0),
+            Child = sp
+        };
     }
 
     // ---------- Questions with code ----------
@@ -1800,6 +1844,11 @@ partial class QuizWindow : Window
         Func<string, string, System.Text.RegularExpressions.MatchEvaluator, string> rxm = (t, pat, ev) => System.Text.RegularExpressions.Regex.Replace(t, pat, ev);
         // The real minus sign (−) reads the same as a hyphen-minus; x̄ / ȳ are "bar", p̂ is "hat"
         s = s.Replace("−", "-").Replace("ȳ", "y bar");
+        s = s.Replace("∛", " the cube root of ").Replace("⅔", " and two thirds").Replace("✓", "").Replace("✗", "");
+        // ‖v‖ is a length; f⁽ⁿ⁾ is a derivative; xₙ₊₁ is a subscript with a sign in it
+        s = rx(s, @"‖([^‖]+)‖", "the length of $1");
+        s = s.Replace("⁽ⁿ⁺¹⁾", " n plus first derivative").Replace("⁽ⁿ⁾", " nth derivative");
+        s = s.Replace("₊", " plus ").Replace("₋", " minus ").Replace("↦", " maps to ");
         s = rx(s, @"(\w)̄", "$1 bar");
         s = rx(s, @"(\w)̂", "$1 hat");
         // Exponents with a sign inside them: xⁿ⁺¹, xⁿ⁻¹, 2ʰ⁺¹
@@ -2074,6 +2123,10 @@ partial class QuizWindow : Window
         var lh = T("A question counts as learned once you get it right twice in a row.", 12, FontWeights.Normal, Muted);
         lh.Margin = new Thickness(0, 5, 0, 0);
         sp.Children.Add(lh);
+        var examInfo = ExamFor(currentClass);
+        if (examInfo != null) sp.Children.Add(ExamCard(examInfo));
+        int formulas = Bank_().Count(IsFormula);
+        if (formulas > 0) sp.Children.Add(FormulaCard(formulas));
 
         Btn start = null;
         TextBlock hint = null;
@@ -2293,7 +2346,20 @@ partial class QuizWindow : Window
     // the picked set is shuffled so learned ones don't always land at the end
     void StartNew()
     {
-        var pool = Bank_().Where(q => selected.Contains(q.Topic)).ToList();
+        StartPool(Bank_().Where(q => selected.Contains(q.Topic)).ToList());
+    }
+
+    // Formula questions are the ones under a topic that starts with "Formula" (Formulas, Formula Check...)
+    static bool IsFormula(Q q) { return q.Topic != null && q.Topic.StartsWith("Formula", StringComparison.OrdinalIgnoreCase); }
+
+    void StartFormulas()
+    {
+        StartPool(Bank_().Where(IsFormula).ToList());
+    }
+
+    // Questions you haven't learned yet come first
+    void StartPool(List<Q> pool)
+    {
         if (pool.Count == 0) return;
         var fresh = Shuffle(pool.Where(q => !mastery.IsLearned(currentClass, q)));
         var known = Shuffle(pool.Where(q => mastery.IsLearned(currentClass, q)));
@@ -2301,19 +2367,127 @@ partial class QuizWindow : Window
         StartQuiz(Shuffle(count == 0 ? ordered : ordered.Take(count)));
     }
 
+    // A copy of the question with its choices in a random order
+    Q Shuffled(Q q)
+    {
+        var order = Shuffle(Enumerable.Range(0, q.Options.Length));
+        return new Q
+        {
+            Topic = q.Topic, Text = q.Text, Why = q.Why, Seconds = Timing.For(currentClass, q), Calculator = q.Calculator,
+            Formula = q.Formula, Steps = q.Steps,
+            Options = order.Select(i => q.Options[i]).ToArray(),
+            Answer = order.IndexOf(q.Answer)
+        };
+    }
+
+    // ---------- Formula memorization ----------
+    UIElement FormulaCard(int n)
+    {
+        int learned = Bank_().Where(IsFormula).Count(q => mastery.IsLearned(currentClass, q));
+        var sp = new StackPanel();
+        var t = T("Σ  FORMULAS ONLY", 15, FontWeights.Bold, Gold);
+        t.FontFamily = TitleFont;
+        sp.Children.Add(t);
+        var d = T(n + " formulas to memorize  ·  " + learned + " learned. Read the sheet first, then quiz yourself until they're all learned.", 13, FontWeights.Normal, TextMain);
+        d.Margin = new Thickness(0, 6, 0, 0);
+        sp.Children.Add(d);
+        var row = new UniformGrid { Columns = 2, Margin = new Thickness(-5, 8, -5, 0) };
+        row.Children.Add(SecondaryButton("📄 formula sheet", ShowFormulaSheet));
+        var go = SecondaryButton("▶ quiz formulas", StartFormulas);
+        go.Background = Accent;
+        go.MouseEnter += (s, e) => go.Background = Accent;
+        go.MouseLeave += (s, e) => go.Background = Accent;
+        row.Children.Add(go);
+        sp.Children.Add(row);
+        return new Border
+        {
+            CornerRadius = new CornerRadius(16), Background = Hex("#14FFFFFF"), BorderBrush = Hex("#55C9A13B"),
+            BorderThickness = new Thickness(1), Padding = new Thickness(16, 14, 16, 12), Margin = new Thickness(0, 12, 0, 0),
+            Child = sp
+        };
+    }
+
+    // "Formula check: what is the chain rule?" -> "The chain rule"
+    static string FormulaName(string text)
+    {
+        string s = text.Trim();
+        if (s.StartsWith("Formula check:", StringComparison.OrdinalIgnoreCase)) s = s.Substring(14).Trim();
+        var opt = System.Text.RegularExpressions.RegexOptions.IgnoreCase;
+        s = System.Text.RegularExpressions.Regex.Replace(s, @"^which of these is (a correct form of |correct for )?", "", opt);
+        s = System.Text.RegularExpressions.Regex.Replace(s, @"^(what|which) (is|are) (the )?", "", opt);
+        s = System.Text.RegularExpressions.Regex.Replace(s, @"^which ", "", opt);
+        s = s.TrimEnd('?', '.', ' ');
+        s = System.Text.RegularExpressions.Regex.Replace(s, @"\s+(is|are) correct$|\s+is$", "", opt);
+        return s.Length > 0 ? char.ToUpper(s[0]) + s.Substring(1) : text;
+    }
+
+    void ShowFormulaSheet()
+    {
+        mode = "sheet";
+        StopTalking();
+        var list = Bank_().Where(IsFormula).ToList();
+        var sp = new StackPanel();
+        var h = T("Formula sheet", 30, FontWeights.Bold, TextMain);
+        h.FontFamily = TitleFont;
+        sp.Children.Add(h);
+        var sub = T(currentClass + "  ·  " + list.Count + " formulas  ·  ✓ = learned", 13, FontWeights.Normal, Muted);
+        sub.Margin = new Thickness(0, 2, 0, 12);
+        sp.Children.Add(sub);
+        var top = new UniformGrid { Columns = 2, Margin = new Thickness(-5, 0, -5, 8) };
+        top.Children.Add(SecondaryButton("← back", ShowTopics));
+        Btn copy = null;
+        copy = SecondaryButton("copy sheet to notes", () => FormulaSheetToNotes(list, copy));
+        top.Children.Add(copy);
+        sp.Children.Add(top);
+        foreach (var q in list)
+        {
+            var card = new StackPanel();
+            bool got = mastery.IsLearned(currentClass, q);
+            card.Children.Add(T((got ? "✓  " : "") + FormulaName(q.Text), 13, FontWeights.Bold, got ? Good : Gold));
+            var f = T(q.Options[q.Answer], 16, FontWeights.SemiBold, TextMain);
+            f.Margin = new Thickness(0, 4, 0, 0);
+            card.Children.Add(f);
+            if (!string.IsNullOrWhiteSpace(q.Why))
+            {
+                var w = T(q.Why, 12.5, FontWeights.Normal, Muted);
+                w.Margin = new Thickness(0, 5, 0, 0);
+                card.Children.Add(w);
+            }
+            sp.Children.Add(new Border
+            {
+                CornerRadius = new CornerRadius(12), Background = CardBg, BorderBrush = CardStroke, BorderThickness = new Thickness(1),
+                Padding = new Thickness(14, 10, 14, 12), Margin = new Thickness(0, 0, 0, 8), Child = card
+            });
+        }
+        var go = BigButton("QUIZ ME ON THESE", StartFormulas);
+        sp.Children.Add(go);
+        SetScreen(sp);
+        React("point", 2);
+        Say(Pick(new[] { "Read them out loud. Then cover them and write them down. That's how they stick.",
+                         "Don't just read. Look at one, look away, and write it from memory.",
+                         "Here's everything. Go through it once, then let me quiz you." }));
+    }
+
+    void FormulaSheetToNotes(List<Q> list, Btn button)
+    {
+        if (notesFor != currentClass) LoadNotes(currentClass);
+        var sb = new System.Text.StringBuilder("FORMULA SHEET: " + currentClass + "\n");
+        foreach (var q in list) sb.Append("• ").Append(FormulaName(q.Text)).Append(":  ").Append(q.Options[q.Answer]).Append("\n");
+        string entry = sb.ToString() + "\n";
+        string text = notesBox.Text;
+        if (text.Length > 0 && !text.EndsWith("\n\n")) entry = (text.EndsWith("\n") ? "\n" : "\n\n") + entry;
+        notesBox.AppendText(entry);
+        notesBox.ScrollToEnd();
+        SaveNotes();
+        if (!stats.NotesOpen) SetNotesOpen(true);
+        ((TextBlock)button.Child).Text = "✓ copied to notes";
+        button.IsHitTestVisible = false;
+    }
+
     void StartQuiz(List<Q> source)
     {
         quizClass = currentClass;
-        quiz = source.Select(q =>
-        {
-            var order = Shuffle(Enumerable.Range(0, q.Options.Length));
-            return new Q
-            {
-                Topic = q.Topic, Text = q.Text, Why = q.Why, Seconds = Timing.For(currentClass, q),
-                Options = order.Select(i => q.Options[i]).ToArray(),
-                Answer = order.IndexOf(q.Answer)
-            };
-        }).ToList();
+        quiz = source.Select(q => Shuffled(q)).ToList();
         idx = 0; score = 0; runBest = 0; sessionXp = 0; sessionLearned = 0;
         firstLead = Pick(new[] { "Okay, focus. ", "First one. ", "Here we go. " });
         levelAtStart = Level(stats.Xp);
@@ -2397,6 +2571,8 @@ partial class QuizWindow : Window
         ql.Margin = new Thickness(0, 16, 0, code == null ? 18 : 10);
         sp.Children.Add(ql);
         if (code != null) sp.Children.Add(CodeBox(code));
+        calcBody = null;
+        if (q.Calculator) sp.Children.Add(CalculatorPanel());
 
         answerCards = new List<Border>();
         for (int i = 0; i < q.Options.Length; i++)
@@ -2416,6 +2592,13 @@ partial class QuizWindow : Window
         verdictText = T("", 15, FontWeights.Bold, Good);
         verdictBanner.Child = verdictText;
         sp.Children.Add(verdictBanner);
+        workCard = null;
+        if (q.HasWork)
+        {
+            workCard = WorkedSolution(q);
+            workCard.Visibility = Visibility.Collapsed;
+            sp.Children.Add(workCard);
+        }
 
         var nr = new Grid { Margin = new Thickness(0, 4, 0, 0) };
         nr.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(2, GridUnitType.Star) });
@@ -2581,6 +2764,7 @@ partial class QuizWindow : Window
 
         verdictBanner.Visibility = Visibility.Visible;
         Pulse(verdictBanner, 0.9, 1, 300);
+        if (workCard != null) workCard.Visibility = Visibility.Visible;
         nextRow.Visibility = Visibility.Visible;
         nextRow.BeginAnimation(OpacityProperty, new DoubleAnimation(0, 1, TimeSpan.FromMilliseconds(300)));
         Dispatcher.BeginInvoke(new Action(() => nextRow.BringIntoView()), DispatcherPriority.Loaded);
@@ -2713,6 +2897,12 @@ partial class QuizWindow : Window
                 you.Margin = new Thickness(0, 7, 0, 0);
                 ms.Children.Add(you);
                 ms.Children.Add(T("answer: " + m.Question.Options[m.Question.Answer], 14, FontWeights.Normal, Good));
+                if (m.Question.HasWork)
+                {
+                    var wc = WorkedSolution(m.Question);
+                    wc.Margin = new Thickness(0, 8, 0, 0);
+                    ms.Children.Add(wc);
+                }
                 var why = T(m.Question.Why, 13.5, FontWeights.Normal, Muted);
                 why.Margin = new Thickness(0, 6, 0, 0);
                 ms.Children.Add(why);
@@ -2988,6 +3178,12 @@ partial class QuizWindow : Window
         int n = -1;
         if (e.Key >= Key.D1 && e.Key <= Key.D9) n = e.Key - Key.D1;
         else if (e.Key >= Key.NumPad1 && e.Key <= Key.NumPad9) n = e.Key - Key.NumPad1;
+        if (mode == "exam")
+        {
+            if (!examRevealed && (e.Key == Key.Enter || e.Key == Key.Space)) { e.Handled = true; RevealExamChoices(); }
+            else if (examRevealed && n >= 0 && n < examCards.Count) { e.Handled = true; ExamPick(n); }
+            return;
+        }
         if (mode == "question")
         {
             if (!answered)
@@ -3030,6 +3226,29 @@ partial class QuizWindow : Window
             () => Snap("wrong.png"),
             () => { idx = quiz.Count - 1; ShowResults(); },
             () => Snap("results.png"),
+            () =>
+            {
+                quiz = new List<Q> { new Q { Topic = "Exponential Models", Calculator = true, Seconds = 120, Answer = 0,
+                    Text = "$5,000 is invested at 6% interest compounded monthly. What is the balance after 4 years?",
+                    Options = new[] { "$6,352.45", "$6,312.38", "$6,200.00", "$6,356.25" },
+                    Formula = "Compound interest: A = P(1 + r/n)^(nt)",
+                    Steps = new List<string> { "P = 5000, r = 0.06, n = 12, t = 4", "A = 5000(1.005)⁴⁸", "A ≈ $6,352.45" },
+                    Why = "Monthly means n = 12." } };
+                idx = 0;
+                ShowQuestion();
+                DemoCalculator("5000(1 + 0.06/12)^48");
+            },
+            () => Snap("calculator.png"),
+            () => { ToggleCalculator(); Choose(0); },
+            () => Snap("worked.png"),
+            () => { var c = classes.Keys.FirstOrDefault(k => ExamFor(k) != null); if (c != null) PickClass(c); },
+            () => Snap("exam-topics.png"),
+            () => { if (ExamFor(currentClass) != null) { StartExam(ExamFor(currentClass)); RevealExamChoices(); } },
+            () => Snap("exam.png"),
+            () => { if (mode == "exam") FinishExamForDemo(); },
+            () => Snap("exam-results.png"),
+            () => { if (Bank_().Any(IsFormula)) ShowFormulaSheet(); },
+            () => Snap("formulas.png"),
             () => ShowAdd(false),
             () => Snap("add.png"),
             () => { RunSelfTest(); quitting = true; Close(); }
@@ -3070,6 +3289,8 @@ partial class QuizWindow : Window
                     if (q.Answer < 0 || q.Answer >= q.Options.Length) bad(kv.Key + ": bad answer index: " + q.Text);
                     if (q.Options.Select(o => o.Trim().ToLowerInvariant()).Distinct().Count() != q.Options.Length) bad(kv.Key + ": two identical choices: " + q.Text);
                     if (string.IsNullOrWhiteSpace(q.Why)) bad(kv.Key + ": no explanation: " + q.Text);
+                    if (kv.Key.Contains("ALEKS") && (string.IsNullOrWhiteSpace(q.Formula) || q.Steps.Count == 0))
+                        bad(kv.Key + ": missing formula or steps: " + q.Text);
                     if (Mastery.Key(kv.Key, q).IndexOfAny(new[] { '\n', '\r', '\t' }) >= 0) bad(kv.Key + ": progress for this question can't be saved: " + q.Text);
                     foreach (var s in new[] { q.Text, q.Why }.Concat(q.Options))
                     {
@@ -3144,6 +3365,8 @@ partial class QuizWindow : Window
             ink.Strokes.Clear();
             CloseScratch();
             SelfTestCode(log, bad);
+            SelfTestCalc(log, bad);
+            SelfTestExams(log, bad);
             foreach (var line in Greetings.Concat(Right).Concat(Hot).Concat(Wrong).Concat(LostStreak))
                 if (Chunks(Ascii(Speakable(line))).Count == 0) bad("nothing to say for Heather's line: " + line);
         }
