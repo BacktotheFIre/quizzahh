@@ -808,6 +808,9 @@ class HeatherView : Grid
         return box;
     }
 
+    // Where a joint is in the 3D scene, after her pose, turn, swing and lift
+    public Point3D WorldPoint(string joint) { return bodyT.Transform(Model.JointPos(joint)); }
+
     public Point ScreenPoint(string joint)
     {
         var p = bodyT.Transform(Model.JointPos(joint));
@@ -985,6 +988,17 @@ class HeatherView : Grid
                 set("bone026", 0, -85, 15); set("bone034", 165, 0, 0);
                 hp = -25; hy = -10;
                 break;
+            case "sneeze":
+                // hand up to her face, head ducking forward
+                set("bone026", 0, -64, 32); set("bone034", 156, 0, 0);
+                hp = -24; hr = -4;
+                break;
+            case "yawn":
+                // a hand up over her mouth, chin up, head tipped a little to one side
+                // (the "think" arm brings a hand to her chin; a little higher and it covers her mouth)
+                set("bone026", 0, -64, 32); set("bone034", 156, 0, 0);
+                hp = 26; hr = 6;
+                break;
             case "point":
                 set("bone026", 0, -30, -60); set("bone034", 5, 0, 0);
                 hy = 25;
@@ -1122,6 +1136,24 @@ class HeatherView : Grid
                     hp = 14;
                 }
                 break;
+            case "wave":
+                {
+                    // One arm up, the forearm swinging side to side at the elbow, head tipped toward you
+                    to("bone026", WaveArm[0], WaveArm[1], WaveArm[2]);
+                    to("bone034", WaveArm[3] + 28 * Math.Sin(age * 11), 0, 0);
+                    hr = 6; hp = 4;
+                }
+                break;
+            case "dizzy":
+                {
+                    // Landed from a hard throw: her head circles, her arms come out a little for balance,
+                    // and her body sways with it
+                    double ph = age * 7;
+                    hy = 14 * Math.Sin(ph); hr = 9 * Math.Cos(ph); hp = -4;
+                    to("bone026", -30, 0, 19); to("bone032", 30, 0, 4); // (halfway from hanging relaxed to the balancing pose)
+                    Add(p, "bone002", 0, 0, 4 * Math.Sin(ph + 1) * w);
+                }
+                break;
             case "shift":
                 {
                     // Weight onto one leg: the other knee bends and that heel comes up
@@ -1144,7 +1176,48 @@ class HeatherView : Grid
     int side = 1;               // which way she faces on the floor: +1 = head toward the right of the screen
     public int NextSide = 1;    // the side she'll use the next time she gets down on the floor
     double lookMid, lookAmt, kickPh, swingPh, walkPh, walkBlend, climbPh, climbBlend, segEndAt, dozeAmt;
-    public bool Dozing; // bedtime: lying down, she drifts off (see PoseFor "lie")
+    public bool Dozing; // bedtime: lying or sitting, she drifts off (see PoseFor "lie" and "sit")
+    double bookShut, armsFold, headDown; // the steps of falling asleep, each 0 -> 1 (worked out from dozeAmt)
+
+    // Her mood in how she moves (set by the taskbar window): Energy speeds up or slows down her leg
+    // swinging and kicking (1 = normal), and Tapping (impatient) taps a foot now and then when standing
+    public double Energy = 1;
+    public bool Tapping;
+
+    // left upper arm (three angles) and elbow bend for a wave (found by a search for the hand well above
+    // the elbow and the elbow out at shoulder height; the elbow bends the other way to point the forearm up)
+    static readonly double[] WaveArm = { -80, -60, -30, -50 };
+
+    // Keeping her balance: set by the taskbar window while the window she's sitting or standing on is
+    // being dragged around (0 = still, 1 = moving fast), and which way it's going (+1 = right).
+    public double Balance; public int BalanceDir = 1;
+    double balAmt;
+    public double BalanceAmount { get { return balAmt; } }
+
+    // upper arm (three angles) and elbow, left and right (found by a search for the hand furthest out at about shoulder height)
+    static readonly double[] BalArm = { -60, 0, 0, 15 }, BalArmR = { 60, 0, 45, -15 };
+
+    // Arms flung out to the sides, leaning against the way she's being carried, head up
+    void Balancing(BPose p)
+    {
+        double k = balAmt, wob = Math.Sin(Now * 9) * 0.25 * k; // (a little wobble while it lasts)
+        Toward(p, "bone026", BalArm[0], BalArm[1], BalArm[2], k); Toward(p, "bone034", BalArm[3], 0, 0, k);
+        Toward(p, "bone032", BalArmR[0], BalArmR[1], BalArmR[2], k); Toward(p, "bone036", BalArmR[3], 0, 0, k);
+        Add(p, "bone002", 0, 0, (-9 * BalanceDir + 6 * wob) * k);
+        Add(p, "bone009", 0, 6 * k, (6 * BalanceDir) * k);
+    }
+    public double DozeAmount { get { return dozeAmt; } }
+
+    // How far x has got from a to b, eased (0 before a, 1 after b)
+    static double Phase(double x, double a, double b) { return Ease(Math.Max(0, Math.Min(1, (x - a) / (b - a)))); }
+
+    // Move a joint part of the way (k) from where the pose has it toward these angles
+    static void Toward(BPose p, string joint, double rx, double ry, double rz, double k)
+    {
+        double[] v;
+        if (!p.J.TryGetValue(joint, out v)) p.J[joint] = v = new double[3];
+        v[0] += (rx - v[0]) * k; v[1] += (ry - v[1]) * k; v[2] += (rz - v[2]) * k;
+    }
     bool segIn, segOut, endedMoving;
 
     // The body part that stays planted during a move: she moves over her feet when kneeling down,
@@ -1357,10 +1430,15 @@ class HeatherView : Grid
         Ease2(ref gazeAmtMid, ref gazeAmt, Watching ? 1 : 0, la);
         Ease2(ref gazeYawMid, ref gazeYaw, Watching ? GazeYaw : 0, la);
         Ease2(ref gazePitchMid, ref gazePitch, Watching ? GazePitch : 0, la);
-        kickPh += dt * 1.7; // lazy kicking while she reads
-        // drifting off takes a few seconds; waking up is quicker
-        dozeAmt += ((Dozing ? 1 : 0) - dozeAmt) * (dt <= 0 ? 1 : 1 - Math.Exp(-dt * (Dozing ? 0.6 : 3)));
-        swingPh += dt * 2.6 * (1 - 0.45 * lookAmt);
+        kickPh += dt * 1.7 * Energy; // lazy kicking while she reads (livelier when she's in a good mood)
+        // Falling asleep is a little routine, played over about 6 seconds: close the book, slide it
+        // aside and fold her arms, then lay her head down. Waking plays it backwards, quicker.
+        // dozeAmt runs 0 -> 1 at a steady rate, and each step takes its own stretch of it.
+        dozeAmt = dt <= 0 ? (Dozing ? 1 : 0) : Math.Max(0, Math.Min(1, dozeAmt + (Dozing ? dt / 6 : -dt / 1.6)));
+        bookShut = Phase(dozeAmt, 0, 0.3);
+        armsFold = Phase(dozeAmt, 0.25, 0.65);
+        headDown = Phase(dozeAmt, 0.55, 1);
+        swingPh += dt * 2.6 * Energy * (1 - 0.45 * lookAmt);
         if (state == "walk" || segTo == "walk") walkPh += dt * 2 * Math.PI * StepHz;
         if (state == "climb" || segTo == "climb") climbPh += dt * 2 * Math.PI * 0.8;
 
@@ -1424,6 +1502,9 @@ class HeatherView : Grid
         }
         else { p = PoseFor(state, t); ApplyMoment(p, t); }
         if (heldAmt > 0.001) p = Lerp(p, PoseFor("hang", t), heldAmt);
+        // a jolt throws her arms out at once; she settles back over a second or so
+        balAmt += (Balance - balAmt) * (dt <= 0 ? 1 : 1 - Math.Exp(-dt * (Balance > balAmt ? 14 : 2.5)));
+        if (balAmt > 0.005 && segTo == null && !Held && (state == "sit" || state == "stand")) Balancing(p);
         if (Jump > 0)
         {
             // In the air: knees tucked up (the leading one more), arms swung forward for the leap
@@ -1502,6 +1583,8 @@ class HeatherView : Grid
     readonly ScaleTransform3D bookScale = new ScaleTransform3D(0, 0, 0);
     readonly MatrixTransform3D bookPlace = new MatrixTransform3D();
     readonly AxisAngleRotation3D pageTurn = new AxisAngleRotation3D(new Vector3D(0, 1, 0), -8);
+    readonly AxisAngleRotation3D bookHinge = new AxisAngleRotation3D(new Vector3D(0, 1, 0), 8); // 8 = open, 180 = shut
+    public Point3D BookAt { get; private set; } // where the book is (tests)
     double segK, bookAmt, pageStart = -100, nextPage = 14;
     const double PageW = 60, PageH = 88, CoverT = 2.5, PagesT = 5;
 
@@ -1527,11 +1610,22 @@ class HeatherView : Grid
         var ahead = new Vector3D(Math.Sin(yaw), -Math.Cos(yaw), 0);  // where her head points
         var across = new Vector3D(Math.Cos(yaw), Math.Sin(yaw), 0);  // toward her left hand
         var c = new Point3D((wl.X + wr.X) / 2, (wl.Y + wr.Y) / 2, Math.Min(wl.Z, wr.Z) - 16) + ahead * 26;
+        // At bedtime it's shut, then pushed aside: ahead of her and off to one side of her head
+        if (armsFold > 0)
+        {
+            // (height 0 is the floor her window stands her on; straight ahead, because off to one side
+            // the slant of the view made it look like it floated)
+            var neck = bodyT.Transform(Model.JointPos("bone006"));
+            var aside = new Point3D(neck.X, neck.Y, 0) + ahead * 125;
+            c += (aside - c) * armsFold;
+        }
+        bookHinge.Angle = 8 + 172 * bookShut;
+        BookAt = c;
         bookPlace.Matrix = new Matrix3D(across.X, across.Y, across.Z, 0, ahead.X, ahead.Y, ahead.Z, 0, 0, 0, 1, 0, c.X, c.Y, c.Z, 1);
         bookScale.ScaleX = bookScale.ScaleY = bookScale.ScaleZ = bookAmt;
 
         // Page turns: the page lifts off the right side, arcs over the spine, and settles on the left
-        if (state == "lie" && segTo == null && !Looking && !Watching && t >= nextPage && t - pageStart > 2)
+        if (state == "lie" && segTo == null && !Looking && !Watching && dozeAmt <= 0 && t >= nextPage && t - pageStart > 2)
         {
             pageStart = t;
             nextPage = t + 15 + rnd.NextDouble() * 12;
@@ -1553,7 +1647,8 @@ class HeatherView : Grid
             half.Children.Add(Box(x0, x1, -PageH / 2 - 3, PageH / 2 + 3, 0, CoverT, cover, cover));
             double p0 = s < 0 ? -PageW : 0, p1 = s < 0 ? 0 : PageW;
             half.Children.Add(Box(p0, p1, -PageH / 2, PageH / 2, CoverT, CoverT + PagesT, new DiffuseMaterial(PageBrush(s < 0 ? 3 : 7)), edge));
-            half.Transform = new RotateTransform3D(new AxisAngleRotation3D(new Vector3D(0, 1, 0), s < 0 ? 8 : -8));
+            // (the left half is hinged at the top of the spine, so at bedtime it can fold over onto the right one: shut)
+            half.Transform = s < 0 ? new RotateTransform3D(bookHinge, new Point3D(0, 0, CoverT + PagesT)) : new RotateTransform3D(new AxisAngleRotation3D(new Vector3D(0, 1, 0), -8));
             book.Children.Add(half);
         }
         // The page that turns, hinged at the spine on top of the pages
@@ -1709,19 +1804,24 @@ class HeatherView : Grid
                 // Noticing you: she lifts her head from the book and looks over at you.
                 // Dozing (bedtime): the kicking stops and her feet sink, her breathing slows and
                 // deepens, and her head drops onto her arms. Looking up at you undoes the head part.
-                p.Pitch = 90; p.Sink = 25;
-                double d = dozeAmt, kick = 22 * (1 - d);
-                ReadingArms(p, br * (1 - d) + 1.8 * Math.Sin(t * 0.9) * d);
-                J(p, "bone007", 0, 80 - 62 * d + kick * Math.Sin(kickPh), 0);
-                J(p, "bone008", 0, 80 - 56 * d - kick * Math.Sin(kickPh + 0.9), 0);
-                J(p, "bone021", 0, 22, 0); J(p, "bone027", 0, 22, 0);
+                // Falling asleep (see dozeAmt): the book shuts, her feet stop kicking and come down, she
+                // pushes the book aside and folds her arms, then sinks onto them and lays her head down,
+                // breathing slow and deep.
+                double sleep = headDown, kick = 22 * (1 - armsFold);
+                Propped(p, sleep);
+                ReadingArms(p, br * (1 - sleep) + 1.8 * Math.Sin(t * 0.9) * sleep);
+                FoldedArms(p, armsFold);
+                J(p, "bone007", 0, 80 - 62 * armsFold + kick * Math.Sin(kickPh), 0);
+                J(p, "bone008", 0, 80 - 56 * armsFold - kick * Math.Sin(kickPh + 0.9), 0);
+                J(p, "bone021", 0, 22 + 20 * sleep, 0); J(p, "bone027", 0, 22 + 20 * sleep, 0); // toes pointed, relaxed
                 // The mouse coming near also gets her to look up from the page, turning a little with it
                 double look = Math.Max(L, gazeAmt);
-                ReadingHead(p, t, look, 1 - d);
+                ReadingHead(p, t, look, 1 - armsFold);
                 Add(p, "bone009", 0.3 * gazeYaw * (1 - L), 0, 0);
-                double nod = d * (1 - look);
+                double nod = sleep * (1 - look);
                 Add(p, "bone006", 0, -20 * nod, 0); // (a smaller angle here bows her head)
-                Add(p, "bone009", 0, -18 * nod, 0);
+                Add(p, "bone009", 0, -18 * nod, -16 * side * nod); // ...and her cheek turns down onto her arms
+                PropHead(p, look);
                 break;
             }
             case "allfours":
@@ -1764,15 +1864,19 @@ class HeatherView : Grid
             case "sit":
             {
                 // Sitting on the edge, legs swinging over the taskbar. Noticing you: she looks up at you.
+                // Nodding off (bedtime): her legs slow to a stop, her hands settle into her lap, and her
+                // head droops lower and lower until it jerks back up, then starts drooping again.
                 p.SeatW = 1; p.Sink = 0;
-                double sw = Math.Sin(swingPh);
+                double drowsy = armsFold, sw = Math.Sin(swingPh) * (1 - drowsy);
                 J(p, "bone003", 0, -90, 0); J(p, "bone005", 0, -90, 0);
                 J(p, "bone007", 0, 86 + 24 * sw, 0); J(p, "bone008", 0, 86 - 24 * sw, 0);
                 J(p, "bone021", 0, 12, 0); J(p, "bone027", 0, 12, 0);
                 foreach (var sk in Skirt) J(p, sk, 0, 75, 0);
                 J(p, "bone026", -15, 0, 40 + br); J(p, "bone032", -15, 0, -40 - br);
-                J(p, "bone034", 45, 0, 0); J(p, "bone036", -45, 0, 0);
-                Head(p, 14 * Math.Sin(t * 0.31) + 6 * Math.Sin(t * 0.83), 2 * Math.Sin(t * 0.8), 2.5 * Math.Sin(t * 0.27), 0, 16, 5);
+                J(p, "bone034", 45 + 30 * drowsy, 0, 0); J(p, "bone036", -45 - 30 * drowsy, 0, 0);
+                J(p, "bone002", 0, 10 * headDown, 0); // shoulders slump forward
+                J(p, "bone006", 0, -18 * headDown * NodOff(t), 0); // ...and the neck bows with the nod
+                Head(p, (14 * Math.Sin(t * 0.31) + 6 * Math.Sin(t * 0.83)) * (1 - drowsy), 2 * Math.Sin(t * 0.8) - 34 * headDown * NodOff(t), 2.5 * Math.Sin(t * 0.27) + 8 * headDown, 0, 16, 5);
                 break;
             }
             case "walk":
@@ -1842,11 +1946,12 @@ class HeatherView : Grid
             {
                 // Lying flat on her stomach with her legs stretched out: the step between crawling and
                 // kicking her feet up, so lying down looks like a real person getting comfortable.
-                p.Pitch = 90; p.Sink = 25;
+                Propped(p);
                 ReadingArms(p, br);
                 J(p, "bone007", 0, 10, 0); J(p, "bone008", 0, 14, 0);
                 J(p, "bone021", 0, 45, 0); J(p, "bone027", 0, 45, 0);
                 ReadingHead(p, t, L);
+                PropHead(p, L);
                 break;
             }
             case "hang":
@@ -1872,6 +1977,8 @@ class HeatherView : Grid
             {
                 J(p, "bone026", 0, 0, 38 + br); J(p, "bone032", 0, 0, -38 - br);
                 J(p, "bone034", 12, 0, 0); J(p, "bone036", -12, 0, 0);
+                // Impatient (restless): now and then a short burst of tapping one foot
+                if (Tapping && t % 20 < 2.5) J(p, "bone021", 0, -16 * Math.Max(0, Math.Sin(t * 2 * Math.PI * 2.2)), 0);
                 // Noticing you: turns her head to you even if her body is still facing away
                 double ly = Math.Max(-75, Math.Min(75, -0.85 * yawNow));
                 Head(p, 8 * Math.Sin(t * 0.35), 2 * Math.Sin(t * 0.8), 2 * Math.Sin(t * 0.27), ly, 10, 4);
@@ -1890,6 +1997,40 @@ class HeatherView : Grid
         J(p, "bone026", 86, -68, 41); J(p, "bone034", 70, 0, 0); J(p, "bone039", -9, 19, 0);
         J(p, "bone032", -91, -62, -63); J(p, "bone036", -63, 0, 0); J(p, "bone041", -17, -2, 0);
     }
+
+    // Nodding off while sitting: how far her head has drooped (0.45 to 1). It sinks slowly for 16
+    // seconds, then she catches herself and it snaps back up in under half a second.
+    static double NodOff(double t)
+    {
+        double u = (t % 17) / 17;
+        return u < 0.975 ? 0.45 + 0.55 * Ease(u / 0.975) : 1 - 0.55 * Ease((u - 0.975) / 0.025);
+    }
+
+    // Arms folded on the floor in front of her face, forearms crossed, to rest her head on (k: how far into it)
+    void FoldedArms(BPose p, double k)
+    {
+        if (k <= 0) return;
+        Toward(p, "bone026", FoldL[0], FoldL[1], FoldL[2], k); Toward(p, "bone034", FoldL[3], 0, 0, k); Toward(p, "bone039", 0, 0, 0, k);
+        Toward(p, "bone032", FoldR[0], FoldR[1], FoldR[2], k); Toward(p, "bone036", FoldR[3], 0, 0, k); Toward(p, "bone041", 0, 0, 0, k);
+    }
+    // upper arm (three angles) and elbow bend, left and right
+    // (found by a search that scored wrists and elbows level with her hips, close together, in front of her face)
+    static readonly double[] FoldL = { 50, -100, 60, 130 }, FoldR = { -55, -94, -82, -123 };
+
+    // Lying on her stomach, propped up on her elbows: her body slopes up from her hips (on the
+    // floor) to her shoulders (an upper arm's length above it), the way a real person lies. Without
+    // the slope her elbows were the lowest thing and her hips and legs hovered over the floor.
+    // (slump: 0 = propped up, 1 = lying flat with her head down on her folded arms, asleep)
+    const double Prop = 12;
+    void Propped(BPose p, double slump = 0)
+    {
+        double prop = Prop * (1 - slump);
+        p.Pitch = 90 - prop; p.Sink = 25;
+        J(p, "bone003", 0, prop, 0); J(p, "bone005", 0, prop, 0); // legs straightened back to lie along the floor
+    }
+
+    // ...and her head tipped back down by the same amount, so she still looks at her book (not when looking at you)
+    void PropHead(BPose p, double look) { Add(p, "bone006", 0, -0.8 * Prop * (1 - look), 0); }
 
     // Eyes on the book, slowly following the lines and dipping a little at the end of each one;
     // noticing you, she lifts her head and turns to look at you (with a small twist of the shoulders).
@@ -1998,6 +2139,9 @@ class BuddyWindow : Window
         { "pet", new[] { "Stop that.", "I'm not a cat.", "...Fine. Continue.", "Hands off the hair.", "Okay, okay." } },
         { "doze", new[] { "zz...", "z z z", "...mm. zz", "zzz", "...five more pages. zz" } },
         { "woken", new[] { "Mm? I'm up.", "Wasn't asleep.", "...what time is it?", "Just resting my eyes.", "Five more minutes." } },
+        { "dizzy", new[] { "Room's spinning.", "Whoa. Two of you.", "Never again.", "...ugh. Dizzy.", "Which way is up?" } },
+        { "ride", new[] { "Whoa.", "Hey. Easy.", "Warn me first.", "I'm sitting here!", "Bumpy." } },
+        { "morning", new[] { "Morning.", "Is it morning already?", "Up. Mostly.", "...okay. Awake.", "New day. Quiz later?" } },
         { "habit", new[] { "Usually about now.", "Your usual quiz hour.", "This is when you study.", "Same time as always?", "Around now, usually. Quiz?" } },
         { "break", new[] { "Fifty minutes. Stretch.", "Break time. Stand up.", "Drink some water.", "Look away from the screen.", "Rest your eyes a minute." } },
         { "aftergood", new[] { "Okay. That was good.", "Fine. I'm impressed.", "See? You know this.", "Good run." } },
@@ -2109,7 +2253,7 @@ class BuddyWindow : Window
     {
         Watch(DateTime.Now, 5);
         if (mood == "restless") Respond("return", "point");
-        else { Respond("return"); view.Nod(); }
+        else Respond("return", "wave", "glance"); // (lying down she can't wave: she looks up instead)
     }
 
     public BuddyWindow(HeatherModel model, Stats stats, Action onClick)
@@ -2235,7 +2379,7 @@ class BuddyWindow : Window
             ClimbStep(dt);
             FallStep(dt);
             if (landing) Land();
-            RidePerch();
+            RidePerch(dt);
             if (dragging)
             {
                 view.SwayTarget *= Math.Exp(-dt * 5); // held still, she stops swinging
@@ -2292,12 +2436,16 @@ class BuddyWindow : Window
                 Ground();
             }
             string mood = Mood;
+            view.Energy = MoodEnergy(mood);
+            view.Tapping = mood == "restless";
+            bool morning = MorningDue(mood);
             view.Dozing = ShouldDoze(DateTime.Now, mood);
+            if (morning && !away) Respond("morning", "stretch"); // (she's waking up: the stretch plays as she picks her book back up)
             if (!view.Dozing) NoticeTick(MouseFromHead(), DateTime.Now); // asleep, she doesn't notice the mouse nearby (hovering wakes her)
             string settled = view.Settled;
             bool free = !dragging && !falling && !landing && !view.Looking && !view.Watching && !pausedWalk && climbing == 0 && settled != null && settled != "walk";
             if (free && BreakDue(DateTime.Now, Native.IdleSeconds()) && !view.Dozing) Respond("break", "stretch");
-            if (free && !away && HabitDue(DateTime.Now)) Respond("habit", "point", "glance");
+            if (free && !away && NudgeDue(DateTime.Now)) Nudge(DateTime.Now);
             if (free && DateTime.Now >= nextChange) DoSomething();
             else if (free && !away && DateTime.Now >= nextMoment) IdleMoment(settled); // no acting for an empty room
         };
@@ -2384,9 +2532,13 @@ class BuddyWindow : Window
         }
         if (!fell) { Respond("drop", "shift", "glance"); return; }
         fell = false;
+        // thrown hard, she lands dizzy: her head wobbles round in circles for a couple of seconds
+        if (hardThrow) { hardThrow = false; Act("dizzy"); Say(Line("dizzy", Mood)); return; }
         view.Nod();
         if (rng.Next(2) == 0) Say(Line("land", Mood));
     }
+
+    bool hardThrow; // the fall in progress started with a hard throw
 
     // speed: how fast the mouse was moving when the button came up
     void LetGo(Vector speed)
@@ -2415,6 +2567,7 @@ class BuddyWindow : Window
         var chest = view.GrabPoint();
         fallAt = new Point(Left + chest.X, Top + chest.Y);
         fallV = new Vector(vx, vy);
+        hardThrow = fallV.Length > 1000;
         falling = true;
         landing = false;
         view.Held = true;
@@ -2697,7 +2850,7 @@ class BuddyWindow : Window
     // A name listed twice is twice as likely.
     static readonly Dictionary<string, string[]> Moments = new Dictionary<string, string[]>
     {
-        { "sleepy", new[] { "stretch", "stretch", "glance", "shift" } },
+        { "sleepy", new[] { "yawn", "yawn", "stretch", "glance", "shift" } },
         { "restless", new[] { "cross", "hips", "glance", "shift", "think", "facepalm" } },
         { "pleased", new[] { "glance", "stretch", "shift", "think", "fist" } },
         { "bored", new[] { "glance", "glance", "shift", "stretch", "think", "cross", "hips" } }
@@ -2707,7 +2860,7 @@ class BuddyWindow : Window
     static readonly Dictionary<string, double> MomentSeconds = new Dictionary<string, double>
     {
         { "glance", 4 }, { "stretch", 3.6 }, { "shift", 9 }, { "think", 5 }, { "cross", 6 }, { "hips", 5 },
-        { "facepalm", 2.4 }, { "point", 2.2 }, { "fist", 1.6 }, { "cheer", 1.8 }
+        { "facepalm", 2.4 }, { "point", 2.2 }, { "fist", 1.6 }, { "cheer", 1.8 }, { "yawn", 3.2 }, { "sneeze", 1.4 }, { "dizzy", 2.6 }, { "wave", 2.2 }
     };
     string lastMoment;
     DateTime nextMoment;
@@ -2719,9 +2872,13 @@ class BuddyWindow : Window
         string mood = Mood;
         nextMoment = DateTime.Now.AddSeconds(mood == "sleepy" ? 50 + rng.Next(40) : 30 + rng.Next(25));
         if (view.Dozing) { if (rng.Next(2) == 0) Say(Line("doze", mood)); return; } // asleep: no moments, just a "zz" now and then
+        // once in a long while, a sneeze (not part of any mood's moments: it just happens)
+        if (rng.Next(60) == 0 && HeatherView.Fits("sneeze", pose)) { Act("sneeze"); Say(rng.Next(2) == 0 ? "Achoo." : "Achoo. ...Sorry."); return; }
         var pool = Moments[mood].ToList();
         if (Accuracy(stats) < 60) pool.Add("facepalm"); // the answers haven't been going well
-        Act(PickMoment(pool, pose));
+        string m = PickMoment(pool, pose);
+        Act(m);
+        if (m == "yawn" && rng.Next(3) == 0) { Say("*yawn*"); return; }
         if (rng.Next(6) == 0) Say(Line("idle", mood)); // now and then she mutters something
     }
 
@@ -2925,18 +3082,45 @@ class BuddyWindow : Window
             fading.StudyHours[9] = 30;
             for (int i = 0; i < 40; i++) fading.Started(noon.Date.AddHours(20)); // the 40th halves everything
             if (fading.StudyHours[20] != 20 || fading.StudyHours[9] != 15) bad("buddy: old habits should fade (8 pm " + fading.StudyHours[20] + ", 9 am " + fading.StudyHours[9] + ")");
-            // the once-a-day mention of your usual time
-            var keepHours = st.StudyHours; var keepLast = st.LastQuiz;
+            // the once-a-day nudge: at your usual study time...
+            var keepHours = st.StudyHours; var keepLast = st.LastQuiz; var keepExam = st.ExamDate; var keepName = st.ExamName;
+            var keepMissed = b.Missed; var keepReview = b.Review;
+            st.ExamDate = DateTime.MinValue;
             st.StudyHours = new int[24]; st.StudyHours[20] = 5;
             st.LastQuiz = noon.Date.AddHours(14);
-            if (!b.HabitDue(noon.Date.AddHours(20.1))) bad("buddy: didn't mention your usual study time");
-            if (b.HabitDue(noon.Date.AddHours(20.5))) bad("buddy: mentioned your usual study time twice in a day");
-            if (!b.HabitDue(noon.Date.AddDays(1).AddHours(20.1))) bad("buddy: didn't mention your usual study time the next day");
-            if (b.HabitDue(noon.Date.AddDays(2).AddHours(12))) bad("buddy: mentioned your study time at noon");
+            if (!b.NudgeDue(noon.Date.AddHours(20.1))) bad("buddy: didn't mention your usual study time");
+            if (b.NudgeDue(noon.Date.AddHours(20.5))) bad("buddy: mentioned your usual study time twice in a day");
+            if (!b.NudgeDue(noon.Date.AddDays(1).AddHours(20.1))) bad("buddy: didn't mention your usual study time the next day");
+            if (b.NudgeDue(noon.Date.AddDays(2).AddHours(12))) bad("buddy: nudged at noon with no exam coming and no habit then");
             st.LastQuiz = noon.Date.AddDays(3).AddHours(19.5);
-            if (b.HabitDue(noon.Date.AddDays(3).AddHours(20.1))) bad("buddy: mentioned your study time right after you started a quiz");
-            st.StudyHours = keepHours; st.LastQuiz = keepLast;
-            log.AppendLine("Buddy: habits checked (night-owl hours, half hour before, fading, once-a-day mention)");
+            if (b.NudgeDue(noon.Date.AddDays(3).AddHours(20.1))) bad("buddy: nudged right after you started a quiz");
+            // ...or any time in the week before your exam, but never at bedtime
+            st.StudyHours = new int[24]; st.LastQuiz = noon.Date.AddDays(3);
+            st.ExamName = "Midterm"; st.ExamDate = noon.Date.AddDays(14);
+            if (!b.NudgeDue(noon.Date.AddDays(10).AddHours(15))) bad("buddy: no nudge 4 days before the exam");
+            if (b.NudgeDue(noon.Date.AddDays(11).AddHours(2))) bad("buddy: nudged you at 2 am");
+            if (b.NudgeDue(noon.Date.AddDays(4).AddHours(15))) bad("buddy: nudged 10 days before the exam with no habit then");
+            // what the nudge says, and what a click on her then does
+            int redo = 0;
+            b.Review = () => redo++;
+            b.view.SnapTo("sit");
+            b.Missed = () => 7;
+            b.Nudge(st.ExamDate.Date.AddDays(-4).AddHours(15));
+            if (b.bubbleText.Text != "Midterm in 4 days. Redo misses?") bad("buddy: exam nudge said: " + b.bubbleText.Text);
+            b.Clicked();
+            b.Missed = () => 0;
+            b.Nudge(st.ExamDate.Date.AddDays(-1).AddHours(15));
+            if (b.bubbleText.Text != "Midterm tomorrow. Quiz?") bad("buddy: exam nudge with nothing missed said: " + b.bubbleText.Text);
+            if (b.offering) bad("buddy: offered a review with nothing missed");
+            st.ExamDate = DateTime.MinValue; st.StudyHours[20] = 5;
+            b.Missed = () => 3;
+            b.Nudge(noon.Date.AddHours(20.1));
+            if (b.bubbleText.Text != "Your usual hour. Redo misses?") bad("buddy: habit nudge said: " + b.bubbleText.Text);
+            b.Clicked();
+            if (redo != 2) bad("buddy: a click after a nudge offering a review should start it (" + redo + " of 2)");
+            st.StudyHours = keepHours; st.LastQuiz = keepLast; st.ExamDate = keepExam; st.ExamName = keepName;
+            b.Missed = keepMissed; b.Review = keepReview; b.offering = false;
+            log.AppendLine("Buddy: habits checked (night-owl hours, half hour before, fading, once-a-day nudge, exam week, review offer)");
             var lies = new Dictionary<string, int>();
             foreach (var m in Moments.Keys)
             {
@@ -3045,6 +3229,24 @@ class BuddyWindow : Window
             b.view.SnapTo("lie"); b.ComeBack(false); reacted("her snooze ending", "back", "stretch");
             b.view.SnapTo("stand"); b.WelcomeBack("restless"); reacted("coming back to the PC", "return", "point");
             if (!b.view.Watching) bad("buddy: didn't look over when you came back");
+            b.view.Watching = false;
+            b.view.SnapTo("lie"); b.WelcomeBack("bored"); reacted("coming back while she's lying down", "return", "glance");
+            b.view.SnapTo("stand"); b.WelcomeBack("bored"); reacted("coming back to the PC (not restless)", "return", "wave");
+            {
+                // the waving hand is up above her shoulder, and it moves
+                double wt = b.view.Now, top = double.MaxValue, minX = double.MaxValue, maxX = double.MinValue;
+                double shoulderY = 0;
+                for (int i = 0; i <= 90; i++)
+                {
+                    b.view.Step(wt + i / 60.0);
+                    if (i < 40 || i > 90) continue; // (the middle of the wave, once the arm is up)
+                    var hnd = b.view.ScreenPoint("bone039");
+                    shoulderY = b.view.ScreenPoint("bone026").Y;
+                    top = Math.Min(top, hnd.Y); minX = Math.Min(minX, hnd.X); maxX = Math.Max(maxX, hnd.X);
+                }
+                if (top > shoulderY - 20 || maxX - minX < 8) bad("buddy: waving, her hand should be up and moving (hand at " + top.ToString("0") + ", shoulder " + shoulderY.ToString("0") + ", side to side " + (maxX - minX).ToString("0") + ")");
+            }
+            b.view.Watching = false;
             if (b.BackFromAway(10) || b.BackFromAway(400) || b.BackFromAway(900)) bad("buddy: thought you came back while you were still here or away");
             if (!b.BackFromAway(1)) bad("buddy: didn't see you come back after 15 minutes away");
             if (b.BackFromAway(1)) bad("buddy: welcomed you back twice");
@@ -3102,21 +3304,74 @@ class BuddyWindow : Window
             b.view.Looking = false;
             if (b.ShouldDoze(DateTime.Now.AddSeconds(10), "sleepy")) bad("buddy: fell straight back asleep after you woke her");
             if (!b.ShouldDoze(DateTime.Now.AddSeconds(30), "sleepy")) bad("buddy: never went back to sleep after being woken");
-            // what dozing looks like: reading, then ten seconds after drifting off
+            // Falling asleep, step by step: pictures of each stage, and checks on the book and her head
             var dozePics = new List<KeyValuePair<string, ImageSource>>();
+            double zt = b.view.Now + 900, zClock = zt;
+            Action<double> wait = secs => { int n = (int)(secs * 60); for (int i = 1; i <= n; i++) b.view.Step(zClock + i / 60.0); zClock += n / 60.0; };
+            Action<string> snap = label => { dozePics.Add(new KeyValuePair<string, ImageSource>(label, b.Picture())); inWindow(label); };
+            // Lying propped on her elbows, her hips rest on the floor too (they used to float 40 above her elbows)
+            Action<string> resting = what =>
+            {
+                double hips = (b.view.ScreenPoint("bone003").Y + b.view.ScreenPoint("bone005").Y) / 2;
+                double elbows = (b.view.ScreenPoint("bone034").Y + b.view.ScreenPoint("bone036").Y) / 2;
+                double sunk = b.view.Extent().Bottom - GroundY;
+                if (Math.Abs(hips - elbows) > 30 || sunk > 30) // (floating was 45; asleep her arms are a little lower, under her head)
+                    bad("buddy: " + what + ", she isn't resting on the floor (hips at " + hips.ToString("0") + ", elbows at " + elbows.ToString("0") + ", lowest point " + sunk.ToString("0") + " below the floor)");
+            };
+            // how far the book is from between her hands (world units)
+            Func<double> bookAway = () =>
+            {
+                var wl = b.view.WorldPoint("bone039"); var wr = b.view.WorldPoint("bone041");
+                var mid = new Point3D((wl.X + wr.X) / 2, (wl.Y + wr.Y) / 2, b.view.BookAt.Z);
+                return (b.view.BookAt - mid).Length;
+            };
             b.view.Dozing = false; b.view.SnapTo("lie");
-            double zt = b.view.Now + 900;
-            b.view.Step(zt); b.view.Step(zt + 1);
-            dozePics.Add(new KeyValuePair<string, ImageSource>("reading", b.Picture()));
+            b.view.Step(zt); wait(1);
+            snap("reading"); resting("reading");
             var headReading = b.view.ScreenPoint("bone009");
+            double bookReading = bookAway();
             b.view.Dozing = true;
-            for (int i = 1; i <= 600; i++) b.view.Step(zt + 1 + i / 60.0);
-            dozePics.Add(new KeyValuePair<string, ImageSource>("dozing", b.Picture()));
-            inWindow("dozing");
-            if (b.view.ScreenPoint("bone009").Y < headReading.Y + 3) bad("buddy: dozing, her head should drop (from " + headReading.Y.ToString("0") + " to " + b.view.ScreenPoint("bone009").Y.ToString("0") + ")");
+            wait(1.2); snap("shutting the book");
+            wait(1.8); snap("folding her arms");
+            wait(5); snap("asleep"); resting("asleep");
+            if (b.view.DozeAmount < 1) bad("buddy: after 8 seconds she should be fully asleep (" + b.view.DozeAmount.ToString("0.00") + ")");
+            // morning: bedtime ends while she's asleep, and she wakes up once
+            b.wasBedtime = false;
+            if (b.MorningDue("sleepy")) bad("buddy: woke up for the morning in the middle of the night");
+            if (!b.MorningDue("bored")) bad("buddy: didn't wake up when bedtime ended");
+            if (b.MorningDue("bored")) bad("buddy: woke up for the morning twice");
+            if (b.view.ScreenPoint("bone009").Y < headReading.Y + 3) bad("buddy: asleep, her head should be lower than when reading (from " + headReading.Y.ToString("0") + " to " + b.view.ScreenPoint("bone009").Y.ToString("0") + ")");
+            if (bookReading > 45 || bookAway() < 50) bad("buddy: the book should be in her hands while reading and pushed aside asleep (" + bookReading.ToString("0") + ", then " + bookAway().ToString("0") + " from her hands)");
             b.view.Dozing = false;
-            for (int i = 1; i <= 120; i++) b.view.Step(zt + 11 + i / 60.0);
-            Sheet(dir, "buddy-doze.png", dozePics, 2);
+            wait(0.8); snap("waking up");
+            wait(1.2);
+            if (b.view.DozeAmount > 0 || bookAway() > 45) bad("buddy: 2 seconds after waking she should be reading again (" + b.view.DozeAmount.ToString("0.00") + ", book " + bookAway().ToString("0") + " from her hands)");
+            // sitting, she nods off: her head droops, and keeps drooping or jerking up, never back to normal
+            b.view.SnapTo("sit"); wait(1);
+            snap("sitting");
+            // (the head joint is the pivot the head turns on, so a nod doesn't move it: watch the top of her head instead)
+            double headSitting = b.view.Extent().Top;
+            b.view.Dozing = true;
+            wait(8); snap("nodding off");
+            double nodLow = 0, nodHigh = double.MaxValue;
+            for (int i = 0; i < 17 * 4; i++) { wait(0.25); double y = b.view.Extent().Top; nodLow = Math.Max(nodLow, y); nodHigh = Math.Min(nodHigh, y); }
+            if (nodLow < headSitting + 6 || nodLow < nodHigh + 6) bad("buddy: nodding off, her head should droop and jerk back up (top of her head awake " + headSitting.ToString("0") + ", nodding between " + nodHigh.ToString("0") + " and " + nodLow.ToString("0") + ")");
+            b.view.Dozing = false; wait(2);
+            Sheet(dir, "buddy-doze.png", dozePics, 4);
+
+            // Mood in her motion: restless, she taps a foot in short bursts; otherwise her feet stay still
+            Func<bool, double> tapRange = tapping =>
+            {
+                b.view.Tapping = tapping;
+                b.view.SnapTo("stand");
+                double tp = Math.Ceiling((b.view.Now + 100) / 20) * 20, lo = 999, hi = -999; // (the start of a burst)
+                for (int i = 0; i <= 120; i++) { b.view.Step(tp + i / 60.0); double a = b.view.Model["bone021"].Ry; lo = Math.Min(lo, a); hi = Math.Max(hi, a); }
+                return hi - lo;
+            };
+            double tapped = tapRange(true), still = tapRange(false);
+            if (tapped < 10 || still > 1) bad("buddy: restless she should tap a foot, and not otherwise (ankle moved " + tapped.ToString("0") + " tapping, " + still.ToString("0") + " not)");
+            if (!(MoodEnergy("pleased") > MoodEnergy("bored") && MoodEnergy("bored") > MoodEnergy("sleepy"))) bad("buddy: pleased should be livelier than bored, and bored than sleepy");
+            b.view.Energy = 1;
             log.AppendLine("Buddy: bedtime checked (dozes at night, wakes when you hover, back to sleep after 20 s)");
 
             // The exam window: built (never shown) and drawn to a picture to look over
@@ -3381,9 +3636,30 @@ class BuddyWindow : Window
                 at(b.Clamp(-9000) + W / 2, 200 + 80, "the left end of the window she's on");
                 at(b.Clamp(9000) + W / 2, 1000 - 80, "the right end of the window she's on");
                 double rode = b.Left;
-                frames[win] = new Rect(300, 250, 800, 500); b.RidePerch();
+                frames[win] = new Rect(300, 250, 800, 500); b.RidePerch(0);
                 at(b.Left, rode + 100, "her spot after the window moved 100 to the right");
                 at(b.Top + GroundY, 250, "her feet after the window moved up");
+                // dragged around fast, she throws her arms out for balance, and settles once it stops
+                b.view.SnapTo("sit");
+                double bt0 = b.view.Now + 50;
+                b.view.Step(bt0);
+                for (int i = 1; i <= 20; i++) { frames[win] = new Rect(300 - 15 * i, 250, 800, 500); b.RidePerch(1 / 60.0); b.view.Step(bt0 + i / 60.0); }
+                if (b.view.BalanceAmount < 0.6 || b.view.BalanceDir != -1) bad("buddy: her window dragged left at 900 a second, she should throw her arms out (" + b.view.BalanceAmount.ToString("0.00") + ", leaning " + b.view.BalanceDir + ")");
+                if (!Pool["ride"].Contains(b.bubbleText.Text)) bad("buddy: no comment on the bumpy ride (" + b.bubbleText.Text + ")");
+                // both hands well out to the sides (how far each hand is beyond its own shoulder, sideways)
+                {
+                    var neckS = b.view.ScreenPoint("bone006");
+                    Func<string, string, double> outBy = (shoulder, palm) => Math.Abs(b.view.ScreenPoint(palm).X - neckS.X) - Math.Abs(b.view.ScreenPoint(shoulder).X - neckS.X);
+                    double outL = outBy("bone026", "bone039"), outR = outBy("bone032", "bone041");
+                    if (outL < 40 || outR < 40) bad("buddy: balancing, her arms should be out to the sides (left hand " + outL.ToString("0") + " out, right " + outR.ToString("0") + ")");
+                }
+                var shaken = new List<KeyValuePair<string, ImageSource>> { new KeyValuePair<string, ImageSource>("window dragged left", b.Picture()) };
+                for (int i = 21; i <= 200; i++) { b.RidePerch(1 / 60.0); b.view.Step(bt0 + i / 60.0); }
+                if (b.view.BalanceAmount > 0.05) bad("buddy: 3 seconds after her window stopped she should be settled (" + b.view.BalanceAmount.ToString("0.00") + ")");
+                for (int i = 201; i <= 260; i++) { frames[win] = new Rect(0 + 2 * (i - 200), 250, 800, 500); b.RidePerch(1 / 60.0); b.view.Step(bt0 + i / 60.0); }
+                if (b.view.BalanceAmount > 0.05) bad("buddy: a window nudged along slowly shouldn't make her flail (" + b.view.BalanceAmount.ToString("0.00") + ")");
+                shaken.Add(new KeyValuePair<string, ImageSource>("settled", b.Picture()));
+                Sheet(dir, "buddy-balance.png", shaken, 2);
                 frames.Remove(win); b.CheckPerch(); fly();
                 if (b.perch != IntPtr.Zero) bad("buddy: still on a window that closed");
                 at(b.Top + GroundY, 1032, "her feet after her window closed");
@@ -3451,6 +3727,8 @@ class BuddyWindow : Window
                 if (!b.falling) bad("buddy: let go while moving fast, she should be thrown");
                 fly();
                 at(b.Top + GroundY, 1032, "her feet after being thrown");
+                if (b.lastMoment != "dizzy" || !Pool["dizzy"].Contains(b.bubbleText.Text)) bad("buddy: thrown hard, she should land dizzy (did " + b.lastMoment + ", said " + b.bubbleText.Text + ")");
+                b.lastMoment = null;
                 if (b.Left + W / 2 < -1920 + 59 || b.Left + W / 2 > 1920 - 59) bad("buddy: thrown off the screen, she's at " + (b.Left + W / 2));
                 if (b.Left + W / 2 < 1000) bad("buddy: thrown to the right, she should land to the right, but she's at " + (b.Left + W / 2));
                 // thrown so she comes down over a window: she lands on top of it and sits
@@ -3458,6 +3736,7 @@ class BuddyWindow : Window
                 b.Carry(500 - W / 2, 250 - GroundY); b.PickUp(null); b.LetGo(new Vector(0, 600));
                 fly();
                 if (b.perch != win) bad("buddy: dropped over a window, she should land on it (feet at " + (b.Top + GroundY) + ")");
+                if (b.lastMoment == "dizzy") bad("buddy: dropped gently, she shouldn't be dizzy");
                 at(b.Top + GroundY, 500, "her feet on the window she landed on");
                 // 'Back to the taskbar' from there is a drop too
                 b.BackToTaskbar(); fly();
@@ -3502,6 +3781,10 @@ class BuddyWindow : Window
         view.UpdateLayout();
         var shot = new RenderTargetBitmap((int)W, (int)H, 96, 96, PixelFormats.Pbgra32);
         shot.Render(view);
+        // a faint line where the floor (the taskbar's top edge) is, so floating or sinking shows
+        var floor = new DrawingVisual();
+        using (var dc = floor.RenderOpen()) dc.DrawLine(new Pen(new SolidColorBrush(Color.FromArgb(0x70, 0xFF, 0xFF, 0xFF)), 1), new Point(0, GroundY + 0.5), new Point(W, GroundY + 0.5));
+        shot.Render(floor);
         return shot; // the whole window, so anything cut off by its edges shows
     }
 
@@ -3726,18 +4009,30 @@ class BuddyWindow : Window
         return true;
     }
 
-    // Every frame while she's on a window: if it has moved, she rides along
-    void RidePerch()
+    // Every frame while she's on a window: if it has moved, she rides along. Dragged around fast, she
+    // throws her arms out to keep her balance (dt: seconds since the last frame).
+    void RidePerch(double dt)
     {
+        view.Balance = 0;
         if (perch == IntPtr.Zero || dragging) return;
         var r = FrameOf(perch);
         if (!r.HasValue || r.Value == perchRect) return;
-        Left += r.Value.Left - perchRect.Left;
+        double dx = r.Value.Left - perchRect.Left, dy = r.Value.Top - perchRect.Top;
+        if (dt > 0)
+        {
+            double speed = Math.Sqrt(dx * dx + dy * dy) / Math.Max(dt, 1.0 / 240);
+            view.Balance = Math.Min(1, Math.Max(0, (speed - 150) / 650)); // a slow nudge isn't a jolt
+            if (Math.Abs(dx) > 0.5) view.BalanceDir = dx > 0 ? 1 : -1;
+            if (view.Balance > 0.6 && DateTime.Now > nextRideLine) { nextRideLine = DateTime.Now.AddSeconds(20); Say(Line("ride", Mood)); }
+        }
+        Left += dx;
         perchRect = r.Value;
         shelfY = r.Value.Top;
         Left = Clamp(Left);
         Ground();
     }
+
+    DateTime nextRideLine; // she only comments on a bumpy ride every 20 seconds at most
 
     // Once a second: is her window still there, and still low enough to sit on? If it closed, was
     // minimized or filled the screen, she's back on the taskbar.
@@ -4085,18 +4380,55 @@ class BuddyWindow : Window
     DateTime saidAt, hoverAt, leftAt; // when she last said something, showed a hover line, and the mouse left her
     DateTime wokeAt, nudgedOn;        // when you last woke her; the day she last mentioned your usual study time
 
-    // Bedtime: lying down late at night with nobody bothering her (and not just woken), she dozes
+    // Bedtime: lying down (or sitting: she nods off) late at night with nobody bothering her, and not just woken, she dozes
     bool ShouldDoze(DateTime now, string mood)
     {
-        return mood == "sleepy" && view.Settled == "lie" && !view.Looking && !view.Watching && !dragging && (now - wokeAt).TotalSeconds > 20;
+        return mood == "sleepy" && (view.Settled == "lie" || view.Settled == "sit") && !view.Looking && !view.Watching && !dragging && (now - wokeAt).TotalSeconds > 20;
     }
 
-    // Once a day, at your usual study time with no quiz started yet, she mentions it
-    bool HabitDue(DateTime now)
+    // How lively her idle motion is in each mood (1 = normal)
+    static double MoodEnergy(string mood)
     {
-        if (nudgedOn == now.Date || !StudyTime(now, stats) || (now - stats.LastQuiz).TotalHours < 3) return false;
+        return mood == "pleased" ? 1.35 : mood == "restless" ? 1.2 : mood == "sleepy" ? 0.6 : 0.85;
+    }
+
+    // Bedtime just ended while she was asleep: time to wake up (true once, on that tick)
+    bool wasBedtime;
+    bool MorningDue(string mood)
+    {
+        bool bedtime = mood == "sleepy", due = wasBedtime && !bedtime && view.DozeAmount > 0.5;
+        wasBedtime = bedtime;
+        return due;
+    }
+
+    // Once a day, with no quiz in the last 3 hours (and not at bedtime), she gives you a nudge: at
+    // your usual study time, or at any time in the week before your exam
+    bool NudgeDue(DateTime now)
+    {
+        if (nudgedOn == now.Date || MoodFor(now, stats) == "sleepy" || (now - stats.LastQuiz).TotalHours < 3) return false;
+        var days = ExamDays(now, stats);
+        if (!StudyTime(now, stats) && !(days.HasValue && days <= 7)) return false;
         nudgedOn = now.Date;
         return true;
+    }
+
+    // The nudge. With questions you've missed, she offers to redo them, and a click on her then starts
+    // that review (the quiz picks the exam's class first, that week). Otherwise a click opens the quiz.
+    void Nudge(DateTime now)
+    {
+        int missed = Missed != null ? Missed() : 0;
+        var days = ExamDays(now, stats);
+        string name = string.IsNullOrWhiteSpace(stats.ExamName) ? "Exam" : stats.ExamName.Trim();
+        string line;
+        if (days.HasValue && days <= 7)
+            line = (days == 0 ? name + " today." : days == 1 ? name + " tomorrow." : name + " in " + days + " days.") + (missed > 0 ? " Redo misses?" : " Quiz?");
+        else
+            line = missed > 0 ? "Your usual hour. Redo misses?" : Line("habit", Mood);
+        Say(line);
+        lastLine = line;
+        offering = missed > 0;
+        Act(new[] { "point", "glance" }.FirstOrDefault(m => HeatherView.Fits(m, view.Settled)));
+        nextMoment = now.AddSeconds(25 + rng.Next(20));
     }
 
     // Is something she said (not a hover line) still showing? (Say shows it for 3.5 seconds)

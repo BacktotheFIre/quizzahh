@@ -391,6 +391,13 @@ partial class QuizWindow : Window
     List<Q> MissedToReview(out string cls)
     {
         Func<string, List<Q>> missedIn = c => classes[c].Where(q => mastery.IsMissed(c, q)).ToList();
+        // In the week before an exam, the class named after it comes first (an exam called "Calculus" picks the class with "Calculus" in its name)
+        string forExam = ExamClass(DateTime.Today);
+        if (forExam != null)
+        {
+            var exam = missedIn(forExam);
+            if (exam.Count > 0) { cls = forExam; return exam; }
+        }
         cls = currentClass;
         var list = missedIn(cls);
         if (list.Count > 0) return list;
@@ -404,6 +411,15 @@ partial class QuizWindow : Window
 
     // How many questions a review would have right now (0 = nothing missed, or you're in the middle
     // of a quiz, an exam, the Code Lab or the scratch paper, which a review must not throw away)
+    // The class whose name contains the exam's name, while that exam is 0 to 7 days away (null otherwise)
+    string ExamClass(DateTime today)
+    {
+        string name = (stats.ExamName ?? "").Trim();
+        int days = (stats.ExamDate.Date - today).Days;
+        if (name.Length < 3 || stats.ExamDate == DateTime.MinValue || days < 0 || days > 7) return null;
+        return classes.Keys.FirstOrDefault(c => c.IndexOf(name, StringComparison.OrdinalIgnoreCase) >= 0);
+    }
+
     int ReviewCount()
     {
         if (mode == "question" || mode == "exam" || codeOpen || scratchOpen) return 0;
@@ -3450,6 +3466,8 @@ partial class QuizWindow : Window
             // Reviewing missed questions: one wrong answer makes a one-question review of exactly that
             // question, and the offer goes away while that quiz is running (so it can't be thrown away)
             ShowHome();
+            var keepExamDate = stats.ExamDate; var keepExamName = stats.ExamName;
+            stats.ExamDate = DateTime.MinValue; // (your real exam date mustn't steer these checks)
             foreach (var kv in classes) foreach (var q in kv.Value) if (mastery.IsMissed(kv.Key, q)) mastery.Record(kv.Key, q, true);
             if (ReviewCount() != 0) bad("review: offered with nothing missed");
             var missedQ = Bank_()[0];
@@ -3461,7 +3479,22 @@ partial class QuizWindow : Window
             Choose(quiz[0].Answer);
             Next();
             if (ReviewCount() != 0) bad("review: still offered after the missed question was answered right");
-            log.AppendLine("Safe saving and missed-question review checked");
+            // In the week before an exam, the class named after it is reviewed first
+            string examCls = classes.Keys.First(c => c != currentClass), picked;
+            var examQ = classes[examCls][0];
+            mastery.Record(currentClass, missedQ, false);
+            mastery.Record(examCls, examQ, false);
+            stats.ExamName = examCls;
+            stats.ExamDate = DateTime.Today.AddDays(3);
+            MissedToReview(out picked);
+            if (picked != examCls) bad("review: 3 days before the exam it should review " + examCls + ", not " + picked);
+            stats.ExamDate = DateTime.Today.AddDays(20);
+            MissedToReview(out picked);
+            if (picked != currentClass) bad("review: 20 days before the exam it should review the class you're in, not " + picked);
+            mastery.Record(currentClass, missedQ, true);
+            mastery.Record(examCls, examQ, true);
+            stats.ExamDate = keepExamDate; stats.ExamName = keepExamName;
+            log.AppendLine("Safe saving and missed-question review checked (exam week picks the exam's class)");
             // Taskbar Heather (only when her model is built in; the public repo builds without it)
             if (Assembly.GetExecutingAssembly().GetManifestResourceStream("heather.dae") != null)
                 BuddyWindow.SelfTest(LoadModel(), snapDir, log, bad);
