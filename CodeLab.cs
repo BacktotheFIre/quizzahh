@@ -1008,7 +1008,7 @@ partial class QuizWindow
             Directory.CreateDirectory(CodingSaves);
             string text = codeEditor.Text.Replace("\r\n", "\n");
             if (text.Trim() == (codeCurrent.Starter ?? "").Trim() && !File.Exists(SavePath(codeCurrent))) return;
-            File.WriteAllText(SavePath(codeCurrent), text, new UTF8Encoding(false));
+            SafeFile.Write(SavePath(codeCurrent), text, new UTF8Encoding(false));
         }
         catch { }
     }
@@ -1030,7 +1030,7 @@ partial class QuizWindow
         try
         {
             Directory.CreateDirectory(CodingSaves);
-            File.WriteAllLines(System.IO.Path.Combine(CodingSaves, "solved.txt"), codeSolved.OrderBy(s => s));
+            SafeFile.WriteLines(System.IO.Path.Combine(CodingSaves, "solved.txt"), codeSolved.OrderBy(s => s), new UTF8Encoding(false));
         }
         catch { }
     }

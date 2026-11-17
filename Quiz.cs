@@ -206,8 +206,10 @@ partial class QuizWindow : Window
             SetupTray();
             try
             {
-                buddy = new BuddyWindow(LoadModel(), stats.BuddyX, x => { stats.BuddyX = x; stats.Save(); }, ToggleWidget);
+                buddy = new BuddyWindow(LoadModel(), stats, ToggleWidget);
                 buddy.Disabled = stats.BuddyOff;
+                buddy.Missed = ReviewCount;
+                buddy.Review = ReviewMissed;
                 buddy.Snoozed = howLong =>
                 {
                     if (tray != null)
@@ -367,15 +369,57 @@ partial class QuizWindow : Window
 
     void PickClass(string cls)
     {
-        if (cls != currentClass)
-        {
-            currentClass = cls;
-            stats.LastClass = cls;
-            stats.Save();
-            selected = new HashSet<string>(Topics());
-            LoadNotes(cls);
-        }
+        SetClass(cls);
         ShowTopics();
+    }
+
+    void SetClass(string cls)
+    {
+        if (cls == currentClass) return;
+        currentClass = cls;
+        stats.LastClass = cls;
+        stats.Save();
+        selected = new HashSet<string>(Topics());
+        LoadNotes(cls);
+    }
+
+    // ---------- Reviewing what you missed (taskbar Heather offers this) ----------
+    const int ReviewSize = 10;
+
+    // The questions you got wrong the last time you saw them: from the class you're on if it has
+    // any, otherwise from the class with the most. cls comes back as that class.
+    List<Q> MissedToReview(out string cls)
+    {
+        Func<string, List<Q>> missedIn = c => classes[c].Where(q => mastery.IsMissed(c, q)).ToList();
+        cls = currentClass;
+        var list = missedIn(cls);
+        if (list.Count > 0) return list;
+        foreach (var c in classes.Keys)
+        {
+            var l = missedIn(c);
+            if (l.Count > list.Count) { list = l; cls = c; }
+        }
+        return list;
+    }
+
+    // How many questions a review would have right now (0 = nothing missed, or you're in the middle
+    // of a quiz, an exam, the Code Lab or the scratch paper, which a review must not throw away)
+    int ReviewCount()
+    {
+        if (mode == "question" || mode == "exam" || codeOpen || scratchOpen) return 0;
+        string cls;
+        return Math.Min(ReviewSize, MissedToReview(out cls).Count);
+    }
+
+    // Open the quiz straight into a short quiz of those questions
+    void ReviewMissed()
+    {
+        if (ReviewCount() == 0) { ShowWidget(); return; }
+        string cls;
+        var list = MissedToReview(out cls);
+        if (!snapshot) ShowWidget(false); // (the self-test must never bring a window to the front)
+        SetClass(cls);
+        StartQuiz(Shuffle(list).Take(ReviewSize).ToList());
     }
 
     void OpenFolder()
@@ -719,7 +763,7 @@ partial class QuizWindow : Window
         try
         {
             Directory.CreateDirectory(NotesDir);
-            File.WriteAllText(NotesPath(notesFor), notesBox.Text, Encoding.UTF8);
+            SafeFile.Write(NotesPath(notesFor), notesBox.Text, Encoding.UTF8);
         }
         catch { }
     }
@@ -2487,6 +2531,8 @@ partial class QuizWindow : Window
     void StartQuiz(List<Q> source)
     {
         quizClass = currentClass;
+        stats.Started(DateTime.Now); // taskbar Heather's mood depends on how long it's been, and on your usual hours
+        stats.Save();
         quiz = source.Select(q => Shuffled(q)).ToList();
         idx = 0; score = 0; runBest = 0; sessionXp = 0; sessionLearned = 0;
         firstLead = Pick(new[] { "Okay, focus. ", "First one. ", "Here we go. " });
@@ -2788,6 +2834,9 @@ partial class QuizWindow : Window
         mode = "results";
         int n = quiz.Count;
         int pct = (int)Math.Round(100.0 * score / n);
+        stats.LastPct = pct; // taskbar Heather's mood, and what she says when the quiz closes, depend on how this went
+        stats.LastDone = DateTime.Now;
+        stats.Save();
         string grade, verdict, a, b;
         if (pct == 100) { grade = "S"; a = "#FDE68A"; b = "#F59E0B"; verdict = "Perfect. Okay, fine. I'm impressed."; }
         else if (pct >= 85) { grade = "A"; a = "#6EE7B7"; b = "#10B981"; verdict = "Nice work. You actually listened."; }
@@ -3087,7 +3136,10 @@ partial class QuizWindow : Window
         tray.ContextMenuStrip = menu;
     }
 
-    public void ShowWidget()
+    public void ShowWidget() { ShowWidget(true); }
+
+    // greet: false when something is about to start right away (a review), so she doesn't say hello first
+    void ShowWidget(bool greet)
     {
         bool wasHidden = !IsVisible;
         // The quiz floats over everything while it's open: the window is see-through, so a click on an
@@ -3097,7 +3149,7 @@ partial class QuizWindow : Window
         WindowState = WindowState.Normal;
         Activate();
         if (buddy != null) { buddy.Suppressed = true; buddy.Refresh(); }
-        if (wasHidden && mode == "home") Greet();
+        if (greet && wasHidden && mode == "home") Greet();
     }
 
     // Starts hidden (e.g. at Windows startup): only taskbar Heather shows
@@ -3128,7 +3180,7 @@ partial class QuizWindow : Window
         {
             buddy.Suppressed = false;
             buddy.Refresh();
-            if (!buddy.IsSnoozed) buddy.Say(Pick(new[] { "I'll be down here.", "Come back soon, okay?", "Break time. Don't go far." }));
+            if (!buddy.IsSnoozed && !buddy.QuizClosed()) buddy.Say(Pick(new[] { "I'll be down here.", "Come back soon, okay?", "Break time. Don't go far." }));
         }
         else if (!trayTipShown && tray != null)
         {
@@ -3205,8 +3257,26 @@ partial class QuizWindow : Window
     }
 
     // ---------- Debug snapshots (run with --snap <folder>) ----------
+    public static string SnapOnly; // "buddy" = only taskbar Heather's checks and pictures
+
     void RunSnapshot()
     {
+        if (SnapOnly == "buddy")
+        {
+            Dispatcher.BeginInvoke(new Action(() =>
+            {
+                var log = new StringBuilder();
+                int problems = 0;
+                Action<string> bad = msg => { problems++; log.AppendLine("PROBLEM: " + msg); };
+                try { BuddyWindow.SelfTest(LoadModel(), snapDir, log, bad); }
+                catch (Exception ex) { bad("CRASH: " + ex); }
+                log.Insert(0, "Buddy self-test: " + (problems == 0 ? "PASSED" : problems + " problem(s)") + "\r\n");
+                File.WriteAllText(System.IO.Path.Combine(snapDir, "buddytest.txt"), log.ToString(), Encoding.UTF8);
+                quitting = true;
+                Close();
+            }));
+            return;
+        }
         var steps = new List<Action>
         {
             () => Snap("home.png"),
@@ -3367,6 +3437,34 @@ partial class QuizWindow : Window
             SelfTestCode(log, bad);
             SelfTestCalc(log, bad);
             SelfTestExams(log, bad);
+
+            // Safe saving: a first save, a save over it, and nothing left behind
+            string safe = System.IO.Path.Combine(snapDir, "safefile-test.txt");
+            File.Delete(safe);
+            SafeFile.Write(safe, "one", Encoding.UTF8);
+            SafeFile.WriteLines(safe, new[] { "two", "thrée" }, Encoding.UTF8);
+            if (File.ReadAllText(safe, Encoding.UTF8) != "two\r\nthrée\r\n") bad("safe save: the file doesn't hold what was last saved");
+            if (File.Exists(safe + ".tmp")) bad("safe save: left its temporary file behind");
+            File.Delete(safe);
+
+            // Reviewing missed questions: one wrong answer makes a one-question review of exactly that
+            // question, and the offer goes away while that quiz is running (so it can't be thrown away)
+            ShowHome();
+            foreach (var kv in classes) foreach (var q in kv.Value) if (mastery.IsMissed(kv.Key, q)) mastery.Record(kv.Key, q, true);
+            if (ReviewCount() != 0) bad("review: offered with nothing missed");
+            var missedQ = Bank_()[0];
+            mastery.Record(currentClass, missedQ, false);
+            if (ReviewCount() != 1) bad("review: should offer 1 question, offers " + ReviewCount());
+            ReviewMissed();
+            if (mode != "question" || quiz.Count != 1 || quiz[0].Text != missedQ.Text) bad("review: didn't start a quiz of the missed question");
+            if (ReviewCount() != 0) bad("review: still offered in the middle of a quiz");
+            Choose(quiz[0].Answer);
+            Next();
+            if (ReviewCount() != 0) bad("review: still offered after the missed question was answered right");
+            log.AppendLine("Safe saving and missed-question review checked");
+            // Taskbar Heather (only when her model is built in; the public repo builds without it)
+            if (Assembly.GetExecutingAssembly().GetManifestResourceStream("heather.dae") != null)
+                BuddyWindow.SelfTest(LoadModel(), snapDir, log, bad);
             foreach (var line in Greetings.Concat(Right).Concat(Hot).Concat(Wrong).Concat(LostStreak))
                 if (Chunks(Ascii(Speakable(line))).Count == 0) bad("nothing to say for Heather's line: " + line);
         }

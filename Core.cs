@@ -116,8 +116,10 @@ static class Program
     static void Main(string[] args)
     {
         // Debug mode: render screenshots off-screen and exit
-        if (args.Length == 2 && args[0] == "--snap")
+        // (a third argument, "buddy", runs only taskbar Heather's part, which takes a few seconds)
+        if (args.Length >= 2 && args[0] == "--snap")
         {
+            QuizWindow.SnapOnly = args.Length > 2 ? args[2] : null;
             var snapApp = new Application();
             var snapWin = new QuizWindow(args[1]);
             snapApp.Run(snapWin);
@@ -154,15 +156,54 @@ static class Program
     }
 }
 
+// Saves a file so a crash or power cut in the middle of saving can't destroy it. The new text goes
+// into a second file first; only once that is completely on the disk does it take the real file's
+// place, in one step. At every moment there is a whole file: the old one or the new one.
+static class SafeFile
+{
+    public static void Write(string path, string text, Encoding enc)
+    {
+        string tmp = path + ".tmp";
+        var bytes = enc.GetPreamble().Concat(enc.GetBytes(text)).ToArray();
+        using (var f = new FileStream(tmp, FileMode.Create))
+        {
+            f.Write(bytes, 0, bytes.Length);
+            f.Flush(true); // really on the disk, not just handed to Windows
+        }
+        if (File.Exists(path)) File.Replace(tmp, path, null); else File.Move(tmp, path);
+    }
+
+    public static void WriteLines(string path, IEnumerable<string> lines, Encoding enc)
+    {
+        Write(path, string.Join("\r\n", lines) + "\r\n", enc);
+    }
+}
+
 class Stats
 {
     public static bool ReadOnly;
+    bool unreadable; // the saved file is there but couldn't be read: never overwrite it with blanks
     public int Xp, BestStreak, Answered, Correct;
     public double Left = double.NaN, Top = double.NaN;
     public bool Pinned, Muted, Quiet, NotesOpen, BuddyOff;
-    public double BuddyX = double.NaN;
+    public double BuddyX = double.NaN, BuddyY = double.NaN; // BuddyY: the height of the shelf she was left on (NaN = on the taskbar)
     public string LastClass = "", VoiceName = "", ScratchPaper = "grid";
     public int YearFilter; // 0 = all years
+    public DateTime LastQuiz; // when a quiz or exam was last started (DateTime.MinValue = not known)
+    public int LastPct = -1;  // the score of the last finished quiz or exam, in percent (-1 = none yet)
+    public DateTime LastDone; // ...and when it finished
+    public DateTime ExamDate; // the exam taskbar Heather is counting down to (DateTime.MinValue = none)
+    public string ExamName = "Exam";
+    public int[] StudyHours = new int[24]; // how many quizzes and exams were started in each hour of the day (0 = midnight)
+
+    // A quiz or exam is starting now: remember when, and count the hour so taskbar Heather learns your habits
+    public void Started(DateTime now)
+    {
+        LastQuiz = now;
+        StudyHours[now.Hour]++;
+        // old habits fade: once one hour gets to 40, every count is halved
+        if (StudyHours[now.Hour] >= 40) for (int h = 0; h < 24; h++) StudyHours[h] /= 2;
+    }
 
     static string Dir
     {
@@ -175,9 +216,13 @@ class Stats
     {
         var s = new Stats();
         var ci = CultureInfo.InvariantCulture;
-        try
+        string[] lines;
+        try { lines = File.Exists(FilePath) ? File.ReadAllLines(FilePath) : new string[0]; }
+        catch { s.unreadable = true; return s; }
+        foreach (var line in lines)
         {
-            foreach (var line in File.ReadAllLines(FilePath))
+            // Each line on its own, so one damaged line can't throw away everything after it
+            try
             {
                 var p = line.Split(new[] { '=' }, 2);
                 if (p.Length < 2) continue;
@@ -195,32 +240,44 @@ class Stats
                     case "notes": s.NotesOpen = p[1] == "1"; break;
                     case "class": s.LastClass = p[1]; break;
                     case "buddyx": s.BuddyX = double.Parse(p[1], ci); break;
+                    case "buddyy": s.BuddyY = double.Parse(p[1], ci); break;
                     case "buddyoff": s.BuddyOff = p[1] == "1"; break;
                     case "voicename": s.VoiceName = p[1]; break;
                     case "paper": s.ScratchPaper = p[1]; break;
                     case "year": s.YearFilter = int.Parse(p[1]); break;
+                    case "lastquiz": s.LastQuiz = new DateTime(long.Parse(p[1])); break;
+                    case "lastpct": s.LastPct = int.Parse(p[1]); break;
+                    case "lastdone": s.LastDone = new DateTime(long.Parse(p[1])); break;
+                    case "examdate": s.ExamDate = new DateTime(long.Parse(p[1])); break;
+                    case "examname": s.ExamName = p[1]; break;
+                    case "studyhours":
+                        var counts = p[1].Split(',');
+                        for (int h = 0; h < 24 && h < counts.Length; h++) s.StudyHours[h] = Math.Max(0, int.Parse(counts[h]));
+                        break;
                 }
             }
+            catch { }
         }
-        catch { }
         return s;
     }
 
     public void Save()
     {
-        if (ReadOnly) return;
+        if (ReadOnly || unreadable) return;
         var ci = CultureInfo.InvariantCulture;
         try
         {
             Directory.CreateDirectory(Dir);
-            File.WriteAllLines(FilePath, new[]
+            SafeFile.WriteLines(FilePath, new[]
             {
                 "xp=" + Xp, "best=" + BestStreak, "answered=" + Answered, "correct=" + Correct,
                 "left=" + Left.ToString(ci), "top=" + Top.ToString(ci),
                 "pinned=" + (Pinned ? 1 : 0), "muted=" + (Muted ? 1 : 0), "quiet=" + (Quiet ? 1 : 0),
                 "notes=" + (NotesOpen ? 1 : 0), "class=" + LastClass,
-                "buddyx=" + BuddyX.ToString(ci), "buddyoff=" + (BuddyOff ? 1 : 0), "voicename=" + VoiceName, "paper=" + ScratchPaper, "year=" + YearFilter
-            });
+                "buddyx=" + BuddyX.ToString(ci), "buddyy=" + BuddyY.ToString(ci), "buddyoff=" + (BuddyOff ? 1 : 0), "voicename=" + VoiceName, "paper=" + ScratchPaper, "year=" + YearFilter,
+                "lastquiz=" + LastQuiz.Ticks, "lastpct=" + LastPct, "lastdone=" + LastDone.Ticks,
+                "examdate=" + ExamDate.Ticks, "examname=" + ExamName, "studyhours=" + string.Join(",", StudyHours)
+            }, new UTF8Encoding(false));
         }
         catch { }
     }
@@ -348,7 +405,7 @@ static class QuestionFile
     {
         var sb = new StringBuilder(Header);
         foreach (var q in qs) sb.Append("\r\n").Append(Format(q));
-        File.WriteAllText(path, sb.ToString(), Encoding.UTF8);
+        SafeFile.Write(path, sb.ToString(), Encoding.UTF8);
     }
 
     public static void Append(string path, Q q)
@@ -452,9 +509,12 @@ class Mastery
         return cls + "|" + q.Text.Trim().Replace("\r", "").Replace("\n", "\\n").Replace("\t", " ");
     }
 
+    bool unreadable; // the saved file is there but couldn't be read: never overwrite it with blanks
+
     public static Mastery Load()
     {
         var m = new Mastery();
+        if (!File.Exists(FilePath)) return m;
         try
         {
             foreach (var line in File.ReadAllLines(FilePath, Encoding.UTF8))
@@ -466,19 +526,26 @@ class Mastery
                     m.streaks[line.Substring(0, tab)] = n;
             }
         }
-        catch { }
+        catch { m.unreadable = true; }
         return m;
     }
 
     void Save()
     {
-        if (Stats.ReadOnly) return;
+        if (Stats.ReadOnly || unreadable) return;
         try
         {
             Directory.CreateDirectory(System.IO.Path.GetDirectoryName(FilePath));
-            File.WriteAllLines(FilePath, streaks.Select(kv => kv.Key + "\t" + kv.Value), Encoding.UTF8);
+            SafeFile.WriteLines(FilePath, streaks.Select(kv => kv.Key + "\t" + kv.Value), Encoding.UTF8);
         }
         catch { }
+    }
+
+    // Got it wrong the last time you saw it (a streak of 0; never-seen questions have no entry)
+    public bool IsMissed(string cls, Q q)
+    {
+        int n;
+        return streaks.TryGetValue(Key(cls, q), out n) && n == 0;
     }
 
     // Returns true if this answer just made the question count as learned
