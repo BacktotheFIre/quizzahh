@@ -2180,7 +2180,7 @@ class HeatherView : Grid
         if (Pair(a, b, "crouch", "sit") || Pair(a, b, "stand", "crouch"))
         {
             // her hands move from her knees to her lap over her thighs, lifted, not through them
-            Add(p, "bone034", 55 * w, 0, 0); Add(p, "bone036", -45 * w, 0, 0); // (her left hand rests on the thigh that lifts, so it lifts more)
+            Add(p, "bone034", 20 * w, 0, 0); Add(p, "bone026", 0, -30 * w, 0); // left hand over the thigh that lifts: arm forward, elbow a little bent (bending only the elbow brought it up to her chest)
         }
         if (Pair(a, b, "footfwd", "halfkneel") || Pair(a, b, "halfkneel", "stand") || Pair(a, b, "allfours", "footfwd"))
         {
@@ -2282,6 +2282,9 @@ class BuddyWindow : Window
         { "morning", new[] { "Morning.", "Is it morning already?", "Up. Mostly.", "...okay. Awake.", "New day. Quiz later?" } },
         { "habit", new[] { "Usually about now.", "Your usual quiz hour.", "This is when you study.", "Same time as always?", "Around now, usually. Quiz?" } },
         { "break", new[] { "Fifty minutes. Stretch.", "Break time. Stand up.", "Drink some water.", "Look away from the screen.", "Rest your eyes a minute." } },
+        { "lunch", new[] { "Lunch. Go eat.", "Noon. Food first.", "Eat something real.", "Lunch break. Seriously." } },
+        { "dinner", new[] { "Dinner time.", "Go eat. Quiz after.", "Food first, then study.", "It's six. Eat something." } },
+        { "late", new[] { "It's late. Last one?", "Past eleven. Sleep soon.", "Still up? Bed soon.", "Your brain needs sleep too." } },
         { "aftergood", new[] { "Okay. That was good.", "Fine. I'm impressed.", "See? You know this.", "Good run." } },
         { "afterbad", new[] { "Rough one. Again tomorrow.", "We'll get those next time.", "That hurt to watch.", "Okay. Review time." } }
     };
@@ -2584,6 +2587,8 @@ class BuddyWindow : Window
             bool free = !dragging && !falling && !landing && !view.Looking && !view.Watching && !pausedWalk && climbing == 0 && settled != null && settled != "walk";
             if (free && BreakDue(DateTime.Now, Native.IdleSeconds()) && !view.Dozing) Respond("break", "stretch");
             if (free && !away && NudgeDue(DateTime.Now)) Nudge(DateTime.Now);
+            string clock = free && !away && !view.Dozing ? ClockDue(DateTime.Now) : null;
+            if (clock != null) Respond(clock, clock == "late" ? "yawn" : "point", "glance");
             if (free && DateTime.Now >= nextChange) DoSomething();
             else if (free && !away && DateTime.Now >= nextMoment) IdleMoment(settled); // no acting for an empty room
         };
@@ -3364,6 +3369,15 @@ class BuddyWindow : Window
             if (!b.NudgeDue(noon.Date.AddDays(10).AddHours(15))) bad("buddy: no nudge 4 days before the exam");
             if (b.NudgeDue(noon.Date.AddDays(11).AddHours(2))) bad("buddy: nudged you at 2 am");
             if (b.NudgeDue(noon.Date.AddDays(4).AddHours(15))) bad("buddy: nudged 10 days before the exam with no habit then");
+            // the clock: lunch, dinner and late night, each once
+            var day = noon.Date.AddDays(20);
+            if (b.ClockDue(day.AddHours(12.2)) != "lunch") bad("buddy: said nothing about lunch at noon");
+            if (b.ClockDue(day.AddHours(12.7)) != null) bad("buddy: mentioned lunch twice");
+            if (b.ClockDue(day.AddHours(15)) != null) bad("buddy: mentioned the time at 3 pm");
+            if (b.ClockDue(day.AddHours(18.5)) != "dinner") bad("buddy: said nothing about dinner at 6:30 pm");
+            if (b.ClockDue(day.AddHours(23.5)) != "late") bad("buddy: said nothing at 11:30 pm");
+            if (b.ClockDue(day.AddHours(25)) != null) bad("buddy: said it's late twice in one night (again at 1 am)");
+            if (b.ClockDue(day.AddDays(1).AddHours(12.1)) != "lunch") bad("buddy: no lunch line the next day");
             // what the nudge says, and what a click on her then does
             int redo = 0;
             b.Review = () => redo++;
@@ -4739,6 +4753,20 @@ class BuddyWindow : Window
         if (!StudyTime(now, stats) && !(days.HasValue && days <= 7)) return false;
         nudgedOn = now.Date;
         return true;
+    }
+
+    // The clock: once at lunch (noon hour), once at dinner (6 pm hour) and once late at night (11 pm to
+    // 4 am) she says something about the time. Null when it isn't one of those, or she already said it.
+    // (A day here starts at 6 am, so 1 am still counts as the same night as 11 pm.)
+    string clockSaid;
+    string ClockDue(DateTime now)
+    {
+        string what = now.Hour == 12 ? "lunch" : now.Hour == 18 ? "dinner" : now.Hour >= 23 || now.Hour < 4 ? "late" : null;
+        if (what == null) return null;
+        string key = what + now.AddHours(-6).Date.ToString("yyyy-MM-dd");
+        if (key == clockSaid) return null;
+        clockSaid = key;
+        return what;
     }
 
     // The nudge. With questions you've missed, she offers to redo them, and a click on her then starts
