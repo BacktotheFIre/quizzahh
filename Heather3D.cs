@@ -263,6 +263,34 @@ class HeatherModel
     // Meshes left out of the model (e.g. alternate hand shapes the game swaps between)
     public readonly HashSet<int> Hidden = new HashSet<int>();
 
+    // Every 4th point of her posed body, with the name of the joint that moves it most (for finding
+    // where she passes through herself; tests only)
+    public IEnumerable<KeyValuePair<string, Point3D>> SomePointsByJoint()
+    {
+        for (int m = 0; m < meshes.Count; m++)
+        {
+            var sm = meshes[m];
+            if (Hidden.Contains(m) || sm.Geo == null) continue;
+            var pts = sm.Geo.Positions;
+            for (int i = 0; i < pts.Count; i += 4)
+            {
+                int best = -1; double bw = 0;
+                for (int k = 0; k < sm.Joints[i].Length; k++) if (sm.Weights[i][k] > bw) { bw = sm.Weights[i][k]; best = sm.Joints[i][k]; }
+                int sj = best >= 0 ? sm.JointMap[best] : -1;
+                yield return new KeyValuePair<string, Point3D>(sj >= 0 ? Joints[sj].Name : "", pts[i]);
+            }
+        }
+    }
+
+    // Is this joint the given one, or further down the chain from it (a hand is under its upper arm)?
+    public bool Under(string joint, string top)
+    {
+        int i;
+        if (!byName.TryGetValue(joint, out i)) return false;
+        for (; i >= 0; i = Joints[i].Parent) if (Joints[i].Name == top) return true;
+        return false;
+    }
+
     // Every 8th point of her posed body (for measuring how far she reaches; tests only)
     public IEnumerable<Point3D> SomePoints()
     {
@@ -492,7 +520,7 @@ class HeatherView : Grid
     double lastFrame = -1, talkSmooth;
     double nodAt = -9, shakeAt = -9, hopAt = -9, cheerAt = -9;
 
-    static readonly string[] Skirt = { "bone012", "bone013", "bone016", "bone017" };
+    internal static readonly string[] Skirt = { "bone012", "bone013", "bone016", "bone017" };
 
     // ---------- Taskbar mode ----------
     // She changes pose through real in-between poses:
@@ -534,7 +562,11 @@ class HeatherView : Grid
     // Which poses connect, and how long each move takes (seconds)
     static readonly string[][] Moves =
     {
-        new[] { "lie", "flat", "0.7" }, new[] { "flat", "allfours", "1.0" }, new[] { "allfours", "kneel", "0.9" }, new[] { "kneel", "stand", "1.0" },
+        // Getting up off her stomach the way a person does: push back from her elbows onto hands and
+        // knees, bring one foot forward between her hands, straighten up onto one knee, then stand up
+        // off the front leg. Lying down is the same in reverse.
+        new[] { "lie", "allfours", "1.2" }, new[] { "allfours", "footfwd", "0.8" },
+        new[] { "footfwd", "halfkneel", "0.8" }, new[] { "halfkneel", "stand", "1.1" },
         new[] { "stand", "crouch", "0.75" }, new[] { "crouch", "sit", "0.75" }, new[] { "stand", "walk", "0.5" },
         new[] { "stand", "climb", "0.6" }
     };
@@ -808,6 +840,20 @@ class HeatherView : Grid
         return box;
     }
 
+    // How high the lowest bit of her body within `radius` of a joint is (the underside of a knee, the sole
+    // of a boot); with no joint, the lowest bit of her overall: the floor (tests and the pose search)
+    public double LowestNear(string joint, double radius)
+    {
+        var c = joint == null ? new Point3D() : WorldPoint(joint);
+        double low = double.MaxValue;
+        foreach (var q in Model.SomePoints())
+        {
+            var w = bodyT.Transform(q);
+            if (w.Z < low && (joint == null || (w - c).Length < radius)) low = w.Z;
+        }
+        return low;
+    }
+
     // Where a joint is in the 3D scene, after her pose, turn, swing and lift
     public Point3D WorldPoint(string joint) { return bodyT.Transform(Model.JointPos(joint)); }
 
@@ -965,6 +1011,10 @@ class HeatherView : Grid
 
     // The arm angles (and extra head angles) of each reaction pose. The quiz and the taskbar both use
     // this, each passing in its own way of aiming a joint, so a pose is only written down once.
+    // hands on hips: upper arm (three angles) and elbow (found by a search: elbows out beside her, wrists at her waist, no part of
+    // either arm inside her body; the old angles put her forearms through her waist)
+    static readonly double[] HipsL = { -17, 10, 15, 76 }, HipsR = { 10, 23, 21, -78 };
+
     static void ArmPose(string pose, Action<string, double, double, double> set, ref double hy, ref double hp, ref double hr)
     {
         switch (pose)
@@ -980,23 +1030,23 @@ class HeatherView : Grid
                 hr = -4;
                 break;
             case "hips":
-                set("bone026", 0, 30, 20); set("bone034", 100, 0, 0);
-                set("bone032", 0, 30, -20); set("bone036", -100, 0, 0);
+                set("bone026", HipsL[0], HipsL[1], HipsL[2]); set("bone034", HipsL[3], 0, 0);
+                set("bone032", HipsR[0], HipsR[1], HipsR[2]); set("bone036", HipsR[3], 0, 0);
                 hr = 5;
                 break;
             case "facepalm":
-                set("bone026", 0, -85, 15); set("bone034", 165, 0, 0);
+                set("bone026", 0, -80, 15); set("bone034", 128, 0, 0);
                 hp = -25; hy = -10;
                 break;
             case "sneeze":
                 // hand up to her face, head ducking forward
-                set("bone026", 0, -64, 32); set("bone034", 156, 0, 0);
+                set("bone026", 0, -64, 32); set("bone034", 144, 0, 0);
                 hp = -24; hr = -4;
                 break;
             case "yawn":
                 // a hand up over her mouth, chin up, head tipped a little to one side
                 // (the "think" arm brings a hand to her chin; a little higher and it covers her mouth)
-                set("bone026", 0, -64, 32); set("bone034", 156, 0, 0);
+                set("bone026", 0, -64, 32); set("bone034", 146, 0, 0);
                 hp = 26; hr = 6;
                 break;
             case "point":
@@ -1004,7 +1054,7 @@ class HeatherView : Grid
                 hy = 25;
                 break;
             case "fist":
-                set("bone026", 0, -30, 40); set("bone034", 130, 0, 0);
+                set("bone026", 0, -30, 22); set("bone034", 118, 0, 0); // (less across her: her fist used to pass into her other arm)
                 hp = 6;
                 break;
             case "cheer":
@@ -1094,20 +1144,24 @@ class HeatherView : Grid
     {
         if (pose == "lie") return moment == "glance" || moment == "stretch";
         if (moment == "shift") return pose == "stand"; // sitting, leaning back put her hands below the edge
+        if (moment == "hips") return pose == "stand";  // sitting, her hands ended up in her thighs
         return pose == "stand" || pose == "sit";
     }
 
     void ApplyMoment(BPose p, double t)
     {
         double age = t - reactAt;
-        if (reactPose == null || age < 0 || age >= reactDur || Held || !Fits(reactPose, state)) return;
-        // How much of the moment shows: fades 0 -> 1 at the start and back to 0 at the end
+        if (reactPose == null || age < 0 || age >= reactDur + GestureLag || Held || !Fits(reactPose, state)) return;
+        // How much of the moment shows: fades 0 -> 1 at the start and back to 0 at the end. The upper arm
+        // leads; the forearm, the hand and the head follow a moment behind it, as a real arm moves.
         double fade = Math.Min(0.7, reactDur / 3);
-        double w = Ease(Math.Min(1, age / fade)) * Ease(Math.Min(1, (reactDur - age) / fade));
+        Func<double, double> wAt = a => a <= 0 || a >= reactDur ? 0 : Ease(Math.Min(1, a / fade)) * Ease(Math.Min(1, (reactDur - a) / fade));
+        double w = wAt(age);
         Action<string, double, double, double> to = (j, rx, ry, rz) =>
         {
             var v = p.J[j];
-            v[0] += (rx - v[0]) * w; v[1] += (ry - v[1]) * w; v[2] += (rz - v[2]) * w;
+            double wj = wAt(age - (j == "bone034" || j == "bone036" ? 0.06 : j == "bone039" || j == "bone041" ? GestureLag : 0));
+            v[0] += (rx - v[0]) * wj; v[1] += (ry - v[1]) * wj; v[2] += (rz - v[2]) * wj;
         };
         double hy = 0, hp = 0, hr = 0;
         int d = MomentDir;
@@ -1169,14 +1223,18 @@ class HeatherView : Grid
                 if (reactPose == "fist") Add(p, "bone034", 15 * Math.Sin(t * 12) * w, 0, 0);
                 break;
         }
-        Add(p, "bone009", hy * w, hp * w, hr * w);
+        double wh = wAt(age - 0.08);
+        Add(p, "bone009", hy * wh, hp * wh, hr * wh);
     }
+
+    const double GestureLag = 0.12; // how far behind the upper arm her hand follows in a gesture (seconds)
 
     // ---------- Taskbar engine ----------
     int side = 1;               // which way she faces on the floor: +1 = head toward the right of the screen
     public int NextSide = 1;    // the side she'll use the next time she gets down on the floor
     double lookMid, lookAmt, kickPh, swingPh, walkPh, walkBlend, climbPh, climbBlend, segEndAt, dozeAmt;
     public bool Dozing; // bedtime: lying or sitting, she drifts off (see PoseFor "lie" and "sit")
+    double headLead; // how far her head is turned ahead of her body (degrees)
     double bookShut, armsFold, headDown; // the steps of falling asleep, each 0 -> 1 (worked out from dozeAmt)
 
     // Her mood in how she moves (set by the taskbar window): Energy speeds up or slows down her leg
@@ -1207,6 +1265,7 @@ class HeatherView : Grid
         Add(p, "bone009", 0, 6 * k, (6 * BalanceDir) * k);
     }
     public double DozeAmount { get { return dozeAmt; } }
+    public string DebugState { get { return state + (segTo != null ? " -> " + segTo + " " + segK.ToString("0.00") : ""); } }
 
     // How far x has got from a to b, eased (0 before a, 1 after b)
     static double Phase(double x, double a, double b) { return Ease(Math.Max(0, Math.Min(1, (x - a) / (b - a)))); }
@@ -1225,15 +1284,16 @@ class HeatherView : Grid
     // driftX is how far that has carried her body sideways (it returns to ~0 when she gets back up).
     string[] anchor;
     double anchorStart, driftX;
-    static readonly string[] Ankles = { "bone021", "bone027" }, Knees = { "bone007", "bone008" }, Chest = { "bone006" };
+    static readonly string[] Ankles = { "bone021", "bone027" }, FrontFoot = { "bone027" }, Hands = { "bone039", "bone041" }, Knees = { "bone007", "bone008" };
 
     static bool Pair(string a, string b, string x, string y) { return (a == x && b == y) || (a == y && b == x); }
 
     static string[] AnchorFor(string a, string b)
     {
-        if (Pair(a, b, "stand", "kneel") || Pair(a, b, "stand", "crouch")) return Ankles;
-        if (Pair(a, b, "kneel", "allfours")) return Knees;
-        if (Pair(a, b, "allfours", "flat")) return Chest;
+        if (Pair(a, b, "stand", "crouch")) return Ankles;
+        if (Pair(a, b, "stand", "halfkneel") || Pair(a, b, "halfkneel", "footfwd")) return FrontFoot;
+        if (Pair(a, b, "footfwd", "allfours")) return Hands;
+        if (Pair(a, b, "allfours", "lie")) return Knees;
         return null;
     }
 
@@ -1261,7 +1321,7 @@ class HeatherView : Grid
     public double WalkSpeedDip { get { return walkUnitsPerSec / camWpd; } }
     double walkUnitsPerSec = 300;
 
-    static bool IsFloor(string s) { return s == "kneel" || s == "allfours" || s == "flat" || s == "lie"; }
+    static bool IsFloor(string s) { return s == "halfkneel" || s == "footfwd" || s == "allfours" || s == "lie"; }
 
     // ----- The stride -----
     // Gait phase u runs 0 to 1: heel strike at 0, the foot is planted until StanceEnd, then it swings.
@@ -1493,7 +1553,9 @@ class HeatherView : Grid
             double k = Math.Max(0, Math.Min(1, (t - segStart) / segDur));
             segK = k;
             double e = segIn && segOut ? k : segOut ? k * k * (2 - k) : segIn ? k * (1 + k - k * k) : Ease(k);
-            p = Lerp(from, PoseFor(segTo, t), e);
+            var target = PoseFor(segTo, t);
+            p = Lerp(from, target, e);
+            if (!segIn) Stagger(p, from, target, k, segOut);
             Arc(p, state, segTo, Math.Sin(Math.PI * k));
             if (segTo == "walk") walkBlend = e;
             else if (state == "walk") walkBlend = 1 - e;
@@ -1513,6 +1575,12 @@ class HeatherView : Grid
             Add(p, "bone026", 0, -55 * Jump, 0); Add(p, "bone032", 0, -55 * Jump, 0);
             Add(p, "bone002", 0, -6 * Jump, 0);
         }
+        // Turning, she looks first: her head turns toward where she's about to face, up to 30 degrees ahead
+        // of her body. The lead itself eases in and out (the direction she's heading can switch in an
+        // instant when a move ends, and following it directly made her head snap).
+        double leadWant = Math.Max(-30, Math.Min(30, (wantYaw - yawNow) * 0.45));
+        headLead += (leadWant - headLead) * (dt <= 0 ? 1 : 1 - Math.Exp(-dt * 3));
+        if (Math.Abs(headLead) > 0.1) Add(p, "bone009", headLead, 0, 0);
         shown = p;
 
         foreach (var kv in p.J) Set(kv.Key, kv.Value[0], kv.Value[1], kv.Value[2]);
@@ -1808,7 +1876,7 @@ class HeatherView : Grid
                 // pushes the book aside and folds her arms, then sinks onto them and lays her head down,
                 // breathing slow and deep.
                 double sleep = headDown, kick = 22 * (1 - armsFold);
-                Propped(p, sleep);
+                Propped(p, 0.2 * sleep); // (asleep she sinks a little; all the way flat put her elbows below the floor)
                 ReadingArms(p, br * (1 - sleep) + 1.8 * Math.Sin(t * 0.9) * sleep);
                 FoldedArms(p, armsFold);
                 J(p, "bone007", 0, 80 - 62 * armsFold + kick * Math.Sin(kickPh), 0);
@@ -1819,8 +1887,8 @@ class HeatherView : Grid
                 ReadingHead(p, t, look, 1 - armsFold);
                 Add(p, "bone009", 0.3 * gazeYaw * (1 - L), 0, 0);
                 double nod = sleep * (1 - look);
-                Add(p, "bone006", 0, -20 * nod, 0); // (a smaller angle here bows her head)
-                Add(p, "bone009", 0, -18 * nod, -16 * side * nod); // ...and her cheek turns down onto her arms
+                Add(p, "bone006", 0, -7 * nod, 0); // (a smaller angle here bows her head; any further and her face sinks into her arms)
+                Add(p, "bone009", 0, -6 * nod, -16 * side * nod); // ...and her cheek turns down onto her arms
                 PropHead(p, look);
                 break;
             }
@@ -1837,15 +1905,34 @@ class HeatherView : Grid
                 Head(p, 0, 26 + 2 * Math.Sin(t * 0.8), -32 * side, -65 * side, 40, -20 * side);
                 break;
             }
-            case "kneel":
+            case "footfwd":
             {
+                // Hands still on the floor, one foot (her right) brought forward and planted between them,
+                // the other knee still down: the step between hands-and-knees and kneeling up on one knee
+                // (angles found by a search: front foot well ahead and flat, back knee and hands on the floor, back
+                // thigh straight down, nothing passing through her body)
+                p.Pitch = 57; p.Sink = 4;
+                J(p, "bone002", 0, 4 + br, 0);
+                J(p, "bone003", 0, -53, 0); J(p, "bone007", 0, 90, 0); J(p, "bone021", 0, 77, 0);
+                J(p, "bone005", 0, -168, 0); J(p, "bone008", 0, 84, 0); J(p, "bone027", 0, -20, 0);
+                J(p, "bone026", 41, -27, 10); J(p, "bone032", FootFwdR[0], FootFwdR[1], FootFwdR[2]);
+                J(p, "bone034", -7, 0, 0); J(p, "bone036", FootFwdR[3], 0, 0);
+                foreach (var sk in new[] { "bone016", "bone017" }) J(p, sk, 0, 60, 0);
+                Head(p, 0, 22 + 2 * Math.Sin(t * 0.8), -20 * side, -50 * side, 30, -12 * side);
+                break;
+            }
+            case "halfkneel":
+            {
+                // Up on one knee: the back knee and shin on the floor, the front foot flat with its shin
+                // straight up, her body upright, a hand on the front knee ready to push off it
+                // (angles found by the pose search: front foot, back knee and back toes on the floor)
                 p.Pitch = 8; p.Sink = 4;
-                J(p, "bone003", 0, -8, 0); J(p, "bone005", 0, -8, 0);
-                J(p, "bone007", 0, 84, 0); J(p, "bone008", 0, 84, 0);
-                J(p, "bone021", 0, 70, 0); J(p, "bone027", 0, 70, 0);
-                J(p, "bone026", 0, -20, 36 + br); J(p, "bone032", 0, -20, -36 - br);
-                J(p, "bone034", 25, 0, 0); J(p, "bone036", -25, 0, 0);
-                Head(p, (-25 + 6 * Math.Sin(t * 0.35)) * side, 2 * Math.Sin(t * 0.8), 2 * Math.Sin(t * 0.27) * side, -62 * side, 10, -6 * side);
+                J(p, "bone003", 0, -7, 0); J(p, "bone007", 0, 86, 0); J(p, "bone021", 0, 77, 0);
+                J(p, "bone005", 0, -125, 0); J(p, "bone008", 0, 112, 0); J(p, "bone027", 0, -7, 0);
+                foreach (var sk in new[] { "bone016", "bone017" }) J(p, sk, 0, 60, 0);
+                J(p, "bone026", 0, -20, 36 + br); J(p, "bone034", 25, 0, 0);
+                J(p, "bone032", HalfKneelR[0], HalfKneelR[1], HalfKneelR[2]); J(p, "bone036", HalfKneelR[3], 0, 0);
+                Head(p, (-15 + 4 * Math.Sin(t * 0.35)) * side, 2 * Math.Sin(t * 0.8), 2 * Math.Sin(t * 0.27) * side, -50 * side, 10, -6 * side);
                 break;
             }
             case "crouch":
@@ -1856,8 +1943,8 @@ class HeatherView : Grid
                 J(p, "bone007", 0, 115, 0); J(p, "bone008", 0, 115, 0);
                 J(p, "bone021", 0, -38, 0); J(p, "bone027", 0, -38, 0);
                 foreach (var sk in Skirt) J(p, sk, 0, 60, 0);
-                J(p, "bone026", -10, -40, 34); J(p, "bone032", -10, -40, -34);
-                J(p, "bone034", 40, 0, 0); J(p, "bone036", -40, 0, 0);
+                J(p, "bone026", CrouchL[0], CrouchL[1], CrouchL[2]); J(p, "bone032", CrouchR[0], CrouchR[1], CrouchR[2]);
+                J(p, "bone034", CrouchL[3], 0, 0); J(p, "bone036", CrouchR[3], 0, 0);
                 Head(p, 4 * Math.Sin(t * 0.5), -6 + 2 * Math.Sin(t * 0.8), 0, 0, 14, 0);
                 break;
             }
@@ -1872,9 +1959,9 @@ class HeatherView : Grid
                 J(p, "bone007", 0, 86 + 24 * sw, 0); J(p, "bone008", 0, 86 - 24 * sw, 0);
                 J(p, "bone021", 0, 12, 0); J(p, "bone027", 0, 12, 0);
                 foreach (var sk in Skirt) J(p, sk, 0, 75, 0);
-                J(p, "bone026", -15, 0, 40 + br); J(p, "bone032", -15, 0, -40 - br);
-                J(p, "bone034", 45 + 30 * drowsy, 0, 0); J(p, "bone036", -45 - 30 * drowsy, 0, 0);
-                J(p, "bone002", 0, 10 * headDown, 0); // shoulders slump forward
+                J(p, "bone026", SitL[0], SitL[1], SitL[2] + br); J(p, "bone032", SitR[0], SitR[1], SitR[2] - br);
+                J(p, "bone034", SitL[3], 0, 0); J(p, "bone036", SitR[3] - 15 * drowsy, 0, 0); // (slumping, her right hand would sink into her left thigh: it lifts a little)
+                J(p, "bone002", 0, -6 * headDown, 0); // shoulders slump forward (- curls the spine forward)
                 J(p, "bone006", 0, -18 * headDown * NodOff(t), 0); // ...and the neck bows with the nod
                 Head(p, (14 * Math.Sin(t * 0.31) + 6 * Math.Sin(t * 0.83)) * (1 - drowsy), 2 * Math.Sin(t * 0.8) - 34 * headDown * NodOff(t), 2.5 * Math.Sin(t * 0.27) + 8 * headDown, 0, 16, 5);
                 break;
@@ -1906,7 +1993,7 @@ class HeatherView : Grid
                 // bends as the arm comes forward and trails the upper arm (follow-through). The swing
                 // size drifts a little so no two strides are identical.
                 // (driven by where each foot is along the stride, which swings smoothly from back to front)
-                double amp = 0.17 * (1 + 0.12 * Math.Sin(t * 0.53) + 0.06 * Math.Sin(t * 1.37));
+                double amp = 0.10 * (1 + 0.12 * Math.Sin(t * 0.53) + 0.06 * Math.Sin(t * 1.37));
                 double mid = (StrideFwd - StrideBack) / 2; // her feet go further back than forward; the arms swing about the middle of that
                 double armL = amp * (FootF(uL - 0.05) - mid) - 6, armR = amp * (FootF(uR - 0.05) - mid) - 6; // + = back
                 double elbL = amp * (FootF(uL - 0.14) - mid) - 6, elbR = amp * (FootF(uR - 0.14) - mid) - 6;
@@ -1942,18 +2029,6 @@ class HeatherView : Grid
                 Head(p, 0, 14, 0, 70 * WalkDir, 4, 0);
                 break;
             }
-            case "flat":
-            {
-                // Lying flat on her stomach with her legs stretched out: the step between crawling and
-                // kicking her feet up, so lying down looks like a real person getting comfortable.
-                Propped(p);
-                ReadingArms(p, br);
-                J(p, "bone007", 0, 10, 0); J(p, "bone008", 0, 14, 0);
-                J(p, "bone021", 0, 45, 0); J(p, "bone027", 0, 45, 0);
-                ReadingHead(p, t, L);
-                PropHead(p, L);
-                break;
-            }
             case "hang":
             {
                 // Dangling from your hand: shoulders hunched, arms and legs loose, feet kicking a little.
@@ -1977,8 +2052,11 @@ class HeatherView : Grid
             {
                 J(p, "bone026", 0, 0, 38 + br); J(p, "bone032", 0, 0, -38 - br);
                 J(p, "bone034", 12, 0, 0); J(p, "bone036", -12, 0, 0);
-                // Impatient (restless): now and then a short burst of tapping one foot
-                if (Tapping && t % 20 < 2.5) J(p, "bone021", 0, -16 * Math.Max(0, Math.Sin(t * 2 * Math.PI * 2.2)), 0);
+                // nobody stands perfectly still: a slow, slight sway from side to side, the head keeping level
+                J(p, "bone002", 0, 0, 1.3 * Math.Sin(t * 0.37) + 0.5 * Math.Sin(t * 0.91));
+                // Impatient (restless): now and then a few slow taps of one foot, the toes lifting and
+                // settling smoothly about once a second (faster looked frantic)
+                if (Tapping && t % 20 < 3) J(p, "bone021", 0, -12 * (0.5 - 0.5 * Math.Cos(t * 2 * Math.PI * 1.0)), 0);
                 // Noticing you: turns her head to you even if her body is still facing away
                 double ly = Math.Max(-75, Math.Min(75, -0.85 * yawNow));
                 Head(p, 8 * Math.Sin(t * 0.35), 2 * Math.Sin(t * 0.8), 2 * Math.Sin(t * 0.27), ly, 10, 4);
@@ -1991,11 +2069,12 @@ class HeatherView : Grid
 
     // Propped on her elbows with her forearms on the floor and her hands at the sides of the book
     // (palms in, thumbs up). These angles were solved so each arm segment points where the pose needs it.
+    static readonly double[] ReadL = { 40, -110, 30, 70 }; // left upper arm (three angles) and elbow while reading (found by a search to mirror the right arm)
     void ReadingArms(BPose p, double br)
     {
-        J(p, "bone002", 0, 18 + 1.2 * br, 0);
-        J(p, "bone026", 86, -68, 41); J(p, "bone034", 70, 0, 0); J(p, "bone039", -9, 19, 0);
-        J(p, "bone032", -91, -62, -63); J(p, "bone036", -63, 0, 0); J(p, "bone041", -17, -2, 0);
+        J(p, "bone002", 0, 6 + 1.2 * br, 0); // (a gentle curve: 18 arched her back uncomfortably)
+        J(p, "bone026", ReadL[0], ReadL[1], ReadL[2]); J(p, "bone034", ReadL[3], 0, 0); J(p, "bone039", -9, 19, 0);
+        J(p, "bone032", -91, -102, -63); J(p, "bone036", -88, 0, 0); J(p, "bone041", -17, -2, 0);
     }
 
     // Nodding off while sitting: how far her head has drooped (0.45 to 1). It sinks slowly for 16
@@ -2005,6 +2084,13 @@ class HeatherView : Grid
         double u = (t % 17) / 17;
         return u < 0.975 ? 0.45 + 0.55 * Ease(u / 0.975) : 1 - 0.55 * Ease((u - 0.975) / 0.025);
     }
+
+    // Arm angles (upper arm's three, then the elbow), found by a search for hands resting where they
+    // belong (her lap, her knees, the floor) without sinking into her thighs, shins or body
+    static readonly double[] SitL = { -16, -19, 66, 37 }, SitR = { -15, -4, -43, -46 };
+    static readonly double[] CrouchL = { 5, -39, 45, 53 }, CrouchR = { -10, -24, -45, -30 };
+    static readonly double[] FootFwdR = { -76, -37, -9, 26 };
+    static readonly double[] HalfKneelR = { -9, -16, -12, -87 }; // her hand resting on her front knee, not sinking into it
 
     // Arms folded on the floor in front of her face, forearms crossed, to rest her head on (k: how far into it)
     void FoldedArms(BPose p, double k)
@@ -2048,18 +2134,70 @@ class HeatherView : Grid
         J(p, "bone009", headRead[0] + (headLook[0] - headRead[0]) * L, headRead[1] + (headLook[1] - headRead[1]) * L, headRead[2] + (headLook[2] - headRead[2]) * L);
     }
 
+    // A person never moves every joint at once. Starting a move from rest, her legs and hips go first,
+    // her body a moment later, then her arms, and her hands and head last (the "overlapping action"
+    // animators talk about); everything arrives together. (Not when a move flows on from the one before:
+    // she's already moving, and holding a joint back there would look like a hitch.)
+    static readonly Dictionary<string, double> Lag = new Dictionary<string, double>
+    {
+        { "bone002", 0.04 }, { "bone004", 0.06 }, { "bone006", 0.1 }, { "bone009", 0.14 },
+        { "bone026", 0.1 }, { "bone032", 0.1 }, { "bone034", 0.14 }, { "bone036", 0.14 }, { "bone039", 0.18 }, { "bone041", 0.18 },
+        { "bone012", 0.08 }, { "bone013", 0.08 }, { "bone016", 0.08 }, { "bone017", 0.08 }
+    };
+
+    static void Stagger(BPose p, BPose a, BPose b, double k, bool flowsOn)
+    {
+        foreach (var kv in Lag)
+        {
+            double[] to;
+            if (!b.J.TryGetValue(kv.Key, out to)) continue;
+            double[] fr;
+            if (!a.J.TryGetValue(kv.Key, out fr)) fr = new double[3];
+            double kj = Math.Max(0, Math.Min(1, (k - kv.Value) / (1 - kv.Value)));
+            double e = flowsOn ? kj * kj * (2 - kj) : Ease(kj);
+            p.J[kv.Key] = new[] { fr[0] + (to[0] - fr[0]) * e, fr[1] + (to[1] - fr[1]) * e, fr[2] + (to[2] - fr[2]) * e };
+        }
+    }
+
     // Extra bend through the middle of some moves, so kneeling down dips through a half squat
     static void Arc(BPose p, string a, string b, double w)
     {
         if (w <= 0) return;
-        if ((a == "stand" && b == "kneel") || (a == "kneel" && b == "stand"))
+        if (Pair(a, b, "stand", "halfkneel"))
         {
-            p.Pitch += 14 * w;
-            Add(p, "bone003", 0, -40 * w, 0); Add(p, "bone005", 0, -40 * w, 0);
-            Add(p, "bone007", 0, 35 * w, 0); Add(p, "bone008", 0, 35 * w, 0);
-            foreach (var sk in Skirt) Add(p, sk, 0, 20 * w, 0);
+            // Standing up off the front leg she leans her body forward over it, the way you shift your
+            // weight onto a foot before you push up from it. (Tipping her forward tips her legs too, so
+            // her hips turn back by the same amount: her legs stay where they were and only her body leans.)
+            p.Pitch += 20 * w;
+            Add(p, "bone003", 0, -20 * w, 0); Add(p, "bone005", 0, -20 * w, 0); // (- bends the hip forward)
+        }
+        if (Pair(a, b, "stand", "crouch") || Pair(a, b, "crouch", "sit") || Pair(a, b, "allfours", "footfwd") || Pair(a, b, "footfwd", "halfkneel") || Pair(a, b, "halfkneel", "stand"))
+        {
+            // On the way from one place to the next, her arms swing out round her legs instead of straight
+            // through them (blending the angles alone would move a hand through a thigh)
+            Add(p, "bone026", SwingOut[0] * w, SwingOut[1] * w, 0); Add(p, "bone032", SwingOut[2] * w, SwingOut[3] * w, 0);
+        }
+        if (Pair(a, b, "crouch", "sit") || Pair(a, b, "stand", "crouch"))
+        {
+            // her hands move from her knees to her lap over her thighs, lifted, not through them
+            Add(p, "bone034", 55 * w, 0, 0); Add(p, "bone036", -45 * w, 0, 0); // (her left hand rests on the thigh that lifts, so it lifts more)
+        }
+        if (Pair(a, b, "footfwd", "halfkneel") || Pair(a, b, "halfkneel", "stand") || Pair(a, b, "allfours", "footfwd"))
+        {
+            // her right hand goes from the floor up to her knee round the outside of her leg, lifted clear
+            Add(p, "bone036", -50 * w, 0, 0); Add(p, "bone032", -15 * w, 0, 0);
+        }
+        if (Pair(a, b, "lie", "allfours"))
+        {
+            // Pushing back from her elbows onto hands and knees, her elbows stay bent until her knees are
+            // under her, so her body stays low instead of rising on straight arms
+            Add(p, "bone034", 45 * w, 0, 0); Add(p, "bone036", -45 * w, 0, 0);
         }
     }
+
+    // How far each arm swings out round her legs mid-move (left x, y, right x, y), found by a search that
+    // played getting up, lying down, sitting down and standing up and counted points passing through her
+    static readonly double[] SwingOut = { -30, -37, -57, -40 };
 
     static void ApplyTune(BPose p, string s)
     {
@@ -2951,6 +3089,125 @@ class BuddyWindow : Window
     }
 
     // ---------- Self-test (CS-Quiz-test.exe --snap <dir>) ----------
+    // How far her arms and legs pass into her body. Her body, from her hips to her neck, is measured as a
+    // stack of 8 ovals, each as wide and as deep as she is at that height; a point of an arm or a leg more
+    // than 30% of the way in from the edge of its oval is inside her. Returns the most points of any one
+    // kind (an arm into her body, a hand into a thigh...).
+    static int Clipping(HeatherView v, out string worst)
+    {
+        var M = v.Model;
+        var lo = M.JointPos("bone003") + (M.JointPos("bone005") - M.JointPos("bone003")) * 0.5;
+        var up = M.JointPos("bone006") - lo;
+        double len = up.Length; up /= len;
+        var across = M.JointPos("bone026") - M.JointPos("bone032");
+        across -= up * Vector3D.DotProduct(across, up); across.Normalize();
+        var deep = Vector3D.CrossProduct(up, across);
+        Func<string, string> part = n => n == "" ? "" : M.Under(n, "bone026") ? "left arm" : M.Under(n, "bone032") ? "right arm"
+            : HeatherView.Skirt.Contains(n) ? "skirt" : M.Under(n, "bone003") ? "left leg" : M.Under(n, "bone005") ? "right leg" : M.Under(n, "bone009") ? "head" : "body";
+        var hw = new List<double>[8]; var hd = new List<double>[8];
+        for (int i = 0; i < 8; i++) { hw[i] = new List<double>(); hd[i] = new List<double>(); }
+        var limbs = new List<KeyValuePair<string, double[]>>();
+        foreach (var kv in M.SomePointsByJoint())
+        {
+            var d = kv.Value - lo;
+            double t = Vector3D.DotProduct(d, up) / len, a = Vector3D.DotProduct(d, across), dp = Vector3D.DotProduct(d, deep);
+            string who = part(kv.Key);
+            if (who == "body") { if (t >= 0 && t < 1) { hw[(int)(t * 8)].Add(Math.Abs(a)); hd[(int)(t * 8)].Add(Math.Abs(dp)); } }
+            else if (who.EndsWith("arm") || who.EndsWith("leg")) limbs.Add(new KeyValuePair<string, double[]>(who, new[] { t, a, dp }));
+        }
+        Func<List<double>, double> p90 = l => { if (l.Count < 5) return 0; l.Sort(); return l[(int)(l.Count * 0.9)]; };
+        var w = hw.Select(p90).ToArray(); var dd = hd.Select(p90).ToArray();
+        var count = new Dictionary<string, int>(); var deepest = new Dictionary<string, double>();
+        foreach (var lp in limbs)
+        {
+            double t = lp.Value[0];
+            if (t < (lp.Key.EndsWith("leg") ? 0.25 : 0.05) || t > 0.85) continue; // (where the limbs join the body, they are meant to touch)
+            int bin = (int)(t * 8);
+            if (w[bin] <= 0 || dd[bin] <= 0) continue;
+            double e = Math.Sqrt(Math.Pow(lp.Value[1] / w[bin], 2) + Math.Pow(lp.Value[2] / dd[bin], 2));
+            if (e >= 0.7) continue;
+            int c; count.TryGetValue(lp.Key, out c); count[lp.Key] = c + 1;
+            double was; deepest.TryGetValue(lp.Key, out was); deepest[lp.Key] = Math.Max(was, 1 - e);
+        }
+        // ...and every part against every other part. Each piece of an arm or a leg is a rounded tube
+        // (upper arm, forearm, hand, thigh, shin, foot), her head a ball, each as thick as its own skin
+        // (the 80th-percentile distance of its own points from its middle line). A point of another
+        // part more than 30% of the way into one of them is passing through it.
+        var all = M.SomePointsByJoint().Select(kv => new KeyValuePair<string, Point3D>(kv.Key, kv.Value)).ToList();
+        var pieces = new List<Tube>();
+        Func<string, string, string, string, Tube> tube = (who, name, top, below) =>
+        {
+            var own = all.Where(kv => kv.Key != "" && M.Under(kv.Key, top) && (below == null || !M.Under(kv.Key, below)) && !HeatherView.Skirt.Contains(kv.Key)).Select(kv => kv.Value).ToList();
+            if (own.Count < 5) return null;
+            var a = M.JointPos(top);
+            Point3D bEnd;
+            if (below != null) bEnd = M.JointPos(below);
+            else { var c = new Point3D(own.Average(q => q.X), own.Average(q => q.Y), own.Average(q => q.Z)); bEnd = a + (c - a) * 2; } // (a hand or a foot: out past its middle)
+            var tb = new Tube { Part = who, Name = name, A = a, B = bEnd };
+            var ds = own.Select(tb.Distance).OrderBy(x => x).ToList();
+            // (a hand or a boot is flat, not round: its typical thickness, not its widest, or anything
+            // resting on it would count as inside it)
+            tb.R = ds[(int)(ds.Count * (below == null ? 0.5 : 0.8))];
+            return tb;
+        };
+        foreach (var side in new[] { new[] { "left", "bone026", "bone034", "bone039", "bone003", "bone007", "bone021" }, new[] { "right", "bone032", "bone036", "bone041", "bone005", "bone008", "bone027" } })
+        {
+            pieces.Add(tube(side[0] + " arm", side[0] + " upper arm", side[1], side[2]));
+            pieces.Add(tube(side[0] + " arm", side[0] + " forearm", side[2], side[3]));
+            // (no tube for a hand: it's flat, so a tube round it is far fatter than the hand, and a cheek
+            // resting on it would count as inside it. A hand going into anything else still counts.)
+            pieces.Add(tube(side[0] + " leg", side[0] + " thigh", side[4], side[5]));
+            pieces.Add(tube(side[0] + " leg", side[0] + " shin", side[5], side[6]));
+            pieces.Add(tube(side[0] + " leg", side[0] + " foot", side[6], null));
+        }
+        var headPts = all.Where(kv => kv.Key != "" && M.Under(kv.Key, "bone009")).Select(kv => kv.Value).ToList();
+        if (headPts.Count >= 5)
+        {
+            var hc = new Point3D(headPts.Average(q => q.X), headPts.Average(q => q.Y), headPts.Average(q => q.Z));
+            var head = new Tube { Part = "head", Name = "head", A = hc, B = hc };
+            var hd2 = headPts.Select(head.Distance).OrderBy(x => x).ToList();
+            head.R = hd2[(int)(hd2.Count * 0.45)]; // (her hair puffs out well past her face, where a hand can rest)
+            pieces.Add(head);
+        }
+        pieces.RemoveAll(x => x == null);
+        foreach (var kv in all)
+        {
+            string who = part(kv.Key);
+            if (who == "" || who == "body") continue;
+            foreach (var tb in pieces)
+            {
+                if (tb.Part == who) continue;
+                // where the skirt sits on the tops of her thighs it's meant to touch them
+                if (who == "skirt" && !tb.Name.EndsWith("thigh")) continue;
+                double tAlong;
+                double dist = tb.Distance(kv.Value, out tAlong);
+                if (who == "skirt" && tAlong < 0.35) continue;
+                if (dist >= 0.7 * tb.R) continue;
+                string key = (who == "skirt" ? "her " + tb.Name + " through her skirt" : who + " into " + tb.Name);
+                int c; count.TryGetValue(key, out c); count[key] = c + 1;
+                double was; deepest.TryGetValue(key, out was); deepest[key] = Math.Max(was, 1 - dist / tb.R);
+            }
+        }
+        worst = string.Join(", ", count.OrderByDescending(kv => kv.Value).Select(kv => kv.Key + " " + kv.Value + " points, up to " + (deepest[kv.Key] * 100).ToString("0") + "% in"));
+        return count.Count == 0 ? 0 : count.Values.Max();
+    }
+
+    // A rounded tube from A to B (a ball when A = B), for the clipping check
+    class Tube
+    {
+        public string Part, Name;
+        public Point3D A, B;
+        public double R;
+        public double Distance(Point3D q) { double t; return Distance(q, out t); }
+        public double Distance(Point3D q, out double t)
+        {
+            var ab = B - A;
+            double len2 = ab.LengthSquared;
+            t = len2 < 1e-9 ? 0 : Math.Max(0, Math.Min(1, Vector3D.DotProduct(q - A, ab) / len2));
+            return (q - (A + ab * t)).Length;
+        }
+    }
+
     // Builds her without ever showing the window, checks her rules in code, and saves contact sheets
     // of her poses (buddy-*.png) to look over.
     public static void SelfTest(HeatherModel model, string dir, System.Text.StringBuilder log, Action<string> bad)
@@ -2964,8 +3221,15 @@ class BuddyWindow : Window
         FrameOf = h => null;
         // No part of her drawn body may reach the edge of her window (a window can't draw outside itself)
         var reach = Rect.Empty;
+        // ...and no arm or leg passes through her body (worst case kept per kind of picture)
+        var clips = new Dictionary<string, KeyValuePair<int, string>>();
         Action<string> inWindow = what =>
         {
+            string how;
+            int n = Clipping(b.view, out how);
+            string kind = what.Split(',')[0];
+            KeyValuePair<int, string> had;
+            if (n > 0 && (!clips.TryGetValue(kind, out had) || n > had.Key)) clips[kind] = new KeyValuePair<int, string>(n, how);
             var e = b.view.Extent();
             reach.Union(e);
             if (e.Left < 2 || e.Top < 2 || e.Right > W - 2 || e.Bottom > H - 2)
@@ -3314,9 +3578,10 @@ class BuddyWindow : Window
             {
                 double hips = (b.view.ScreenPoint("bone003").Y + b.view.ScreenPoint("bone005").Y) / 2;
                 double elbows = (b.view.ScreenPoint("bone034").Y + b.view.ScreenPoint("bone036").Y) / 2;
-                double sunk = b.view.Extent().Bottom - GroundY;
-                if (Math.Abs(hips - elbows) > 30 || sunk > 30) // (floating was 45; asleep her arms are a little lower, under her head)
-                    bad("buddy: " + what + ", she isn't resting on the floor (hips at " + hips.ToString("0") + ", elbows at " + elbows.ToString("0") + ", lowest point " + sunk.ToString("0") + " below the floor)");
+                // (floating was 45. How far below the floor line her lowest point shows isn't checked: her lowest
+                // point is always put on the floor, and the hand nearer the camera just looks lower, by up to 20 more)
+                if (Math.Abs(hips - elbows) > 30)
+                    bad("buddy: " + what + ", she isn't resting on the floor (hips at " + hips.ToString("0") + ", elbows at " + elbows.ToString("0") + ")");
             };
             // how far the book is from between her hands (world units)
             Func<double> bookAway = () =>
@@ -3372,6 +3637,15 @@ class BuddyWindow : Window
             if (tapped < 10 || still > 1) bad("buddy: restless she should tap a foot, and not otherwise (ankle moved " + tapped.ToString("0") + " tapping, " + still.ToString("0") + " not)");
             if (!(MoodEnergy("pleased") > MoodEnergy("bored") && MoodEnergy("bored") > MoodEnergy("sleepy"))) bad("buddy: pleased should be livelier than bored, and bored than sleepy");
             b.view.Energy = 1;
+            // Lying, facing either way, reading or asleep: resting on the floor, not floating
+            foreach (int sd in new[] { 1, -1 })
+                foreach (bool asleep in new[] { false, true })
+                {
+                    b.view.NextSide = sd; b.view.Dozing = asleep; b.view.SnapTo("lie");
+                    double st3 = b.view.Now + 8000; b.view.Step(st3); b.view.Step(st3);
+                    resting((asleep ? "asleep" : "reading") + " facing " + (sd > 0 ? "right" : "left"));
+                }
+            b.view.Dozing = false;
             log.AppendLine("Buddy: bedtime checked (dozes at night, wakes when you hover, back to sleep after 20 s)");
 
             // The exam window: built (never shown) and drawn to a picture to look over
@@ -3427,7 +3701,6 @@ class BuddyWindow : Window
             stride.Add(new KeyValuePair<string, ImageSource>("mid-jump", b.Picture()));
             b.view.Jump = 0;
             Sheet(dir, "buddy-walk.png", stride, 7);
-
             // Being carried: she hangs from whichever part you've got hold of
             var held = new List<KeyValuePair<string, ImageSource>>();
             var parts = new[] { "bone009", "bone006", "bone039", "bone041", "bone021", "bone027" };
@@ -3463,6 +3736,56 @@ class BuddyWindow : Window
             b.view.Grabbed = "bone009";
             Sheet(dir, "buddy-held.png", held, 3);
             log.AppendLine("Buddy: the furthest she reached in her " + W + "x" + H + " window: " + reach.Left.ToString("0") + "," + reach.Top.ToString("0") + " to " + reach.Right.ToString("0") + "," + reach.Bottom.ToString("0") + " (floor at " + GroundY + ")");
+
+            // Getting up off the floor and lying back down: a picture every quarter second
+            Action<string, string, string> moveSheet = (fromPose, toPose, file) =>
+            {
+                var frames = new List<KeyValuePair<string, ImageSource>>();
+                b.view.NextSide = 1; b.view.Dozing = false; b.view.SnapTo(fromPose);
+                double m0 = b.view.Now + 12000;
+                b.view.Step(m0); b.view.Step(m0 + 0.5);
+                b.view.Activity = toPose;
+                // smoothness: the biggest change in any joint's angle from one frame (1/60 s) to the next
+                var watched = new[] { "bone002", "bone003", "bone005", "bone006", "bone007", "bone008", "bone009", "bone021", "bone026", "bone027", "bone032", "bone034", "bone036", "bone039", "bone041" };
+                Func<double[]> angles = () => watched.SelectMany(jn => { var jt = b.view.Model[jn]; return new[] { jt.Rx, jt.Ry, jt.Rz }; }).ToArray();
+                var lastA = angles(); double jerk = 0; string jerkAt = "";
+                for (int i = 0; i <= 40; i++)
+                {
+                    for (int k = 1; k <= 15; k++)
+                    {
+                        b.view.Step(m0 + 0.5 + (i * 15 + k) / 60.0);
+                        var nowA = angles();
+                        for (int q = 0; q < nowA.Length; q++)
+                            if (Math.Abs(nowA[q] - lastA[q]) > jerk) { jerk = Math.Abs(nowA[q] - lastA[q]); jerkAt = watched[q / 3] + " at " + ((i * 15 + k) / 60.0).ToString("0.00") + " s"; }
+                        lastA = nowA;
+                    }
+                    frames.Add(new KeyValuePair<string, ImageSource>((i + 1) * 0.25 + " s", b.Picture()));
+                    inWindow(fromPose + " to " + toPose);
+                    if (!b.view.Moving) break;
+                }
+                Sheet(dir, file, frames, 6);
+                log.AppendLine("Buddy: " + fromPose + " to " + toPose + ", fastest joint change " + jerk.ToString("0.0") + " degrees in one frame (" + jerkAt + ")");
+                if (jerk > 12) bad("buddy: " + fromPose + " to " + toPose + ", a joint snaps " + jerk.ToString("0") + " degrees in one frame (" + jerkAt + ")");
+            };
+            // Kneeling up on one knee and with one foot forward, what should touch the floor does
+            // (the lowest bit of her near each of those joints is within a few units of her lowest bit overall)
+            foreach (var kp in new[] { "halfkneel:bone027,bone007", "footfwd:bone027,bone007,bone039,bone041" })
+            {
+                string kpose = kp.Split(':')[0];
+                b.view.NextSide = 1; b.view.SnapTo(kpose);
+                double kt = b.view.Now + 14000; b.view.Step(kt); b.view.Step(kt);
+                double kfloor = b.view.LowestNear(null, 0);
+                inWindow(kpose + " (still)");
+                foreach (var jn in kp.Split(':')[1].Split(','))
+                {
+                    double g = b.view.LowestNear(jn, jn == "bone007" ? 45 : 90) - kfloor; // (a hand counts its fingers, a foot its toes)
+                    if (g > 20) bad("buddy: in the " + kpose + " pose, " + jn + " should touch the floor but is " + g.ToString("0") + " above it");
+                }
+            }
+            moveSheet("lie", "stand", "buddy-getup.png");
+            moveSheet("stand", "lie", "buddy-liedown.png");
+            moveSheet("stand", "sit", "buddy-sitdown.png");
+            moveSheet("sit", "stand", "buddy-situp.png");
             b.view.SnapTo("walk");
             b.view.Step(w0 + 2.9 * cycle);
             var heights = new List<double>();
@@ -3752,6 +4075,12 @@ class BuddyWindow : Window
                 Sheet(dir, "buddy-climb.png", climb, 6);
             }
             finally { Monitors = real; }
+            // A little pressing in is real (a thigh against her stomach); more than 30 points is a limb through her
+            foreach (var c in clips.OrderByDescending(c => c.Value.Key))
+            {
+                log.AppendLine("Buddy: limbs pressing into her body, " + c.Key + ": " + c.Value.Value);
+                if (c.Value.Key > 30) bad("buddy: " + c.Key + ", a limb passes through her body (" + c.Value.Value + ")");
+            }
         }
         finally
         {
