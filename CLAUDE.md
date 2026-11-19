@@ -4,6 +4,7 @@ C# 5 / .NET Framework 4 WPF study app (quizzes, Code Lab, practice exams, 3D stu
 
 ## Build and test
 - `.\build.ps1` builds `CS-Quiz-test.exe`. Run `.\CS-Quiz-test.exe --snap <dir>` for the self-test: it writes screenshots and `selftest.txt`, and checks every Code Lab solution passes its tests.
+- `.\CS-Quiz-test.exe --snap <dir> buddy` runs only taskbar Heather's checks (about 3 seconds): it writes `buddytest.txt` and `buddy-*.png` contact sheets of her poses, without showing a window.
 - `.\build.ps1 -Install` stops the running app, rebuilds `CS-Quiz.exe` and relaunches it.
 - A new `.cs` file must be added to the `csc.exe` file list in `build.ps1`.
 - The language is C# 5: no `$"..."` interpolation, no `?.`, no expression-bodied members.

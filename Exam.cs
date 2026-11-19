@@ -171,6 +171,8 @@ partial class QuizWindow
     void StartExam(ExamInfo info)
     {
         StopTalking();
+        stats.Started(DateTime.Now);
+        stats.Save();
         exam = info;
         examClass = currentClass;
         quizClass = currentClass;
@@ -524,6 +526,9 @@ partial class QuizWindow
                          score >= 50 ? "Not bad. Look at the weak sections and hit those." :
                          "Rough one. That's fine, that's what practice is for. Start with the weakest section.";
         if (placedInto != null) verdict += " That would place you into " + placedInto.Split(',')[0].Trim() + ".";
+        stats.LastPct = score;
+        stats.LastDone = DateTime.Now;
+        stats.Save();
         React(score >= 70 ? "fist" : "think", 2.4);
         Say(verdict);
     }
