@@ -3277,6 +3277,20 @@ partial class QuizWindow : Window
 
     void RunSnapshot()
     {
+        if (SnapOnly == "mocap")
+        {
+            // Pictures of every baked motion-capture clip on her, to choose which parts to use
+            Dispatcher.BeginInvoke(new Action(() =>
+            {
+                var log = new StringBuilder();
+                try { BuddyWindow.MocapPreview(LoadModel(), snapDir, log); }
+                catch (Exception ex) { log.AppendLine("CRASH: " + ex); }
+                File.WriteAllText(System.IO.Path.Combine(snapDir, "mocap.txt"), log.ToString(), Encoding.UTF8);
+                quitting = true;
+                Close();
+            }));
+            return;
+        }
         if (SnapOnly == "buddy")
         {
             Dispatcher.BeginInvoke(new Action(() =>

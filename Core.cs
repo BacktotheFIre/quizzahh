@@ -117,6 +117,7 @@ static class Program
     {
         // Debug mode: render screenshots off-screen and exit
         // (a third argument, "buddy", runs only taskbar Heather's part, which takes a few seconds)
+        if (args.Length >= 3 && args[0] == "--bake") { Mocap.Bake(args[1], args[2]); return; } // motion capture -> her clips (see Mocap.cs)
         if (args.Length >= 2 && args[0] == "--snap")
         {
             QuizWindow.SnapOnly = args.Length > 2 ? args[2] : null;
